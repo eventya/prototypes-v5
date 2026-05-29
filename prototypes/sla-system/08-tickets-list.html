@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket list · coloană SLA badge · Helpdesk SLA</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+<div class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 mb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#8 · Ticket list — coloană SLA badge</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <div class="text-2xl font-bold text-ink-900">Tickets</div>
+      <div class="text-[13px] text-ink-400 mt-0.5">6 tickete · filtrate după "Active"</div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-surface-0 border border-surface-300 rounded-lg hover:bg-surface-50 hover:border-ink-300 transition-all">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        SLA: All
+        <svg class="w-2.5 h-2.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button type="button" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-surface-0 border border-surface-300 rounded-lg hover:bg-surface-50 hover:border-ink-300 transition-all">
+        Status: Active
+        <svg class="w-2.5 h-2.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-surface-0 rounded-xl border border-surface-200 overflow-hidden">
+    <!-- Column headers -->
+    <div class="hidden lg:flex items-center px-3 py-2 border-b-[1.5px] border-surface-200 bg-surface-0">
+      <div class="w-12.5 shrink-0 text-[10px] font-bold uppercase tracking-wider text-ink-400">ID</div>
+      <div class="w-20 shrink-0 text-[10px] font-bold uppercase tracking-wider text-ink-400">Priority</div>
+      <div class="w-32 shrink-0 text-[10px] font-bold uppercase tracking-wider text-ink-400 bg-amber-50/40">SLA</div>
+      <div class="w-40 shrink-0 text-[10px] font-bold uppercase tracking-wider text-ink-400">Client</div>
+      <div class="flex-1 min-w-0 px-3 text-[10px] font-bold uppercase tracking-wider text-ink-400">Message</div>
+      <div class="w-22.5 shrink-0 text-[10px] font-bold uppercase tracking-wider text-ink-400">Status</div>
+      <div class="w-30 shrink-0 text-[10px] font-bold uppercase tracking-wider text-ink-400">Agent</div>
+    </div>
+
+    <!-- Rows -->
+      <!-- Ticket #1042 -->
+      <div class="border-t border-surface-100 px-3 py-2.5 hover:bg-surface-50 transition-colors lg:flex lg:items-center cursor-pointer">
+
+        <!-- Mobile -->
+        <div class="lg:hidden">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-ink-500 font-bold text-[13px]">#1042</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold rounded bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300">
+              critical
+            </span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Breached · 45m
+            </span>
+            <span class="ml-auto text-[10px] text-ink-300 whitespace-nowrap">4h</span>
+          </div>
+          <div class="font-medium text-[13px] text-ink-800 truncate">Site-ul nu se mai încarcă deloc, primesc 504</div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:block shrink-0 w-12.5 text-[13px]">
+          <span class="text-ink-500 font-bold">#1042</span>
+        </div>
+
+        <div class="hidden lg:block shrink-0 w-20">
+          <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300">
+            critical
+          </span>
+        </div>
+
+        <!-- NEW — SLA column -->
+        <div class="hidden lg:block shrink-0 w-32">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300">
+            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Breached · 45m
+          </span>
+        </div>
+
+        <div class="hidden lg:flex w-40 shrink-0 items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-full bg-linear-to-br from-violet-300 to-violet-500 dark:from-violet-600 dark:to-violet-800 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+            AP
+          </div>
+          <div class="min-w-0">
+            <div class="font-medium text-[13px] text-ink-800 truncate">Andrei Popescu</div>
+            <div class="text-[10px] text-ink-400">4h</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block flex-1 min-w-0 px-3 text-[13px]">
+          <div class="font-medium text-ink-800 truncate">Site-ul nu se mai încarcă deloc, primesc 504</div>
+        </div>
+
+        <div class="hidden lg:block w-22.5 shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-red-100 text-red-600">
+            Open
+          </span>
+        </div>
+
+        <div class="hidden lg:block w-30 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <div class="w-5 h-5 rounded-full bg-linear-to-br from-sky-300 to-sky-500 flex items-center justify-center text-white text-[8px] font-bold">
+                MI
+              </div>
+              <span class="text-[11px] text-ink-500">Maria</span>
+            </div>
+        </div>
+      </div>
+      <!-- Ticket #1041 -->
+      <div class="border-t border-surface-100 px-3 py-2.5 hover:bg-surface-50 transition-colors lg:flex lg:items-center cursor-pointer">
+
+        <!-- Mobile -->
+        <div class="lg:hidden">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-ink-500 font-bold text-[13px]">#1041</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold rounded bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">
+              high
+            </span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+              Due in 28m
+            </span>
+            <span class="ml-auto text-[10px] text-ink-300 whitespace-nowrap">1h</span>
+          </div>
+          <div class="font-medium text-[13px] text-ink-800 truncate">Nu pot să exportez raportul lunar din panou</div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:block shrink-0 w-12.5 text-[13px]">
+          <span class="text-ink-500 font-bold">#1041</span>
+        </div>
+
+        <div class="hidden lg:block shrink-0 w-20">
+          <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">
+            high
+          </span>
+        </div>
+
+        <!-- NEW — SLA column -->
+        <div class="hidden lg:block shrink-0 w-32">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+            Due in 28m
+          </span>
+        </div>
+
+        <div class="hidden lg:flex w-40 shrink-0 items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-full bg-linear-to-br from-violet-300 to-violet-500 dark:from-violet-600 dark:to-violet-800 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+            EV
+          </div>
+          <div class="min-w-0">
+            <div class="font-medium text-[13px] text-ink-800 truncate">Elena Vasile</div>
+            <div class="text-[10px] text-ink-400">1h</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block flex-1 min-w-0 px-3 text-[13px]">
+          <div class="font-medium text-ink-800 truncate">Nu pot să exportez raportul lunar din panou</div>
+        </div>
+
+        <div class="hidden lg:block w-22.5 shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-blue-100 text-blue-600">
+            In progress
+          </span>
+        </div>
+
+        <div class="hidden lg:block w-30 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <div class="w-5 h-5 rounded-full bg-linear-to-br from-sky-300 to-sky-500 flex items-center justify-center text-white text-[8px] font-bold">
+                CS
+              </div>
+              <span class="text-[11px] text-ink-500">Cristian</span>
+            </div>
+        </div>
+      </div>
+      <!-- Ticket #1040 -->
+      <div class="border-t border-surface-100 px-3 py-2.5 hover:bg-surface-50 transition-colors lg:flex lg:items-center cursor-pointer">
+
+        <!-- Mobile -->
+        <div class="lg:hidden">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-ink-500 font-bold text-[13px]">#1040</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold rounded bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+              medium
+            </span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-surface-100 text-ink-500">
+              <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+              Paused
+            </span>
+            <span class="ml-auto text-[10px] text-ink-300 whitespace-nowrap">1h</span>
+          </div>
+          <div class="font-medium text-[13px] text-ink-800 truncate">Cum modific adresa de facturare?</div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:block shrink-0 w-12.5 text-[13px]">
+          <span class="text-ink-500 font-bold">#1040</span>
+        </div>
+
+        <div class="hidden lg:block shrink-0 w-20">
+          <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+            medium
+          </span>
+        </div>
+
+        <!-- NEW — SLA column -->
+        <div class="hidden lg:block shrink-0 w-32">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-surface-100 text-ink-500">
+            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            Paused
+          </span>
+        </div>
+
+        <div class="hidden lg:flex w-40 shrink-0 items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-full bg-linear-to-br from-violet-300 to-violet-500 dark:from-violet-600 dark:to-violet-800 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+            MD
+          </div>
+          <div class="min-w-0">
+            <div class="font-medium text-[13px] text-ink-800 truncate">Mihai Dumitrescu</div>
+            <div class="text-[10px] text-ink-400">1h</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block flex-1 min-w-0 px-3 text-[13px]">
+          <div class="font-medium text-ink-800 truncate">Cum modific adresa de facturare?</div>
+        </div>
+
+        <div class="hidden lg:block w-22.5 shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-amber-100 text-amber-600">
+            Pending
+          </span>
+        </div>
+
+        <div class="hidden lg:block w-30 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <div class="w-5 h-5 rounded-full bg-linear-to-br from-sky-300 to-sky-500 flex items-center justify-center text-white text-[8px] font-bold">
+                MI
+              </div>
+              <span class="text-[11px] text-ink-500">Maria</span>
+            </div>
+        </div>
+      </div>
+      <!-- Ticket #1039 -->
+      <div class="border-t border-surface-100 px-3 py-2.5 hover:bg-surface-50 transition-colors lg:flex lg:items-center cursor-pointer">
+
+        <!-- Mobile -->
+        <div class="lg:hidden">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-ink-500 font-bold text-[13px]">#1039</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold rounded bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">
+              low
+            </span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+              6h 12m left
+            </span>
+            <span class="ml-auto text-[10px] text-ink-300 whitespace-nowrap">15m</span>
+          </div>
+          <div class="font-medium text-[13px] text-ink-800 truncate">Aș dori să adăugăm încă un utilizator</div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:block shrink-0 w-12.5 text-[13px]">
+          <span class="text-ink-500 font-bold">#1039</span>
+        </div>
+
+        <div class="hidden lg:block shrink-0 w-20">
+          <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">
+            low
+          </span>
+        </div>
+
+        <!-- NEW — SLA column -->
+        <div class="hidden lg:block shrink-0 w-32">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+            6h 12m left
+          </span>
+        </div>
+
+        <div class="hidden lg:flex w-40 shrink-0 items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-full bg-linear-to-br from-violet-300 to-violet-500 dark:from-violet-600 dark:to-violet-800 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+            IM
+          </div>
+          <div class="min-w-0">
+            <div class="font-medium text-[13px] text-ink-800 truncate">Ioana Mihăilescu</div>
+            <div class="text-[10px] text-ink-400">15m</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block flex-1 min-w-0 px-3 text-[13px]">
+          <div class="font-medium text-ink-800 truncate">Aș dori să adăugăm încă un utilizator</div>
+        </div>
+
+        <div class="hidden lg:block w-22.5 shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-red-100 text-red-600">
+            Open
+          </span>
+        </div>
+
+        <div class="hidden lg:block w-30 shrink-0">
+            <span class="text-ink-400">—</span>
+        </div>
+      </div>
+      <!-- Ticket #1038 -->
+      <div class="border-t border-surface-100 px-3 py-2.5 hover:bg-surface-50 transition-colors lg:flex lg:items-center cursor-pointer">
+
+        <!-- Mobile -->
+        <div class="lg:hidden">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-ink-500 font-bold text-[13px]">#1038</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold rounded bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">
+              high
+            </span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+              2h 4m left
+            </span>
+            <span class="ml-auto text-[10px] text-ink-300 whitespace-nowrap">35m</span>
+          </div>
+          <div class="font-medium text-[13px] text-ink-800 truncate">Eroare la generare PDF după update</div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:block shrink-0 w-12.5 text-[13px]">
+          <span class="text-ink-500 font-bold">#1038</span>
+        </div>
+
+        <div class="hidden lg:block shrink-0 w-20">
+          <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">
+            high
+          </span>
+        </div>
+
+        <!-- NEW — SLA column -->
+        <div class="hidden lg:block shrink-0 w-32">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+            2h 4m left
+          </span>
+        </div>
+
+        <div class="hidden lg:flex w-40 shrink-0 items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-full bg-linear-to-br from-violet-300 to-violet-500 dark:from-violet-600 dark:to-violet-800 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+            BM
+          </div>
+          <div class="min-w-0">
+            <div class="font-medium text-[13px] text-ink-800 truncate">Bogdan Marin</div>
+            <div class="text-[10px] text-ink-400">35m</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block flex-1 min-w-0 px-3 text-[13px]">
+          <div class="font-medium text-ink-800 truncate">Eroare la generare PDF după update</div>
+        </div>
+
+        <div class="hidden lg:block w-22.5 shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-blue-100 text-blue-600">
+            In progress
+          </span>
+        </div>
+
+        <div class="hidden lg:block w-30 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <div class="w-5 h-5 rounded-full bg-linear-to-br from-sky-300 to-sky-500 flex items-center justify-center text-white text-[8px] font-bold">
+                CS
+              </div>
+              <span class="text-[11px] text-ink-500">Cristian</span>
+            </div>
+        </div>
+      </div>
+      <!-- Ticket #1037 -->
+      <div class="border-t border-surface-100 px-3 py-2.5 hover:bg-surface-50 transition-colors lg:flex lg:items-center cursor-pointer">
+
+        <!-- Mobile -->
+        <div class="lg:hidden">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-ink-500 font-bold text-[13px]">#1037</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold rounded bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+              medium
+            </span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-surface-100 text-ink-400">
+              Achieved
+            </span>
+            <span class="ml-auto text-[10px] text-ink-300 whitespace-nowrap">6h</span>
+          </div>
+          <div class="font-medium text-[13px] text-ink-800 truncate">Problemă rezolvată — mulțumesc</div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:block shrink-0 w-12.5 text-[13px]">
+          <span class="text-ink-500 font-bold">#1037</span>
+        </div>
+
+        <div class="hidden lg:block shrink-0 w-20">
+          <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+            medium
+          </span>
+        </div>
+
+        <!-- NEW — SLA column -->
+        <div class="hidden lg:block shrink-0 w-32">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-surface-100 text-ink-400">
+            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Achieved
+          </span>
+        </div>
+
+        <div class="hidden lg:flex w-40 shrink-0 items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-full bg-linear-to-br from-violet-300 to-violet-500 dark:from-violet-600 dark:to-violet-800 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+            RT
+          </div>
+          <div class="min-w-0">
+            <div class="font-medium text-[13px] text-ink-800 truncate">Roxana Toma</div>
+            <div class="text-[10px] text-ink-400">6h</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block flex-1 min-w-0 px-3 text-[13px]">
+          <div class="font-medium text-ink-800 truncate">Problemă rezolvată — mulțumesc</div>
+        </div>
+
+        <div class="hidden lg:block w-22.5 shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md bg-emerald-100 text-emerald-600">
+            Resolved
+          </span>
+        </div>
+
+        <div class="hidden lg:block w-30 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <div class="w-5 h-5 rounded-full bg-linear-to-br from-sky-300 to-sky-500 flex items-center justify-center text-white text-[8px] font-bold">
+                MI
+              </div>
+              <span class="text-[11px] text-ink-500">Maria</span>
+            </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="rounded-xl border border-blue-200 dark:border-blue-500/20 bg-blue-50/60 dark:bg-blue-500/5 px-4 py-3 mt-6">
+    <div class="text-[10px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 mb-2">SLA badge legend</div>
+    <div class="flex flex-wrap items-center gap-3 text-[11px]">
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 font-semibold rounded-md bg-emerald-100 text-emerald-700"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Healthy</span>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 font-semibold rounded-md bg-amber-100 text-amber-700"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Warning (&lt;25% left)</span>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 font-semibold rounded-md bg-red-100 text-red-700"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Breached</span>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 font-semibold rounded-md bg-surface-100 text-ink-500"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg> Paused (status: pending)</span>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 font-semibold rounded-md bg-surface-100 text-ink-400"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Achieved (closed in time)</span>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+</body>
+</html>

@@ -1,0 +1,30 @@
+name: Publish site
+
+# Publishes the canonical site to the gh-pages branch on every push to main.
+# CSS is committed, so there is no build step here — we just deploy static files.
+# `clean-exclude` keeps live PR previews (deployed by pr-preview.yml) intact.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-publish
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .
+          clean: true
+          clean-exclude: pr-preview/
