@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent · Rapoarte · Helpdesk</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Helpdesk Rapoarte — perspectivă Agent (Maria Pop · Salubritate + Drumuri)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- Top nav -->
+  <header class="sticky top-0 z-40 bg-surface-0 border-b border-surface-200 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M12 2 L6 6 L6 12 C6 16 9 19 12 21 C15 19 18 16 18 12 L18 6 Z" fill="#1cc39a"/><circle cx="12" cy="11" r="2.4" fill="#fff"/></svg>
+      <div class="flex items-center gap-2 bg-surface-100 rounded-full pl-1.5 pr-3 py-1">
+        <span class="w-6 h-6 rounded-md bg-blue-500 text-white grid place-items-center text-[11px] font-bold">SL</span>
+        <span class="text-[13px] font-semibold text-ink-800">Sibiu Legacy</span>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-1.5">
+      <a href="#" class="px-3.5 py-2 rounded-full bg-ink-900 text-surface-0 text-[13px] font-semibold">Helpdesk</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <span class="text-[12px] font-semibold text-ink-500 hidden sm:block">RO</span>
+      <div class="w-8 h-8 rounded-full bg-blue-500 text-white grid place-items-center text-[11px] font-bold">MP</div>
+    </div>
+  </header>
+
+  <main class="max-w-[1280px] mx-auto px-6 pb-24">
+
+    <!-- Page header -->
+    <div class="pt-8 pb-4">
+      <a href="#" class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-400 mb-3 hover:text-ink-700">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Helpdesk
+      </a>
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <div class="text-[34px] leading-none font-bold text-ink-900 tracking-tight">Rapoarte</div>
+          <div class="text-[14px] text-ink-400 mt-2 max-w-xl">Insight-uri despre tichetele din departamentele tale.</div>
+        </div>
+        <button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-surface-200 bg-surface-0 text-[13px] font-semibold text-ink-700 hover:bg-surface-50">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+          Export pagină
+        </button>
+      </div>
+    </div>
+
+    <!-- Scoping banner -->
+    <div class="rounded-xl border border-blue-200 dark:border-blue-500/20 bg-blue-50/60 dark:bg-blue-500/5 px-4 py-3 mb-4 flex items-center gap-3">
+      <svg class="w-4 h-4 text-blue-600 dark:text-blue-300 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+      <div class="text-[12.5px] text-blue-800 dark:text-blue-200">
+        Vezi date doar pentru <span class="font-semibold">departamentele tale</span>:
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-500/15 text-[11px] font-semibold mx-0.5">Salubritate</span>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-500/15 text-[11px] font-semibold mx-0.5">Drumuri</span>
+        — restul departamentelor și clasamentul pe agenți sunt vizibile doar pentru manageri.
+      </div>
+    </div>
+
+    <!-- Filter bar (department pre-scoped) -->
+    <div class="flex items-center gap-4 flex-wrap card px-4 py-3">
+      <span class="flex items-center gap-2 text-[13px] font-semibold text-ink-700">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M3 5h18l-7 9v6l-4-2v-4z"/></svg> Filtre
+      </span>
+      <span class="w-px h-6 bg-surface-200"></span>
+      <label class="flex items-center gap-2 text-[12px] text-ink-400 font-medium">Perioadă
+        <select class="input !w-auto !py-1.5 !text-[13px] font-semibold"><option>30 zile</option><option>7 zile</option><option>90 zile</option><option>12 luni</option><option>Personalizat</option></select>
+      </label>
+      <label class="flex items-center gap-2 text-[12px] text-ink-400 font-medium">Formular
+        <select class="input !w-auto !py-1.5 !text-[13px] font-semibold"><option>Toate formularele</option><option>Incidents</option><option>Sesizări trafic</option><option>Sugestii cetățeni</option><option>Reclamații servicii</option></select>
+      </label>
+      <label class="flex items-center gap-2 text-[12px] text-ink-400 font-medium">Departament
+        <select class="input !w-auto !py-1.5 !text-[13px] font-semibold"><option>Departamentele mele (2)</option><option>Salubritate</option><option>Drumuri</option></select>
+      </label>
+      <div class="flex-1"></div>
+      <span class="text-[12px] text-ink-400">vs perioada precedentă</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-1 mt-6 border-b border-surface-200">
+      <button data-tabbtn="tichete" onclick="showTab('tichete', this)" style="border-bottom:2px solid var(--color-ink-900);color:var(--color-ink-900)" class="px-4 py-3 text-[14px] font-semibold -mb-px">Tichete</button>
+      <button data-tabbtn="sla" onclick="showTab('sla', this)" style="border-bottom:2px solid transparent;color:var(--color-ink-400)" class="px-4 py-3 text-[14px] font-semibold -mb-px">SLA</button>
+      <button data-tabbtn="performanta" onclick="showTab('performanta', this)" style="border-bottom:2px solid transparent;color:var(--color-ink-400)" class="px-4 py-3 text-[14px] font-semibold -mb-px">Performanța mea</button>
+    </div>
+
+    <!-- ============ TAB: TICHETE (scoped) ============ -->
+    <div data-tab="tichete" class="mt-6 flex flex-col gap-5">
+      <div class="text-[12px] text-ink-400">Tichetele din <span class="font-semibold text-ink-600">Salubritate + Drumuri</span> (toți agenții din aceste departamente).</div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete primite</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">37</div><span class="badge badge--positive">+9%</span></div><div class="text-[11px] text-ink-400 mt-1">vs perioada precedentă</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete rezolvate</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">25</div><span class="badge badge--positive">+10%</span></div><div class="text-[11px] text-ink-400 mt-1">vs perioada precedentă</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Backlog activ</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">7</div><span class="badge badge--negative">+1</span></div><div class="text-[11px] text-ink-400 mt-1">deschise + în lucru + așteptare</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete redeschise</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">1</div><span class="badge badge--number">0</span></div><div class="text-[11px] text-ink-400 mt-1">după rezolvare</div></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-start justify-between mb-3">
+          <div><div class="text-[15px] font-semibold text-ink-900">Volum tichete primite</div><div class="text-[12px] text-ink-400 mt-0.5">comparativ cu perioada precedentă · 37 vs 34</div></div>
+          <div class="flex gap-2 text-[12px]"><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-0.5 rounded-full" style="background:#1cc39a"></span>Curent</span><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-0.5 rounded-full" style="background:#cfd2d6"></span>Anterior</span></div>
+        </div>
+        <div id="vol-agent"></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-start justify-between mb-3">
+          <div><div class="text-[15px] font-semibold text-ink-900">Backlog: deschise vs închise</div><div class="text-[12px] text-ink-400 mt-0.5">evoluția zilnică · ultimele 30 zile</div></div>
+          <div class="flex gap-3 text-[12px]"><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-2.5 rounded-sm" style="background:#ef4e57"></span>Deschise</span><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-2.5 rounded-sm" style="background:#1da46a"></span>Închise</span></div>
+        </div>
+        <div id="backlog-agent"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="card p-5">
+          <div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție pe formular</div><div class="text-[12px] text-ink-400 mb-4">25 tichete primite</div>
+          <div class="flex items-center gap-5"><div id="forms-agent"></div><div id="forms-legend-agent" class="flex-1"></div></div>
+        </div>
+        <div class="card p-5">
+          <div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție pe departament</div><div class="text-[12px] text-ink-400 mb-4">doar departamentele tale</div>
+          <div id="depts-agent"></div>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Când vin tichetele</div><div class="text-[12px] text-ink-400 mb-4">distribuție pe zile × ore · ultimele 30 zile</div>
+        <div id="heat-agent"></div>
+        <div class="text-[12px] text-ink-400 mt-3">Vârf: <span class="font-semibold text-ink-700">Marți 9:00–12:00</span></div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: SLA (scoped rows) ============ -->
+    <div data-tab="sla" class="mt-6 flex-col gap-5" style="display:none">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Rată rezolvare în SLA</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">83%</div><span class="badge badge--positive">+3 pp</span></div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp mediu primă reacție</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">2h 28m</div><span class="badge badge--positive">−14m</span></div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp mediu rezolvare</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">1.9z</div><span class="badge badge--negative">+0.2z</span></div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete depășite SLA</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">3</div><span class="badge badge--positive">−1</span></div></div>
+      </div>
+
+      <div class="card p-5 mb-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">SLA pe formular × departament</div><div class="text-[12px] text-ink-400 mb-4">doar departamentele tale · procent rezolvate în SLA</div>
+        <div id="slamatrix-agent"></div>
+        <div class="flex items-center gap-3 mt-4 text-[11px] text-ink-400 flex-wrap">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#1da46a33;border:1px solid #1da46a"></span>≥95%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#7fc28f33;border:1px solid #7fc28f"></span>85–94%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#f0b22833;border:1px solid #f0b228"></span>75–84%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#ef4e5733;border:1px solid #ef4e57"></span>&lt;75%</span>
+          <span class="ml-auto">Drumuri × Reclamații (70%) — atenție la targeturile tale.</span>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-5">
+        <div class="card p-5"><div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție timp primă reacție</div><div class="text-[12px] text-ink-400 mb-4">ultimele 30 zile</div><div id="frt-agent"></div></div>
+        <div class="card p-5"><div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție timp rezolvare</div><div class="text-[12px] text-ink-400 mb-4">ultimele 30 zile</div><div id="rt-agent"></div></div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: PERFORMANȚA MEA (self only) ============ -->
+    <div data-tab="performanta" class="mt-6 flex-col gap-5" style="display:none">
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-10 h-10 rounded-full bg-blue-500 text-white grid place-items-center text-[13px] font-bold">MP</div>
+        <div><div class="text-[16px] font-semibold text-ink-900">Maria Pop</div><div class="text-[12px] text-ink-400">Agent · Salubritate, Drumuri · ultimele 30 zile</div></div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichetele mele rezolvate</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">9</div><span class="badge badge--positive">+2</span></div><div class="text-[11px] text-ink-400 mt-1">media echipei: 10</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp mediu rezolvare</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">2.1z</div><span class="badge badge--number">≈</span></div><div class="text-[11px] text-ink-400 mt-1">media echipei: 2.0z</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp primă reacție</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">2h 32m</div><span class="badge badge--negative">+14m</span></div><div class="text-[11px] text-ink-400 mt-1">median pe ticketele mele</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">CSAT-ul meu</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">4.2</div><span class="badge badge--positive">+0.1</span></div><div class="text-[11px] text-ink-400 mt-1">media echipei: 4.3</div></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Rezolvările mele în timp</div><div class="text-[12px] text-ink-400 mb-4">tichete rezolvate pe zi · ultimele 30 zile</div>
+        <div id="mytrend-agent"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="card p-5">
+          <div class="text-[15px] font-semibold text-ink-900 mb-1">Rata mea SLA</div><div class="text-[12px] text-ink-400 mb-4">tichetele rezolvate la timp</div>
+          <div class="flex items-end gap-3"><div class="text-4xl font-bold text-ink-900 tabular-nums" style="color:#cb8413">84%</div><span class="badge badge--positive mb-1.5">+5 pp</span></div>
+          <div class="h-2.5 rounded-full bg-surface-200 mt-4"><div class="h-full rounded-full" style="width:84%;background:#f0b228"></div></div>
+          <div class="text-[12px] text-ink-400 mt-3">Ținta departamentului: <span class="font-semibold text-ink-600">90%</span></div>
+        </div>
+        <div class="card p-5">
+          <div class="text-[15px] font-semibold text-ink-900 mb-1">Tichetele mele pe status</div><div class="text-[12px] text-ink-400 mb-4">acum</div>
+          <div id="mystatus-agent"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+
+  <script src="charts.js"></script>
+  <script>
+    var C = Charts.C;
+    function series(n, base, v, seed){ var a=[],x; for(x=0;x<n;x++){ a.push(Math.max(0, Math.round(base + Math.sin((x+seed)*0.5)*v + Math.sin(x*1.7+seed*3)*v*0.5))); } return a; }
+    var cur = series(30, 1.3, 1, 2), prev = series(30, 1.1, 0.8, 5);
+    Charts.line(document.getElementById('vol-agent'), [
+      { data: prev, color: C.gray, dashed: true },
+      { data: cur, color: C.teal }
+    ]);
+    Charts.stacked(document.getElementById('backlog-agent'), cur.map(function(o,i){ return { opened:o, closed: Math.max(0, Math.round(o*(0.7+Math.sin(i*0.4)*0.3))) }; }));
+
+    var forms = [{label:'Incidents',value:15,color:C.blue},{label:'Sesizări trafic',value:7,color:C.teal},{label:'Reclamații servicii',value:3,color:C.violet}];
+    Charts.donut(document.getElementById('forms-agent'), forms, 25, 'Total');
+    document.getElementById('forms-legend-agent').innerHTML = forms.map(function(f){ return '<div style="display:flex;justify-content:space-between;font-size:13px;margin:7px 0"><span style="color:var(--color-ink-700)"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+f.color+';margin-right:8px"></span>'+f.label+'</span><span style="font-weight:600;color:var(--color-ink-900)">'+f.value+'</span></div>'; }).join('');
+
+    // department distribution — ONLY the agent's 2 departments
+    Charts.hbars(document.getElementById('depts-agent'), [
+      {label:'Salubritate',value:14,color:C.blue},{label:'Drumuri',value:11,color:C.teal}
+    ]);
+
+    var dows=['Lu','Ma','Mi','Jo','Vi','Sâ','Du'], hours=['0','3','6','9','12','15','18','21'];
+    var heat = dows.map(function(_,i){ return hours.map(function(_,j){ var wd=i<5,morn=j>=2&&j<=4; var b=wd?(morn?3:1):0; return Math.max(0,Math.round(b+Math.sin(i+j*1.1)*1+0.5)); }); });
+    Charts.heatmap(document.getElementById('heat-agent'), dows, hours, heat);
+
+    // SLA matrix — ONLY the agent's 2 department rows
+    (function(){
+      var forms=['Incidents','Trafic','Sugestii','Reclamații'], depts=['Salubritate','Drumuri'];
+      var m=[[92,88,100,80],[76,84,90,70]];
+      function col(v){ return v>=95?'#1da46a':v>=85?'#7fc28f':v>=75?'#f0b228':'#ef4e57'; }
+      var h='<table style="width:100%;border-collapse:separate;border-spacing:6px;font-size:13px"><thead><tr><th style="text-align:left;font-size:11px;color:var(--color-ink-400);font-weight:600;padding:4px 8px">Departament \\ Formular</th>';
+      forms.forEach(function(f){ h+='<th style="text-align:center;font-size:11px;color:var(--color-ink-400);font-weight:600">'+f+'</th>'; });
+      h+='<th style="text-align:center;font-size:11px;color:var(--color-ink-700);font-weight:600">Total</th></tr></thead><tbody>';
+      depts.forEach(function(d,i){ var avg=Math.round(m[i].reduce(function(s,v){return s+v;},0)/m[i].length); h+='<tr><td style="padding:8px 10px;font-weight:600;color:var(--color-ink-700)">'+d+'</td>';
+        m[i].forEach(function(v){ h+='<td style="padding:12px 0;text-align:center;font-weight:600;border-radius:8px;background:'+col(v)+'1a;color:'+col(v)+'">'+v+'%</td>'; });
+        h+='<td style="padding:12px 0;text-align:center;font-weight:700;border-radius:8px;background:'+col(avg)+'26;color:'+col(avg)+'">'+avg+'%</td></tr>'; });
+      h+='</tbody></table>';
+      document.getElementById('slamatrix-agent').innerHTML=h;
+    })();
+
+    Charts.bars(document.getElementById('frt-agent'), [{label:'<30m',value:8,color:'#1da46a'},{label:'30m–2h',value:7,color:C.teal},{label:'2h–6h',value:5,color:C.amber},{label:'6h–24h',value:3,color:C.red},{label:'>24h',value:1,color:'#a8232b'}]);
+    Charts.bars(document.getElementById('rt-agent'), [{label:'<1z',value:3,color:'#1da46a'},{label:'1–2z',value:6,color:C.teal},{label:'2–4z',value:7,color:C.amber},{label:'4–7z',value:3,color:C.red},{label:'>7z',value:2,color:'#a8232b'}]);
+
+    // Performanța mea — my resolutions over time
+    Charts.bars(document.getElementById('mytrend-agent'), series(10, 0.9, 0.7, 3).map(function(v,i){ return {label:'S'+(i+1), value:v}; }), C.blue);
+
+    // my tickets by status
+    Charts.hbars(document.getElementById('mystatus-agent'), [
+      {label:'Deschise',value:2,color:C.red},{label:'În lucru',value:3,color:C.blue},
+      {label:'În așteptare',value:1,color:C.amber},{label:'Rezolvate',value:9,color:C.green}
+    ]);
+  </script>
+</body>
+</html>

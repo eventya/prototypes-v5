@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner · Rapoarte · Helpdesk</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Helpdesk Rapoarte — perspectivă Owner (vede tot)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- Top nav -->
+  <header class="sticky top-0 z-40 bg-surface-0 border-b border-surface-200 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M12 2 L6 6 L6 12 C6 16 9 19 12 21 C15 19 18 16 18 12 L18 6 Z" fill="#1cc39a"/><circle cx="12" cy="11" r="2.4" fill="#fff"/></svg>
+      <div class="flex items-center gap-2 bg-surface-100 rounded-full pl-1.5 pr-3 py-1">
+        <span class="w-6 h-6 rounded-md bg-blue-500 text-white grid place-items-center text-[11px] font-bold">SL</span>
+        <span class="text-[13px] font-semibold text-ink-800">Sibiu Legacy</span>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-1.5">
+      <a href="#" class="px-3.5 py-2 rounded-full border border-surface-200 text-[13px] font-semibold text-ink-600">Website</a>
+      <a href="#" class="px-3.5 py-2 rounded-full border border-surface-200 text-[13px] font-semibold text-ink-600">App</a>
+      <a href="#" class="px-3.5 py-2 rounded-full bg-ink-900 text-surface-0 text-[13px] font-semibold">Helpdesk</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <span class="text-[12px] font-semibold text-ink-500 hidden sm:block">RO</span>
+      <div class="w-8 h-8 rounded-full bg-pink-500 text-white grid place-items-center text-[11px] font-bold">AE</div>
+    </div>
+  </header>
+
+  <main class="max-w-[1280px] mx-auto px-6 pb-24">
+
+    <!-- Page header -->
+    <div class="pt-8 pb-5">
+      <a href="#" class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-400 mb-3 hover:text-ink-700">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Helpdesk
+      </a>
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <div class="text-[34px] leading-none font-bold text-ink-900 tracking-tight">Rapoarte</div>
+          <div class="text-[14px] text-ink-400 mt-2 max-w-xl">Insight-uri detaliate despre tichete, SLA și performanța echipei.</div>
+        </div>
+        <button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-surface-200 bg-surface-0 text-[13px] font-semibold text-ink-700 hover:bg-surface-50">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+          Export pagină
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="flex items-center gap-4 flex-wrap card px-4 py-3">
+      <span class="flex items-center gap-2 text-[13px] font-semibold text-ink-700">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M3 5h18l-7 9v6l-4-2v-4z"/></svg> Filtre
+      </span>
+      <span class="w-px h-6 bg-surface-200"></span>
+      <label class="flex items-center gap-2 text-[12px] text-ink-400 font-medium">Perioadă
+        <select class="input !w-auto !py-1.5 !text-[13px] font-semibold"><option>30 zile</option><option>7 zile</option><option>90 zile</option><option>12 luni</option><option>Personalizat</option></select>
+      </label>
+      <label class="flex items-center gap-2 text-[12px] text-ink-400 font-medium">Formular
+        <select class="input !w-auto !py-1.5 !text-[13px] font-semibold"><option>Toate formularele</option><option>Incidents</option><option>Sesizări trafic</option><option>Sugestii cetățeni</option><option>Reclamații servicii</option></select>
+      </label>
+      <label class="flex items-center gap-2 text-[12px] text-ink-400 font-medium">Departament
+        <select class="input !w-auto !py-1.5 !text-[13px] font-semibold"><option>Toate departamentele</option><option>Salubritate</option><option>Drumuri</option><option>Iluminat</option><option>Spații verzi</option></select>
+      </label>
+      <div class="flex-1"></div>
+      <span class="text-[12px] text-ink-400">vs perioada precedentă</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-1 mt-6 border-b border-surface-200">
+      <button data-tabbtn="tichete" onclick="showTab('tichete', this)" style="border-bottom:2px solid var(--color-ink-900);color:var(--color-ink-900)" class="px-4 py-3 text-[14px] font-semibold -mb-px">Tichete</button>
+      <button data-tabbtn="sla" onclick="showTab('sla', this)" style="border-bottom:2px solid transparent;color:var(--color-ink-400)" class="px-4 py-3 text-[14px] font-semibold -mb-px">SLA</button>
+      <button data-tabbtn="performanta" onclick="showTab('performanta', this)" style="border-bottom:2px solid transparent;color:var(--color-ink-400)" class="px-4 py-3 text-[14px] font-semibold -mb-px">Performanță</button>
+    </div>
+
+    <!-- ============ TAB: TICHETE ============ -->
+    <div data-tab="tichete" class="mt-6 flex flex-col gap-5">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete primite</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">96</div><span class="badge badge--positive">+18%</span></div><div class="text-[11px] text-ink-400 mt-1">vs perioada precedentă</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete rezolvate</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">31</div><span class="badge badge--positive">+12%</span></div><div class="text-[11px] text-ink-400 mt-1">vs perioada precedentă</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Backlog activ</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">9</div><span class="badge badge--positive">−3</span></div><div class="text-[11px] text-ink-400 mt-1">deschise + în lucru + așteptare</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete redeschise</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">1</div><span class="badge badge--positive">−1</span></div><div class="text-[11px] text-ink-400 mt-1">după rezolvare</div></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-start justify-between mb-3">
+          <div><div class="text-[15px] font-semibold text-ink-900">Volum tichete primite</div><div class="text-[12px] text-ink-400 mt-0.5">comparativ cu perioada precedentă · 96 vs 81</div></div>
+          <div class="flex gap-2 text-[12px]"><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-0.5 rounded-full" style="background:#1cc39a"></span>Curent</span><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-0.5 rounded-full" style="background:#cfd2d6"></span>Anterior</span></div>
+        </div>
+        <div id="vol-owner"></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="flex items-start justify-between mb-3">
+          <div><div class="text-[15px] font-semibold text-ink-900">Backlog: deschise vs închise</div><div class="text-[12px] text-ink-400 mt-0.5">evoluția zilnică · ultimele 30 zile</div></div>
+          <div class="flex gap-3 text-[12px]"><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-2.5 rounded-sm" style="background:#ef4e57"></span>Deschise</span><span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-2.5 rounded-sm" style="background:#1da46a"></span>Închise</span></div>
+        </div>
+        <div id="backlog-owner"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="card p-5">
+          <div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție pe formular</div><div class="text-[12px] text-ink-400 mb-4">42 tichete primite</div>
+          <div class="flex items-center gap-5"><div id="forms-owner"></div><div id="forms-legend-owner" class="flex-1"></div></div>
+        </div>
+        <div class="card p-5">
+          <div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție pe departament</div><div class="text-[12px] text-ink-400 mb-4">cui îi sunt rutate tichetele</div>
+          <div id="depts-owner"></div>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Când vin tichetele</div><div class="text-[12px] text-ink-400 mb-4">distribuție pe zile × ore · ultimele 30 zile</div>
+        <div id="heat-owner"></div>
+        <div class="text-[12px] text-ink-400 mt-3">Vârf: <span class="font-semibold text-ink-700">Joi 12:00–15:00</span> (≈6 tichete/oră)</div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: SLA ============ -->
+    <div data-tab="sla" class="mt-6 flex-col gap-5" style="display:none">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Rată rezolvare în SLA</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">86%</div><span class="badge badge--positive">+4 pp</span></div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp mediu primă reacție</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">2h 14m</div><span class="badge badge--positive">−22m</span></div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp mediu rezolvare</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">1.8z</div><span class="badge badge--negative">+0.3z</span></div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete depășite SLA</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">4</div><span class="badge badge--positive">−3</span></div></div>
+      </div>
+
+      <div class="card p-5 mb-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">SLA pe formular × departament</div><div class="text-[12px] text-ink-400 mb-4">procent tichete rezolvate în SLA</div>
+        <div id="slamatrix-owner"></div>
+        <div class="flex items-center gap-3 mt-4 text-[11px] text-ink-400 flex-wrap">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#1da46a33;border:1px solid #1da46a"></span>≥95%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#7fc28f33;border:1px solid #7fc28f"></span>85–94%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#f0b22833;border:1px solid #f0b228"></span>75–84%</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:#ef4e5733;border:1px solid #ef4e57"></span>&lt;75%</span>
+          <span class="ml-auto">Drumuri × Reclamații e cel mai slab (70%) — necesită atenție.</span>
+        </div>
+      </div>
+
+      <div class="card p-5 mb-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Rată SLA pe agent</div><div class="text-[12px] text-ink-400 mb-3">cine respectă ținta de <span class="font-semibold text-ink-600">90%</span> · ultimele 30 zile</div>
+        <table class="w-full text-[13px]">
+          <thead><tr class="text-[11px] uppercase tracking-wide text-ink-400 font-semibold text-left border-b border-surface-200"><th class="py-2">Agent</th><th class="py-2 text-right">În SLA</th><th class="py-2 text-right">Depășite</th><th class="py-2 w-[42%]">Rată SLA</th><th class="py-2 text-right">Status</th></tr></thead>
+          <tbody id="slaagents-owner"></tbody>
+        </table>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-5">
+        <div class="card p-5"><div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție timp primă reacție</div><div class="text-[12px] text-ink-400 mb-4">ultimele 30 zile</div><div id="frt-owner"></div><div class="text-[12px] text-ink-400 mt-3"><span class="font-semibold" style="color:#0d8e6e">62%</span> din tichete primesc răspuns sub 2h.</div></div>
+        <div class="card p-5"><div class="text-[15px] font-semibold text-ink-900 mb-1">Distribuție timp rezolvare</div><div class="text-[12px] text-ink-400 mb-4">ultimele 30 zile</div><div id="rt-owner"></div><div class="text-[12px] text-ink-400 mt-3"><span class="font-semibold" style="color:#c4505a">22%</span> din tichete depășesc 4 zile.</div></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Comparație perioade</div><div class="text-[12px] text-ink-400 mb-3">ultimele 30 zile vs 30 zile anterioare</div>
+        <div id="comp-owner"></div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: PERFORMANȚĂ (full ranking) ============ -->
+    <div data-tab="performanta" class="mt-6 flex-col gap-5" style="display:none">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Tichete rezolvate</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">31</div><span class="badge badge--positive">+12%</span></div><div class="text-[11px] text-ink-400 mt-1">toți agenții · 30 zile</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Timp mediu primă acțiune</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">2h 18m</div><span class="badge badge--positive">−18m</span></div><div class="text-[11px] text-ink-400 mt-1">median pe agent</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">Rată asignare</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">74%</div><span class="badge badge--positive">+8 pp</span></div><div class="text-[11px] text-ink-400 mt-1">în &lt;1h de la primire</div></div>
+        <div class="card p-4"><div class="text-[12px] text-ink-400 font-medium">CSAT mediu agenți</div><div class="flex items-end gap-2 mt-2"><div class="text-3xl font-bold text-ink-900 tabular-nums">4.3</div><span class="badge badge--positive">+0.2</span></div><div class="text-[11px] text-ink-400 mt-1">evaluări pe 5</div></div>
+      </div>
+
+      <div class="card p-5 mb-5"><div class="text-[15px] font-semibold text-ink-900 mb-1">Tichete rezolvate per agent</div><div class="text-[12px] text-ink-400 mb-4">ultimele 30 zile</div><div id="agentbars-owner"></div></div>
+
+      <div class="card p-5 mb-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Performanță agenți</div><div class="text-[12px] text-ink-400 mb-3">metrice detaliate · 30 zile</div>
+        <table class="w-full text-[13px]">
+          <thead><tr class="text-[11px] uppercase tracking-wide text-ink-400 font-semibold text-left border-b border-surface-200"><th class="py-2">Agent</th><th class="py-2 text-right">Deschise</th><th class="py-2 text-right">Rezolvate</th><th class="py-2 text-right">Timp med.</th><th class="py-2 text-right">Primă reacție</th><th class="py-2 text-right">SLA</th><th class="py-2 text-right">CSAT</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-surface-100"><td class="py-3"><span class="inline-flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-pink-500 text-white grid place-items-center text-[10px] font-bold">AE</span><span class="font-semibold text-ink-800">Admin Eventya</span></span></td><td class="text-right">3</td><td class="text-right">18</td><td class="text-right text-ink-600">1.6z</td><td class="text-right text-ink-600">1h 48m</td><td class="text-right font-semibold" style="color:#0d8e6e">92%</td><td class="text-right font-semibold">4.6 ★</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-3"><span class="inline-flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-blue-500 text-white grid place-items-center text-[10px] font-bold">MP</span><span class="font-semibold text-ink-800">Maria Pop</span></span></td><td class="text-right">0</td><td class="text-right">9</td><td class="text-right text-ink-600">2.1z</td><td class="text-right text-ink-600">2h 32m</td><td class="text-right font-semibold" style="color:#cb8413">84%</td><td class="text-right font-semibold">4.2 ★</td></tr>
+            <tr><td class="py-3"><span class="inline-flex items-center gap-2"><span class="w-7 h-7 rounded-full grid place-items-center text-[10px] font-bold text-white" style="background:#1cc39a">ID</span><span class="font-semibold text-ink-800">Ion Dragu</span></span></td><td class="text-right">1</td><td class="text-right">4</td><td class="text-right text-ink-600">2.6z</td><td class="text-right text-ink-600">3h 14m</td><td class="text-right font-semibold" style="color:#c4505a">78%</td><td class="text-right font-semibold">3.9 ★</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Performanță departamente</div><div class="text-[12px] text-ink-400 mb-3">agregat pe departament · 30 zile</div>
+        <table class="w-full text-[13px]">
+          <thead><tr class="text-[11px] uppercase tracking-wide text-ink-400 font-semibold text-left border-b border-surface-200"><th class="py-2">Departament</th><th class="py-2 text-right">Deschise</th><th class="py-2 text-right">Rezolvate</th><th class="py-2 text-right">Timp med.</th><th class="py-2 text-right">SLA</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-surface-100"><td class="py-3 font-semibold text-ink-800">Salubritate</td><td class="text-right">3</td><td class="text-right">14</td><td class="text-right text-ink-600">1.4z</td><td class="text-right font-semibold" style="color:#0d8e6e">90%</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-3 font-semibold text-ink-800">Drumuri</td><td class="text-right">4</td><td class="text-right">11</td><td class="text-right text-ink-600">2.4z</td><td class="text-right font-semibold" style="color:#cb8413">80%</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-3 font-semibold text-ink-800">Iluminat</td><td class="text-right">1</td><td class="text-right">9</td><td class="text-right text-ink-600">1.2z</td><td class="text-right font-semibold" style="color:#0d8e6e">96%</td></tr>
+            <tr><td class="py-3 font-semibold text-ink-800">Spații verzi</td><td class="text-right">1</td><td class="text-right">6</td><td class="text-right text-ink-600">2.0z</td><td class="text-right font-semibold" style="color:#cb8413">84%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+
+  <script src="charts.js"></script>
+  <script>
+    var C = Charts.C;
+    function series(n, base, v, seed){ var a=[],x; for(x=0;x<n;x++){ a.push(Math.max(0, Math.round(base + Math.sin((x+seed)*0.5)*v + Math.sin(x*1.7+seed*3)*v*0.5))); } return a; }
+    var cur = series(30, 3.2, 2, 1), prev = series(30, 2.6, 1.6, 7);
+    Charts.line(document.getElementById('vol-owner'), [
+      { data: prev, color: C.gray, dashed: true },
+      { data: cur, color: C.teal }
+    ]);
+    Charts.stacked(document.getElementById('backlog-owner'), cur.map(function(o,i){ return { opened:o, closed: Math.max(0, Math.round(o*(0.7+Math.sin(i*0.4)*0.3))) }; }));
+
+    var forms = [{label:'Incidents',value:28,color:C.blue},{label:'Sesizări trafic',value:8,color:C.teal},{label:'Sugestii cetățeni',value:4,color:C.amber},{label:'Reclamații servicii',value:2,color:C.violet}];
+    Charts.donut(document.getElementById('forms-owner'), forms, 42, 'Total');
+    document.getElementById('forms-legend-owner').innerHTML = forms.map(function(f){ return '<div style="display:flex;justify-content:space-between;font-size:13px;margin:7px 0"><span style="color:var(--color-ink-700)"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+f.color+';margin-right:8px"></span>'+f.label+'</span><span style="font-weight:600;color:var(--color-ink-900)">'+f.value+'</span></div>'; }).join('');
+
+    Charts.hbars(document.getElementById('depts-owner'), [
+      {label:'Salubritate',value:14,color:C.blue},{label:'Drumuri',value:11,color:C.teal},
+      {label:'Iluminat',value:9,color:C.amber},{label:'Spații verzi',value:6,color:C.violet},{label:'Neasignat',value:2,color:C.gray}
+    ]);
+
+    var dows=['Lu','Ma','Mi','Jo','Vi','Sâ','Du'], hours=['0','3','6','9','12','15','18','21'];
+    var heat = dows.map(function(_,i){ return hours.map(function(_,j){ var wd=i<5,aft=j>=3&&j<=5; var b=wd?(aft?5:2):1; return Math.max(0,Math.round(b+Math.sin(i+j*1.3)*1.5+1)); }); });
+    Charts.heatmap(document.getElementById('heat-owner'), dows, hours, heat);
+
+    // SLA matrix
+    (function(){
+      var forms=['Incidents','Trafic','Sugestii','Reclamații'], depts=['Salubritate','Drumuri','Iluminat','Spații verzi'];
+      var m=[[92,88,100,80],[76,84,90,70],[95,100,100,88],[82,90,88,75]];
+      function col(v){ return v>=95?'#1da46a':v>=85?'#7fc28f':v>=75?'#f0b228':'#ef4e57'; }
+      var h='<table style="width:100%;border-collapse:separate;border-spacing:6px;font-size:13px"><thead><tr><th style="text-align:left;font-size:11px;color:var(--color-ink-400);font-weight:600;padding:4px 8px">Departament \\ Formular</th>';
+      forms.forEach(function(f){ h+='<th style="text-align:center;font-size:11px;color:var(--color-ink-400);font-weight:600">'+f+'</th>'; });
+      h+='<th style="text-align:center;font-size:11px;color:var(--color-ink-700);font-weight:600">Total</th></tr></thead><tbody>';
+      depts.forEach(function(d,i){ var avg=Math.round(m[i].reduce(function(s,v){return s+v;},0)/m[i].length); h+='<tr><td style="padding:8px 10px;font-weight:600;color:var(--color-ink-700)">'+d+'</td>';
+        m[i].forEach(function(v){ h+='<td style="padding:12px 0;text-align:center;font-weight:600;border-radius:8px;background:'+col(v)+'1a;color:'+col(v)+'">'+v+'%</td>'; });
+        h+='<td style="padding:12px 0;text-align:center;font-weight:700;border-radius:8px;background:'+col(avg)+'26;color:'+col(avg)+'">'+avg+'%</td></tr>'; });
+      h+='</tbody></table>';
+      document.getElementById('slamatrix-owner').innerHTML=h;
+    })();
+
+    Charts.bars(document.getElementById('frt-owner'), [{label:'<30m',value:14,color:'#1da46a'},{label:'30m–2h',value:11,color:C.teal},{label:'2h–6h',value:8,color:C.amber},{label:'6h–24h',value:5,color:C.red},{label:'>24h',value:2,color:'#a8232b'}]);
+    Charts.bars(document.getElementById('rt-owner'), [{label:'<1z',value:6,color:'#1da46a'},{label:'1–2z',value:9,color:C.teal},{label:'2–4z',value:10,color:C.amber},{label:'4–7z',value:4,color:C.red},{label:'>7z',value:3,color:'#a8232b'}]);
+
+    (function(){
+      var rows=[['Rată SLA','86%','82%','+4 pp',1],['Timp primă reacție','2h 14m','2h 36m','−22m',1],['Timp mediu rezolvare','1.8 zile','1.5 zile','+0.3 zile',0],['Tichete peste SLA','4','7','−3',1],['Resp. în <1h','58%','52%','+6 pp',1]];
+      var h='<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;font-size:11px;color:var(--color-ink-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:6px 0;border-bottom:1px solid var(--color-surface-200)"><div>Metrică</div><div style="text-align:right">Curent</div><div style="text-align:right">Anterior</div><div style="text-align:right">Δ</div></div>';
+      rows.forEach(function(r){ h+='<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:12px 0;border-bottom:1px solid var(--color-surface-100);font-size:13px"><div style="font-weight:600;color:var(--color-ink-800)">'+r[0]+'</div><div style="text-align:right;font-weight:600">'+r[1]+'</div><div style="text-align:right;color:var(--color-ink-400)">'+r[2]+'</div><div style="text-align:right;font-weight:600;color:'+(r[4]?'#0d8e6e':'#c4505a')+'">'+r[3]+'</div></div>'; });
+      document.getElementById('comp-owner').innerHTML=h;
+    })();
+
+    Charts.bars(document.getElementById('agentbars-owner'), [{label:'AE',value:18,color:'#ff3b6b'},{label:'MP',value:9,color:C.blue},{label:'ID',value:4,color:C.teal}]);
+
+    // SLA per agent — who meets the 90% target, who doesn't
+    (function(){
+      var TARGET = 90;
+      var rows = [
+        {name:'Admin Eventya', av:'AE', avBg:'#ff3b6b', inSla:22, breached:2, rate:92},
+        {name:'Maria Pop',     av:'MP', avBg:C.blue,   inSla:16, breached:3, rate:84},
+        {name:'Ion Dragu',     av:'ID', avBg:C.teal,   inSla:7,  breached:2, rate:78}
+      ].sort(function(a,b){ return b.rate - a.rate; });
+      function col(v){ return v>=TARGET?'#1da46a':(v>=80?'#f0b228':'#ef4e57'); }
+      var h = rows.map(function(r,i){
+        var ok = r.rate >= TARGET, c = col(r.rate);
+        var border = i < rows.length-1 ? 'border-bottom:1px solid var(--color-surface-100)' : '';
+        return '<tr style="'+border+'">'+
+          '<td style="padding:12px 0"><span style="display:inline-flex;align-items:center;gap:10px">'+
+            '<span style="width:28px;height:28px;border-radius:999px;background:'+r.avBg+';color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700">'+r.av+'</span>'+
+            '<span style="font-weight:600;color:var(--color-ink-800)">'+r.name+'</span></span></td>'+
+          '<td style="text-align:right;color:var(--color-ink-600)">'+r.inSla+'</td>'+
+          '<td style="text-align:right;font-weight:600;color:'+(r.breached?'#c4505a':'var(--color-ink-400)')+'">'+r.breached+'</td>'+
+          '<td style="padding:0 16px">'+
+            '<div style="position:relative;height:8px;border-radius:999px;background:var(--color-surface-200)">'+
+              '<div style="position:absolute;inset:0;width:'+r.rate+'%;background:'+c+';border-radius:999px"></div>'+
+              '<div title="Țintă 90%" style="position:absolute;top:-3px;bottom:-3px;left:'+TARGET+'%;width:2px;background:var(--color-ink-400);border-radius:2px"></div>'+
+            '</div>'+
+            '<div style="font-size:11px;font-weight:600;color:'+c+';margin-top:5px;text-align:right">'+r.rate+'%</div></td>'+
+          '<td style="text-align:right"><span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:'+(ok?'#0d8e6e':'#c4505a')+'">'+
+            (ok
+              ? '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Respectă'
+              : '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Sub țintă')+
+          '</span></td>'+
+        '</tr>';
+      }).join('');
+      document.getElementById('slaagents-owner').innerHTML = h;
+    })();
+  </script>
+</body>
+</html>

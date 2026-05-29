@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk Rapoarte · Plan + ecrane</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .md { color: var(--color-ink-700); font-size: 14px; line-height: 1.7; }
+    .md h1 { font-size: 1.6rem; font-weight: 700; color: var(--color-ink-900); margin: 1.5rem 0 .75rem; }
+    .md h2 { font-size: 1.25rem; font-weight: 700; color: var(--color-ink-900); margin: 2rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-surface-200); }
+    .md h3 { font-size: 1.02rem; font-weight: 600; color: var(--color-ink-900); margin: 1.25rem 0 .4rem; }
+    .md p { margin: .6rem 0; }
+    .md ul, .md ol { margin: .6rem 0; padding-left: 1.4rem; }
+    .md li { margin: .25rem 0; }
+    .md a { color: var(--color-primary); text-decoration: underline; }
+    .md strong { color: var(--color-ink-900); font-weight: 600; }
+    .md code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82em; background: rgb(from var(--color-surface-200) r g b / .5); padding: .1rem .35rem; border-radius: .35rem; }
+    .md pre { background: var(--color-surface-100); border: 1px solid var(--color-surface-200); border-radius: .6rem; padding: 1rem; overflow-x: auto; margin: .8rem 0; }
+    .md pre code { background: none; padding: 0; font-size: .8rem; line-height: 1.5; }
+    .md table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .82rem; }
+    .md th, .md td { border: 1px solid var(--color-surface-200); padding: .45rem .65rem; text-align: left; vertical-align: top; }
+    .md th { background: var(--color-surface-100); font-weight: 600; color: var(--color-ink-800); }
+    .md hr { border: none; border-top: 1px solid var(--color-surface-200); margin: 2rem 0; }
+    .md blockquote { border-left: 3px solid var(--color-surface-300); padding-left: 1rem; color: var(--color-ink-500); margin: .8rem 0; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+    <div class="flex items-center justify-between mb-8">
+      <a href="../../index.html" class="text-[12px] font-medium text-ink-400 hover:text-ink-700 transition-colors flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Toate prototipurile
+      </a>
+      <button type="button" class="btn btn--sm"
+        onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+        Toggle dark
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Helpdesk Rapoarte</div>
+        <div class="text-[13px] text-ink-400">2 ecrane (Owner + Agent) + plan de implementare</div>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+    </div>
+
+    <div class="mt-10 space-y-6">
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Perspective de utilizator</div>
+        <div class="space-y-2">
+          <a href="01-owner.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">1</span>
+            <div>
+              <div class="text-[13px] font-medium text-ink-800">Owner · Rapoarte (vede tot)</div>
+              <div class="text-[11px] text-ink-400">Toate 3 taburile · toate departamentele · clasament agenți</div>
+            </div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="02-agent.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">2</span>
+            <div>
+              <div class="text-[13px] font-medium text-ink-800">Agent · Rapoarte (scopat pe departamente)</div>
+              <div class="text-[11px] text-ink-400">Maria Pop · Salubritate + Drumuri · „Performanța mea" în loc de clasament</div>
+            </div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Plan de implementare</div>
+    <div class="bg-surface-0 rounded-xl border border-surface-200 p-7 md:p-9">
+      <div class="md" id="plan">Se încarcă planul…</div>
+    </div>
+
+  </div>
+
+  <script>
+    fetch('PLAN.md')
+      .then(r => r.text())
+      .then(md => { document.getElementById('plan').innerHTML = marked.parse(md); })
+      .catch(() => { document.getElementById('plan').textContent = 'Nu am putut încărca PLAN.md (servește printr-un server local, nu file://).'; });
+  </script>
+</body>
+</html>
