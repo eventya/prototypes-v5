@@ -1365,6 +1365,12 @@
   .min-h-screen {
     min-height: 100vh;
   }
+<<<<<<< HEAD
+=======
+  .\!w-auto {
+    width: auto !important;
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .w-0 {
     width: calc(var(--spacing) * 0);
   }
@@ -1566,6 +1572,12 @@
   .w-\[38px\] {
     width: 38px;
   }
+<<<<<<< HEAD
+=======
+  .w-\[42\%\] {
+    width: 42%;
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .w-\[42px\] {
     width: 42px;
   }
@@ -1680,6 +1692,12 @@
   .max-w-\[400px\] {
     max-width: 400px;
   }
+<<<<<<< HEAD
+=======
+  .max-w-\[1280px\] {
+    max-width: 1280px;
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .max-w-full {
     max-width: 100%;
   }
@@ -1962,12 +1980,21 @@
   .grid-cols-\[1fr_180px_140px_80px_80px_48px\] {
     grid-template-columns: 1fr 180px 140px 80px 80px 48px;
   }
+<<<<<<< HEAD
   .grid-cols-\[24px_minmax\(0\,1fr\)_auto\] {
     grid-template-columns: 24px minmax(0,1fr) auto;
   }
   .grid-cols-\[28px_1fr_auto\] {
     grid-template-columns: 28px 1fr auto;
   }
+=======
+  .grid-cols-\[28px_1fr_auto\] {
+    grid-template-columns: 28px 1fr auto;
+  }
+  .grid-cols-\[32px_minmax\(0\,1fr\)_auto_auto\] {
+    grid-template-columns: 32px minmax(0,1fr) auto auto;
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .grid-cols-\[36px_minmax\(0\,1fr\)_auto\] {
     grid-template-columns: 36px minmax(0,1fr) auto;
   }
@@ -2215,9 +2242,12 @@
   .gap-x-1 {
     column-gap: calc(var(--spacing) * 1);
   }
+<<<<<<< HEAD
   .gap-x-1\.5 {
     column-gap: calc(var(--spacing) * 1.5);
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .gap-x-2\.5 {
     column-gap: calc(var(--spacing) * 2.5);
   }
@@ -2734,12 +2764,15 @@
   .border-emerald-300 {
     border-color: var(--color-emerald-300);
   }
+<<<<<<< HEAD
   .border-emerald-300\/40 {
     border-color: color-mix(in srgb, oklch(84.5% 0.143 164.978) 40%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-emerald-300) 40%, transparent);
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .border-emerald-400 {
     border-color: var(--color-emerald-400);
   }
@@ -3208,12 +3241,15 @@
       background-color: color-mix(in oklab, var(--color-emerald-50) 60%, transparent);
     }
   }
+<<<<<<< HEAD
   .bg-emerald-50\/70 {
     background-color: color-mix(in srgb, oklch(97.9% 0.021 166.113) 70%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-emerald-50) 70%, transparent);
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .bg-emerald-100 {
     background-color: var(--color-emerald-100);
   }
@@ -4869,6 +4905,12 @@
   .text-\[32px\] {
     font-size: 32px;
   }
+<<<<<<< HEAD
+=======
+  .text-\[34px\] {
+    font-size: 34px;
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .leading-5 {
     --tw-leading: calc(var(--spacing) * 5);
     line-height: calc(var(--spacing) * 5);
@@ -5281,6 +5323,12 @@
   .text-slate-400 {
     color: var(--color-slate-400);
   }
+<<<<<<< HEAD
+=======
+  .text-surface-0 {
+    color: var(--color-surface-0);
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .text-surface-50 {
     color: var(--color-surface-50);
   }
@@ -5972,6 +6020,7 @@
       }
     }
   }
+<<<<<<< HEAD
   .group-hover\:text-primary-700 {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -5979,6 +6028,8 @@
       }
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .group-hover\:text-sky-500 {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -6661,6 +6712,16 @@
       }
     }
   }
+<<<<<<< HEAD
+=======
+  .hover\:border-rose-200 {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--color-rose-200);
+      }
+    }
+  }
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .hover\:border-sky-300 {
     &:hover {
       @media (hover: hover) {
@@ -7341,6 +7402,7 @@
       }
     }
   }
+<<<<<<< HEAD
   .hover\:text-rose-600 {
     &:hover {
       @media (hover: hover) {
@@ -7348,6 +7410,8 @@
       }
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .hover\:text-rose-700 {
     &:hover {
       @media (hover: hover) {
@@ -8236,11 +8300,14 @@
       margin-left: calc(var(--spacing) * 64);
     }
   }
+<<<<<<< HEAD
   .sm\:ml-auto {
     @media (width >= 40rem) {
       margin-left: auto;
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .sm\:block {
     @media (width >= 40rem) {
       display: block;
@@ -8316,6 +8383,7 @@
       width: 520px;
     }
   }
+<<<<<<< HEAD
   .sm\:w-auto {
     @media (width >= 40rem) {
       width: auto;
@@ -8326,6 +8394,8 @@
       min-width: calc(var(--spacing) * 0);
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .sm\:min-w-\[160px\] {
     @media (width >= 40rem) {
       min-width: 160px;
@@ -8427,37 +8497,47 @@
       gap: calc(var(--spacing) * 4);
     }
   }
+<<<<<<< HEAD
   .sm\:px-3\.5 {
     @media (width >= 40rem) {
       padding-inline: calc(var(--spacing) * 3.5);
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .sm\:px-5 {
     @media (width >= 40rem) {
       padding-inline: calc(var(--spacing) * 5);
     }
   }
+<<<<<<< HEAD
   .sm\:px-7 {
     @media (width >= 40rem) {
       padding-inline: calc(var(--spacing) * 7);
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .sm\:px-8 {
     @media (width >= 40rem) {
       padding-inline: calc(var(--spacing) * 8);
     }
   }
+<<<<<<< HEAD
   .sm\:py-6 {
     @media (width >= 40rem) {
       padding-block: calc(var(--spacing) * 6);
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .sm\:text-3xl {
     @media (width >= 40rem) {
       font-size: var(--text-3xl);
       line-height: var(--tw-leading, var(--text-3xl--line-height));
     }
   }
+<<<<<<< HEAD
   .sm\:text-\[13\.5px\] {
     @media (width >= 40rem) {
       font-size: 13.5px;
@@ -8468,6 +8548,8 @@
       font-size: 19px;
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
   .md\:absolute {
     @media (width >= 48rem) {
       position: absolute;
@@ -14711,6 +14793,7 @@ select.input {
   padding: 0;
   margin-bottom: 0;
 }
+<<<<<<< HEAD
 #community_announcements[busy] .announcement-filter-tabs, #community_announcements:has(#community_announcements_list[busy]) .announcement-filter-tabs {
   cursor: not-allowed;
 }
@@ -14718,6 +14801,8 @@ select.input {
   pointer-events: none;
   opacity: 0.5;
 }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
 .flatpickr-calendar {
   --calendar-size: 250px;
   --container-size: 220px;
@@ -14849,6 +14934,7 @@ select.input {
   &::before, &::after {
     display: none;
   }
+<<<<<<< HEAD
   .fp-actions {
     display: flex;
     align-items: center;
@@ -14892,6 +14978,8 @@ select.input {
       filter: none;
     }
   }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
 }
 .dialog {
   background-color: var(--color-surface-0);
@@ -24938,6 +25026,18 @@ html[data-turbo-visit-direction="forward"]::view-transition-new(aside) {
   background: #111;
   color: #fff;
 }
+<<<<<<< HEAD
+=======
+.fn-btn-primary {
+  background: linear-gradient(180deg, #2bbf64 0%, #1aa552 100%);
+  border: 1px solid #16a34a;
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.fn-btn-primary:hover {
+  filter: brightness(1.05);
+}
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
 .fn-tag-source {
   background: #fff;
   border: 1px solid #e5e7eb;
@@ -24951,6 +25051,7 @@ html[data-turbo-visit-direction="forward"]::view-transition-new(aside) {
 .fn-tab-panel[hidden] {
   display: none;
 }
+<<<<<<< HEAD
 .fn-tabs {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -24988,6 +25089,8 @@ html[data-turbo-visit-direction="forward"]::view-transition-new(aside) {
   background: var(--color-primary-500, #3f9d54);
   box-shadow: 0 0 0 3px #fff;
 }
+=======
+>>>>>>> 2395534 (Add Helpdesk Rapoarte prototype (Owner + Agent perspectives))
 @layer base {
   * {
     border-color: var(--color-surface-200, currentColor);
