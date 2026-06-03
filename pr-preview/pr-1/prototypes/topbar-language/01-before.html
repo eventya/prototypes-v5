@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Înainte · Bara de sus</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Bara de sus — Înainte (stare actuală)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- ============ TOP BAR (replica fidelă a stării actuale) ============ -->
+  <header class="flex items-center h-14 gap-4 px-4 bg-surface-0 border border-surface-200 rounded-2xl mx-4 shadow-sm">
+
+    <!-- Left: logo + workspace -->
+    <div class="flex items-center gap-3">
+      <span class="h-7 w-7 shrink-0">
+        <svg viewBox="0 0 500 500" class="h-7 w-7"><path fill="#f95741" d="M251 186.1l46.5-47.1c25.6-25.6 25.6-67.3 0-93-25.6-25.6-67.3-25.6-93 0-25.6 25.6-25.6 67.3 0 93l46.5 47.1Z"/><path fill="#17c6a5" d="M400.1 184.2h-94.6c-35.9 0-65.1 28.9-65.7 64.6-.6 36.8 30.7 66.9 67.5 66.9h94.6c35.9 0 65.1-28.9 65.7-64.6.6-36.8-30.7-66.9-67.5-66.9Z"/><path fill="#d6bd09" d="M241.9 194.7l9.1-8.6H111c-30.5 0-57.2 17.4-69.8 45.5-12.2 27.1-7.6 57.5 11.9 79.4 1.2 1.3 146.4 146.6 146.4 146.6 12.5 12.5 28.9 19.3 46.4 19.3s1.1 0 1.6 0c18.1-.4 34.9-8.1 47.1-21.5 23.6-26 22.2-66.3-3.3-91.8l-49.8-50.6c-32.3-32.8-33-85.4.5-118.2Z"/></svg>
+      </span>
+      <div class="w-px h-6 bg-surface-200"></div>
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-sky-500 flex items-center justify-center text-white text-[11px] font-bold shadow-sm">S</div>
+        <span class="text-sm font-semibold text-ink-900">Sibiu</span>
+      </div>
+    </div>
+
+    <!-- Center: nav pills -->
+    <nav class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium bg-ink-900 text-surface-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Website
+      </span>
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium text-ink-600 hover:bg-surface-100 cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        App
+      </span>
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium text-ink-600 hover:bg-surface-100 cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.6-3.6a2 2 0 0 0-2.8 0L6 20"/></svg>
+        Media
+      </span>
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium text-ink-600 hover:bg-surface-100 cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        Community
+      </span>
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium text-ink-600 hover:bg-surface-100 cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        Helpdesk
+      </span>
+    </nav>
+
+    <!-- Right: actions + status + avatar -->
+    <div class="flex items-center gap-2.5 ml-auto">
+      <!-- AI Assistant -->
+      <button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-primary hover:bg-surface-100 cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+        AI Assistant
+      </button>
+      <!-- Bell -->
+      <button class="w-9 h-9 inline-flex items-center justify-center rounded-lg text-ink-600 hover:bg-surface-100 cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      </button>
+      <!-- Go Live -->
+      <button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-amber-700 bg-amber-50 border border-amber-200 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-300 cursor-pointer">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+        Go Live
+      </button>
+
+      <!-- ►►► Selectorul de limbă — elementul vizat ◄◄◄ -->
+      <div class="relative ring-2 ring-rose-400 ring-offset-2 ring-offset-surface-0 rounded-lg">
+        <button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-ink-700 hover:bg-surface-100 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20"/></svg>
+          RO
+          <svg class="w-2.5 h-2.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="w-px h-5 bg-surface-200"></div>
+      <!-- Avatar -->
+      <button class="w-8 h-8 rounded-full bg-rose-500 flex items-center justify-center text-white text-[11px] font-bold cursor-pointer">AE</button>
+    </div>
+  </header>
+
+  <!-- Annotation -->
+  <div class="max-w-3xl mx-auto px-4 py-10">
+    <div class="card p-6">
+      <div class="text-lg font-bold text-ink-900">Problema</div>
+      <div class="text-sm text-ink-600 mt-2 leading-relaxed">
+        Clusterul din dreapta are <strong class="text-ink-900">5 controale</strong> înainte de avatar.
+        Selectorul de limbă (evidențiat <span class="text-rose-500 font-medium">roz</span>) schimbă limba
+        interfeței de admin — o preferință <strong class="text-ink-900">setată o singură dată</strong>,
+        nu o acțiune recurentă. Ține spațiu permanent în bară fără să merite.
+      </div>
+      <div class="text-sm text-ink-600 mt-3 leading-relaxed">
+        Propunere: îl mutăm în meniul de avatar, lângă Dark Mode. Vezi
+        <a href="02-after.html" class="text-primary font-medium hover:underline">ecranul „După"</a>.
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
