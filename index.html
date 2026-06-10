@@ -36,6 +36,24 @@
     <!-- Sets grid -->
     <div class="grid gap-4 sm:grid-cols-2">
 
+      <!-- Detaliu ticket -->
+      <a href="prototypes/ticket-detail/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Detaliu ticket</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in progress</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Pagina de detaliu a unui tichet Helpdesk (conversație + sidebar cu status, SLA, atribuire, responsabili, client, istoric). Replică fidelă ca punct de plecare pentru iterații.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          1 ecran · replică + teren de joacă
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
       <!-- Bara de sus — limba -->
       <a href="prototypes/topbar-language/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
         <div class="flex items-center gap-3 mb-3">
@@ -45,7 +63,7 @@
             </svg>
           </div>
           <div class="text-base font-semibold text-ink-900">Bara de sus — limba</div>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
           Bara de sus e aglomerată. Mutăm selectorul de limbă (preferință set-once) din bară în meniul de avatar, lângă Dark Mode. Before/after + 2 variante de interacțiune.
@@ -85,7 +103,7 @@
             </svg>
           </div>
           <div class="text-base font-semibold text-ink-900">Helpdesk SLA</div>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
           Sistem de Service Level Agreement: feature flag per workspace, policies cu targets per prioritate, badge-uri și panel pe tickete.
@@ -103,7 +121,7 @@
             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div class="text-base font-semibold text-ink-900">Atribuire multi-departament</div>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">de ales</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
           Zona ATRIBUIRE de pe tichet trece de la un departament + un agent la mai multe. Două variante clickabile de multi-select.
