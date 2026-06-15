@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth · Email-uri</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="email.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Email-uri · 02 — Auth</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-6 md:py-8">
+    <div class="card p-6 mb-10">
+      <div class="text-xl font-bold text-ink-900">Auth — coduri & cont</div>
+      <div class="text-sm text-ink-500 mt-1.5 leading-relaxed">
+        Email-uri de securitate: scurte, clare, dar prietenoase. Header cu workspace sau cu logo Eventya (platformă). FROM mereu de la <code class="text-[12px] px-1 rounded bg-surface-200/60">noreply@eventya.net</code>.
+      </div>
+    </div>
+    <div id="emails" class="space-y-12"></div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="email.js"></script>
+  <script>
+    var B = Email.B;
+    var ws = { type: 'ws', initial: '4', color: '#2563eb', name: '4MMP', slug: '4mmp' };
+
+    Email.renderAll('#emails', [
+      {
+        meta: { mailer: 'Auth::OtpMailer#verification_code', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Verificare', ref: 'AUTH-001',
+        body: B.h1('Codul tău de acces')
+            + B.lead('Folosește codul de mai jos ca să confirmăm că ești chiar tu. Expiră în 10 minute.')
+            + B.code('813 502')
+            + B.small('Nu-l da nimănui — echipa Eventya nu ți-l va cere niciodată. Dacă n-ai cerut tu codul, ignoră liniștit mesajul.')
+      },
+      {
+        meta: { mailer: 'Auth::OtpMailer#verification_code (fără workspace)', from: 'Eventya <noreply@eventya.net>', ctx: 'pf' },
+        header: { type: 'pf' }, category: 'Verificare', ref: 'AUTH-001',
+        body: B.h1('Codul tău de acces')
+            + B.lead('Folosește codul de mai jos ca să confirmăm că ești chiar tu. Expiră în 10 minute.')
+            + B.code('813 502')
+            + B.small('Nu-l da nimănui — echipa Eventya nu ți-l va cere niciodată. Dacă n-ai cerut tu codul, ignoră liniștit mesajul.')
+      },
+      {
+        meta: { mailer: 'Auth::OtpMailer#user_deletion_code', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Ștergere cont', ref: 'AUTH-006',
+        body: B.h1('Confirmă ștergerea contului')
+            + B.lead('Ai cerut să-ți ștergi contul. Introdu codul de mai jos ca să confirmi.')
+            + B.code('204 731')
+            + B.callout('danger', B.strong('Atenție, e definitiv.') + ' După confirmare, contul tău — membri, recenzii, semne de carte, reacții — dispare de tot și nu mai poate fi recuperat.')
+            + B.small('Codul expiră în 10 minute. Dacă n-ai cerut tu asta, ignoră mesajul — contul rămâne neatins.')
+      },
+      {
+        meta: { mailer: 'Auth::OtpMailer#user_deletion_confirmation', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Ștergere cont', ref: 'AUTH-007',
+        body: B.h1('Gata, datele tale au fost șterse')
+            + B.p('Ți-am șters contul și tot ce ținea de el, exact cum ai cerut.')
+            + B.p('E un pas fără cale de întoarcere. Dacă n-ai cerut tu ștergerea, ' + B.strong('scrie-ne imediat') + '.')
+            + B.p('Mulțumim că ai fost alături de noi.')
+      },
+      {
+        meta: { mailer: 'Auth::ExistingAccountMailer#sign_in_hint', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Cont', ref: 'AUTH-005',
+        body: B.h1('Ai deja un cont la noi')
+            + B.p('Cineva a încercat să creeze un cont nou pe ' + B.strong('4MMP') + ' cu adresa ta. Dacă ai fost tu, intră direct în cont — nu mai e nevoie de unul nou.')
+            + B.btn('Intră în cont →')
+            + B.small('Dacă n-ai fost tu, ignoră liniștit mesajul.')
+      }
+    ]);
+  </script>
+</body>
+</html>

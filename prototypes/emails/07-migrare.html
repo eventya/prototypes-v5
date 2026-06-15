@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migrare · Email-uri</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="email.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Email-uri · 07 — Migrare</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-6 md:py-8">
+    <div class="card p-6 mb-10">
+      <div class="text-xl font-bold text-ink-900">Migrare</div>
+      <div class="text-sm text-ink-500 mt-1.5 leading-relaxed">
+        Reminder de lansare (checklist) pentru workspace-urile migrate de pe v4, plus raportul de migrare către admini.
+      </div>
+    </div>
+    <div id="emails" class="space-y-12"></div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="email.js"></script>
+  <script>
+    var B = Email.B;
+    var ws = { type: 'ws', initial: '4', color: '#2563eb', name: '4MMP', slug: '4mmp' };
+
+    Email.renderAll('#emails', [
+      {
+        meta: { mailer: 'MigrationReminderMailer#reminder', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Reminder migrare', ref: 'MIGRATION-001',
+        body: B.h1('Mai ai câțiva pași până lansezi noul 4MMP')
+            + B.lead('4MMP a fost mutat cu bine pe Eventya 5.0. Au mai rămas câțiva pași și ești gata de lansare pe domeniul tău.')
+            + B.callout('info', B.strong('Progresul tău: ') + '5 din 8 pași (62%)')
+            + B.panel([
+                ['Identitate vizuală', 'gata'],
+                ['Logo încărcat', 'gata'],
+                ['Meniu principal', 'gata'],
+                ['Pagina principală', 'de făcut'],
+                ['Domeniul propriu', 'de făcut']
+              ])
+            + B.btn('Hai să dăm drumul →')
+            + B.small('Te-ai blocat undeva? Scrie-ne, te ajutăm să treci mai departe.')
+      },
+      {
+        meta: { mailer: 'Migrator::MigrationReportMailer#report', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Migrare', ref: '',
+        body: B.h1('Migrare finalizată — 4MMP')
+            + B.p('Importul pentru ' + B.strong('4MMP') + ' s-a încheiat cu bine.')
+            + B.panel([['Pagini', '1.204'], ['Utilizatori', '357'], ['Recenzii', '89'], ['Erori', '0']])
+            + B.callout('ok', 'Totul a intrat fără erori. Workspace-ul e gata de verificat.')
+      }
+    ]);
+  </script>
+</body>
+</html>
