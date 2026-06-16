@@ -4953,9 +4953,17 @@
     --tw-tracking: -0.005em;
     letter-spacing: -0.005em;
   }
+  .tracking-\[\.14em\] {
+    --tw-tracking: .14em;
+    letter-spacing: .14em;
+  }
   .tracking-\[0\.01em\] {
     --tw-tracking: 0.01em;
     letter-spacing: 0.01em;
+  }
+  .tracking-\[0\.15em\] {
+    --tw-tracking: 0.15em;
+    letter-spacing: 0.15em;
   }
   .tracking-\[2px\] {
     --tw-tracking: 2px;
@@ -5014,6 +5022,9 @@
   }
   .\!text-primary {
     color: var(--color-primary) !important;
+  }
+  .\!text-red-500 {
+    color: #F05252 !important;
   }
   .text-\[\#635bff\] {
     color: #635bff;
@@ -10222,6 +10233,11 @@
   .dark\:bg-green-500\/10 {
     &:where([data-theme="dark"], [data-theme="dark"] *) {
       background-color: color-mix(in oklab, #0E9F6E 10%, transparent);
+    }
+  }
+  .dark\:bg-green-500\/15 {
+    &:where([data-theme="dark"], [data-theme="dark"] *) {
+      background-color: color-mix(in oklab, #0E9F6E 15%, transparent);
     }
   }
   .dark\:bg-green-900\/20 {
