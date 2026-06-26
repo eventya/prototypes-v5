@@ -124,7 +124,7 @@ def all_departments_done?   = multi_department? && ticket_departments.all?(&:com
 | Ecran | |
 |---|---|
 | **01 · Un singur departament** | referință — un departament → **fără** toggle (regula de gating) |
-| **02 · Multi-departamente (interactiv)** | 3 departamente (2 cu agent nominalizat, 1 doar cu dispeceri). Checkbox „gata" pe fiecare card — **doar text + bifă, fără fundal colorat**. Pe departamentele de care utilizatorul **nu e responsabil**, marcajul e **dezactivat** (comutator „Vizualizezi ca" simulează agentul logat — doar pentru prototip). Marcare/demarcare → eveniment în Activitate. **Resolved/Closed sunt blocate** în selectorul de status până confirmă toate. Când **ultimul** departament bifează „gata" → apare **promptul de Resolved** (dialog de confirmare, integrat în acest ecran). **Clickabil.** |
+| **02 · Multi-departamente (interactiv)** | 3 departamente (2 cu agent nominalizat, 1 doar cu dispeceri). Checkbox „**Marchează ca finalizat**" pe fiecare card — **doar text + bifă, fără fundal colorat**. Pe departamentele de care utilizatorul **nu e responsabil**, vede doar statusul read-only — „**În lucru**" (neînceput) sau „**Finalizat**" — în loc de checkbox (comutator „Vizualizezi ca" simulează agentul logat — doar pentru prototip). Marcare/demarcare → eveniment în Activitate. **Resolved/Closed sunt blocate** în selectorul de status până confirmă toate. Când **ultimul** departament e marcat „Finalizat" → apare **promptul de Resolved** (dialog de confirmare, integrat în acest ecran). **Clickabil.** |
 
 ## Out of scope (deocamdată)
 
