@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-departamente · toggle „Gata" · Status per Departament</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+<div class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 mb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#2 · Multi-departamente — toggle „Gata" + prompt Resolved (interactiv)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- Hint -->
+  <div class="rounded-xl border border-surface-200 bg-surface-0 px-4 py-3 mb-6 flex items-start gap-3">
+    <svg class="w-4 h-4 text-ink-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.5.5.9 1.2 1 1.9h6c.1-.7.5-1.4 1-1.9A7 7 0 0 0 12 2z"/></svg>
+    <div class="text-[12.5px] text-ink-600 leading-relaxed">
+      Ecran <b class="text-ink-900">clickabil</b>: bifează <b class="text-ink-900">„Marchează partea noastră ca gata"</b> pe fiecare departament.
+      Pe departamentele de care <b class="text-ink-900">nu ești responsabil</b>, marcajul e <b class="text-ink-900">dezactivat</b> — schimbă
+      <b class="text-ink-900">„Vizualizezi ca"</b> ca să marchezi în numele fiecărui responsabil. Când
+      <b class="text-ink-900">ultimul</b> departament e gata, apare <b class="text-ink-900">promptul de Resolved</b>.
+    </div>
+  </div>
+
+  <!-- Prototype-only viewer switcher (NOT part of the real product UI — simulates the logged-in agent) -->
+  <div class="rounded-xl border border-surface-200 bg-surface-0 px-4 py-2.5 mb-6 flex items-center gap-3 flex-wrap">
+    <span class="text-[11px] font-bold uppercase tracking-wider text-ink-400 shrink-0">Vizualizezi ca</span>
+    <div id="viewerControl" class="flex items-center gap-1.5 flex-wrap"></div>
+    <span class="text-[11px] text-ink-400 ml-auto">doar pentru prototip — simulează ce vede fiecare agent</span>
+  </div>
+
+  <!-- All-done banner (injected) -->
+  <div id="banner" class="mb-6"></div>
+
+  <!-- Layout: main + sidebar -->
+  <div class="flex gap-6">
+
+    <!-- ─── Main pane ─── -->
+    <div class="flex-1 min-w-0 bg-surface-0 rounded-xl border border-surface-200 p-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-ink-500 font-bold text-[14px]">#1058</span>
+        <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">high</span>
+        <span id="statusPill"></span>
+      </div>
+      <div class="text-xl font-semibold text-ink-900 mb-4">A căzut un copac pe strada Eroilor, blochează un sens</div>
+
+      <div class="border-l-2 border-surface-200 pl-4 py-1 mb-6">
+        <div class="text-[11px] text-ink-400 mb-1">Ion Dumitru · ion.dumitru@example.ro</div>
+        <div class="text-[14px] text-ink-700 leading-relaxed">
+          Bună ziua, un copac mare a căzut peste noapte pe strada Eroilor și blochează complet
+          un sens de mers. E și un fir electric atins. Vă rog urgent.
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-dashed border-surface-200 p-8 text-center">
+        <div class="text-[12px] text-ink-400">— conversation thread (mock) —</div>
+      </div>
+    </div>
+
+    <!-- ─── Sidebar ─── -->
+    <div class="w-80 shrink-0 bg-surface-0 rounded-xl border border-surface-200 overflow-hidden self-start">
+
+      <!-- STATE -->
+      <div class="px-5 pt-5 pb-5 border-b border-surface-200">
+        <h3 class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-4">Stare</h3>
+        <label class="block text-[12px] font-semibold text-ink-600 mb-1">Status</label>
+        <div id="statusControl" class="relative"></div>
+      </div>
+
+      <!-- ASSIGNMENT + completion -->
+      <div class="px-5 pt-5 pb-5 border-b border-surface-200">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-[11px] font-bold uppercase tracking-wider text-ink-400">Atribuire</h3>
+          <span id="progress" class="text-[11px] font-semibold text-ink-400 tabular-nums"></span>
+        </div>
+        <div id="depts" class="flex flex-col gap-2.5"></div>
+      </div>
+
+      <!-- ACTIVITY -->
+      <div class="px-5 pt-5 pb-5">
+        <h3 class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-4">Activitate</h3>
+        <div id="timeline" class="space-y-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Resolve confirmation dialog (injected when the last department is marked done) -->
+<div id="modal"></div>
+
+<!-- Dark-mode toggle -->
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────
+  // Who may mark a department done (enforced server-side; NOT surfaced as a label in the UI):
+  //   · mode 'nominated'   → only the nominated agent (brad_ticket_agents for that department) may mark.
+  //   · mode 'dispatchers' → no nominated agent, so only that department's dispatchers may mark.
+  // In the UI this rule only manifests as the enabled/disabled state of the „gata" checkbox.
+  const DEPTS = [
+    { id:'salub', name:'Salubrizare',    mode:'nominated',   agentId:'vlad',  agent:'Vlad Georgescu', role:'Agent teren', initials:'VG', avatar:'#0d9488', done:false, at:null, by:null },
+    { id:'pol',   name:'Poliția Locală', mode:'nominated',   agentId:'maria', agent:'Maria Ionescu',  role:'Coordonator', initials:'MI', avatar:'#2563eb', done:false, at:null, by:null },
+    { id:'urb',   name:'Urbanism',       mode:'dispatchers', dispatcherIds:['radu'], dispatcher:'Radu Constantin',                       done:false, at:null, by:null },
+  ];
+
+  // Prototype-only: the agent currently „logged in". Drives which checkboxes are enabled.
+  const VIEWERS = [
+    { id:'vlad',  name:'Vlad Georgescu',   short:'Vlad'  },
+    { id:'maria', name:'Maria Ionescu',    short:'Maria' },
+    { id:'radu',  name:'Radu Constantin',  short:'Radu'  },
+    { id:'ana',   name:'Ana Pop',          short:'Ana (alt dep.)' }, // dispecer pe alt departament → nu poate marca nimic
+  ];
+  let viewerId = 'vlad';
+  const viewer = () => VIEWERS.find(v => v.id === viewerId);
+  function canMark(d){
+    const v = viewer();
+    if (!v) return false;
+    if (d.mode === 'nominated') return d.agentId === v.id;
+    return d.dispatcherIds.includes(v.id);
+  }
+
+  // Status options. `gated` ones (Resolved/Closed) are disabled while the ticket
+  // is multi-department AND not every department has confirmed done.
+  const STATUSES = [
+    { id:'open',        label:'Open',        cls:'bg-surface-100 text-ink-600' },
+    { id:'in_progress', label:'In progress', cls:'bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300' },
+    { id:'pending',     label:'Pending',     cls:'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300' },
+    { id:'resolved',    label:'Resolved',    cls:'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300', gated:true },
+    { id:'closed',      label:'Closed',      cls:'bg-surface-200 text-ink-700', gated:true },
+  ];
+  let status = 'in_progress';   // current ticket status id
+  let menuOpen = false;
+  let showResolve = false;      // resolve-confirmation dialog visible?
+  let clock  = 14 * 60 + 22;    // minutes since midnight, for mock timestamps
+  // Append-only activity log (mirrors ActivityBroadcastable / audited in the app —
+  // both marking AND unmarking are recorded, never erased).
+  const log = [
+    { t:14*60+5, dot:'bg-ink-300',    text:'Tichet creat' },
+    { t:14*60+8, dot:'bg-violet-400', text:'Rutat către <b class="text-ink-800">Salubrizare</b>, <b class="text-ink-800">Poliția Locală</b>, <b class="text-ink-800">Urbanism</b>' },
+  ];
+  const hhmm = m => String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
+  const allDoneNow = () => DEPTS.every(d => d.done);
+
+  const ICON = {
+    check:'<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+    checkCircle:'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    checkCircleLg:'<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    lock:'<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+    chevron:'<svg class="w-4 h-4 text-ink-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>',
+  };
+  const pillFor = id => {
+    const s = STATUSES.find(x=>x.id===id);
+    return `<span class="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-md ${s.cls}">${id==='resolved'?ICON.check:''}${s.label}</span>`;
+  };
+
+  // ── Render ─────────────────────────────────────────────────────────────
+  function render(){
+    const doneCount = DEPTS.filter(d=>d.done).length;
+    const total = DEPTS.length;
+    const allDone = doneCount === total;
+
+    // prototype-only viewer switcher
+    document.getElementById('viewerControl').innerHTML = VIEWERS.map(v => {
+      const active = v.id === viewerId;
+      return `<button type="button" onclick="setViewer('${v.id}')" class="px-2.5 py-1 rounded-full text-[11.5px] font-semibold transition-colors cursor-pointer ${active ? 'bg-ink-800 text-surface-0' : 'bg-surface-100 text-ink-500 hover:bg-surface-200'}">${v.short}</button>`;
+    }).join('');
+
+    // status pill in the main header
+    document.getElementById('statusPill').innerHTML = pillFor(status);
+
+    // status selector (sidebar) — gated statuses locked until all departments confirm
+    const items = STATUSES.map(s => {
+      const locked  = s.gated && !allDone;
+      const current = s.id === status;
+      if (locked) return `<div class="flex items-center gap-2 px-3 py-2 opacity-50 cursor-not-allowed" title="Disponibil după ce toate departamentele confirmă finalizarea">
+          ${pillFor(s.id)}<span class="ml-auto text-ink-400">${ICON.lock}</span></div>`;
+      return `<button type="button" onclick="setStatus('${s.id}')" class="w-full flex items-center gap-2 px-3 py-2 hover:bg-surface-50 transition-colors cursor-pointer ${current?'bg-surface-50':''}">
+          ${pillFor(s.id)}${current?'<span class="ml-auto text-emerald-500">'+ICON.check+'</span>':''}</button>`;
+    }).join('');
+    const note = allDone
+      ? `<div class="mt-2 flex items-start gap-1.5 text-[11px] text-emerald-600 dark:text-emerald-400 leading-snug">
+           <span class="mt-px shrink-0">${ICON.check}</span>
+           <span>Toate departamentele au confirmat — poți trece tichetul în <b>Resolved</b> sau <b>Closed</b>.</span></div>`
+      : `<div class="mt-2 flex items-start gap-1.5 text-[11px] text-ink-400 leading-snug">
+           <span class="mt-px shrink-0 text-ink-400">${ICON.lock}</span>
+           <span><b class="text-ink-600">Resolved</b> și <b class="text-ink-600">Closed</b> sunt blocate până confirmă toate departamentele (<span class="tabular-nums">${doneCount}/${total}</span> gata).</span></div>`;
+    document.getElementById('statusControl').innerHTML = `
+      <button type="button" onclick="toggleMenu(event)" class="w-full flex items-center justify-between pl-3 pr-2.5 py-2 border border-surface-200 rounded-lg bg-surface-0 hover:bg-surface-50 transition-colors cursor-pointer">
+        ${pillFor(status)}
+        <span class="${menuOpen?'rotate-180':''} transition-transform inline-flex">${ICON.chevron}</span>
+      </button>
+      ${menuOpen ? `<div class="absolute z-30 left-0 right-0 mt-1 rounded-lg border border-surface-200 bg-surface-0 shadow-lg overflow-hidden py-1">${items}</div>` : ''}
+      ${note}`;
+
+    // progress
+    document.getElementById('progress').textContent = doneCount + ' / ' + total + ' gata';
+
+    // department cards
+    document.getElementById('depts').innerHTML = DEPTS.map(d => {
+      const can = canMark(d);
+
+      // header — department name only (no „În lucru" / „Gata" status badge here;
+      // the completion state lives in the checkbox row below)
+      const head = `<div class="px-3 py-2.5">
+          <span class="text-sm font-bold text-ink-900">${d.name}</span>
+        </div>`;
+
+      // assignee
+      let assignee;
+      if (d.mode === 'nominated') {
+        assignee = `<div class="grid grid-cols-[28px_1fr] gap-2.5 items-center px-3 py-2 border-t border-surface-100">
+            <span class="w-7 h-7 rounded-full inline-flex items-center justify-center text-white text-[10px] font-bold" style="background:${d.avatar}">${d.initials}</span>
+            <div class="min-w-0 flex items-center gap-2">
+              <span class="text-[13px] font-semibold text-ink-800 truncate">${d.agent}</span>
+              <span class="text-[11px] text-ink-400">${d.role}</span>
+            </div>
+          </div>`;
+      } else {
+        assignee = `<div class="px-3 py-2 border-t border-surface-100 text-[11.5px] text-ink-400">Fără agent nominalizat · dispecerii vor fi notificați</div>`;
+      }
+
+      // „gata" checkbox row — plain text + checkbox, no filled background, three states:
+      //   done           → checked + who/when (+ „Anulează" only for the responsible)
+      //   actionable      → empty checkbox, clickable
+      //   disabled        → muted, not responsible for this department (tooltip explains why)
+      let footer;
+      if (d.done) {
+        footer = `<div class="flex items-center gap-2.5 px-3 py-2.5 border-t border-surface-100">
+             <span class="w-[18px] h-[18px] rounded bg-emerald-500 text-white inline-flex items-center justify-center shrink-0">${ICON.check}</span>
+             <div class="flex-1 min-w-0 leading-tight">
+               <div class="text-[12.5px] font-semibold text-ink-800">Marcat ca gata</div>
+               <div class="text-[10.5px] text-ink-400">de ${d.by} · ${hhmm(d.at)}</div>
+             </div>
+             ${can ? `<button type="button" onclick="toggle('${d.id}')" class="text-[11.5px] font-medium text-ink-400 hover:text-ink-700 transition-colors cursor-pointer shrink-0">Anulează</button>` : ''}
+           </div>`;
+      } else if (can) {
+        footer = `<button type="button" onclick="toggle('${d.id}')" class="group w-full flex items-center gap-2.5 px-3 py-2.5 text-left border-t border-surface-100 hover:bg-surface-50 transition-colors cursor-pointer">
+             <span class="w-[18px] h-[18px] rounded border-2 border-surface-300 group-hover:border-emerald-400 inline-flex items-center justify-center shrink-0 text-transparent group-hover:text-emerald-400 transition-colors">${ICON.check}</span>
+             <span class="text-[12.5px] font-medium text-ink-700">Marchează partea noastră ca gata</span>
+           </button>`;
+      } else {
+        footer = `<div class="w-full flex items-center gap-2.5 px-3 py-2.5 border-t border-surface-100 cursor-not-allowed select-none" title="Nu ești responsabil de acest departament">
+             <span class="w-[18px] h-[18px] rounded border-2 border-surface-200 bg-surface-50 inline-flex items-center justify-center shrink-0"></span>
+             <span class="text-[12.5px] font-medium text-ink-300">Marchează partea noastră ca gata</span>
+           </div>`;
+      }
+
+      return `<div class="rounded-xl border border-surface-200 bg-surface-0 overflow-hidden">${head}${assignee}${footer}</div>`;
+    }).join('');
+
+    // activity timeline — render the append-only log, newest at the bottom
+    document.getElementById('timeline').innerHTML = log.map(e => `
+      <div class="flex items-start gap-2.5 text-[11.5px]">
+        <span class="w-1.5 h-1.5 rounded-full ${e.dot} mt-1.5 shrink-0"></span>
+        <div class="min-w-0 flex-1">
+          <span class="text-ink-400 font-mono mr-2">${hhmm(e.t)}</span>
+          <span class="text-ink-600">${e.text}</span>
+        </div>
+      </div>`).join('');
+
+    // all-done banner — persistent reminder once every department confirms
+    const banner = document.getElementById('banner');
+    if (status === 'resolved' || status === 'closed') {
+      const lbl = STATUSES.find(s=>s.id===status).label;
+      banner.innerHTML = `<div class="rounded-xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 px-4 py-3 flex items-center gap-3">
+          <span class="w-7 h-7 rounded-full bg-emerald-500 text-white inline-flex items-center justify-center shrink-0">${ICON.check}</span>
+          <div class="text-[13px] font-semibold text-emerald-800 dark:text-emerald-200">Tichet trecut în ${lbl}. Toate departamentele au confirmat finalizarea.</div>
+        </div>`;
+    } else if (allDone) {
+      banner.innerHTML = `<div class="rounded-xl border border-emerald-300 dark:border-emerald-500/40 bg-emerald-50 dark:bg-emerald-500/10 px-4 py-3.5 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-emerald-500 text-white inline-flex items-center justify-center shrink-0">${ICON.checkCircle}</span>
+          <div class="min-w-0 flex-1">
+            <div class="text-[13.5px] font-bold text-emerald-900 dark:text-emerald-100">Toate cele ${total} departamente au finalizat partea lor</div>
+            <div class="text-[12px] text-emerald-700 dark:text-emerald-300/90">Treci tichetul în Resolved?</div>
+          </div>
+          <button type="button" onclick="openResolve()" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-[13px] font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors cursor-pointer">
+            ${ICON.check} Treci în Resolved
+          </button>
+        </div>`;
+    } else {
+      banner.innerHTML = '';
+    }
+
+    // resolve confirmation dialog (the „prompt de Resolved" — now part of this screen)
+    const modal = document.getElementById('modal');
+    if (showResolve && allDone && status !== 'resolved' && status !== 'closed') {
+      const rows = DEPTS.map(d => `
+        <div class="flex items-center gap-2.5 px-3.5 py-2.5">
+          <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="flex-1 text-[13px] font-semibold text-ink-800">${d.name}</span>
+          <span class="text-[11px] text-ink-400">${d.by} · ${hhmm(d.at)}</span>
+        </div>`).join('');
+      modal.innerHTML = `<div class="fixed inset-0 z-40 bg-ink-900/40 dark:bg-black/60 flex items-center justify-center px-4" onclick="if(event.target===this)closeResolve()">
+          <div class="w-full max-w-md bg-surface-0 rounded-2xl border border-surface-200 shadow-2xl overflow-hidden">
+            <div class="px-6 pt-6 pb-4">
+              <div class="flex items-start gap-3.5">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 inline-flex items-center justify-center shrink-0">${ICON.checkCircleLg}</span>
+                <div class="min-w-0">
+                  <div class="text-[16px] font-bold text-ink-900">Treci tichetul în Resolved?</div>
+                  <div class="text-[13px] text-ink-500 mt-1 leading-relaxed">Toate departamentele atribuite au confirmat că și-au terminat partea. Tichetul <b class="text-ink-700">#1058</b> va trece în <b class="text-ink-700">Resolved</b>.</div>
+                </div>
+              </div>
+              <div class="mt-5 rounded-xl border border-surface-200 bg-surface-50 divide-y divide-surface-200">${rows}</div>
+            </div>
+            <div class="flex items-center justify-end gap-2 px-6 py-4 bg-surface-50 border-t border-surface-200">
+              <button type="button" onclick="closeResolve()" class="px-4 py-2 rounded-lg text-[13px] font-semibold text-ink-600 hover:text-ink-900 hover:bg-surface-100 transition-colors cursor-pointer">Nu acum</button>
+              <button type="button" onclick="resolve()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors cursor-pointer">${ICON.check} Treci în Resolved</button>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      modal.innerHTML = '';
+    }
+  }
+
+  // ── Actions ────────────────────────────────────────────────────────────
+  function setStatusLog(label, terminal){ log.push({ t:clock, dot:terminal?'bg-emerald-600':'bg-ink-300', text:'Status → <b class="text-ink-800">'+label+'</b>' }); }
+
+  function setViewer(id){ viewerId = id; menuOpen = false; render(); }
+
+  function toggle(id){
+    const d = DEPTS.find(x=>x.id===id);
+    if (!canMark(d)) return;                 // guard: only the responsible may toggle
+    const before = allDoneNow();
+    clock += 4;
+    if (d.done){
+      d.done=false; d.at=null; d.by=null;
+      log.push({ t:clock, dot:'bg-amber-400', text:`<b class="text-ink-800">${d.name}</b> · marcaj anulat de ${viewer().name}` });
+      // reopening a department invalidates a gated status — revert to In progress
+      if (status==='resolved'||status==='closed'){ status='in_progress'; setStatusLog('In progress', false); }
+      showResolve = false;
+    } else {
+      d.done=true; d.at=clock; d.by=viewer().name;
+      log.push({ t:clock, dot:'bg-emerald-500', text:`<b class="text-ink-800">${d.name}</b> · marcat ca gata de ${viewer().name}` });
+    }
+    // the last department just confirmed → pop the resolve prompt
+    if (!before && allDoneNow()) showResolve = true;
+    menuOpen=false;
+    render();
+  }
+
+  function openResolve(){ showResolve = true; render(); }
+  function closeResolve(){ showResolve = false; render(); }
+  function resolve(){ clock += 1; status='resolved'; setStatusLog('Resolved', true); showResolve=false; menuOpen=false; render(); }
+
+  function setStatus(id){
+    const s = STATUSES.find(x=>x.id===id);
+    if (s.gated && DEPTS.some(d=>!d.done)) return;       // guard: a locked status can't be selected
+    if (id===status){ menuOpen=false; render(); return; }
+    clock += 1; status=id; setStatusLog(s.label, id==='resolved'||id==='closed');
+    menuOpen=false; render();
+  }
+  function toggleMenu(e){ e.stopPropagation(); menuOpen=!menuOpen; render(); }
+  document.addEventListener('click', e => { if (menuOpen && !e.target.closest('#statusControl')){ menuOpen=false; render(); } });
+
+  render();
+</script>
+</body>
+</html>
