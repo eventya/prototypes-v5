@@ -37,47 +37,63 @@
     <div class="inline-flex items-center gap-1 mb-8 p-1 rounded-xl bg-surface-100 dark:bg-surface-200/30">
       <a href="index.html" aria-current="page" class="px-4 py-1.5 rounded-lg text-[13px] font-semibold bg-surface-0 text-ink-900 shadow-sm flex items-center gap-1.5">
         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-        În review <span class="text-ink-400 font-normal">1</span>
+        În review <span class="text-ink-400 font-normal">3</span>
       </a>
       <a href="done.html" class="px-4 py-1.5 rounded-lg text-[13px] font-medium text-ink-500 hover:text-ink-800 transition-colors flex items-center gap-1.5">
-        Done <span class="text-ink-400 font-normal">6</span>
+        Done <span class="text-ink-400 font-normal">8</span>
       </a>
     </div>
 
     <!-- Sets grid: IN REVIEW only -->
     <div class="grid gap-4 sm:grid-cols-2">
 
-      <!-- Status per Departament -->
-      <a href="prototypes/helpdesk-department-status/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+      <!-- Helpdesk · Detaliu Customer -->
+      <a href="prototypes/helpdesk-customer-detail/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <div class="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
-          <div class="text-base font-semibold text-ink-900">Status per Departament</div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Detaliu Customer</div>
           <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
-          Tichete pe mai multe departamente: fiecare semnalează „gata", Resolved/Closed sunt blocate până confirmă toți, iar la final un prompt de schimbare a statusului.
+          Pagina de detaliu a clientului: box de blocare reproiectat (cine/când/expirare clare, copy despre tichete, butoane grupate), fără stat-cards, iar lista de tickete devine identică cu Tickets#index, cu dropdown de filtrare pe status.
         </div>
         <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
-          2 ecrane · plan de implementare
+          3 ecrane · plan de implementare
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- My Notifications -->
-      <a href="prototypes/my-notifications/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+      <!-- Helpdesk · Detaliu ticket (redesign) -->
+      <a href="prototypes/helpdesk-ticket-detail-redesign/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style="color:#d97706">
-              <path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M13.73 21a2 2 0 01-3.46 0"/>
-            </svg>
+          <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
-          <div class="text-base font-semibold text-ink-900">My Notifications</div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Detaliu ticket (redesign)</div>
           <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
-          Pagina de setări notificări pentru utilizatorii publici: master toggle, scope CE? (tot / doar urmărite), canale CUM? (email + push).
+          Antet minimal cu meniu „⋮", acțiuni secundare (istoric, SLA, spam, transfer) pe pagini dedicate, mesaj multi-departament în popover, secțiunea Client clarificată, butoane CTA consistente și fonturi mai mari.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          6 ecrane · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Helpdesk · Listă tickete -->
+      <a href="prototypes/helpdesk-ticket-list/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M7 12h13"/><path d="M7 18h13"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Listă tickete</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Dropdown-ul de status din lista de tichete, regrupat în 3 secțiuni cu titluri: Tichete active (toate în afară de Închis), Închise separat și Spam separat.
         </div>
         <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
           1 ecran · plan de implementare
