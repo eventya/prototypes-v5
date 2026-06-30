@@ -41,7 +41,7 @@ Baseline de referință: setul **`ticket-detail`** (replica paginii actuale).
 
 | # | Ecran | Conținut |
 |---|-------|----------|
-| 1 | **Detaliu ticket (redesign)** | Antet cu meniul „⋮"; sidebar redesignat (Client cu acțiune discretă tip link aliniată la nume; Stare cu mesaj multi-dept în popover **și confirmare la schimbarea statusului**; Politica de răspuns — prioritate + politică SLA ca **text** cu „Schimbă", valori aliniate; Atribuire clarificată: caption + progres „2/3 confirmat" + listă departament · responsabil · stare, cu CTA transfer vizibil sus); fonturi mărite; CTA-uri consistente. |
+| 1 | **Detaliu ticket (redesign)** | Antet cu meniul „⋮"; sidebar redesignat (Client cu acțiune discretă tip link aliniată la nume; Stare cu mesaj multi-dept în popover **și confirmare la schimbarea statusului**; Politica de răspuns — prioritate + politică SLA ca **text** cu „Schimbă", valori aliniate; Atribuire clarificată: caption + progres „2/3 confirmat" + listă departament · responsabil · stare, cu butonul „Transferă" în antetul secțiunii, ca în Stejar); fonturi mărite; CTA-uri consistente. |
 | 2 | **Istoric modificări** | Timeline complet al evenimentelor tichetului, grupat pe momente. |
 | 3 | **Schimbă politica de SLA** | Selector de politici (Standard Business / Premium 24/7 / Intern) cu termenele aferente + preview impact. |
 | 4 | **Marchează ca SPAM** | Explicație + confirmare + opțiunea de a bloca expeditorul **pe interval (1 / 7 / 30 zile / permanent)**; și starea de recuperare („Nu e spam"). |
