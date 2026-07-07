@@ -92,6 +92,13 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--accent);
     }
 
+    .round-head {
+      margin: 72px 0 -34px; padding-top: 26px; border-top: 1px solid var(--page-line);
+      font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--page-muted);
+    }
+    .round-head strong { color: var(--accent); }
+
     section.variant { margin-top: 64px; }
     .variant-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
     .variant-tag {
@@ -157,45 +164,157 @@
     }
     .em-footer .dot { color: #cfcfd8; }
 
-    /* ============ conținut care curge — fără cutii, fără tabele ============ */
+    
+    /* ============ variante generate (runda 4) ============ */
 
-    /* mesajul, ca text normal de email */
-    .flow-msg { font-size: 14.5px; color: #3d3d52; line-height: 1.7; margin: 18px 0 0; }
-    .flow-msg + .flow-msg { margin-top: 12px; }
+    .st-fields { margin: 28px 0 0; }
+    .st-field { margin: 0 0 18px; }
+    .st-label { display: block; margin: 0 0 4px; font-size: 10.5px; font-weight: 600; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; color: #a0a0b4; }
+    .st-value { display: block; margin: 0; font-size: 15px; line-height: 1.5; color: #1a1a2e; }
+    .st-value-sub { display: block; margin: 2px 0 0; font-size: 13.5px; line-height: 1.5; color: #8888a0; }
+    .st-value-sub a { color: #8888a0; text-decoration: none; }
+    .st-long p { margin: 0; font-size: 14.5px; line-height: 1.65; color: #3d3d52; }
+    .st-long p + p { margin-top: 12px; }
+    .st-file { display: block; margin: 0 0 3px; font-size: 14.5px; line-height: 1.5; }
+    .st-file a { color: #6c5ce7; text-decoration: none; }
+    .st-actions { margin: 30px 0 6px; }
 
-    /* label mic deasupra unei valori, doar tipografie */
-    .fld { margin: 20px 0 0; }
-    .fld-label {
-      font-size: 10.5px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase;
-      color: #a0a0b4; margin: 0 0 3px;
+    .lc-fields { margin: 26px 0 2px; }
+    .lc-group + .lc-group { margin-top: 16px; }
+    .lc-row { font-size: 14px; line-height: 21px; margin: 0 0 9px; }
+    .lc-label { display: inline-block; width: 120px; padding-right: 12px; vertical-align: top; font-size: 13px; line-height: 21px; color: #8888a0; }
+    .lc-value { display: inline-block; vertical-align: top; max-width: 380px; font-size: 14px; line-height: 21px; color: #1a1a2e; }
+    .lc-link { color: #6c5ce7; text-decoration: none; }
+    .lc-file { display: block; color: #6c5ce7; text-decoration: none; margin: 0 0 4px; }
+    .lc-block { margin: 24px 0 0; }
+    .lc-blocklabel { display: block; font-size: 13px; line-height: 20px; color: #8888a0; margin: 0 0 8px; }
+    .lc-text { font-size: 14px; line-height: 1.65; color: #3d3d52; margin: 0 0 12px; }
+    .lc-actions { margin: 30px 0 0; }
+    .lc-note { font-size: 13px; line-height: 1.5; color: #a0a0b4; margin: 14px 0 0; }
+
+    .hr-rows { margin: 4px 0 0; }
+    .hr-row { padding: 13px 0; border-bottom: 1px solid #f0f0f4; }
+    .hr-label { margin: 0 0 3px; font-size: 12px; line-height: 1.4; font-weight: 500; color: #8888a0; }
+    .hr-value { margin: 0; font-size: 14.5px; line-height: 1.5; color: #1a1a2e; }
+    .hr-value a { color: #6c5ce7; text-decoration: none; }
+    .hr-sub { margin: 2px 0 0; font-size: 13px; line-height: 1.5; color: #8888a0; }
+    .hr-sub a { color: #6c5ce7; text-decoration: none; }
+    .hr-msg { margin-top: 22px; }
+    .hr-msg .hr-label, .hr-files .hr-label { margin-bottom: 6px; }
+    .hr-text { margin: 0 0 12px; font-size: 14.5px; line-height: 1.65; color: #3d3d52; }
+    .hr-last { margin-bottom: 0; }
+    .hr-files { margin-top: 22px; }
+    .hr-file { display: block; margin: 0 0 4px; font-size: 13.5px; line-height: 1.5; color: #6c5ce7; text-decoration: none; }
+    .hr-cta { margin-top: 28px; }
+
+    /* Rânduri inline "Label: valoare" — prefix .il- */
+    .il-intro { margin: 0 0 28px; }
+    
+    .il-fields { margin: 0; padding: 0; }
+    .il-group { margin: 0 0 18px; }
+    .il-group:last-child { margin: 0; }
+    
+    .il-row {
+      margin: 0 0 5px;
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #1a1a2e;
     }
-    .fld-value { font-size: 14.5px; color: #1a1a2e; font-weight: 500; line-height: 1.65; margin: 0; }
-    .fld-value.long { font-weight: 400; color: #3d3d52; }
-    .fld-value a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
+    .il-row:last-child { margin: 0; }
+    
+    .il-label { color: #8888a0; font-weight: 400; }
+    .il-value { color: #1a1a2e; font-weight: 600; }
+    .il-value a { color: #1a1a2e; text-decoration: none; }
+    
+    .il-message { margin: 30px 0 0; }
+    .il-text {
+      margin: 10px 0 0;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #3d3d52;
+    }
+    
+    .il-files { margin: 26px 0 0; }
+    .il-file { color: #6c5ce7; font-weight: 500; text-decoration: none; }
+    
+    .il-cta { margin: 34px 0 0; }
+    .il-note {
+      margin: 14px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #8888a0;
+    }
 
-    /* linie de meta discretă, cu separatori */
-    .meta-flow { font-size: 12.5px; color: #8888a0; line-height: 1.8; margin: 14px 0 0; }
-    .meta-flow strong { color: #3d3d52; font-weight: 600; }
-    .meta-flow a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
-    .meta-flow .sep { color: #cfcfd8; padding: 0 6px; }
+    .th-sep { border-top: 1px solid #ebebf0; height: 0; font-size: 0; line-height: 0; margin: 26px 0; }
+    .th-from { margin: 0; font-size: 15px; line-height: 1.4; font-weight: 600; color: #1a1a2e; }
+    .th-from-mail { margin: 3px 0 0; font-size: 13px; line-height: 1.5; color: #8888a0; }
+    .th-meta { margin: 12px 0 0; font-size: 13px; line-height: 1.6; color: #8888a0; }
+    .th-msg { margin: 20px 0 0; font-size: 15px; line-height: 1.65; color: #3d3d52; }
+    .th-files { margin: 20px 0 0; font-size: 13px; line-height: 1.6; color: #8888a0; }
+    .th-files a { color: #6c5ce7; text-decoration: none; }
+    .th-dot { color: #cfcfd8; }
+    .th-cta { margin: 2px 0 0; }
 
-    /* semnătură de scrisoare */
-    .sig { margin: 22px 0 0; font-size: 14px; line-height: 1.6; }
-    .sig .sig-name { color: #1a1a2e; font-weight: 600; }
-    .sig .sig-contact { color: #8888a0; font-size: 12.5px; }
-    .sig .sig-contact a { color: #6c5ce7; text-decoration: none; }
+    /* Valori grupate, fără etichete — doar clasele noi (.vo-) */
+    .vo-form      { margin: 6px 0 0;  font-size: 13.5px; line-height: 1.5;  color: #8888a0; }
+    .vo-name      { margin: 28px 0 0; font-size: 16px;   line-height: 1.4;  font-weight: 600; color: #1a1a2e; text-transform: capitalize; }
+    .vo-contact   { margin: 5px 0 0;  font-size: 13.5px; line-height: 1.6;  color: #8888a0; }
+    .vo-contact a { color: #8888a0; text-decoration: none; }
+    .vo-context   { margin: 14px 0 0; font-size: 14.5px; line-height: 1.6;  color: #3d3d52; }
+    .vo-context strong { font-weight: 600; color: #1a1a2e; }
+    .vo-hr        { margin: 24px 0; border-top: 1px solid #f0f0f4; height: 0; font-size: 0; line-height: 0; }
+    .vo-msg       { margin: 0 0 14px; font-size: 15px;   line-height: 1.65; color: #3d3d52; }
+    .vo-files     { margin: 8px 0 0;  font-size: 13.5px; line-height: 1.6; }
+    .vo-files a   { color: #6c5ce7; text-decoration: none; }
+    .vo-cta       { margin: 2px 0 0; }
 
-    /* atașamente ca simplu rând de text */
-    .attach-flow { font-size: 13px; color: #8888a0; margin: 16px 0 0; }
-    .attach-flow a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
-    .attach-flow svg { vertical-align: -2px; margin-right: 6px; }
+    .su-intro { margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: #3d3d52; }
+    .su-intro strong { font-weight: 600; color: #1a1a2e; }
+    .su-intro a { color: #6c5ce7; text-decoration: none; }
+    .su-sep { height: 1px; line-height: 1px; font-size: 0; background: #ebebf0; margin: 24px 0; }
+    .su-msg { margin: 0 0 14px; font-size: 14.5px; line-height: 1.7; color: #5a5a6e; }
+    .su-actions { margin: 30px 0 6px; }
 
-    /* interviu: întrebare + răspuns */
-    .qa { margin: 18px 0 0; }
-    .qa-q { font-size: 13px; color: #8888a0; font-style: italic; margin: 0 0 2px; }
-    .qa-a { font-size: 14.5px; color: #1a1a2e; font-weight: 500; line-height: 1.65; margin: 0; }
-    .qa-a.long { font-weight: 400; color: #3d3d52; }
-    .qa-a a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
+    .sp-msg { margin: 0 0 14px; font-size: 15px; line-height: 1.65; color: #3d3d52; }
+    .sp-rule { height: 0; border: 0; border-top: 1px solid #ebebf0; margin: 26px 0 22px; }
+    .sp-name { margin: 0 0 3px; font-size: 14.5px; font-weight: 600; color: #1a1a2e; }
+    .sp-contact { margin: 0 0 3px; font-size: 13.5px; line-height: 1.6; color: #8888a0; }
+    .sp-contact a { color: #8888a0; text-decoration: none; }
+    .sp-meta { margin: 0; font-size: 13.5px; line-height: 1.6; color: #8888a0; }
+    .sp-files { margin: 8px 0 0; font-size: 13.5px; line-height: 1.6; }
+    .sp-files a { color: #6c5ce7; text-decoration: none; }
+    .sp-dot { color: #cfcfd8; padding: 0 7px; }
+    .sp-actions { margin: 28px 0 0; }
+
+    /* ============ runda 4b — label diferențiat clar, fără tabel ============ */
+    /* I: label accent deasupra valorii */
+    .al-field { margin: 20px 0 0; }
+    .al-label {
+      display: block; margin: 0 0 3px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      color: #6c5ce7;
+    }
+    .al-value { margin: 0; font-size: 15px; line-height: 1.55; color: #1a1a2e; }
+    .al-value a { color: #6c5ce7; text-decoration: none; }
+    .al-value-sub { margin: 2px 0 0; font-size: 13.5px; line-height: 1.5; color: #8888a0; }
+    .al-value-sub a { color: #8888a0; text-decoration: none; }
+    .al-long p { margin: 0 0 12px; font-size: 14.5px; line-height: 1.65; color: #3d3d52; }
+    .al-long p:last-child { margin-bottom: 0; }
+    .al-files a { color: #6c5ce7; text-decoration: none; }
+    .al-dot { color: #cfcfd8; padding: 0 7px; }
+    .al-actions { margin: 30px 0 0; }
+
+    /* J: label accent inline, valoare ink pe același rând */
+    .ai-rows { margin: 24px 0 0; }
+    .ai-row { margin: 0 0 10px; font-size: 14.5px; line-height: 1.6; }
+    .ai-label { font-size: 12.5px; font-weight: 700; color: #6c5ce7; padding-right: 10px; }
+    .ai-value { color: #1a1a2e; }
+    .ai-value a { color: #6c5ce7; text-decoration: none; }
+    .ai-block { margin: 26px 0 0; }
+    .ai-blocklabel { display: block; margin: 0 0 8px; font-size: 12.5px; font-weight: 700; color: #6c5ce7; }
+    .ai-text { margin: 0 0 12px; font-size: 14.5px; line-height: 1.65; color: #3d3d52; }
+    .ai-text:last-child { margin-bottom: 0; }
+    .ai-actions { margin: 30px 0 0; }
 
     @media (max-width: 560px) {
       .em-body, .em-header, .em-footer { padding-left: 20px; padding-right: 20px; }
@@ -217,28 +336,30 @@
 <div class="wrap">
   <header class="page">
     <p class="eyebrow">Helpdesk · notificări email</p>
-    <h1>Tichet nou cu formular dinamic — variante care curg, fără tabele</h1>
-    <p class="intro">Formularele de helpdesk n-au structură fixă — un tichet poate avea <strong>nume + email + mesaj</strong>, altul <strong>categorie + locație + dată + fișiere</strong>. Toate variantele de mai jos renunță complet la panouri, tabele și carduri: datele formularului devin <strong>text care curge natural</strong>, ca o poveste spusă de mail, doar cu tipografie și spațiu alb.</p>
+    <h1>Tichet nou cu formular dinamic</h1>
+    <p class="intro">Formularele de helpdesk n-au structură fixă — un tichet poate avea <strong>nume + email + mesaj</strong>, altul <strong>categorie + locație + dată + fișiere</strong>. Opt variante sobre, fără tabele sau carduri: patru <strong>cu labeluri</strong> (A–D) și patru <strong>fără labeluri</strong> (E–H). Fiecare e o regulă care se aplică oricărei combinații de field-uri, clasificate după tip.</p>
 
     <div class="rule-card">
-      <h2>Regula de clasificare (comună tuturor variantelor)</h2>
+      <h2>Clasificarea field-urilor (comună tuturor variantelor)</h2>
       <ul>
-        <li><strong>Identitate</strong> — <code>name</code>, <code>first_name</code>, <code>second_name</code>, <code>email</code>, <code>phone</code> → se țes în propoziția de intro sau în semnătură.</li>
-        <li><strong>Scurte</strong> — <code>select</code>, <code>radio</code>, <code>checkbox</code>, <code>datetime</code>, <code>category</code>, <code>location</code>, <code>cnp</code>, <code>text</code> → text discret cu separatori sau label mic tipografic.</li>
-        <li><strong>Lungi</strong> — <code>textarea</code>, <code>original_email</code> → paragrafe normale de text, ca un email scris de om.</li>
-        <li><strong>Fișiere</strong> — <code>file</code>, <code>files</code>, <code>image</code>, <code>images</code> → un rând simplu de text cu numele fișierelor (sunt oricum atașate).</li>
+        <li><strong>Identitate</strong> — <code>name</code>, <code>first_name</code>, <code>second_name</code>, <code>email</code>, <code>phone</code></li>
+        <li><strong>Scurte</strong> — <code>select</code>, <code>radio</code>, <code>checkbox</code>, <code>datetime</code>, <code>category</code>, <code>location</code>, <code>cnp</code>, <code>text</code></li>
+        <li><strong>Lungi</strong> — <code>textarea</code>, <code>original_email</code></li>
+        <li><strong>Fișiere</strong> — <code>file</code>, <code>files</code>, <code>image</code>, <code>images</code> (sunt oricum atașate la mail)</li>
       </ul>
     </div>
   </header>
 
-  <!-- ============================================================ VARIANTA A -->
+  <p class="round-head"><strong>Cu labeluri</strong> (A–D)</p>
+
+  <!-- ============================================================ VARIANTA A · lbl-stack -->
   <section class="variant">
     <div class="variant-head">
-      <span class="variant-tag rec">A · Recomandat</span>
-      <h2>Narativ — datele devin o propoziție</h2>
+      <span class="variant-tag">A</span>
+      <h2>Stivă cu etichete discrete</h2>
     </div>
-    <p class="variant-note">Field-urile de identitate se țes direct în fraza de introducere („<em>stefan nicoleta a trimis un mesaj…</em>”), mesajul curge ca paragrafe normale, iar restul field-urilor scurte devin o propoziție discretă de context. Nimic nu arată a formular — mailul spune povestea tichetului.</p>
-    <p class="impl">Implementare: presenterul compune fraza din field-urile de identitate găsite (cu fallback pe „Utilizator Anonim” dacă lipsesc); field-urile scurte rămase se concatenează într-o propoziție de context; mesajul folosește <code>em :p</code>.</p>
+    <p class="variant-note">Presenter-ul clasifică field-urile după tip: identitatea (nume/prenume/email/telefon) se comprimă într-un singur bloc „De la" cu numele în ink și contactele pe rânduri secundare mute, field-urile scurte se stivuiesc uniform cu eticheta mică deasupra valorii, textarea devine pur și simplu ultimul field cu paragrafe normale de citit, iar fișierele sunt linkuri simple, fiecare pe rândul lui. E curat pentru că există un singur pattern vizual repetat pe orice combinație de câmpuri, fără niciun chrome — ierarhia vine exclusiv din mărime, culoare și spațiu alb, în registrul Stripe/Linear.</p>
+    <p class="impl">Implementare: Un presenter (ex. Helpdesk::TicketMailPresenter) primește field-urile formularului și le partiționează după tip în identity/short/long/files: identitatea e compusă într-un singur hash „De la” (nume complet + contacte), iar view-ul mailer-ului iterează grupurile și randează același partial `_field` (label + valoare), cu simple_format pentru textarea și linkuri către atașamente.</p>
 
     <div class="preview">
       <div class="email">
@@ -251,13 +372,28 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #5</h3>
-          <p class="em-p"><strong>stefan nicoleta</strong> (<a href="#">stefannicoleta2016@yahoo.com</a>) a trimis un mesaj prin formularul de contact și așteaptă să fie preluat:</p>
-          <p class="flow-msg">Bună ziua,</p>
-          <p class="flow-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
-          <p class="flow-msg">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
-          <p class="flow-msg">O zi bună!</p>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p">Un tichet nou a fost înregistrat prin formularul <strong>Contact</strong> și așteaptă să fie preluat de un operator.</p>
+          
+          <div class="st-fields">
+            <div class="st-field">
+              <span class="st-label">De la</span>
+              <span class="st-value">nicoleta stefan</span>
+              <span class="st-value-sub"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></span>
+            </div>
+          
+            <div class="st-field st-long">
+              <span class="st-label">Mesaj</span>
+              <p>Bună ziua,</p>
+              <p>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+              <p>Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+              <p>O zi bună!</p>
+            </div>
+          </div>
+          
+          <div class="st-actions">
+            <a class="em-btn" href="#">Preia tichetul</a>
+          </div>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
@@ -273,25 +409,61 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #6</h3>
-          <p class="em-p"><strong>Ion Popescu</strong> (<a href="#">ion.popescu@gmail.com</a>, 0722 123 456) a trimis o sesizare la categoria <strong>Iluminat public</strong>, pentru <strong>Str. Mihail Săulescu 121</strong>, în data de <strong>5 iulie 2026, 14:30</strong>:</p>
-          <p class="flow-msg">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
-          <p class="attach-flow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8888a0" stroke-width="2.2"><path d="M21.4 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.2-9.19a4 4 0 015.65 5.66l-9.2 9.19a2 2 0 01-2.82-2.83l8.49-8.48"/></svg>2 fotografii atașate: <a href="#">stalp-cazut.jpg</a>, <a href="#">detaliu.jpg</a></p>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p">O sesizare nouă a fost înregistrată prin formularul <strong>Sesizări — domeniu public</strong> și așteaptă să fie preluată de un operator.</p>
+          
+          <div class="st-fields">
+            <div class="st-field">
+              <span class="st-label">De la</span>
+              <span class="st-value">Ion Popescu</span>
+              <span class="st-value-sub"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a></span>
+              <span class="st-value-sub">0722 123 456</span>
+            </div>
+          
+            <div class="st-field">
+              <span class="st-label">Categorie</span>
+              <span class="st-value">Iluminat public</span>
+            </div>
+          
+            <div class="st-field">
+              <span class="st-label">Locație</span>
+              <span class="st-value">Str. Mihail Săulescu 121</span>
+            </div>
+          
+            <div class="st-field">
+              <span class="st-label">Data incidentului</span>
+              <span class="st-value">5 iulie 2026, 14:30</span>
+            </div>
+          
+            <div class="st-field st-long">
+              <span class="st-label">Mesaj</span>
+              <p>Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+            </div>
+          
+            <div class="st-field">
+              <span class="st-label">Fișiere atașate</span>
+              <span class="st-file"><a href="#">stalp-cazut.jpg</a></span>
+              <span class="st-file"><a href="#">detaliu.jpg</a></span>
+            </div>
+          </div>
+          
+          <div class="st-actions">
+            <a class="em-btn" href="#">Preia tichetul</a>
+          </div>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ VARIANTA B -->
+  <!-- ============================================================ VARIANTA B · lbl-cols -->
   <section class="variant">
     <div class="variant-head">
       <span class="variant-tag">B</span>
-      <h2>Tipografic — doar label-uri mici și spațiu alb</h2>
+      <h2>Coloană fixă de etichete</h2>
     </div>
-    <p class="variant-note">Fiecare field e un mic paragraf: label discret uppercase deasupra, valoarea ca text normal dedesubt. Fără fundal, fără borduri — ritmul vine doar din spațiul dintre blocuri. Merge identic pentru orice combinație de field-uri, iar mesajul lung e pur și simplu cel mai mare paragraf din serie.</p>
-    <p class="impl">Implementare: un partial <code>em :field</code> (două <code>&lt;p&gt;</code>-uri stilizate) apelat în buclă peste <code>field_details</code>. Zero markup de tabel în conținut.</p>
+    <p class="variant-note">Toate field-urile dinamice se randează ca o listă uniformă de rânduri: eticheta muted pe o coloană fixă de 120px la stânga, valoarea ink imediat după, pe același rând, totul aliniat la stânga — ordinea din formular se păstrează, iar clasificarea decide doar forma rândului. Câmpurile de tip textarea trec automat pe format etichetă-deasupra cu text full-width, iar fișierele devin linkuri stivuite pe un rând obișnuit de etichetă. Fără fundal, borduri sau linii — ierarhia vine exclusiv din contrastul de culoare (muted vs ink), dimensiune și spațiul alb dintre grupuri, ca un rezumat de comandă Stripe.</p>
+    <p class="impl">Implementare: Un presenter (ex. Helpdesk::TicketMailPresenter) clasifică field-urile completate după tip în grupuri — identitate, scurte, lungi (textarea), fișiere — păstrând ordinea din formular, iar partialul iterează și alege partial-ul de rând (.lc-row), bloc full-width (.lc-block) sau listă de linkuri (.lc-file); etichetele vin din definiția formularului. Pentru compatibilitate Outlook, rândurile etichetă/valoare se pot randa ca table-uri de layout invizibile (fără borduri/fundal), păstrând aceleași clase.</p>
 
     <div class="preview">
       <div class="email">
@@ -304,21 +476,32 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #5</h3>
-          <p class="em-p">Un tichet nou a fost creat de <strong>Utilizator Anonim</strong> și așteaptă să fie preluat.</p>
-          <div class="fld"><p class="fld-label">Nume</p><p class="fld-value">nicoleta</p></div>
-          <div class="fld"><p class="fld-label">Prenume</p><p class="fld-value">stefan</p></div>
-          <div class="fld"><p class="fld-label">E-mail</p><p class="fld-value"><a href="#">stefannicoleta2016@yahoo.com</a></p></div>
-          <div class="fld">
-            <p class="fld-label">Mesaj</p>
-            <p class="fld-value long">Bună ziua,<br>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.<br>Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.<br>O zi bună!</p>
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p">Un tichet nou a fost trimis prin formularul <strong>Contact</strong> și așteaptă să fie preluat.</p>
+          
+          <div class="lc-fields">
+            <div class="lc-group">
+              <div class="lc-row"><span class="lc-label">Nume</span><span class="lc-value">nicoleta</span></div>
+              <div class="lc-row"><span class="lc-label">Prenume</span><span class="lc-value">stefan</span></div>
+              <div class="lc-row"><span class="lc-label">E-mail</span><span class="lc-value"><a class="lc-link" href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></span></div>
+            </div>
           </div>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          
+          <div class="lc-block">
+            <span class="lc-blocklabel">Mesaj</span>
+            <p class="lc-text">Bună ziua,</p>
+            <p class="lc-text">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști&quot;, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+            <p class="lc-text">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+            <p class="lc-text">O zi bună!</p>
+          </div>
+          
+          <div class="lc-actions"><a class="em-btn" href="#">Preia tichetul</a></div>
+          <p class="lc-note">Tichetul rămâne nealocat până când un coleg îl preia.</p>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
 
-      <p class="preview-label">Același template, alt formular</p>
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
       <div class="email">
         <div class="em-strip"></div>
         <div class="em-header">
@@ -329,31 +512,49 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #6</h3>
-          <p class="em-p">Un tichet nou a fost creat de <strong>Ion Popescu</strong> și așteaptă să fie preluat.</p>
-          <div class="fld"><p class="fld-label">Categorie</p><p class="fld-value">Iluminat public</p></div>
-          <div class="fld"><p class="fld-label">Locație</p><p class="fld-value">Str. Mihail Săulescu 121</p></div>
-          <div class="fld"><p class="fld-label">Data incidentului</p><p class="fld-value">5 iulie 2026, 14:30</p></div>
-          <div class="fld"><p class="fld-label">Telefon</p><p class="fld-value">0722 123 456</p></div>
-          <div class="fld">
-            <p class="fld-label">Fotografii</p>
-            <p class="fld-value"><a href="#">stalp-cazut.jpg</a> <span style="color:#cfcfd8;">·</span> <a href="#">detaliu.jpg</a></p>
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p">O sesizare nouă a fost trimisă prin formularul <strong>Sesizări — domeniu public</strong> și așteaptă să fie preluată.</p>
+          
+          <div class="lc-fields">
+            <div class="lc-group">
+              <div class="lc-row"><span class="lc-label">Nume</span><span class="lc-value">Ion Popescu</span></div>
+              <div class="lc-row"><span class="lc-label">E-mail</span><span class="lc-value"><a class="lc-link" href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a></span></div>
+              <div class="lc-row"><span class="lc-label">Telefon</span><span class="lc-value">0722 123 456</span></div>
+            </div>
+            <div class="lc-group">
+              <div class="lc-row"><span class="lc-label">Categorie</span><span class="lc-value">Iluminat public</span></div>
+              <div class="lc-row"><span class="lc-label">Locație</span><span class="lc-value">Str. Mihail Săulescu 121</span></div>
+              <div class="lc-row"><span class="lc-label">Data incidentului</span><span class="lc-value">5 iulie 2026, 14:30</span></div>
+            </div>
           </div>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          
+          <div class="lc-block">
+            <span class="lc-blocklabel">Mesaj</span>
+            <p class="lc-text">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          </div>
+          
+          <div class="lc-fields">
+            <div class="lc-group">
+              <div class="lc-row"><span class="lc-label">Fișiere</span><span class="lc-value"><a class="lc-file" href="#">stalp-cazut.jpg</a><a class="lc-file" href="#">detaliu.jpg</a></span></div>
+            </div>
+          </div>
+          
+          <div class="lc-actions"><a class="em-btn" href="#">Preia tichetul</a></div>
+          <p class="lc-note">Tichetul rămâne nealocat până când un coleg îl preia.</p>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ VARIANTA C -->
+  <!-- ============================================================ VARIANTA C · lbl-hairline -->
   <section class="variant">
     <div class="variant-head">
       <span class="variant-tag">C</span>
-      <h2>Scrisoare — mesajul întâi, semnătura după</h2>
+      <h2>Rânduri cu hairline subtil</h2>
     </div>
-    <p class="variant-note">Ordinea unei scrisori adevărate: mesajul începe imediat după titlu, iar cine l-a trimis apare la final, ca semnătură — nume, apoi contactele cu corp mic. Field-urile scurte rămase (categorie, dată…) devin un rând discret sub semnătură. Agenții citesc întâi <em>ce</em> s-a întâmplat, apoi <em>cine</em> scrie.</p>
-    <p class="impl">Implementare: presenterul separă identitatea de restul; view-ul randează mesajul cu <code>em :p</code>, apoi un partial <code>em :signature</code>. Formularele fără mesaj sar direct la semnătură + context.</p>
+    <p class="variant-note">Presenter-ul clasifică field-urile pe patru clase: identitatea se condensează într-un singur rând „De la" (nume în ink, e-mail/telefon pe o linie secundară muted), field-urile scurte devin rânduri label-deasupra/valoare-dedesubt despărțite exclusiv de linii orizontale de 1px #f0f0f4, textarea curge după listă ca text liber fără nicio linie, iar fișierele apar ca simple linkuri. Ierarhia vine doar din corp de literă, culoare (muted 12px vs ink 14.5px) și spațiu alb — zero fundaluri, casete sau borduri laterale, în logica listelor de setări din Linear. Regula se degradează elegant: un formular minimal (dataset 1) produce un singur rând urmat de mesaj, unul bogat (dataset 2) produce lista completă, cu aceeași anatomie.</p>
+    <p class="impl">Implementare: Un presenter (ex. Helpdesk::TicketMailPresenter) partiționează field-urile completate după tip — identity_fields (agregate în rândul „De la"), short_fields (loop de .hr-row cu label/valoare), long_fields (paragrafe .hr-text prin simple_format, ultimul cu .hr-last) și attachments (linkuri .hr-file) — iar template-ul de mailer doar iterează aceste colecții, omițând complet secțiunile goale.</p>
 
     <div class="preview">
       <div class="email">
@@ -366,30 +567,94 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #5</h3>
-          <p class="flow-msg">Bună ziua,</p>
-          <p class="flow-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
-          <p class="flow-msg">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
-          <p class="flow-msg">O zi bună!</p>
-          <p class="sig">
-            <span class="sig-name">— stefan nicoleta</span><br>
-            <span class="sig-contact"><a href="#">stefannicoleta2016@yahoo.com</a></span>
-          </p>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p">Un tichet nou a fost trimis prin <strong>formularul de contact</strong> și așteaptă să fie preluat.</p>
+          
+          <div class="hr-rows">
+            <div class="hr-row">
+              <p class="hr-label">De la</p>
+              <p class="hr-value">nicoleta stefan</p>
+              <p class="hr-sub"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></p>
+            </div>
+          </div>
+          
+          <div class="hr-msg">
+            <p class="hr-label">Mesaj</p>
+            <p class="hr-text">Bună ziua,</p>
+            <p class="hr-text">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști", reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+            <p class="hr-text">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+            <p class="hr-text hr-last">O zi bună!</p>
+          </div>
+          
+          <div class="hr-cta">
+            <a href="#" class="em-btn">Preia tichetul</a>
+          </div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p">O sesizare nouă a fost trimisă prin formularul <strong>Sesizare domeniu public</strong> și așteaptă să fie preluată.</p>
+          
+          <div class="hr-rows">
+            <div class="hr-row">
+              <p class="hr-label">De la</p>
+              <p class="hr-value">Ion Popescu</p>
+              <p class="hr-sub"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a>&nbsp;·&nbsp;0722 123 456</p>
+            </div>
+            <div class="hr-row">
+              <p class="hr-label">Categorie</p>
+              <p class="hr-value">Iluminat public</p>
+            </div>
+            <div class="hr-row">
+              <p class="hr-label">Locație</p>
+              <p class="hr-value">Str. Mihail Săulescu 121</p>
+            </div>
+            <div class="hr-row">
+              <p class="hr-label">Data incidentului</p>
+              <p class="hr-value">5 iulie 2026, 14:30</p>
+            </div>
+          </div>
+          
+          <div class="hr-msg">
+            <p class="hr-label">Mesaj</p>
+            <p class="hr-text hr-last">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          </div>
+          
+          <div class="hr-files">
+            <p class="hr-label">Fișiere atașate</p>
+            <a href="#" class="hr-file">stalp-cazut.jpg</a>
+            <a href="#" class="hr-file">detaliu.jpg</a>
+          </div>
+          
+          <div class="hr-cta">
+            <a href="#" class="em-btn">Preia tichetul</a>
+          </div>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ VARIANTA D -->
+  <!-- ============================================================ VARIANTA D · lbl-inline -->
   <section class="variant">
     <div class="variant-head">
       <span class="variant-tag">D</span>
-      <h2>Context discret sus, mesajul ca text simplu</h2>
+      <h2>Rânduri inline compacte</h2>
     </div>
-    <p class="variant-note">Toate field-urile scurte se strâng într-o singură propoziție de context cu corp mic, imediat sub introducere, separate cu „·”. Mesajul urmează ca paragrafe normale. Varianta cu cea mai mică amprentă vizuală — utilă și la formularele stufoase, unde contextul se înfășoară pe 2–3 rânduri fără să strice nimic.</p>
-    <p class="impl">Implementare: presenterul produce un singur string „Label: valoare · …” din field-urile scurte; view-ul îl pune într-un <code>em :small</code>. Mesajul, ca de obicei, <code>em :p</code>.</p>
+    <p class="variant-note">Presenter-ul clasifică field-urile dinamice în identitate / scurte / lungi / fișiere, iar fiecare field scurt devine un rând "Label: valoare" — label muted, valoare ink semibold — grupurile fiind separate doar prin spațiu alb, fără nicio bordură sau fundal. Textarea primește labelul "Mesaj:" pe rândul lui, urmat după un spațiu generos de paragrafe normale, iar fișierele apar ca linkuri pe un singur rând la final. Ierarhia vine exclusiv din culoare, greutate tipografică și spațiere, deci layoutul rămâne curat indiferent câte field-uri are formularul — ca un email intern bine scris.</p>
+    <p class="impl">Implementare: Un presenter (ex. HelpdeskTicketMailPresenter) primește submission-ul și întoarce field-urile clasificate pe tip — identity_fields, short_fields, long_fields, file_fields — iar template-ul mailer-ului iterează grupurile și randează același partial de rând inline "label: valoare" (paragrafe pentru textarea, linkuri pentru fișiere), cu CSS-ul inline-uit la trimitere prin premailer-rails.</p>
 
     <div class="preview">
       <div class="email">
@@ -402,27 +667,89 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #5</h3>
-          <p class="em-p">Un tichet nou a fost creat de <strong>Utilizator Anonim</strong> și așteaptă să fie preluat.</p>
-          <p class="meta-flow">Nume: <strong>nicoleta</strong><span class="sep">·</span>Prenume: <strong>stefan</strong><span class="sep">·</span>E-mail: <a href="#">stefannicoleta2016@yahoo.com</a></p>
-          <p class="flow-msg">Bună ziua,</p>
-          <p class="flow-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
-          <p class="flow-msg">Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră. O zi bună!</p>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p il-intro">Un tichet nou a fost trimis prin formularul <strong>Contact</strong> și așteaptă să fie preluat.</p>
+          
+          <div class="il-fields">
+            <div class="il-group">
+              <p class="il-row"><span class="il-label">Nume:</span> <span class="il-value">nicoleta</span></p>
+              <p class="il-row"><span class="il-label">Prenume:</span> <span class="il-value">stefan</span></p>
+              <p class="il-row"><span class="il-label">E-mail:</span> <span class="il-value"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></span></p>
+            </div>
+          </div>
+          
+          <div class="il-message">
+            <p class="il-row"><span class="il-label">Mesaj:</span></p>
+            <p class="il-text">Bună ziua,</p>
+            <p class="il-text">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști&quot;, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+            <p class="il-text">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+            <p class="il-text">O zi bună!</p>
+          </div>
+          
+          <div class="il-cta">
+            <a href="#" class="em-btn">Preia tichetul</a>
+            <p class="il-note">Tichetul rămâne nealocat până când un membru al echipei îl preia.</p>
+          </div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p il-intro">O sesizare nouă a fost trimisă prin formularul <strong>Sesizări domeniu public</strong> și așteaptă să fie preluată.</p>
+          
+          <div class="il-fields">
+            <div class="il-group">
+              <p class="il-row"><span class="il-label">Nume:</span> <span class="il-value">Ion Popescu</span></p>
+              <p class="il-row"><span class="il-label">E-mail:</span> <span class="il-value"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a></span></p>
+              <p class="il-row"><span class="il-label">Telefon:</span> <span class="il-value">0722 123 456</span></p>
+            </div>
+            <div class="il-group">
+              <p class="il-row"><span class="il-label">Categorie:</span> <span class="il-value">Iluminat public</span></p>
+              <p class="il-row"><span class="il-label">Locație:</span> <span class="il-value">Str. Mihail Săulescu 121</span></p>
+              <p class="il-row"><span class="il-label">Data incidentului:</span> <span class="il-value">5 iulie 2026, 14:30</span></p>
+            </div>
+          </div>
+          
+          <div class="il-message">
+            <p class="il-row"><span class="il-label">Mesaj:</span></p>
+            <p class="il-text">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          </div>
+          
+          <div class="il-files">
+            <p class="il-row"><span class="il-label">Fișiere:</span> <a href="#" class="il-file">stalp-cazut.jpg</a>, <a href="#" class="il-file">detaliu.jpg</a></p>
+          </div>
+          
+          <div class="il-cta">
+            <a href="#" class="em-btn">Preia tichetul</a>
+            <p class="il-note">Tichetul rămâne nealocat până când un membru al echipei îl preia.</p>
+          </div>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ VARIANTA E -->
+  <p class="round-head"><strong>Fără labeluri</strong> (E–H)</p>
+
+  <!-- ============================================================ VARIANTA E · nolbl-thread -->
   <section class="variant">
     <div class="variant-head">
       <span class="variant-tag">E</span>
-      <h2>Interviu — întrebare și răspuns</h2>
+      <h2>Fir de email fără etichete</h2>
     </div>
-    <p class="variant-note">Label-urile devin întrebări discrete în italic, valorile devin răspunsuri — mailul se citește ca transcrierea unei conversații. Cea mai potrivită variantă pentru formularele fără mesaj (sondaje, cereri structurate), unde exact succesiunea întrebare–răspuns <em>e</em> povestea tichetului.</p>
-    <p class="impl">Implementare: același loop peste <code>field_details</code> ca varianta B, doar altă tipografie. Label-urile pot primi semnul întrebării din formular dacă există, altfel rămân afirmative.</p>
+    <p class="variant-note">Presenterul clasifică field-urile pe tipuri și le mapează pe convenția unui client de mail: identitatea devine blocul de expeditor (nume semibold ink, email + telefon pe o linie muted dedesubt), field-urile scurte non-identitate se comprimă într-o singură linie mică muted cu separatori „·" în ordinea din formular, textarea curge ca paragrafe normale de mesaj, iar fișierele apar ca linkuri discrete la final. E curat pentru că nu există niciun chrome — nici labeluri, nici casete — ierarhia se face exclusiv prin greutate, mărime, culoare și spațiu alb, iar pattern-ul „mail primit" e deja familiar oricui, deci nu cere decodare. Două hairline-uri orizontale delimitează discret conținutul tichetului de copy-ul notificării și de buton, indiferent câte field-uri are formularul.</p>
+    <p class="impl">Implementare: Un TicketMailPresenter partitionează field-urile completate în patru găleți după tip (identity: name/first_name/email/phone; short: select/radio/datetime/category/location; long: textarea; files) și expune sender_name, contact_line și meta_line (valorile scurte deja join-uite cu „·", în ordinea definiției formularului), message_paragraphs (textarea split pe linii goale) și attachments. Template-ul ERB rămâne astfel pur declarativ — randează fiecare găleată doar dacă e nevidă, deci același partial acoperă orice combinație de field-uri.</p>
 
     <div class="preview">
       <div class="email">
@@ -435,14 +762,415 @@
           <span class="em-cat">Helpdesk</span>
         </div>
         <div class="em-body">
-          <h3 class="em-h1">Tichet nou de preluat — #7</h3>
-          <p class="em-p">Un tichet nou a fost creat de <strong>Maria Ionescu</strong> prin formularul „Înscriere audiență” și așteaptă să fie preluat.</p>
-          <div class="qa"><p class="qa-q">Departamentul solicitat</p><p class="qa-a">Urbanism și amenajarea teritoriului</p></div>
-          <div class="qa"><p class="qa-q">Data preferată pentru audiență</p><p class="qa-a">15 iulie 2026, 10:00</p></div>
-          <div class="qa"><p class="qa-q">Ați mai depus o cerere pe această temă?</p><p class="qa-a">Da, în martie 2026 — fără răspuns</p></div>
-          <div class="qa"><p class="qa-q">Descrieți pe scurt subiectul</p><p class="qa-a long">Doresc clarificări privind certificatul de urbanism eliberat pentru parcela vecină, care pare să permită o construcție mai înaltă decât prevede PUZ-ul aprobat în 2024. Am depus deja o sesizare scrisă și aș vrea să discut situația direct cu un consilier.</p></div>
-          <div class="qa"><p class="qa-q">Telefon de contact</p><p class="qa-a">0745 987 654</p></div>
-          <a class="em-btn" href="#">Deschide tichetul</a>
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p">Un tichet nou a fost trimis prin <strong>formularul de contact</strong> și așteaptă să fie preluat.</p>
+          
+          <div class="th-sep"></div>
+          
+          <p class="th-from">nicoleta stefan</p>
+          <p class="th-from-mail">stefannicoleta2016@yahoo.com</p>
+          
+          <p class="th-msg">Bună ziua,</p>
+          <p class="th-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști", reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+          <p class="th-msg">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+          <p class="th-msg">O zi bună!</p>
+          
+          <div class="th-sep"></div>
+          
+          <p class="th-cta"><a href="#" class="em-btn">Preia tichetul</a></p>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p">Un tichet nou a fost trimis prin <strong>formularul de sesizări — domeniu public</strong> și așteaptă să fie preluat.</p>
+          
+          <div class="th-sep"></div>
+          
+          <p class="th-from">Ion Popescu</p>
+          <p class="th-from-mail">ion.popescu@gmail.com <span class="th-dot">·</span> 0722 123 456</p>
+          <p class="th-meta">Iluminat public <span class="th-dot">·</span> Str. Mihail Săulescu 121 <span class="th-dot">·</span> 5 iulie 2026, 14:30</p>
+          
+          <p class="th-msg">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          
+          <p class="th-files"><a href="#">stalp-cazut.jpg</a> <span class="th-dot">·</span> <a href="#">detaliu.jpg</a></p>
+          
+          <div class="th-sep"></div>
+          
+          <p class="th-cta"><a href="#" class="em-btn">Preia tichetul</a></p>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA F · nolbl-values -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">F</span>
+      <h2>Valori grupate, fără etichete</h2>
+    </div>
+    <p class="variant-note">Presenterul topește valorile în patru sloturi tipografice — numele compus bold, contactele ca linkuri pe un rând muted, câmpurile scurte într-o singură propoziție naturală, mesajul ca paragrafe — astfel încât emailul se citește ca un mesaj de la un om, nu ca un formular. Ierarhia vine exclusiv din greutate, corp și culoare, plus două hairline-uri care delimitează conținutul trimis de titlu și de acțiune; zero labeluri, zero casete, zero ornamente. Orice combinație de field-uri cade natural în aceleași sloturi, deci layoutul nu se rupe când formularul se schimbă — sloturile goale pur și simplu dispar.</p>
+    <p class="impl">Implementare: Un presenter (ex. Helpdesk::TicketEmailPresenter) clasifică răspunsurile după tipul field-ului și le mapează pe sloturi: identity → nume compus (first_name + name, capitalizat la afișare) plus rândul de contact cu linkuri mailto/tel; short → o singură propoziție unită cu „ — " după categorie și „, " între rest; textarea → paragrafe .vo-msg (split pe linii goale); files → linkuri .vo-files. Regula de dezambiguizare: un label inline discret („Label: valoare", în culoarea muted, pe rândul .vo-context) se adaugă doar când tipul valorii nu e auto-evident din formă — CNP, câmpuri text/număr generice sau al doilea câmp de același tip (ex. două date ori două selecturi în același formular).</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="vo-form">Formular de contact</p>
+          
+          <p class="vo-name">stefan nicoleta</p>
+          <p class="vo-contact"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></p>
+          
+          <div class="vo-hr"></div>
+          
+          <p class="vo-msg">Bună ziua,</p>
+          <p class="vo-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști", reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+          <p class="vo-msg">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+          <p class="vo-msg">O zi bună!</p>
+          
+          <div class="vo-hr"></div>
+          
+          <p class="vo-cta"><a href="#" class="em-btn">Preia tichetul</a></p>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="vo-form">Sesizare domeniu public</p>
+          
+          <p class="vo-name">Ion Popescu</p>
+          <p class="vo-contact"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a>&nbsp;&nbsp;&nbsp;<a href="tel:0722123456">0722 123 456</a></p>
+          <p class="vo-context"><strong>Iluminat public</strong> — Str. Mihail Săulescu 121, 5 iulie 2026 14:30</p>
+          
+          <div class="vo-hr"></div>
+          
+          <p class="vo-msg">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          <p class="vo-files"><a href="#">stalp-cazut.jpg</a>&nbsp;&nbsp;&nbsp;<a href="#">detaliu.jpg</a></p>
+          
+          <div class="vo-hr"></div>
+          
+          <p class="vo-cta"><a href="#" class="em-btn">Preia tichetul</a></p>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA G · nolbl-summary -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">G</span>
+      <h2>Sumar în intro</h2>
+    </div>
+    <p class="variant-note">Presenter-ul comprimă toate field-urile scurte (identitate, categorie, locație, dată, număr de fișiere) într-o singură frază generată, direct informativă, iar textarea-ul devine mesajul redat ca paragrafe simple — fără niciun label, fără nicio structură de formular. E cel mai curat rezultat posibil pentru orice combinație de field-uri: emailul are exact trei elemente (frază de context, mesaj, buton), iar un hairline discret separă contextul de conținutul cetățeanului. Field-urile lipsă pur și simplu nu apar în frază, deci layoutul nu degenerează niciodată în goluri sau rânduri orfane.</p>
+    <p class="impl">Implementare: Un TicketMailPresenter clasifică field-urile după tip și compune fraza de intro dintr-un șablon I18n cu sloturi opționale (creator, contact, categorie, locație, dată incident, fișiere) — sloturile fără valoare se omit din frază, iar field-urile textarea se concatenează și se redau ca paragrafe cu simple_format(strip_tags(...)).</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="su-intro"><strong>nicoleta stefan</strong> (<a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a>) a trimis un tichet nou prin formularul de contact.</p>
+          <div class="su-sep"></div>
+          <p class="su-msg">Bună ziua,</p>
+          <p class="su-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+          <p class="su-msg">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+          <p class="su-msg">O zi bună!</p>
+          <div class="su-actions"><a href="#" class="em-btn">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="su-intro"><strong>Ion Popescu</strong> (<a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a>, 0722 123 456) a trimis o sesizare pentru <strong>Iluminat public</strong> la Str. Mihail Săulescu 121, privind un incident din 5 iulie 2026, ora 14:30, cu 2 fotografii atașate (<a href="#">stalp-cazut.jpg</a>, <a href="#">detaliu.jpg</a>).</p>
+          <div class="su-sep"></div>
+          <p class="su-msg">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          <div class="su-actions"><a href="#" class="em-btn">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA H · nolbl-split -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">H</span>
+      <h2>Mesajul întâi, context dedesubt</h2>
+    </div>
+    <p class="variant-note">Inversează ordinea clasică: câmpurile lungi (textarea) devin corpul mailului — paragrafe normale imediat sub titlu, pentru că asta e ceea ce agentul trebuie să citească — iar restul field-urilor coboară într-un bloc de context fără labeluri, ca o semnătură: identitatea semibold, contactul muted pe rândul următor, valorile scurte (categorie, locație, dată) unite cu separator median pe o singură linie muted, fișierele ca linkuri. Fără labeluri funcționează pentru că tipurile de valori sunt auto-evidente (un email arată a email, o adresă a adresă), iar rezultatul e doar tipografie plus un singur hairline — zero panouri, zero decor.</p>
+    <p class="impl">Implementare: Un presenter (ex. TicketMailPresenter) clasifică field-urile completate după tip în patru găleți — message_paragraphs (toate textarea, sparte în paragrafe pe linii goale), identity_name (name/first_name concatenate), contact_values (email/phone) și short_values (select/datetime/category/location etc., formatate și filtrate de blank) plus files — iar view-ul doar le randează în ordinea fixă mesaj → hairline → nume → contact → meta → fișiere, unind liniile inline cu safe_join și span.sp-dot; secțiunile goale se omit complet.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="sp-msg">Bună ziua,</p>
+          <p class="sp-msg">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști&quot;, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+          <p class="sp-msg">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+          <p class="sp-msg">O zi bună!</p>
+          <div class="sp-rule"></div>
+          <p class="sp-name">nicoleta stefan</p>
+          <p class="sp-contact"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></p>
+          <div class="sp-actions"><a href="#" class="em-btn">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="sp-msg">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          <div class="sp-rule"></div>
+          <p class="sp-name">Ion Popescu</p>
+          <p class="sp-contact"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a><span class="sp-dot">·</span>0722 123 456</p>
+          <p class="sp-meta">Iluminat public<span class="sp-dot">·</span>Str. Mihail Săulescu 121<span class="sp-dot">·</span>5 iulie 2026, 14:30</p>
+          <p class="sp-files"><a href="#">stalp-cazut.jpg</a><span class="sp-dot">·</span><a href="#">detaliu.jpg</a></p>
+          <div class="sp-actions"><a href="#" class="em-btn">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="round-head"><strong>Label diferențiat clar</strong> (I–J)</p>
+
+  <!-- ============================================================ VARIANTA I · accent-label -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">I</span>
+      <h2>Label accent deasupra valorii</h2>
+    </div>
+    <p class="variant-note">Diferențierea maximă fără nicio structură de tabel: labelul e mic, semibold și în <strong>violetul brandului</strong>, valoarea e mare și ink, pe rândul de sub el. Nu poți confunda niciodată ce e label și ce e valoare — separarea vine din trei semnale simultane (culoare, mărime, greutate), nu din vreo grilă. Mesajul lung e doar un field ca oricare, cu paragrafe normale sub labelul lui.</p>
+    <p class="impl">Implementare: identic cu varianta A ca structură (un partial <code>_field</code> pe grupuri clasificate), diferă doar tipografia labelului — accent în loc de muted.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p">Un tichet nou a fost trimis prin formularul <strong>Contact</strong> și așteaptă să fie preluat.</p>
+
+          <div class="al-field">
+            <span class="al-label">De la</span>
+            <p class="al-value">nicoleta stefan</p>
+            <p class="al-value-sub"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></p>
+          </div>
+
+          <div class="al-field al-long">
+            <span class="al-label">Mesaj</span>
+            <p>Bună ziua,</p>
+            <p>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+            <p>Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+            <p>O zi bună!</p>
+          </div>
+
+          <div class="al-actions"><a class="em-btn" href="#">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p">O sesizare nouă a fost trimisă prin formularul <strong>Sesizări — domeniu public</strong> și așteaptă să fie preluată.</p>
+
+          <div class="al-field">
+            <span class="al-label">De la</span>
+            <p class="al-value">Ion Popescu</p>
+            <p class="al-value-sub"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a> · 0722 123 456</p>
+          </div>
+
+          <div class="al-field">
+            <span class="al-label">Categorie</span>
+            <p class="al-value">Iluminat public</p>
+          </div>
+
+          <div class="al-field">
+            <span class="al-label">Locație</span>
+            <p class="al-value">Str. Mihail Săulescu 121</p>
+          </div>
+
+          <div class="al-field">
+            <span class="al-label">Data incidentului</span>
+            <p class="al-value">5 iulie 2026, 14:30</p>
+          </div>
+
+          <div class="al-field al-long">
+            <span class="al-label">Mesaj</span>
+            <p>Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          </div>
+
+          <div class="al-field al-files">
+            <span class="al-label">Fotografii</span>
+            <p class="al-value"><a href="#">stalp-cazut.jpg</a><span class="al-dot">·</span><a href="#">detaliu.jpg</a></p>
+          </div>
+
+          <div class="al-actions"><a class="em-btn" href="#">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA J · accent-inline -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">J</span>
+      <h2>Label accent inline</h2>
+    </div>
+    <p class="variant-note">Aceeași diferențiere prin violetul brandului, dar compact: labelul accent stă pe același rând cu valoarea ink, despărțite doar de un spațiu — fără coloane aliniate, fără două puncte, fără nicio linie. Formularele cu multe field-uri rămân scunde, iar ochiul sare natural de la violet la negru. Mesajul lung primește labelul pe rândul lui și curge dedesubt.</p>
+    <p class="impl">Implementare: același presenter, un singur partial de rând; labelul e un <code>&lt;span&gt;</code> inline, deci nu există nicio aliniere de respectat — merge cu orice lungime de label.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #5</h1>
+          <p class="em-p">Un tichet nou a fost trimis prin formularul <strong>Contact</strong> și așteaptă să fie preluat.</p>
+
+          <div class="ai-rows">
+            <p class="ai-row"><span class="ai-label">Nume</span><span class="ai-value">nicoleta</span></p>
+            <p class="ai-row"><span class="ai-label">Prenume</span><span class="ai-value">stefan</span></p>
+            <p class="ai-row"><span class="ai-label">E-mail</span><span class="ai-value"><a href="mailto:stefannicoleta2016@yahoo.com">stefannicoleta2016@yahoo.com</a></span></p>
+          </div>
+
+          <div class="ai-block">
+            <span class="ai-blocklabel">Mesaj</span>
+            <p class="ai-text">Bună ziua,</p>
+            <p class="ai-text">Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund. Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.</p>
+            <p class="ai-text">Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar. Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</p>
+            <p class="ai-text">O zi bună!</p>
+          </div>
+
+          <div class="ai-actions"><a class="em-btn" href="#">Preia tichetul</a></div>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+
+      <p class="preview-label">Același template, alt formular (sesizare cu categorie, locație și fișiere)</p>
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h1 class="em-h1">Tichet nou de preluat — #6</h1>
+          <p class="em-p">O sesizare nouă a fost trimisă prin formularul <strong>Sesizări — domeniu public</strong> și așteaptă să fie preluată.</p>
+
+          <div class="ai-rows">
+            <p class="ai-row"><span class="ai-label">Nume</span><span class="ai-value">Ion Popescu</span></p>
+            <p class="ai-row"><span class="ai-label">E-mail</span><span class="ai-value"><a href="mailto:ion.popescu@gmail.com">ion.popescu@gmail.com</a></span></p>
+            <p class="ai-row"><span class="ai-label">Telefon</span><span class="ai-value">0722 123 456</span></p>
+            <p class="ai-row"><span class="ai-label">Categorie</span><span class="ai-value">Iluminat public</span></p>
+            <p class="ai-row"><span class="ai-label">Locație</span><span class="ai-value">Str. Mihail Săulescu 121</span></p>
+            <p class="ai-row"><span class="ai-label">Data incidentului</span><span class="ai-value">5 iulie 2026, 14:30</span></p>
+          </div>
+
+          <div class="ai-block">
+            <span class="ai-blocklabel">Mesaj</span>
+            <p class="ai-text">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</p>
+          </div>
+
+          <div class="ai-block">
+            <span class="ai-blocklabel">Fotografii</span>
+            <p class="ai-text"><a href="#" style="color:#6c5ce7;text-decoration:none;">stalp-cazut.jpg</a> <span style="color:#cfcfd8;">·</span> <a href="#" style="color:#6c5ce7;text-decoration:none;">detaliu.jpg</a></p>
+          </div>
+
+          <div class="ai-actions"><a class="em-btn" href="#">Preia tichetul</a></div>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
       </div>
