@@ -231,6 +231,46 @@
     }
     .em-ticket-form { font-size: 12px; color: #8888a0; }
 
+    /* varianta F: listă de definiții */
+    .dl { border: 1px solid #ebebf0; border-radius: 11px; background: #fafafc; margin: 18px 0 4px; }
+    .dl-row { display: flex; gap: 16px; padding: 12px 18px; font-size: 13px; }
+    .dl-row + .dl-row { border-top: 1px solid #ebebf0; }
+    .dl-label { flex: none; width: 128px; color: #8888a0; padding-top: 1px; }
+    .dl-value { flex: 1; color: #1a1a2e; font-weight: 500; line-height: 1.6; text-align: left; word-break: break-word; }
+    .dl-value.long { font-weight: 400; color: #3d3d52; font-size: 13.5px; }
+    .dl-value a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
+
+    /* varianta G: tabel clasic administrativ */
+    .tbl { width: 100%; border-collapse: separate; border-spacing: 0; margin: 18px 0 4px; border: 1px solid #ebebf0; border-radius: 11px; overflow: hidden; font-size: 13px; }
+    .tbl td { padding: 11px 16px; vertical-align: top; text-align: left; }
+    .tbl tr + tr td { border-top: 1px solid #ebebf0; }
+    .tbl .tbl-label { width: 34%; background: #fafafc; color: #6e6e84; font-weight: 600; border-right: 1px solid #ebebf0; }
+    .tbl .tbl-value { background: #ffffff; color: #1a1a2e; line-height: 1.6; word-break: break-word; }
+    .tbl .tbl-value a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
+
+    /* varianta H: meta pe o linie + mesaj ca email simplu */
+    .meta-line {
+      font-size: 12.5px; color: #8888a0; margin: 14px 0 0; line-height: 1.7;
+      padding-bottom: 16px; border-bottom: 1px solid #ebebf0;
+    }
+    .meta-line strong { color: #3d3d52; font-weight: 600; }
+    .meta-line a { color: #6c5ce7; text-decoration: none; font-weight: 600; }
+    .meta-line .sep { color: #cfcfd8; padding: 0 5px; }
+    .plain-msg { font-size: 14.5px; color: #3d3d52; line-height: 1.7; margin: 18px 0 0; }
+
+    /* varianta I: chips pentru field-uri scurte */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 4px; }
+    .chip {
+      display: inline-flex; align-items: baseline; gap: 6px;
+      background: #fafafc; border: 1px solid #ebebf0; border-radius: 999px;
+      padding: 6px 14px; font-size: 12.5px;
+    }
+    .chip .chip-label { color: #8888a0; }
+    .chip .chip-value { color: #1a1a2e; font-weight: 600; }
+    .chip .chip-value a { color: #6c5ce7; text-decoration: none; }
+    .chip.accent { background: #efecfd; border-color: #ddd6fa; }
+    .chip.accent .chip-value { color: #6c5ce7; }
+
     @media (max-width: 560px) {
       .grid2 { grid-template-columns: 1fr; }
       .em-body, .em-header, .em-footer { padding-left: 20px; padding-right: 20px; }
@@ -489,6 +529,153 @@
           </div>
           <p class="msg-label">Mesaj</p>
           <div class="msg-quote">Bună ziua,<br>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund.<br>Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.<br>Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar.<br>Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.<br>O zi bună!</div>
+          <a class="em-btn" href="#">Open Ticket</a>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA F -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">F</span>
+      <h2>Listă de definiții — label pe coloană fixă</h2>
+    </div>
+    <p class="variant-note">Label-urile stau pe o coloană îngustă în stânga, valorile pe restul lățimii, mereu aliniate la stânga. Un singur format pentru orice field — un textarea lung curge natural în coloana lui, fără caz special. Mai compactă pe verticală decât varianta C, pentru că label-ul nu mai consumă un rând propriu.</p>
+    <p class="impl">Implementare: două celule de tabel pe rând (label cu <code>width: 128px</code>), email-safe. Un singur partial înlocuiește panoul în mailele de tichet.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h3 class="em-h1">New ticket to pick up</h3>
+          <p class="em-p">A new ticket has been created by <strong>Utilizator Anonim</strong> and is awaiting pickup.</p>
+          <div class="dl">
+            <div class="dl-row"><span class="dl-label">Ticket Number</span><span class="dl-value">#5</span></div>
+            <div class="dl-row"><span class="dl-label">Nume</span><span class="dl-value">nicoleta</span></div>
+            <div class="dl-row"><span class="dl-label">Prenume</span><span class="dl-value">stefan</span></div>
+            <div class="dl-row"><span class="dl-label">E-mail</span><span class="dl-value"><a href="#">stefannicoleta2016@yahoo.com</a></span></div>
+            <div class="dl-row"><span class="dl-label">Mesaj</span><span class="dl-value long">Bună ziua,<br>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund.<br>Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.<br>Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.<br>O zi bună!</span></div>
+          </div>
+          <a class="em-btn" href="#">Open Ticket</a>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA G -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">G</span>
+      <h2>Tabel clasic administrativ</h2>
+    </div>
+    <p class="variant-note">Tabel cu două coloane și borduri vizibile: celula de label cu fundal gri, valoarea pe alb, totul aliniat la stânga. Estetica cea mai „instituțională” — familiară funcționarilor din primării care lucrează zilnic cu registre și formulare tipizate. Textele lungi doar înfășoară rândul, tabelul rămâne corect.</p>
+    <p class="impl">Implementare: <code>&lt;table&gt;</code> simplu cu <code>border-collapse</code>, 100% email-safe fără niciun truc. Cel mai ușor de întreținut.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h3 class="em-h1">New ticket to pick up</h3>
+          <p class="em-p">A new ticket has been created by <strong>Utilizator Anonim</strong> and is awaiting pickup.</p>
+          <table class="tbl">
+            <tr><td class="tbl-label">Ticket Number</td><td class="tbl-value">#5</td></tr>
+            <tr><td class="tbl-label">Nume</td><td class="tbl-value">nicoleta</td></tr>
+            <tr><td class="tbl-label">Prenume</td><td class="tbl-value">stefan</td></tr>
+            <tr><td class="tbl-label">E-mail</td><td class="tbl-value"><a href="#">stefannicoleta2016@yahoo.com</a></td></tr>
+            <tr><td class="tbl-label">Mesaj</td><td class="tbl-value">Bună ziua,<br>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund.<br>Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.<br>Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.</td></tr>
+          </table>
+          <a class="em-btn" href="#">Open Ticket</a>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA H -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">H</span>
+      <h2>Meta pe o linie, mesajul ca email simplu</h2>
+    </div>
+    <p class="variant-note">Cea mai aerisită variantă: field-urile scurte se comprimă într-o singură linie de metadata sub titlu (separate cu „·”), iar mesajul curge ca text normal de email, fără nicio cutie. Mailul se citește exact ca un mesaj scris de om — agenții văd instant esența. Riscul: la formulare cu multe field-uri scurte linia de meta se lungește pe 2–3 rânduri.</p>
+    <p class="impl">Implementare: presenterul concatenează field-urile scurte cu separator; mesajul folosește <code>em :p</code> obișnuit. Fără componente noi.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h3 class="em-h1">New ticket to pick up</h3>
+          <p class="em-p">A new ticket has been created by <strong>Utilizator Anonim</strong> and is awaiting pickup.</p>
+          <p class="meta-line"><strong>Tichet #5</strong><span class="sep">·</span>Nume: <strong>nicoleta</strong><span class="sep">·</span>Prenume: <strong>stefan</strong><span class="sep">·</span>E-mail: <a href="#">stefannicoleta2016@yahoo.com</a></p>
+          <p class="plain-msg">Bună ziua,<br>Doresc să vă aduc la cunoștință un incident petrecut la centrul dumneavoastră, care m-a nemulțumit profund.<br>Un angajat de la Montain Coaster s-a adresat unor copii folosind apelativul „proști”, reproșându-le că nu au frânat la timp în momentul în care urma să coboare. Consider că un astfel de limbaj este total nepotrivit în relația cu copiii și nu ar trebui folosit în nicio împrejurare.<br>Mai dețin o înregistrare video a incidentului, pe care o pot pune la dispoziția dumneavoastră, dacă este necesar.<br>Vă mulțumesc pentru atenție și aștept un răspuns din partea dumneavoastră.<br>O zi bună!</p>
+          <a class="em-btn" href="#">Open Ticket</a>
+        </div>
+        <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ VARIANTA I -->
+  <section class="variant">
+    <div class="variant-head">
+      <span class="variant-tag">I</span>
+      <h2>Chips pentru field-uri scurte</h2>
+    </div>
+    <p class="variant-note">Field-urile scurte devin pastile compacte care se împachetează singure pe rânduri — nu contează dacă formularul are 2 sau 10 field-uri, ocupă exact cât e nevoie. Field-urile lungi rămân blocuri tip citat, fișierele chip-uri de atașament. Numărul tichetului primește pastila accent. Cea mai „app-like” variantă, aproape de cum arată tag-urile în backend.</p>
+    <p class="impl">Implementare: <code>&lt;span&gt;</code>-uri inline cu <code>border-radius</code> — se împachetează nativ în orice client. Singura grijă: label-urile foarte lungi fac pastile late; se pot trunchia în presenter.</p>
+
+    <div class="preview">
+      <div class="email">
+        <div class="em-strip"></div>
+        <div class="em-header">
+          <div class="em-ws">
+            <div class="em-ws-logo">PR</div>
+            <div><p class="em-ws-name">Predeal City App</p><p class="em-ws-slug">predeal</p></div>
+          </div>
+          <span class="em-cat">Helpdesk</span>
+        </div>
+        <div class="em-body">
+          <h3 class="em-h1">New ticket to pick up</h3>
+          <p class="em-p">A new ticket has been created by <strong>Ion Popescu</strong> and is awaiting pickup.</p>
+          <div class="chips">
+            <span class="chip accent"><span class="chip-value">Tichet #6</span></span>
+            <span class="chip"><span class="chip-label">Categorie</span><span class="chip-value">Iluminat public</span></span>
+            <span class="chip"><span class="chip-label">Locație</span><span class="chip-value">Str. Mihail Săulescu 121</span></span>
+            <span class="chip"><span class="chip-label">Data</span><span class="chip-value">5 iulie 2026, 14:30</span></span>
+            <span class="chip"><span class="chip-label">Telefon</span><span class="chip-value">0722 123 456</span></span>
+            <span class="chip"><span class="chip-label">E-mail</span><span class="chip-value"><a href="#">ion.popescu@gmail.com</a></span></span>
+          </div>
+          <p class="msg-label">Mesaj</p>
+          <div class="msg-quote">Stâlpul de iluminat din fața numărului 121 este căzut peste trotuar de aseară. Cablurile par intacte, dar zona nu e semnalizată și e periculos pentru pietoni, mai ales seara.</div>
+          <p class="msg-label">Fotografii</p>
+          <div class="files">
+            <span class="file-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8888a0" stroke-width="2.2"><path d="M21.4 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.2-9.19a4 4 0 015.65 5.66l-9.2 9.19a2 2 0 01-2.82-2.83l8.49-8.48"/></svg>stalp-cazut.jpg</span>
+            <span class="file-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8888a0" stroke-width="2.2"><path d="M21.4 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.2-9.19a4 4 0 015.65 5.66l-9.2 9.19a2 2 0 01-2.82-2.83l8.49-8.48"/></svg>detaliu.jpg</span>
+          </div>
           <a class="em-btn" href="#">Open Ticket</a>
         </div>
         <div class="em-footer">This is an automated message — please don't reply. <span class="dot">·</span> Ref HELPDESK-001</div>
