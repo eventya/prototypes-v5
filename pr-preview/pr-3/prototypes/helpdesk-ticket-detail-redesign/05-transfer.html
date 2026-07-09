@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transferă ticket · Ticket #HD-1042</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    :root { --text-xs:0.8125rem; --text-sm:0.9375rem; --text-base:1.0625rem; --text-lg:1.1875rem; --text-xl:1.375rem; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-dvh">
+
+  <!-- ── Navbar (consistent cu pagina de detaliu ticket) ── -->
+  <header class="flex items-center h-14 gap-4 px-4 bg-surface-0 border-b border-surface-200 relative z-50">
+    <div class="flex items-center justify-between w-full mx-auto max-w-7xl">
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex w-7 h-7 rounded-lg bg-linear-to-br from-primary-600 to-primary-400 items-center justify-center text-white text-xs font-bold shadow-sm">E</div>
+        <div class="hidden md:block w-px h-6 bg-surface-200"></div>
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-600 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">PE</div>
+          <span class="text-sm font-semibold text-ink-900 max-w-32 truncate">Primăria Exemplu</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-2">
+        <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-0 border border-surface-200 text-ink-700 rounded-full text-sm font-medium hover:border-surface-400 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          Acasă
+        </a>
+        <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-0 border border-surface-200 text-ink-700 rounded-full text-sm font-medium hover:border-surface-400 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          Pagini
+        </a>
+        <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full text-sm font-medium transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Helpdesk
+        </a>
+        <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-0 border border-surface-200 text-ink-700 rounded-full text-sm font-medium hover:border-surface-400 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Contacte
+        </a>
+      </nav>
+      <div class="flex items-center gap-2.5">
+        <button type="button" class="w-9 h-9 rounded-lg flex items-center justify-center text-ink-500 hover:bg-surface-100 transition-colors" aria-label="Asistent AI">
+          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>
+        </button>
+        <button type="button" class="w-9 h-9 rounded-lg flex items-center justify-center text-ink-500 hover:bg-surface-100 transition-colors relative" aria-label="Notificări">
+          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-red-500"></span>
+        </button>
+        <div class="hidden md:block w-px h-5 bg-surface-200"></div>
+        <button type="button" class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center justify-center" aria-label="Cont">AI</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-3xl mx-auto px-4 py-7 md:px-8 md:py-10">
+
+    <a href="01-ticket-show.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink-400 hover:text-ink-700 transition-colors mb-5">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      Înapoi la Ticket #HD-1042
+    </a>
+
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      </div>
+      <div>
+        <div class="text-xl font-bold text-ink-900">Transferă ticket</div>
+        <div class="text-sm text-ink-400">Bifează departamentele din stânga; alege agenți (opțional) din dreapta pentru tichetul #HD-1042</div>
+      </div>
+    </div>
+
+    <div data-transfer-flow></div>
+
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+  (function () {
+    var DEPTS = {
+      inbox: { name: 'Inbox', agents: [
+        { id: 'inb_d1', initials: 'CD', name: 'Cristina Dobre', role: 'dispatcher', color: '#0891b2' },
+        { id: 'inb_d2', initials: 'MO', name: 'Mircea Olaru',   role: 'dispatcher', color: '#475569' },
+        { id: 'inb_a1', initials: 'LP', name: 'Liviu Pop',      role: 'agent',      color: '#2563eb' },
+        { id: 'inb_a2', initials: 'RN', name: 'Raluca Neagu',   role: 'agent',      color: '#7c3aed' }
+      ] },
+      tech: { name: 'Suport Tehnic', agents: [
+        { id: 'andrei', initials: 'AI', name: 'Andrei Ionescu', role: 'dispatcher', color: '#2563eb' },
+        { id: 'bogdan', initials: 'BI', name: 'Bogdan Ilie',    role: 'dispatcher', color: '#475569' },
+        { id: 'radu',   initials: 'RP', name: 'Radu Pop',       role: 'agent', color: '#0891b2' },
+        { id: 'mihai',  initials: 'MT', name: 'Mihai Toma',     role: 'agent', color: '#7c3aed' },
+        { id: 'elena',  initials: 'ES', name: 'Elena Stan',     role: 'agent', color: '#db2777' },
+        { id: 'george', initials: 'GR', name: 'George Radu',    role: 'agent', color: '#0d9488' },
+        { id: 'dan',    initials: 'DM', name: 'Dan Marin',      role: 'agent', color: '#d97706' },
+        { id: 'carmen', initials: 'CD', name: 'Carmen Dima',    role: 'agent', color: '#e11d48' }
+      ] },
+      billing: { name: 'Facturare', agents: [
+        { id: 'maria', initials: 'ME', name: 'Maria Ene', role: 'dispatcher', color: '#16a34a' },
+        { id: 'ana',   initials: 'AP', name: 'Ana Pop',   role: 'agent',      color: '#7c3aed' }
+      ] },
+      sales: { name: 'Vânzări', agents: [
+        { id: 'simona', initials: 'SV', name: 'Simona Vlad',  role: 'dispatcher', color: '#7c3aed' },
+        { id: 'ioana',  initials: 'IM', name: 'Ioana Marin',  role: 'agent',      color: '#db2777' }
+      ] },
+      admin: { name: 'Administrativ', agents: [
+        { id: 'paul', initials: 'PN', name: 'Paul Neagu', role: 'dispatcher', color: '#d97706' },
+        { id: 'cretu', initials: 'AC', name: 'Ana Crețu', role: 'agent',      color: '#0d9488' }
+      ] }
+    };
+    var ORDER = ['inbox', 'tech', 'billing', 'sales', 'admin'];
+    // Starea curentă (oglindește atribuirea read-only din 01-ticket-show)
+    var agents = { tech: ['andrei'], billing: ['maria'], admin: ['paul'] };
+    var selected = ['tech', 'billing', 'admin'];
+    var focused = 'tech';
+    var deptQuery = '';
+    var memberQuery = '';
+    var focusKey = null;
+    var MEMBER_SEARCH_MIN = 6;
+    var flow = document.querySelector('[data-transfer-flow]');
+
+    var SI = {
+      search: '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>',
+      disp: '<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2a6 6 0 0 1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.5"/><path d="M19.1 4.9a10 10 0 0 1 0 14.2"/></svg>',
+      check: '<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+      chevron: '<svg class="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>',
+      bell: '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>'
+    };
+    function disp(id) { return DEPTS[id].agents.filter(function (a) { return a.role === 'dispatcher'; }); }
+    function ordered(id) { return disp(id).concat(DEPTS[id].agents.filter(function (a) { return a.role === 'agent'; })); }
+    function isSel(id) { return selected.indexOf(id) >= 0; }
+    function dispBadge(sm) { return '<span class="inline-flex items-center rounded font-semibold bg-primary/10 text-primary ' + (sm ? 'text-[10px] px-1.5 py-px' : 'text-[11px] px-1.5 py-0.5') + '">Dispecer</span>'; }
+    function av(a, size) { size = size || 28; return '<span class="inline-flex items-center justify-center rounded-full text-white font-bold shrink-0" style="width:' + size + 'px;height:' + size + 'px;background:' + a.color + ';font-size:' + (size <= 24 ? 10 : 11) + 'px">' + a.initials + '</span>'; }
+    function box(on, size) {
+      size = size || 18;
+      return on
+        ? '<span class="rounded-[5px] bg-primary border border-primary text-white inline-flex items-center justify-center shrink-0" style="width:' + size + 'px;height:' + size + 'px">' + SI.check + '</span>'
+        : '<span class="rounded-[5px] border-[1.5px] border-surface-300 bg-surface-0 inline-flex shrink-0" style="width:' + size + 'px;height:' + size + 'px"></span>';
+    }
+
+    // ── Coloana stângă: departamente ──
+    function deptRow(id) {
+      var dept = DEPTS[id], s = isSel(id), isFocus = focused === id;
+      var sub;
+      if (s) {
+        var n = (agents[id] || []).length;
+        sub = n ? n + (n === 1 ? ' agent ales' : ' agenți aleși') : 'dispecerii notificați';
+      } else { sub = DEPTS[id].agents.length + ' membri'; }
+      return '<button type="button" data-dept-row="' + id + '" class="w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors ' +
+        (isFocus ? 'bg-primary/5' : 'hover:bg-surface-50') + '">' +
+        '<span data-dept-check="' + id + '">' + box(s) + '</span>' +
+        '<span class="flex-1 min-w-0"><span class="block text-sm font-bold truncate ' + (s ? 'text-ink-900' : 'text-ink-600') + '">' + dept.name + '</span>' +
+        '<span class="block text-xs ' + (s ? 'text-primary' : 'text-ink-400') + ' truncate">' + sub + '</span></span>' +
+        (isFocus ? SI.chevron : '') + '</button>';
+    }
+    // Header omogen pentru ambele coloane: titlu + helper, formatare + înălțime identice
+    function colHeader(title, helper) {
+      return '<div class="mb-2 h-9">' +
+        '<div class="text-xs font-bold uppercase tracking-wider text-ink-400">' + title + '</div>' +
+        '<div class="text-[11px] text-ink-400 mt-0.5 truncate">' + helper + '</div></div>';
+    }
+    function deptColumn() {
+      var q = deptQuery.trim().toLowerCase();
+      var ids = ORDER.filter(function (id) { return !q || isSel(id) || DEPTS[id].name.toLowerCase().indexOf(q) >= 0; });
+      var rows = ids.length ? ids.map(deptRow).join('<div class="h-px bg-surface-100"></div>') : '<div class="px-3 py-4 text-center text-sm text-ink-400">Niciun departament găsit.</div>';
+      var search = '<div class="flex items-center gap-2 mx-3 mt-2 mb-1 px-2.5 py-2 bg-surface-50 border border-surface-200 rounded-lg text-ink-400 focus-within:border-primary transition-colors">' + SI.search + '<input data-dept-search value="' + deptQuery.replace(/"/g, '&quot;') + '" class="flex-1 bg-transparent outline-none text-sm text-ink-800" placeholder="Caută departament…" autocomplete="off"></div>';
+      return '<div>' + colHeader('Departamente', 'Bifează unde merge tichetul') +
+        '<div class="rounded-xl border border-surface-200 bg-surface-0 overflow-hidden">' + search + '<div class="max-h-72 overflow-auto py-0.5">' + rows + '</div></div></div>';
+    }
+
+    // ── Coloana dreaptă: membrii departamentului focusat ──
+    function memberColumn() {
+      var id = focused, dept = DEPTS[id], s = isSel(id);
+      var members = ordered(id);
+      var aq = memberQuery.trim().toLowerCase();
+      var list = members.filter(function (a) { return !aq || (agents[id] && agents[id].indexOf(a.id) >= 0) || (a.name + ' ' + a.role).toLowerCase().indexOf(aq) >= 0; });
+      var rows = list.length ? list.map(function (a) {
+        var on = s && agents[id] && agents[id].indexOf(a.id) >= 0;
+        var role = a.role === 'dispatcher' ? dispBadge(true) : '<span class="text-xs text-ink-400">Agent</span>';
+        return '<button type="button" data-agent-row="' + id + '|' + a.id + '" class="w-full grid grid-cols-[18px_28px_1fr] gap-2.5 items-center px-3 py-2 text-left hover:bg-surface-50 transition-colors">' +
+          box(on, 18) + av(a) + '<div class="min-w-0"><div class="text-sm font-semibold text-ink-800 leading-tight truncate">' + a.name + '</div><div class="leading-tight mt-0.5">' + role + '</div></div></button>';
+      }).join('') : '<div class="px-3 py-3 text-center text-xs text-ink-400">Niciun rezultat.</div>';
+      var asearch = members.length > MEMBER_SEARCH_MIN ? '<div class="flex items-center gap-2 mx-3 mt-2 mb-1 px-2.5 py-2 bg-surface-50 border border-surface-200 rounded-lg text-ink-400 focus-within:border-primary transition-colors">' + SI.search + '<input data-member-search value="' + memberQuery.replace(/"/g, '&quot;') + '" class="flex-1 bg-transparent outline-none text-sm text-ink-800" placeholder="Caută membru…" autocomplete="off"></div>' : '';
+      var hint = '<div class="flex items-center gap-1.5 px-3 pt-2 pb-2.5 text-xs text-ink-400 border-t border-surface-100">' + SI.disp + '<span>Fără agent ales, dispecerii din departament sunt notificați.</span></div>';
+      var notSel = !s ? '<div class="mx-3 mt-2 mb-1 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25 px-3 py-2 text-xs text-amber-800 dark:text-amber-200">Departament neselectat — bifează un membru sau caseta din stânga pentru a-l include în transfer.</div>' : '';
+      return '<div>' + colHeader('Membri · ' + dept.name, 'Alege agenți (opțional)') +
+        '<div class="rounded-xl border border-surface-200 bg-surface-0 overflow-hidden">' + asearch + notSel + '<div class="max-h-72 overflow-auto py-0.5">' + rows + '</div>' + hint + '</div></div>';
+    }
+
+    function notify() {
+      if (!selected.length) {
+        return '<div class="mt-4 rounded-xl border border-surface-200 bg-surface-100 p-4"><div class="flex items-start gap-2.5"><span class="text-ink-400 mt-0.5">' + SI.bell + '</span><div class="min-w-0"><div class="text-xs font-bold uppercase tracking-wider text-ink-400 mb-0.5">Nimeni notificat încă</div><div class="text-sm text-ink-500">Niciun departament selectat — bifează unul pentru a stabili cine primește tichetul.</div></div></div></div>';
+      }
+      var recips = [];
+      selected.forEach(function (id) {
+        if (agents[id] && agents[id].length) ordered(id).forEach(function (a) { if (agents[id].indexOf(a.id) >= 0) recips.push('<b class="font-semibold">' + a.name + '</b>'); });
+        else recips.push('<span class="opacity-70">dispecerii din </span><b class="font-semibold">' + DEPTS[id].name + '</b>');
+      });
+      return '<div class="mt-4 rounded-xl border border-emerald-200 dark:border-emerald-500/25 bg-emerald-50 dark:bg-emerald-500/10 p-4"><div class="flex items-start gap-2.5"><span class="text-green-700 dark:text-emerald-300 mt-0.5">' + SI.bell + '</span><div class="min-w-0"><div class="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-emerald-300 mb-0.5">Vor fi notificați</div><div class="text-sm text-green-800 dark:text-emerald-200 leading-relaxed">' + recips.join(', ') + '</div></div></div></div>';
+    }
+
+    function render() {
+      flow.innerHTML =
+        '<div class="mb-4 rounded-xl border border-surface-200 bg-surface-50 px-4 py-3 flex items-start gap-2.5">' +
+          '<svg class="w-4 h-4 shrink-0 mt-0.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>' +
+          '<div class="text-sm text-ink-600 leading-snug">Tichetul va fi preluat de <b class="font-semibold text-ink-800">departamentele bifate</b> din stânga. Pentru fiecare poți alege agenți din dreapta; fără agent, sunt notificați <b class="font-semibold text-ink-800">dispecerii</b> departamentului.</div>' +
+        '</div>' +
+        '<div class="grid sm:grid-cols-2 gap-4 items-start">' + deptColumn() + memberColumn() + '</div>' +
+        notify() +
+        '<div class="flex items-center gap-3 mt-6"><a href="01-ticket-show.html" class="btn btn--primary">Transferă ticketul</a><a href="01-ticket-show.html" class="btn btn--ghost">Anulează</a></div>';
+      if (focusKey) {
+        var sel = focusKey === 'dept' ? '[data-dept-search]' : '[data-member-search]';
+        var si = flow.querySelector(sel);
+        if (si) { si.focus(); var L = si.value.length; si.setSelectionRange(L, L); }
+        focusKey = null;
+      }
+    }
+
+    function ensureSel(id) { if (!isSel(id)) { selected.push(id); if (!agents[id]) agents[id] = []; } }
+
+    document.addEventListener('click', function (e) {
+      var t;
+      if (t = e.target.closest('[data-dept-check]')) {
+        var id = t.getAttribute('data-dept-check');
+        if (isSel(id)) { selected = selected.filter(function (x) { return x !== id; }); delete agents[id]; }
+        else { selected.push(id); agents[id] = []; }
+        focused = id; render(); return;
+      }
+      if (t = e.target.closest('[data-dept-row]')) { focused = t.getAttribute('data-dept-row'); render(); return; }
+      if (t = e.target.closest('[data-agent-row]')) {
+        var pp = t.getAttribute('data-agent-row').split('|'); ensureSel(pp[0]);
+        var arr = agents[pp[0]]; var i = arr.indexOf(pp[1]); if (i >= 0) arr.splice(i, 1); else arr.push(pp[1]);
+        focused = pp[0]; render(); return;
+      }
+    });
+    document.addEventListener('input', function (e) {
+      var el = e.target;
+      if (el.hasAttribute && el.hasAttribute('data-dept-search')) { deptQuery = el.value; focusKey = 'dept'; render(); }
+      else if (el.hasAttribute && el.hasAttribute('data-member-search')) { memberQuery = el.value; focusKey = 'member'; render(); }
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>
