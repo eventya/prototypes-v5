@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APK ready · Mobile App Deploys</title>
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Mobile App Deploys — 6. APK ready to download</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← back to set</a>
+  </div>
+
+  <div class="relative border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mx-4 mb-4 bg-gray-50 dark:bg-gray-900">
+
+    <div class="h-14 flex items-center gap-3 px-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <span class="text-sm font-bold text-gray-900 dark:text-white">eventya</span>
+      <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-semibold rounded-full bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300">admin</span>
+    </div>
+
+    <div class="flex">
+      <aside class="w-64 shrink-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-3 hidden md:block">
+        <h5 class="px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">Tools</h5>
+        <ul class="space-y-0.5 text-sm">
+          <li><a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">Sandbox App</a></li>
+          <li>
+            <a href="01-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-500/10">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              Mobile Deploys
+            </a>
+          </li>
+          <li><a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">Background Jobs</a></li>
+        </ul>
+      </aside>
+
+      <main class="flex-1 min-w-0 p-6 md:p-8">
+
+        <nav class="text-[12px] text-gray-400 dark:text-gray-500 mb-3">
+          <a href="01-list.html" class="hover:text-gray-700 dark:hover:text-gray-300">Mobile Deploys</a>
+          <span class="mx-1.5">/</span>
+          <span class="text-gray-600 dark:text-gray-300">#183</span>
+        </nav>
+
+        <div class="mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">Brașov</h1>
+            <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">APK ready</span>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Android · build only, nothing uploaded to Google Play · 5m 38s
+            <span class="mx-1.5 text-gray-300 dark:text-gray-600">·</span> by Alexandru
+          </p>
+        </div>
+
+        <!-- RESULT -->
+        <section class="border-2 border-emerald-200 dark:border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-500/5 rounded-xl p-6 mb-6">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <h2 class="text-base font-semibold text-gray-900 dark:text-white">Signed APK is ready</h2>
+              <p class="text-[13px] text-gray-600 dark:text-gray-300 mt-1">
+                This is the build you used to make by hand in the terminal. Download it and install it straight on a device.
+              </p>
+
+              <!-- File row -->
+              <div class="flex items-center gap-3 mt-4 p-3.5 rounded-lg bg-white dark:bg-gray-800 border border-emerald-200/60 dark:border-emerald-500/20">
+                <div class="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+                  <svg class="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-400" style="width:18px;height:18px" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.2c-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52M7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5m10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5"/></svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm font-mono font-medium text-gray-800 dark:text-gray-100 truncate">brasov-v2.3-21.apk</div>
+                  <div class="text-[12px] text-gray-500 dark:text-gray-400">24.1 MB · signed with the workspace keystore</div>
+                </div>
+                <a href="#" class="shrink-0 inline-flex items-center gap-2 h-9 px-3.5 text-sm font-medium rounded-lg bg-primary-600 hover:bg-primary-700 text-white transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Download APK
+                </a>
+              </div>
+
+              <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2.5 flex items-start gap-1.5">
+                <svg class="w-3.5 h-3.5 mt-px shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                The download link is private and expires after 10 minutes. Files are deleted after 30 days.
+              </p>
+
+              <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 pt-4 border-t border-emerald-200/60 dark:border-emerald-500/20">
+                <div>
+                  <div class="text-[11px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-medium">Version name</div>
+                  <div class="text-sm font-bold font-mono text-gray-900 dark:text-white mt-0.5">v2.3</div>
+                </div>
+                <div>
+                  <div class="text-[11px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-medium">Version code</div>
+                  <div class="text-sm font-bold font-mono text-gray-900 dark:text-white mt-0.5">21</div>
+                </div>
+                <div>
+                  <div class="text-[11px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-medium">Package</div>
+                  <div class="text-sm font-mono text-gray-700 dark:text-gray-200 mt-0.5">net.eventya.android.brasov</div>
+                </div>
+                <a href="#" class="ml-auto text-[13px] font-medium text-primary-600 dark:text-primary-400 hover:underline">Download full log</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Note about not uploading -->
+        <section class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 flex items-start gap-3">
+          <svg class="w-4 h-4 text-gray-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p class="text-[13px] text-gray-600 dark:text-gray-300">
+            Nothing was sent to Google Play, because <span class="font-medium text-gray-800 dark:text-gray-100">Build only</span> was ticked.
+            The version code <span class="font-mono">21</span> is still reserved on Play, so the next real release will use 22.
+            <a href="02-new.html" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Deploy it to Play</a> when you're happy with it.
+          </p>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
