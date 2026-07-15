@@ -57,7 +57,7 @@
       </div>
       <div>
         <div class="text-2xl font-bold text-ink-900">WhatsApp Onboarding</div>
-        <div class="text-[13px] text-ink-400">3 ecrane propuse + plan de implementare</div>
+        <div class="text-[13px] text-ink-400">Self-service via Twilio Senders API · 11 ecrane + plan cu cod</div>
       </div>
       <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
     </div>
@@ -93,8 +93,68 @@
       </div>
     </div>
 
+    <!-- Screens · activation flow -->
+    <div class="mt-8">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Activare & verificare (self-service, via Twilio Senders API)</div>
+      <div class="space-y-2">
+        <a href="04-verify-request.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">4</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Verifică numărul — trimite cod</div><div class="text-[12px] text-ink-400">Alege SMS / apel vocal (obligatoriu la numere fixe)</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="05-verify-code.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">5</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Introdu codul (OTP)</div><div class="text-[12px] text-ink-400">6 cifre, retrimitere + expirare; clientul îl tastează singur</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="06-status-review.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">6</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Status — aprobare Meta (+ respins)</div><div class="text-[12px] text-ink-400">Timeline extins; varianta „display name respins → retrimite"</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="07-active.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">7</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Activ (conectat)</div><div class="text-[12px] text-ink-400">Profil live + toggle; end state al fluxului</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="08-api-mapping.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">8</span>
+          <div><div class="text-[13px] font-medium text-ink-800">UI ↔ Senders API (referință tehnică)</div><div class="text-[12px] text-ink-400">Ce se automatizează, pas cu pas, cu apelurile API</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Screens · self-service variant -->
+    <div class="mt-8">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Variantă self-service — fără helpdesk (wizard)</div>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">recomandat</span>
+      </div>
+      <div class="space-y-2">
+        <a href="09-selfservice-connect.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">9</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Wizard · Detalii (pasul 1/4)</div><div class="text-[12px] text-ink-400">Număr + nume + poză + metodă cod; conectare directă, fără tichet</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="10-selfservice-verify.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">10</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Wizard · Verificare (pasul 2/4)</div><div class="text-[12px] text-ink-400">OTP cu stepper; clientul introduce codul singur</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="11-selfservice-status.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">11</span>
+          <div><div class="text-[13px] font-medium text-ink-800">Wizard · Aprobare & Activ (pașii 3–4)</div><div class="text-[12px] text-ink-400">Așteptare Meta → devine automat Activ</div></div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
     <!-- Plan -->
-    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Plan de implementare</div>
+    <div class="flex items-center justify-between mt-12 mb-3">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Plan de implementare — self-service (Senders API), cu cod</div>
+      <a href="PLAN-helpdesk-fallback.md" class="text-[11px] font-medium text-ink-400 hover:text-primary">Vezi și planul fallback (helpdesk) →</a>
+    </div>
     <div class="bg-surface-0 rounded-xl border border-surface-200 p-7 md:p-9">
       <div class="md" id="plan">Se încarcă planul…</div>
     </div>
