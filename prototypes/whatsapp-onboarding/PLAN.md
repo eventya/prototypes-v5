@@ -26,7 +26,9 @@ Conținutul formularului (din prototip):
 - card „hero" (ce e WhatsApp ca și canal de suport),
 - „Cum funcționează" — cei 3 pași existenți (`how_it_works.step_1..3`),
 - **callout galben**: numărul trebuie să fie dedicat și **să NU fie deja pe WhatsApp / WhatsApp Business**,
-- câmpuri: **Nume, Prenume, Email, Număr de telefon, Observații (textarea, opțional)** + checkbox de confirmare că numărul e curat,
+- câmpuri: **Nume, Prenume, Email, Număr de telefon**, apoi sub-secțiunea **„Profilul WhatsApp"** cu
+  **Numele afișat pe WhatsApp** (ce văd cetățenii) + **Poza de profil** (upload imagine, opțional),
+  apoi **Observații (textarea, opțional)** + checkbox de confirmare că numărul e curat,
 - buton „Trimite solicitarea" → stare de succes.
 
 **Observații = textarea simplu** (text pe mai multe rânduri, `field_type: textarea`). Se salvează ca
@@ -50,7 +52,7 @@ acest panou devine automat formularul de configurare WhatsApp."*
 Workspace admin (helpdesk.settings)
   └─ POST /:account/helpdesk/settings/whatsapp/onboarding_request
         WhatsappController#onboarding_request
-          │ validează params (nume, prenume, email, telefon, confirmare)
+          │ validează params (nume, prenume, email, telefon, display_name, confirmare) + poza (opțional)
           ▼
      Stejar::Helpdesk::WhatsappOnboardingTicketCreator.call(params:, requesting_account:, requesting_user:)
           │ target_account = Account.find_by(slug: root_account_slug)   # „eventya"
@@ -59,7 +61,8 @@ Workspace admin (helpdesk.settings)
           │ cust   = Customer.where(email:, account: target_account).first_or_create!  (name = „Prenume Nume")
           │ ticket = form.tickets.create!(account: target_account, department: dept, customer: cust,
           │                               status: :open, priority: :medium, source: :other)
-          │ populează ticket_values (nume/prenume/email/telefon) SAU un Comment lizibil
+          │ populează ticket_values (nume/prenume/email/telefon/display_name) SAU un Comment lizibil
+          │ atașează poza de profil pe comment/ticket (Active Storage), dacă a fost încărcată
           │ save_internal_note(...)  ← context: workspace sursă (nume + slug), user solicitant
           ▼
      tichet nou în helpdesk-ul „eventya" → apare la echipa Eventya ca orice tichet
@@ -78,6 +81,8 @@ contul root) — `app/services/stejar/ai_assistant/support_ticket_creator.rb` +
   - Nume + Prenume
   - Email de contact
   - **Numărul de integrat** (format internațional)
+  - **Numele afișat pe WhatsApp** (display name-ul care apare cetățenilor)
+  - **Poza de profil** — imaginea încărcată, atașată la tichet (Active Storage), dacă a fost pusă
   - **Observații** (text, dacă solicitantul a completat)
   - **Workspace sursă**: numele + slug-ul workspace-ului care cere (`requesting_account.name` / `.slug`) — esențial ca echipa să știe *pe care* workspace să flipeze `whatsapp_available`
   - Confirmarea „număr curat": Da/Nu
@@ -92,7 +97,7 @@ Recomandare: pune datele într-un **Comment lizibil** (ca fluxul WhatsApp inboun
 
 | # | Fișier | Modificare |
 |---|---|---|
-| 1 | `app/models/stejar/helpdesk/form.rb` | Constantă `SYSTEM_DEV_KEY_WHATSAPP_ONBOARDING = 'whatsapp_onboarding'`; adaug-o în `SYSTEM_DEV_KEYS`; metodă `self.whatsapp_onboarding(account)` (oglindă la `self.ai_assistant`) cu câmpurile first_name/second_name/email/phone + **observations (`field_type: textarea`)** |
+| 1 | `app/models/stejar/helpdesk/form.rb` | Constantă `SYSTEM_DEV_KEY_WHATSAPP_ONBOARDING = 'whatsapp_onboarding'`; adaug-o în `SYSTEM_DEV_KEYS`; metodă `self.whatsapp_onboarding(account)` (oglindă la `self.ai_assistant`) cu câmpurile first_name/second_name/email/phone/**display_name** + **observations (`field_type: textarea`)**. Poza NU e un form_field — e o **atașare Active Storage** pe tichet/comment. |
 | 2 | `app/services/stejar/helpdesk/whatsapp_onboarding_ticket_creator.rb` **(nou)** | Serviciul de creare tichet în contul root. Fie subclasă din `AiAssistant::TicketCreator` (override `target_account`, `value_for`), fie `ApplicationService` slab. Guard când root e absent. |
 | 3 | `app/controllers/stejar/helpdesk/settings/whatsapp_controller.rb` | Acțiune nouă `onboarding_request`: validează params, cheamă serviciul, răspunde cu flash/turbo (succes sau erori). NU folosește `current_account` pentru tichet — țintește root. |
 | 4 | `config/routes/helpdesk.rb` | `resource :whatsapp, only: %i[show update] do; post :onboarding_request; end` |
@@ -143,7 +148,8 @@ creat programatic prin `first_or_create!`) — doar că îl **randăm noi în pa
 
 ## 5. Validare & edge cases
 
-- **Required:** nume, prenume, email (format valid), telefon (prezent; normalizare whitespace, ideal E.164), checkbox de confirmare bifat.
+- **Required:** nume, prenume, email (format valid), telefon (prezent; normalizare whitespace, ideal E.164), **numele afișat pe WhatsApp**, checkbox de confirmare bifat.
+- **Poza de profil (opțional):** formular **multipart**; validare tip imagine (JPG/PNG), dimensiune (max 5MB), ideal pătrată (min. 640×640px). Se atașează la tichet/comment prin Active Storage; dacă lipsește, nu blochează trimiterea.
 - **Root account lipsă** → serviciul întoarce `failure`, controllerul arată eroare generică (nu crapă).
 - **Permisiune:** rămâne `requires_permission "helpdesk.settings"`.
 - **Workspace-ul curent ESTE eventya root** → tichetul se creează în același cont; ok.
