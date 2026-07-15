@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-service · Verificare · WhatsApp Onboarding</title>
+  <script>
+    (function () { var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    .otp { width: 48px; height: 56px; text-align: center; font-size: 22px; font-weight: 700;
+           color: var(--color-ink-900); background: var(--color-surface-0);
+           border: 1.5px solid var(--color-surface-300); border-radius: 12px; outline: none; }
+    .otp:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgb(from var(--color-primary) r g b / .15); }
+    .otp.filled { border-color: var(--color-primary); }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Variantă SELF-SERVICE — 2. Verificare</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-8 md:py-8">
+
+    <div class="flex items-center gap-3 mb-7">
+      <a href="09-selfservice-connect.html" class="p-1.5 rounded-lg text-ink-400 border border-surface-200 bg-surface-0 hover:text-ink-700"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Conectează WhatsApp</div>
+        <div class="text-base text-ink-400 mt-0.5">Introdu codul primit pe număr</div>
+      </div>
+    </div>
+
+    <!-- Stepper: 1 done, 2 active -->
+    <div class="mb-7">
+      <div class="flex items-center">
+        <span class="w-9 h-9 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span class="flex-1 h-0.5 bg-emerald-500 mx-1"></span>
+        <span class="w-9 h-9 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center shrink-0 ring-4 ring-primary/15">2</span>
+        <span class="flex-1 h-0.5 bg-surface-200 mx-1"></span>
+        <span class="w-9 h-9 rounded-full bg-surface-0 border-2 border-surface-300 text-ink-400 text-sm font-bold flex items-center justify-center shrink-0">3</span>
+        <span class="flex-1 h-0.5 bg-surface-200 mx-1"></span>
+        <span class="w-9 h-9 rounded-full bg-surface-0 border-2 border-surface-300 text-ink-400 text-sm font-bold flex items-center justify-center shrink-0">4</span>
+      </div>
+      <div class="flex justify-between mt-2 text-[11px] font-medium">
+        <span class="text-ink-500 w-16">Detalii</span>
+        <span class="text-ink-900 w-16 text-center">Verificare</span>
+        <span class="text-ink-400 w-16 text-center">Aprobare</span>
+        <span class="text-ink-400 w-16 text-right">Activ</span>
+      </div>
+    </div>
+
+    <div class="card p-6 md:p-8 text-center">
+      <div class="text-lg font-bold text-ink-900 mb-2">Introdu codul de verificare</div>
+      <p class="text-sm text-ink-500 max-w-sm mx-auto">Am trimis un cod de 6 cifre prin <strong class="text-ink-700">SMS</strong> la <strong class="text-ink-700">+40 7xx xxx xxx</strong>.</p>
+
+      <div class="flex items-center justify-center gap-2 mt-6">
+        <input class="otp filled" value="4" maxlength="1">
+        <input class="otp filled" value="8" maxlength="1">
+        <input class="otp filled" value="1" maxlength="1">
+        <input class="otp" value="" maxlength="1">
+        <input class="otp" value="" maxlength="1">
+        <input class="otp" value="" maxlength="1">
+      </div>
+
+      <div class="mt-5 text-sm text-ink-400">Codul expiră în <strong class="text-ink-700">09:42</strong> · <span class="text-ink-300">Retrimite (0:54)</span></div>
+
+      <div class="mt-7 max-w-xs mx-auto">
+        <a href="11-selfservice-status.html" class="btn btn--primary w-full justify-center">Verifică codul</a>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

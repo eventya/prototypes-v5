@@ -1,207 +1,385 @@
-# WhatsApp Onboarding — plan de implementare
+# WhatsApp Self-Service Activation (Twilio Senders API) — plan de implementare
 
-**Obiectiv:** în panoul Setări → WhatsApp, un workspace care *nu are încă WhatsApp activat* vede un
-formular de onboarding (Nume, Prenume, Email, Număr de telefon) cu o explicație clară despre cum
-funcționează și despre cerința numărului „curat". La trimitere, solicitarea devine **tichet în
-helpdesk-ul contului root „eventya"** — echipa Eventya preia activarea.
+**Obiectiv:** workspace-ul își activează singur WhatsApp, direct din panoul Setări → WhatsApp, printr-un
+**wizard cu 4 pași** (Detalii → Verificare → Aprobare Meta → Activ). Fără tichet în helpdesk, fără
+consolă Twilio, fără apel la client. Se folosește **Twilio Senders API - WhatsApp**
+([docs](https://www.twilio.com/docs/whatsapp/register-senders-using-api), GA).
 
-Nu se implementează nimic încă. Ecrane: `01-onboarding-form.html`, `02-confirmation.html`, `03-status.html`.
+Helpdesk-ul rămâne doar **fallback** (buton „cere ajutor" din orice pas) — vezi `PLAN-helpdesk-fallback.md`.
 
----
-
-## 1. UX / unde apare
-
-Panoul are azi două stări (`app/views/stejar/helpdesk/settings/whatsapp/show.html.erb`):
-
-| `whatsapp_available?` | Azi | După feature |
-|---|---|---|
-| `false` | card gol „WhatsApp is coming soon" | **Formularul de onboarding** (explicație + callout + câmpuri) |
-| `false` + cerere deja trimisă | — | Stare „Cerere trimisă" (status + recap) — *vezi §6* |
-| `true` | formular de conectare (număr + toggle) | neschimbat |
-
-Fluxul rămâne compatibil cu gate-ul pe 2 nivele existent: super-admin tot flipează
-`whatsapp_available` din stejar-admin; onboarding-ul e doar ce vede workspace-ul *înainte* de flip.
-
-Conținutul formularului (din prototip):
-- card „hero" (ce e WhatsApp ca și canal de suport),
-- „Cum funcționează" — cei 3 pași existenți (`how_it_works.step_1..3`),
-- **callout galben**: numărul trebuie să fie dedicat și **să NU fie deja pe WhatsApp / WhatsApp Business**,
-- câmpuri: **Nume, Prenume, Email, Număr de telefon**, apoi sub-secțiunea **„Profilul WhatsApp"** cu
-  **Numele afișat pe WhatsApp** (ce văd cetățenii) + **Poza de profil** (upload imagine, opțional),
-  apoi **Observații (textarea, opțional)** + checkbox de confirmare că numărul e curat,
-- buton „Trimite solicitarea" → stare de succes.
-
-**Observații = textarea simplu** (text pe mai multe rânduri, `field_type: textarea`). Se salvează ca
-text în corpul tichetului.
-
-Panoul are **3 stări** (vezi prototip): `Formular` → `Confirmare imediată` (după submit) →
-`Status (după)` — starea persistentă cu timeline pe care o vede userul când revine cât timp cererea e
-în lucru.
-
-**Timeline-ul are doar 2 pași:** `Solicitare trimisă` (done) → `În verificare` (activ). Pasul „Număr
-conectat" **NU** apare aici: în momentul în care numărul e conectat (`whatsapp_available = true`),
-panoul se schimbă automat în formularul de configurare — deci userul nu mai vede niciodată starea de
-status cu acel pas atins. În loc de al 3-lea pas, o notă explică tranziția: *„Când numărul e conectat,
-acest panou devine automat formularul de configurare WhatsApp."*
+Ecrane: `09-selfservice-connect`, `10-selfservice-verify`, `11-selfservice-status`. Mapare API: `08-api-mapping`.
 
 ---
 
-## 2. Flux de date
+## 1. Flux
 
 ```
-Workspace admin (helpdesk.settings)
-  └─ POST /:account/helpdesk/settings/whatsapp/onboarding_request
-        WhatsappController#onboarding_request
-          │ validează params (nume, prenume, email, telefon, display_name, confirmare) + poza (opțional)
-          ▼
-     Stejar::Helpdesk::WhatsappOnboardingTicketCreator.call(params:, requesting_account:, requesting_user:)
-          │ target_account = Account.find_by(slug: root_account_slug)   # „eventya"
-          │ form   = Form.whatsapp_onboarding(target_account)
-          │ dept   = Department.inbox(target_account)
-          │ cust   = Customer.where(email:, account: target_account).first_or_create!  (name = „Prenume Nume")
-          │ ticket = form.tickets.create!(account: target_account, department: dept, customer: cust,
-          │                               status: :open, priority: :medium, source: :other)
-          │ populează ticket_values (nume/prenume/email/telefon/display_name) SAU un Comment lizibil
-          │ atașează poza de profil pe comment/ticket (Active Storage), dacă a fost încărcată
-          │ save_internal_note(...)  ← context: workspace sursă (nume + slug), user solicitant
-          ▼
-     tichet nou în helpdesk-ul „eventya" → apare la echipa Eventya ca orice tichet
+Wizard (Setări → WhatsApp), stare derivată din whatsapp_sender_status:
+
+[1 Detalii]  POST /v2/Channels/Senders            → status CREATING   ┐ Meta trimite OTP automat
+[2 Verificare] POST /v2/Channels/Senders/{sid}     → status VERIFYING  ┘ (client îl introduce în panou)
+[3 Aprobare]  GET /v2/Channels/Senders/{sid} / webhook  → OFFLINE (tranzitoriu) → review nume la Meta
+[4 Activ]     status ONLINE                        → whatsapp_enabled = true, canal live
 ```
 
-Reutilizează **exact** pattern-ul `AiAssistant::SupportTicketCreator` (care deja creează tichet în
-contul root) — `app/services/stejar/ai_assistant/support_ticket_creator.rb` +
-`app/services/stejar/ai_assistant/ticket_creator.rb`.
+Statusul se împinge live în panou prin **webhook Twilio → Turbo Stream** (fără polling manual).
 
 ---
 
-## 3. Ce conține tichetul (ce vede echipa Eventya)
+## 2. Model de date (migrare + AccountMeta)
 
-- **Client (Customer):** solicitantul — `„Prenume Nume"` + email (first_or_create pe email, în contul eventya).
-- **Corp / câmpuri:**
-  - Nume + Prenume
-  - Email de contact
-  - **Numărul de integrat** (format internațional)
-  - **Numele afișat pe WhatsApp** (display name-ul care apare cetățenilor)
-  - **Poza de profil** — imaginea încărcată, atașată la tichet (Active Storage), dacă a fost pusă
-  - **Observații** (text, dacă solicitantul a completat)
-  - **Workspace sursă**: numele + slug-ul workspace-ului care cere (`requesting_account.name` / `.slug`) — esențial ca echipa să știe *pe care* workspace să flipeze `whatsapp_available`
-  - Confirmarea „număr curat": Da/Nu
-- `source: :other`, `priority: :medium`, `department: Inbox`.
+Fără tabele noi — coloane pe `stejar_account_meta` + o atașare Active Storage pentru logo.
 
-Recomandare: pune datele într-un **Comment lizibil** (ca fluxul WhatsApp inbound), nu doar în
-`ticket_values` — e mai ușor de citit de un agent. Detaliile structurate pot merge într-o notă internă.
-
----
-
-## 4. Modificări backend
-
-| # | Fișier | Modificare |
-|---|---|---|
-| 1 | `app/models/stejar/helpdesk/form.rb` | Constantă `SYSTEM_DEV_KEY_WHATSAPP_ONBOARDING = 'whatsapp_onboarding'`; adaug-o în `SYSTEM_DEV_KEYS`; metodă `self.whatsapp_onboarding(account)` (oglindă la `self.ai_assistant`) cu câmpurile first_name/second_name/email/phone/**display_name** + **observations (`field_type: textarea`)**. Poza NU e un form_field — e o **atașare Active Storage** pe tichet/comment. |
-| 2 | `app/services/stejar/helpdesk/whatsapp_onboarding_ticket_creator.rb` **(nou)** | Serviciul de creare tichet în contul root. Fie subclasă din `AiAssistant::TicketCreator` (override `target_account`, `value_for`), fie `ApplicationService` slab. Guard când root e absent. |
-| 3 | `app/controllers/stejar/helpdesk/settings/whatsapp_controller.rb` | Acțiune nouă `onboarding_request`: validează params, cheamă serviciul, răspunde cu flash/turbo (succes sau erori). NU folosește `current_account` pentru tichet — țintește root. |
-| 4 | `config/routes/helpdesk.rb` | `resource :whatsapp, only: %i[show update] do; post :onboarding_request; end` |
-| 5 | `app/views/stejar/helpdesk/settings/whatsapp/show.html.erb` + partial `_onboarding_form.html.erb` **(nou)** | Randează formularul în ramura `else` (când `!whatsapp_available?`). |
-| 6 | `config/locales/{en,ro,it,hu,de,fr,es}/helpdesk.yml` | Chei noi sub `helpdesk.settings.whatsapp.onboarding.*` (titluri, callout, labels, mesaje succes/eroare, timeline status) |
-| 7 | migrare + `stejar_account_meta` | Coloană `whatsapp_onboarding_requested_at :datetime` (pentru starea „Status după") — vezi §6 |
-
-**Fără tabele noi** (respectă preferința): totul reutilizează `Form`/`Ticket`/`Comment`/`Customer`.
-
----
-
-## 4b. Cum se conectează formularul cu helpdesk-ul (embed vs. nativ) — DECIZIE
-
-Întrebarea: *„creez un formular în helpdesk pe Eventya și îl embed, sau cum se face?"*
-
-Sunt două variante. **Recomand varianta B (nativ + serviciu).**
-
-### Varianta A — form public în Eventya + `<iframe>` embed
-Creezi manual un formular în helpdesk-ul Eventya (Nume/Email/Telefon/Observații), iei codul de embed
-și pui iframe-ul în panoul de WhatsApp. Submisia intră nativ ca tichet prin
-`Stejar::HelpdeskPublic::TicketsController` (există deja, `source: :embed`).
-
-- ✅ Zero cod; echipa poate edita câmpurile singură.
-- ❌ **Nu știe cine cere** — iframe-ul e cross-origin, nu are `current_account`/`current_user`.
-  Ar trebui să pasezi workspace-ul prin query-param în URL-ul de embed și să-l mapezi pe un câmp
-  ascuns — fragil, iar userul l-ar putea modifica.
-- ❌ Stilul iframe-ului **nu se potrivește** cu panoul; arată lipit.
-- ❌ Nu poți lega curat checkbox-ul „număr curat" / starea „status după" de panou.
-
-### Varianta B — formular nativ în panou + serviciu server-side (RECOMANDAT)
-Formularul e randat **nativ** în panou (Rails form, exact ca în prototip), face POST către
-`WhatsappController#onboarding_request`, care cheamă `WhatsappOnboardingTicketCreator`. Serviciul
-creează tichetul **direct în contul Eventya** via `Form.whatsapp_onboarding(root_account)`.
-
-- ✅ UI identic cu restul CMS-ului (fără iframe).
-- ✅ **Atașează automat workspace-ul sursă** (`current_account.name` + `.slug`) și solicitantul
-  (`current_user`) — echipa Eventya știe exact pe cine să activeze. Nu se poate falsifica.
-- ✅ Control total pe validare (checkbox „număr curat", format telefon) și pe starea „status după".
-- ✅ Tichetul e **la fel de nativ** ca la varianta A — tot un `Ticket` real în helpdesk-ul Eventya.
-- ⚙️ Cost: puțin cod (1 serviciu + 1 acțiune + 1 system form), dar reutilizează pattern-ul deja
-  testat `AiAssistant::SupportTicketCreator`.
-
-**Cheia:** și în varianta B există un `Form` real în workspace-ul Eventya (`Form.whatsapp_onboarding`,
-creat programatic prin `first_or_create!`) — doar că îl **randăm noi în panou**, nu prin iframe. Deci
-„formularul din helpdesk-ul Eventya" există; nu e nevoie să-l faci manual și nici să-l embed-uiești.
-
----
-
-## 5. Validare & edge cases
-
-- **Required:** nume, prenume, email (format valid), telefon (prezent; normalizare whitespace, ideal E.164), **numele afișat pe WhatsApp**, checkbox de confirmare bifat.
-- **Poza de profil (opțional):** formular **multipart**; validare tip imagine (JPG/PNG), dimensiune (max 5MB), ideal pătrată (min. 640×640px). Se atașează la tichet/comment prin Active Storage; dacă lipsește, nu blochează trimiterea.
-- **Root account lipsă** → serviciul întoarce `failure`, controllerul arată eroare generică (nu crapă).
-- **Permisiune:** rămâne `requires_permission "helpdesk.settings"`.
-- **Workspace-ul curent ESTE eventya root** → tichetul se creează în același cont; ok.
-- **Telefon deja folosit** de alt workspace (`whatsapp_phone_number` e unic global) → *nu* validăm aici (numărul nu e încă conectat); echipa Eventya verifică manual. De menționat în tichet.
-
----
-
-## 6. Stare „cerere în așteptare" / status după submit (fără tabel nou)
-
-Designul e în prototip (tab-ul **„Status (după)"**): status „În verificare" + timeline cu **2 pași**
-(Solicitare trimisă → În verificare) + nota de tranziție + recap datele trimise + contact.
-
-Implementare, fără tabel nou — o coloană `whatsapp_onboarding_requested_at :datetime` pe
-`stejar_account_meta`:
-- setată la prima trimitere → panoul arată **starea de status** în loc de formularul gol,
-- previne spam-ul cu cereri duplicate,
-- se resetează când super-adminul flipează `whatsapp_available` (atunci apare formularul de conectare).
-
-Logica de randare în view:
+```ruby
+# db/migrate/XXXXXX_add_whatsapp_sender_to_account_meta.rb
+class AddWhatsappSenderToAccountMeta < ActiveRecord::Migration[7.1]
+  def change
+    change_table :stejar_account_meta, bulk: true do |t|
+      t.string :whatsapp_display_name
+      t.string :whatsapp_sender_sid
+      t.string :whatsapp_sender_status                 # CREATING/VERIFYING/OFFLINE/ONLINE
+      t.string :whatsapp_verification_method, default: "sms"
+      t.datetime :whatsapp_sender_synced_at
+    end
+    add_index :stejar_account_meta, :whatsapp_sender_sid, unique: true
+    # whatsapp_phone_number + whatsapp_enabled există deja
+  end
+end
 ```
-!whatsapp_available? && onboarding_requested_at.present?  → starea Status (§ prototip)
-!whatsapp_available? && onboarding_requested_at.nil?      → Formularul de onboarding
-whatsapp_available?                                        → Formularul de conectare (azi)
+
+```ruby
+# app/models/stejar/account_meta.rb  (adăugiri)
+has_one_attached :whatsapp_logo
+
+# Pasul din wizard, derivat din statusul Twilio — o SINGURĂ sursă de adevăr.
+def whatsapp_activation_step
+  case whatsapp_sender_status
+  when nil, "", "not_started" then :details   # 1
+  when "CREATING"             then :verify    # 2 — OTP trimis, așteptăm codul
+  when "VERIFYING", "OFFLINE" then :review     # 3 — verificat, review nume la Meta
+  when "ONLINE"               then :active     # 4
+  else :details
+  end
+end
+
+# Numele partial-ului pentru pasul curent (ca să nu ținem logică în view).
+def whatsapp_step_partial = "step_#{whatsapp_activation_step}"
+
+def whatsapp_online? = whatsapp_sender_status == "ONLINE"
 ```
 
 ---
 
-## 7. Teste
+## 3. Client Senders API
 
-- **Request spec** `spec/requests/.../settings/whatsapp_controller_spec.rb`: `onboarding_request` creează
-  un tichet în contul root cu datele corecte; erorile de validare re-randează formularul; gate de permisiune.
-- **Model spec** pentru `Form.whatsapp_onboarding` (first_or_create, câmpuri, `system?`).
-- **Service spec** pentru `WhatsappOnboardingTicketCreator` (target = root; failure când root lipsește;
-  mapare câmpuri; context workspace sursă în corp).
+```ruby
+# app/services/stejar/helpdesk/whatsapp/senders_api.rb
+require "net/http"
+require "json"
+
+module Stejar
+  module Helpdesk
+    module Whatsapp
+      # Wrapper subțire peste Senders API - WhatsApp (v2/Channels/Senders).
+      # Credențialele Twilio sunt globale (un proiect Twilio, mai mulți senderi).
+      class SendersApi
+        BASE = "https://messaging.twilio.com/v2/Channels/Senders".freeze
+
+        def initialize
+          creds = Rails.application.credentials.dig(:twilio) || {}
+          @sid, @token = creds[:account_sid], creds[:auth_token]
+        end
+
+        # POST — creează sender-ul; Meta trimite OTP-ul imediat (sms sau voce).
+        def create_sender(phone:, display_name:, verification_method:, logo_url: nil, callback_url: nil)
+          post(BASE, {
+            sender_id: "whatsapp:#{phone}",
+            configuration: { verification_method: verification_method },
+            profile: { name: display_name, logo_url: logo_url }.compact,
+            webhook: ({ callback_method: "POST", callback_url: callback_url } if callback_url)
+          }.compact)
+        end
+
+        # POST /{sid} — trimite codul introdus de client.
+        def submit_code(sid:, code:)
+          post("#{BASE}/#{sid}", configuration: { verification_code: code })
+        end
+
+        # POST /{sid} — reîncearcă un display name respins.
+        def update_profile(sid:, display_name:, logo_url: nil)
+          post("#{BASE}/#{sid}", profile: { name: display_name, logo_url: logo_url }.compact)
+        end
+
+        # GET /{sid} — poll status (fallback la webhook).
+        def fetch(sid:) = request(Net::HTTP::Get, "#{BASE}/#{sid}")
+
+        private
+
+        def post(url, **body) = request(Net::HTTP::Post, url, body)
+
+        def request(verb, url, body = nil)
+          uri = URI(url)
+          req = verb.new(uri)
+          req.basic_auth(@sid, @token)
+          req["Content-Type"] = "application/json"
+          req.body = body.to_json if body
+          res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) { |h| h.request(req) }
+          json = JSON.parse(res.body)
+          raise Error, json["message"] if res.code.to_i >= 400
+          json
+        end
+
+        class Error < StandardError; end
+      end
+    end
+  end
+end
+```
 
 ---
 
-## 8. Nota de branch (important)
+## 4. Serviciul de orchestrare (leagă API-ul de model)
 
-`main` are panoul WhatsApp cu config pe `@account_meta` (deployabil). Feature-ul se construiește
-curat **peste `main`**. Dacă între timp se merge `feat/whatsapp-twilio-subaccounts` (config mutat pe
-`Responder`), doar contextul ramurii `else` din view se schimbă (`@responder` vs `@account_meta`) —
-codul de onboarding în sine e independent de asta.
+```ruby
+# app/services/stejar/helpdesk/whatsapp/activation.rb
+module Stejar
+  module Helpdesk
+    module Whatsapp
+      class Activation
+        def initialize(account)
+          @account = account
+          @meta    = account.account_meta || account.create_account_meta!
+          @api     = SendersApi.new
+        end
+
+        # Pasul 1 — creează sender-ul; OTP-ul pleacă automat pe număr.
+        def start!(phone:, display_name:, verification_method:, logo: nil)
+          @meta.whatsapp_logo.attach(logo) if logo
+          res = @api.create_sender(
+            phone: phone, display_name: display_name,
+            verification_method: verification_method,
+            logo_url: logo_url, callback_url: webhook_url
+          )
+          @meta.update!(
+            whatsapp_phone_number: phone, whatsapp_display_name: display_name,
+            whatsapp_verification_method: verification_method,
+            whatsapp_sender_sid: res["sid"], whatsapp_sender_status: res["status"]
+          )
+        end
+
+        # Pasul 2 — trimite codul de 6 cifre.
+        def verify!(code:)
+          res = @api.submit_code(sid: @meta.whatsapp_sender_sid, code: code)
+          @meta.update!(whatsapp_sender_status: res["status"])
+        end
+
+        # Chemat de webhook / poller.
+        def sync_status!(status)
+          @meta.update!(whatsapp_sender_status: status, whatsapp_sender_synced_at: Time.current)
+          @meta.update!(whatsapp_enabled: true) if status == "ONLINE"
+        end
+
+        # Reîncearcă un nume respins de Meta.
+        def resubmit_name!(display_name:)
+          @api.update_profile(sid: @meta.whatsapp_sender_sid, display_name: display_name, logo_url: logo_url)
+          @meta.update!(whatsapp_display_name: display_name)
+        end
+
+        private
+
+        def logo_url
+          return unless @meta.whatsapp_logo.attached?
+          Rails.application.routes.url_helpers.rails_blob_url(@meta.whatsapp_logo, host: default_host)
+        end
+
+        def webhook_url
+          "https://#{default_host}/webhooks/twilio/whatsapp-sender-status"
+        end
+
+        def default_host = Rails.application.config.action_mailer.default_url_options[:host]
+      end
+    end
+  end
+end
+```
+
+> Twilio trebuie să poată descărca `logo_url` public → host public + Active Storage cu URL semnat (nu `localhost`).
 
 ---
 
-## 9. Decizii luate (spune dacă vrei altfel)
+## 5. Controller wizard
 
-- Câmpurile Nume/Email se **pre-completează** din `current_user` dar rămân editabile.
-- **Fără** câmp manual „Instituție/Workspace" — atașăm automat `current_account` (nume + slug) în tichet.
-- Prefix telefon **fix `+40`** în prototip; se poate face selector de țară dacă țintiți și non-RO.
-- Corpul tichetului = **Comment lizibil** (nu doar ticket_values).
-- Observații = **textarea** simplu (nu rich text).
-- Starea „Status după" (§6) = **inclusă** (ai cerut designul) — necesită coloana `whatsapp_onboarding_requested_at`.
-- Conectare = **nativ + serviciu** (varianta B din §4b), nu iframe embed.
+```ruby
+# app/controllers/stejar/helpdesk/settings/whatsapp_activation_controller.rb
+module Stejar::Helpdesk::Settings
+  class WhatsappActivationController < ApplicationController
+    requires_permission "helpdesk.settings"
+    include Stejar::Helpdesk::Headable
+    before_action :set_meta
+
+    def show; end # view-ul dispatch-uiește pe @meta.whatsapp_activation_step
+
+    def create   # pasul 1
+      activation.start!(
+        phone:               normalized_phone,
+        display_name:        params.require(:display_name),
+        verification_method: params.fetch(:verification_method, "sms"),
+        logo:                params[:logo]
+      )
+      redirect_to helpdesk_settings_whatsapp_activation_path
+    rescue Stejar::Helpdesk::Whatsapp::SendersApi::Error => e
+      redirect_to helpdesk_settings_whatsapp_activation_path, alert: e.message
+    end
+
+    def verify   # pasul 2
+      activation.verify!(code: params.require(:code))
+      redirect_to helpdesk_settings_whatsapp_activation_path
+    rescue Stejar::Helpdesk::Whatsapp::SendersApi::Error => e
+      redirect_to helpdesk_settings_whatsapp_activation_path, alert: "Cod invalid: #{e.message}"
+    end
+
+    def resubmit_name  # dacă Meta a respins numele
+      activation.resubmit_name!(display_name: params.require(:display_name))
+      redirect_to helpdesk_settings_whatsapp_activation_path
+    end
+
+    private
+
+    def activation = Stejar::Helpdesk::Whatsapp::Activation.new(current_account)
+    def set_meta   = @meta = current_account.account_meta || current_account.build_account_meta
+    def normalized_phone = "+#{params.require(:phone).gsub(/\D/, '')}"
+  end
+end
+```
+
+---
+
+## 6. Rute + webhook
+
+```ruby
+# config/routes/helpdesk.rb  (în namespace :settings)
+resource :whatsapp_activation, only: %i[show], controller: "whatsapp_activation" do
+  post :create
+  post :verify
+  post :resubmit_name
+end
+```
+
+```ruby
+# eventya/config/routes.rb (host app — engine e isolate_namespace, ca la webhook-ul de mesaje)
+post "/webhooks/twilio/whatsapp-sender-status",
+     to: "stejar/helpdesk/webhooks/twilio_sender_status#create"
+```
+
+---
+
+## 7. Webhook status → Turbo Stream (update live în panou)
+
+```ruby
+# app/controllers/stejar/helpdesk/webhooks/twilio_sender_status_controller.rb
+module Stejar::Helpdesk::Webhooks
+  class TwilioSenderStatusController < ActionController::Base
+    skip_forgery_protection
+    before_action :validate_twilio_signature   # reutilizează pattern-ul din webhook-ul de mesaje
+
+    def create
+      sid    = params[:sid]    || params.dig(:sender, :sid)
+      status = params[:status] || params.dig(:sender, :status)
+      meta   = Stejar::AccountMeta.find_by(whatsapp_sender_sid: sid)
+      return head(:ok) unless meta
+
+      Stejar::Helpdesk::Whatsapp::Activation.new(meta.account).sync_status!(status)
+
+      Turbo::StreamsChannel.broadcast_replace_to(
+        [meta.account, :whatsapp_activation],
+        target:  "whatsapp_activation",
+        partial: "stejar/helpdesk/settings/whatsapp_activation/wizard",
+        locals:  { meta: meta.reload }
+      )
+      head :ok
+    end
+  end
+end
+```
+
+---
+
+## 8. View wizard (dispatch pe status, zero logică în ERB)
+
+```erb
+<%# show.html.erb %>
+<%= turbo_stream_from [current_account, :whatsapp_activation] %>
+<div id="whatsapp_activation">
+  <%= render "wizard", meta: @meta %>
+</div>
+```
+
+```erb
+<%# _wizard.html.erb — stepper + partial-ul pasului curent (nume calculat în model) %>
+<%= render "stepper", step: meta.whatsapp_activation_step %>
+<%= render meta.whatsapp_step_partial, meta: meta %>
+```
+
+Partial-uri: `_step_details` (formularul din ecranul 09), `_step_verify` (OTP, ecran 10),
+`_step_review` (așteptare Meta, ecran 11), `_step_active` (profil live). Fiecare postează în
+acțiunea corespunzătoare. `_stepper` = componenta cu cei 4 pași.
+
+---
+
+## 9. Fallback — helpdesk (doar când self-service se blochează)
+
+Buton discret „cere ajutor" în orice pas → creează un tichet în helpdesk-ul Eventya (mecanismul din
+`PLAN-helpdesk-fallback.md`), cu contextul: workspace, număr, `whatsapp_sender_status`, ultima eroare.
+Cazuri: numărul e deja pe WhatsApp, OTP-ul nu ajunge (IVR/robot), Meta respinge numele repetat.
+
+---
+
+## 10. Config & prerechizite
+
+- **Credențiale Twilio globale**: `Rails.application.credentials.dig(:twilio, :account_sid / :auth_token)`.
+- **Tech Provider / ISV**: pentru ca numele instituției (Primăria Sibiu) să fie identitatea *ei*, Eventya
+  trebuie înrolată ca Tech Provider (WABA per client). Fără asta, senderii merg sub WABA-ul Eventya.
+- **Numere fixe**: `verification_method: "voice"`. **IVR/robot nu pot primi OTP** (limitare Meta).
+- **Volum**: Twilio recomandă Senders API taman pentru bulk (multe primării).
+
+---
+
+## 11. Validare & edge cases
+
+- **Număr**: normalizat E.164; refuz dacă deja e `whatsapp_sender_sid` activ pe alt account (index unic).
+- **Nume afișat**: required; la respingere Meta → limită 250 msg/24h, buton „retrimite nume".
+- **Cod OTP**: expiră; buton retrimite (recreează verificarea); rate-limit pe încercări.
+- **Webhook**: validează `X-Twilio-Signature`; idempotent pe `sid`+`status`.
+- **Poller fallback** (`SyncWhatsappSenderJob`) la câteva minute cât timp `status != ONLINE`, în caz că
+  webhook-ul se pierde.
+- **Logo**: tip imagine, ≤5MB, pătrat; URL public semnat pentru Twilio.
+
+---
+
+## 12. Teste
+
+- **Service** `Activation`: start! → persistă sid+status; verify! → VERIFYING; sync_status!("ONLINE") → enabled.
+- **SendersApi**: stub HTTP (WebMock) pentru create/submit/fetch; ridică `Error` pe 4xx.
+- **Controller**: create/verify/resubmit_name; gate permisiune; erori re-randează pasul.
+- **Webhook**: semnătură validă/invalidă; broadcast Turbo Stream; idempotență.
+- **Model**: `whatsapp_activation_step` pe fiecare status.
+
+---
+
+## 13. Fișiere atinse
+
+| Fișier | Rol |
+|---|---|
+| `db/migrate/..._add_whatsapp_sender_to_account_meta.rb` | coloane sender + status |
+| `app/models/stejar/account_meta.rb` | `has_one_attached :whatsapp_logo`, `whatsapp_activation_step`, predicate |
+| `app/services/stejar/helpdesk/whatsapp/senders_api.rb` | client Senders API |
+| `app/services/stejar/helpdesk/whatsapp/activation.rb` | orchestrare create/verify/sync |
+| `app/controllers/stejar/helpdesk/settings/whatsapp_activation_controller.rb` | wizard |
+| `app/controllers/stejar/helpdesk/webhooks/twilio_sender_status_controller.rb` | webhook status |
+| `app/views/stejar/helpdesk/settings/whatsapp_activation/*` | show + `_wizard`, `_stepper`, `_step_*` |
+| `config/routes/helpdesk.rb` + `eventya/config/routes.rb` | rute wizard + webhook |
+| `app/jobs/stejar/helpdesk/sync_whatsapp_sender_job.rb` | poller fallback |
+| `config/locales/{7}/helpdesk.yml` | copy wizard (pași, erori, statusuri) |
+
+**Fără tabele noi.** Numele endpoint-urilor sunt cele reale din Senders API; verifică schema exactă a
+payload-ului de webhook în docs-ul Twilio la implementare.
