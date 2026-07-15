@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deploy list · Mobile App Deploys</title>
+  <title>Deploy list · Mobile Deploys</title>
 
   <script>
     (function () {
@@ -18,19 +18,16 @@
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased">
 
-  <!-- Prototype banner -->
   <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Mobile App Deploys — 1. Deploy list</span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Mobile Deploys — 1. Deploy list</span>
     </div>
     <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← back to set</a>
   </div>
 
-  <!-- ══════════ stejar-admin shell ══════════ -->
   <div class="relative border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mx-4 mb-4 bg-gray-50 dark:bg-gray-900">
 
-    <!-- Topbar -->
     <div class="h-14 flex items-center gap-3 px-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <span class="text-sm font-bold text-gray-900 dark:text-white">eventya</span>
       <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-semibold rounded-full bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300">admin</span>
@@ -38,7 +35,6 @@
     </div>
 
     <div class="flex">
-      <!-- Sidebar -->
       <aside class="w-64 shrink-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-3 hidden md:block">
         <div class="space-y-6">
           <div>
@@ -55,7 +51,6 @@
               <li><a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">AI Usage</a></li>
               <li><a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">Themes</a></li>
               <li><a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">Sandbox App</a></li>
-              <!-- NEW -->
               <li>
                 <a href="01-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-500/10">
                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -68,7 +63,6 @@
         </div>
       </aside>
 
-      <!-- Main -->
       <main class="flex-1 min-w-0 p-6 md:p-8">
 
         <!-- Header -->
@@ -129,7 +123,7 @@
               </select>
             </div>
             <div class="shrink-0">
-              <button class="inline-flex items-center h-9 px-3 text-sm font-medium rounded-lg bg-primary-600 hover:bg-primary-700 text-white transition-colors">Apply</button>
+              <button class="inline-flex items-center gap-2 h-9 px-3.5 text-sm font-medium rounded-lg bg-primary-600 hover:bg-primary-700 text-white transition-colors">Apply</button>
             </div>
           </div>
         </section>
@@ -276,7 +270,7 @@
         </div>
 
         <p class="text-[12px] text-gray-400 dark:text-gray-500 mt-4">
-          Other states worth reviewing:
+          Other states to review:
           <a href="08-stalled.html" class="text-primary-600 dark:text-primary-400 hover:underline">stalled build</a> ·
           <a href="09-no-runner.html" class="text-primary-600 dark:text-primary-400 hover:underline">runner offline</a>
         </p>
@@ -289,5 +283,16 @@
     onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
   </button>
+
+  <script>
+    document.querySelectorAll('[data-log-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var box = document.querySelector('[data-log-box]');
+        var label = btn.querySelector('[data-log-label]');
+        if (box.hasAttribute('hidden')) { box.removeAttribute('hidden'); if (label) label.textContent = 'Hide log'; box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+        else { box.setAttribute('hidden', ''); if (label) label.textContent = 'View log'; }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -589,9 +589,6 @@
   .left-\[-14px\] {
     left: -14px;
   }
-  .left-\[7px\] {
-    left: 7px;
-  }
   .left-auto {
     left: auto;
   }
@@ -1327,6 +1324,9 @@
   .max-h-96 {
     max-height: calc(var(--spacing) * 96);
   }
+  .max-h-\[28rem\] {
+    max-height: 28rem;
+  }
   .max-h-\[36px\] {
     max-height: 36px;
   }
@@ -1961,9 +1961,6 @@
   }
   .-rotate-90 {
     rotate: calc(90deg * -1);
-  }
-  .rotate-90 {
-    rotate: 90deg;
   }
   .rotate-180 {
     rotate: 180deg;
@@ -3414,9 +3411,6 @@
       background-color: color-mix(in oklab, var(--color-emerald-100) 60%, transparent);
     }
   }
-  .bg-emerald-300 {
-    background-color: var(--color-emerald-300);
-  }
   .bg-emerald-400 {
     background-color: var(--color-emerald-400);
   }
@@ -4850,9 +4844,6 @@
   }
   .pb-32 {
     padding-bottom: calc(var(--spacing) * 32);
-  }
-  .\!pl-8 {
-    padding-left: calc(var(--spacing) * 8) !important;
   }
   .\!pl-9 {
     padding-left: calc(var(--spacing) * 9) !important;
@@ -9119,11 +9110,6 @@
       translate: var(--tw-translate-x) var(--tw-translate-y);
     }
   }
-  .sm\:rotate-0 {
-    @media (width >= 40rem) {
-      rotate: 0deg;
-    }
-  }
   .sm\:grid-flow-col {
     @media (width >= 40rem) {
       grid-auto-flow: column;
@@ -9172,11 +9158,6 @@
   .sm\:items-end {
     @media (width >= 40rem) {
       align-items: flex-end;
-    }
-  }
-  .sm\:items-stretch {
-    @media (width >= 40rem) {
-      align-items: stretch;
     }
   }
   .sm\:justify-between {
@@ -9235,11 +9216,6 @@
     @media (width >= 40rem) {
       border-left-style: var(--tw-border-style);
       border-left-width: 1px;
-    }
-  }
-  .sm\:px-1 {
-    @media (width >= 40rem) {
-      padding-inline: calc(var(--spacing) * 1);
     }
   }
   .sm\:px-5 {
@@ -11000,14 +10976,6 @@
       background-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 30%, transparent);
       @supports (color: color-mix(in lab, red, red)) {
         background-color: color-mix(in oklab, var(--color-emerald-500) 30%, transparent);
-      }
-    }
-  }
-  .dark\:bg-emerald-500\/40 {
-    &:where([data-theme="dark"], [data-theme="dark"] *) {
-      background-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 40%, transparent);
-      @supports (color: color-mix(in lab, red, red)) {
-        background-color: color-mix(in oklab, var(--color-emerald-500) 40%, transparent);
       }
     }
   }
