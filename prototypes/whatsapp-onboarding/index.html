@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Onboarding · Plan + ecrane</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .md { color: var(--color-ink-700); font-size: 14px; line-height: 1.7; }
+    .md h1 { font-size: 1.6rem; font-weight: 700; color: var(--color-ink-900); margin: 1.5rem 0 .75rem; }
+    .md h2 { font-size: 1.25rem; font-weight: 700; color: var(--color-ink-900); margin: 2rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-surface-200); }
+    .md h3 { font-size: 1.02rem; font-weight: 600; color: var(--color-ink-900); margin: 1.25rem 0 .4rem; }
+    .md p { margin: .6rem 0; }
+    .md ul, .md ol { margin: .6rem 0; padding-left: 1.4rem; }
+    .md li { margin: .25rem 0; }
+    .md a { color: var(--color-primary); text-decoration: underline; }
+    .md strong { color: var(--color-ink-900); font-weight: 600; }
+    .md code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82em; background: rgb(from var(--color-surface-200) r g b / .5); padding: .1rem .35rem; border-radius: .35rem; }
+    .md pre { background: var(--color-surface-100); border: 1px solid var(--color-surface-200); border-radius: .6rem; padding: 1rem; overflow-x: auto; margin: .8rem 0; }
+    .md pre code { background: none; padding: 0; font-size: .8rem; line-height: 1.5; }
+    .md table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .82rem; }
+    .md th, .md td { border: 1px solid var(--color-surface-200); padding: .45rem .65rem; text-align: left; vertical-align: top; }
+    .md th { background: var(--color-surface-100); font-weight: 600; color: var(--color-ink-800); }
+    .md hr { border: none; border-top: 1px solid var(--color-surface-200); margin: 2rem 0; }
+    .md blockquote { border-left: 3px solid var(--color-surface-300); padding-left: 1rem; color: var(--color-ink-500); margin: .8rem 0; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+    <!-- Back to hub + dark toggle -->
+    <div class="flex items-center justify-between mb-8">
+      <a href="../../index.html" class="text-[12px] font-medium text-ink-400 hover:text-ink-700 transition-colors flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Toate prototipurile
+      </a>
+      <button type="button" class="btn btn--sm"
+        onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+        Toggle dark
+      </button>
+    </div>
+
+    <!-- Set header -->
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">WhatsApp Onboarding</div>
+        <div class="text-[13px] text-ink-400">3 ecrane propuse + plan de implementare</div>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+    </div>
+
+    <!-- Screens -->
+    <div class="mt-10">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Ecrane · panoul Setări → WhatsApp</div>
+      <div class="space-y-2">
+        <a href="01-onboarding-form.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">1</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Formular onboarding</div>
+            <div class="text-[12px] text-ink-400">Explicație + callout „număr curat" + câmpuri (nume, prenume, email, telefon, observații)</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="02-confirmation.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">2</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Confirmare imediată</div>
+            <div class="text-[12px] text-ink-400">Mulțumirea de după submit + recap + tichetul creat în Eventya</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="03-status.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">3</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Status (după)</div>
+            <div class="text-[12px] text-ink-400">Starea persistentă „în verificare" cu timeline (2 pași) + nota de tranziție</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Plan -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Plan de implementare</div>
+    <div class="bg-surface-0 rounded-xl border border-surface-200 p-7 md:p-9">
+      <div class="md" id="plan">Se încarcă planul…</div>
+    </div>
+
+  </div>
+
+  <script>
+    fetch('PLAN.md')
+      .then(r => r.text())
+      .then(md => { document.getElementById('plan').innerHTML = marked.parse(md); })
+      .catch(() => { document.getElementById('plan').textContent = 'Nu am putut încărca PLAN.md (servește printr-un server local, nu file://).'; });
+  </script>
+</body>
+</html>

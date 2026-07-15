@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmare · WhatsApp Onboarding</title>
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · WhatsApp Onboarding — 2. Confirmare imediată</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 py-6 md:px-8 md:py-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-1.5 text-sm text-ink-400 mb-6">
+      <span>Dashboard</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span>Helpdesk</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span>Setări</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span class="text-ink-600 font-medium">WhatsApp</span>
+    </div>
+
+    <!-- Page header -->
+    <div class="flex items-center gap-3 mb-8">
+      <span class="p-1.5 rounded-lg text-ink-400 border border-surface-200 bg-surface-0">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </span>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Conectează WhatsApp</div>
+        <div class="text-base text-ink-400 mt-0.5">Primește mesajele clienților direct în helpdesk-ul tău</div>
+      </div>
+    </div>
+
+    <!-- Success card -->
+    <div class="card p-6 md:p-8">
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-center mx-auto mb-5">
+          <svg class="w-8 h-8 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <div class="text-xl font-bold text-ink-900 mb-2.5">Solicitare trimisă</div>
+        <p class="text-sm text-ink-500 leading-relaxed max-w-md mx-auto m-0">Am primit cererea ta de activare WhatsApp. Echipa Eventya verifică numărul și te contactează pe email cu pașii următori — de obicei în 1–2 zile lucrătoare.</p>
+      </div>
+
+      <!-- Recap -->
+      <div class="mt-6 max-w-md mx-auto rounded-xl border border-surface-200 bg-surface-50 px-5 py-4">
+        <div class="flex items-center justify-between py-1.5 text-[13px] border-b border-dashed border-surface-200">
+          <span class="text-ink-400">Solicitant</span><span class="text-ink-900 font-medium">Ion Popescu</span>
+        </div>
+        <div class="flex items-center justify-between py-1.5 text-[13px] border-b border-dashed border-surface-200">
+          <span class="text-ink-400">Email</span><span class="text-ink-900 font-medium">ion.popescu@primaria-exemplu.ro</span>
+        </div>
+        <div class="flex items-center justify-between py-1.5 text-[13px] border-b border-dashed border-surface-200">
+          <span class="text-ink-400">Număr de integrat</span><span class="text-ink-900 font-medium">+40 7xx xxx xxx</span>
+        </div>
+        <div class="flex items-center justify-between py-1.5 text-[13px]">
+          <span class="text-ink-400">Workspace</span><span class="text-ink-900 font-medium">Visit Weerberg</span>
+        </div>
+      </div>
+
+      <!-- Ticket note -->
+      <div class="flex items-center justify-center gap-2 text-xs text-ink-400 mt-5">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v12H5.17L4 17.17z"/></svg>
+        S-a creat tichetul <strong class="text-ink-600">#1042</strong> în helpdesk-ul Eventya.
+      </div>
+
+      <div class="text-center mt-6">
+        <a href="01-onboarding-form.html" class="text-sm font-semibold text-primary hover:underline">← Înapoi la formular</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dark-mode toggle -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
