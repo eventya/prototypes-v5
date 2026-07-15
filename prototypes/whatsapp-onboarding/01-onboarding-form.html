@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formular onboarding · WhatsApp Onboarding</title>
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · WhatsApp Onboarding — 1. Formular</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 py-6 md:px-8 md:py-8">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-1.5 text-sm text-ink-400 mb-6">
+      <span>Dashboard</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span>Helpdesk</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span>Setări</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span class="text-ink-600 font-medium">WhatsApp</span>
+    </div>
+
+    <!-- Page header -->
+    <div class="flex items-center gap-3 mb-8">
+      <span class="p-1.5 rounded-lg text-ink-400 border border-surface-200 bg-surface-0">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </span>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Conectează WhatsApp</div>
+        <div class="text-base text-ink-400 mt-0.5">Primește mesajele clienților direct în helpdesk-ul tău</div>
+      </div>
+    </div>
+
+    <!-- Hero explanation -->
+    <div class="card p-5 mb-4 bg-linear-to-br from-surface-0 to-emerald-50/40 dark:to-emerald-500/5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div>
+          <div class="text-base font-semibold text-ink-900">Transformă WhatsApp într-un canal de suport</div>
+          <div class="text-xs text-ink-400">Un singur loc pentru toate conversațiile cu cetățenii</div>
+        </div>
+      </div>
+      <p class="text-sm text-ink-600 leading-relaxed m-0">Mesajele primite pe WhatsApp devin automat tichete în helpdesk. Echipa ta răspunde din același loc ca la restul tichetelor, iar răspunsul ajunge înapoi la client, direct în WhatsApp. Nu ai nevoie de nicio aplicație în plus.</p>
+    </div>
+
+    <!-- How it works -->
+    <div class="card p-5 mb-4">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-9 h-9 rounded-xl bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5 text-sky-600 dark:text-sky-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="text-base font-semibold text-ink-900">Cum funcționează</div>
+          <div class="text-xs text-ink-400">Fluxul unui mesaj primit</div>
+        </div>
+      </div>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+          <span class="text-sm text-ink-600">Cetățeanul trimite un mesaj pe WhatsApp la numărul tău dedicat.</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+          <span class="text-sm text-ink-600">Se creează automat un tichet în helpdesk (sau se continuă conversația existentă).</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+          <span class="text-sm text-ink-600">Agenții răspund din helpdesk, iar răspunsul e livrat pe WhatsApp.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORTANT callout: dedicated clean number -->
+    <div class="rounded-xl border border-amber-200 dark:border-amber-500/25 bg-amber-50/70 dark:bg-amber-500/5 p-5 mb-4">
+      <div class="flex items-center gap-2.5 mb-3">
+        <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <span class="text-sm font-bold text-amber-800 dark:text-amber-300">Ai nevoie de un număr de telefon dedicat</span>
+      </div>
+      <ul class="space-y-2.5 m-0 p-0 list-none">
+        <li class="flex gap-2.5 text-[13px] text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
+          <svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Numărul trebuie să fie <strong class="text-amber-900 dark:text-amber-200">curat</strong> — <strong class="text-amber-900 dark:text-amber-200">să NU fie deja înregistrat</strong> pe WhatsApp sau WhatsApp Business.</span>
+        </li>
+        <li class="flex gap-2.5 text-[13px] text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
+          <svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Dacă numărul e folosit deja pe WhatsApp, întâi trebuie deconectat — sau, mai simplu, folosește un SIM/număr nou dedicat suportului.</span>
+        </li>
+        <li class="flex gap-2.5 text-[13px] text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
+          <svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Numărul rămâne al tău. Noi doar îl conectăm la platforma de mesagerie, ca să apară numele instituției tale în conversație.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Request form -->
+    <div class="card p-5 mb-4">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5 text-emerald-700 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+        </div>
+        <div>
+          <div class="text-base font-semibold text-ink-900">Solicită activarea</div>
+          <div class="text-xs text-ink-400">Completează datele și numărul pe care vrei să îl integrăm</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs font-medium text-ink-500 block mb-1.5">Nume <span class="text-red-500">*</span></label>
+          <input class="input w-full" placeholder="Popescu">
+        </div>
+        <div>
+          <label class="text-xs font-medium text-ink-500 block mb-1.5">Prenume <span class="text-red-500">*</span></label>
+          <input class="input w-full" placeholder="Ion">
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label class="text-xs font-medium text-ink-500 block mb-1.5">Email <span class="text-red-500">*</span></label>
+        <input type="email" class="input w-full" placeholder="ion.popescu@primaria-exemplu.ro">
+        <div class="text-xs text-ink-400 mt-1.5">Aici te contactăm cu pașii următori.</div>
+      </div>
+
+      <div class="mt-4">
+        <label class="text-xs font-medium text-ink-500 block mb-1.5">Numărul de telefon de integrat <span class="text-red-500">*</span></label>
+        <div class="flex items-stretch h-10 rounded-xl border border-surface-300 bg-surface-0 overflow-hidden focus-within:border-primary transition-colors">
+          <span class="flex items-center px-3.5 text-sm font-medium text-ink-500 bg-surface-100 border-r border-surface-200 select-none">🇷🇴 +40</span>
+          <input class="flex-1 min-w-0 px-3.5 text-sm text-ink-900 bg-transparent border-0 outline-none placeholder:text-ink-400" placeholder="7xx xxx xxx">
+        </div>
+        <div class="text-xs text-ink-400 mt-1.5">Numărul dedicat WhatsApp, în format internațional. Trebuie să fie un număr care NU e deja pe WhatsApp.</div>
+      </div>
+
+      <!-- WhatsApp profile sub-section -->
+      <div class="mt-6 pt-5 border-t border-surface-100">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[11px] font-semibold text-ink-500 uppercase tracking-wider">Profilul WhatsApp</span>
+          <span class="text-xs text-ink-400">— ce văd cetățenii în conversație</span>
+        </div>
+
+        <div class="mb-4">
+          <label class="text-xs font-medium text-ink-500 block mb-1.5">Numele afișat pe WhatsApp <span class="text-red-500">*</span></label>
+          <input class="input w-full" placeholder="Primăria Sibiu">
+          <div class="text-xs text-ink-400 mt-1.5">Numele pe care îl văd cetățenii când le scrii de pe acest număr.</div>
+        </div>
+
+        <div>
+          <label class="text-xs font-medium text-ink-500 block mb-1.5">Poza de profil <span class="text-ink-400 font-normal">(opțional)</span></label>
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-surface-100 border border-surface-200 flex items-center justify-center overflow-hidden shrink-0">
+              <svg class="w-6 h-6 text-ink-300" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <div>
+              <label class="btn btn--ghost btn--sm cursor-pointer inline-flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Încarcă poză
+                <input type="file" accept="image/*" class="hidden">
+              </label>
+              <div class="text-xs text-ink-400 mt-1.5">JPG sau PNG, pătrată (min. 640×640px), max 5MB.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label class="text-xs font-medium text-ink-500 block mb-1.5">Observații <span class="text-ink-400 font-normal">(opțional)</span></label>
+        <textarea class="input w-full min-h-24 py-3" placeholder="Detalii utile pentru echipă: orar de contact, cine se ocupă de WhatsApp, dacă numărul e nou sau trebuie deconectat de pe WhatsApp etc."></textarea>
+        <div class="text-xs text-ink-400 mt-1.5">Orice ne ajută să pregătim activarea mai repede.</div>
+      </div>
+
+      <label class="flex items-start gap-3 mt-4 p-3.5 rounded-xl border border-surface-200 bg-surface-50 cursor-pointer">
+        <input type="checkbox" class="w-4.5 h-4.5 mt-0.5 shrink-0 accent-primary">
+        <span class="text-[13px] text-ink-600 leading-snug">Confirm că numărul de mai sus <strong class="text-ink-800">nu este conectat</strong> la un cont WhatsApp sau WhatsApp Business.</span>
+      </label>
+
+      <div class="flex justify-end mt-5">
+        <a href="02-confirmation.html" class="btn btn--primary inline-flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          Trimite solicitarea
+        </a>
+      </div>
+    </div>
+
+    <!-- Flow note -->
+    <div class="flex items-center justify-center gap-2 text-xs text-ink-400 mt-4 max-w-md mx-auto text-center">
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+      Solicitarea ajunge ca tichet în helpdesk-ul echipei Eventya, care preia mai departe activarea.
+    </div>
+  </div>
+
+  <!-- Dark-mode toggle -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
