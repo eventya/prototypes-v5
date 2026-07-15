@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nume screen · Nume set</title>
+
+  <!-- FOUC-free dark mode: set data-theme before first paint -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- The REAL compiled Stejar design system (relative path works locally + on Pages) -->
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <!-- Prototype banner — keep on every screen, link back to the set -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · &lt;set&gt; — &lt;screen&gt;</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 py-6 md:px-8 md:py-10">
+    <!-- ====== Screen content goes here. Use real classes: ======
+         .btn / .btn--primary, .card, .input, .badge, surface-*, ink-*,
+         primary-*, icon-<name> (lucide font). Neutral tokens auto-flip in
+         dark mode; semantic colors (emerald/sky/amber/red) need dark: prefixes. -->
+    <div class="card p-8">
+      <div class="text-2xl font-bold text-ink-900">Hello, design system</div>
+      <div class="text-sm text-ink-500 mt-1">Înlocuiește acest conținut cu design-ul propus.</div>
+      <button class="btn btn--primary mt-6">Buton primar</button>
+    </div>
+  </div>
+
+  <!-- Dark-mode toggle (handy while reviewing) -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
