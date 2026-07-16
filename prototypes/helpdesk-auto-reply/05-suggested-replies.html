@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suggested replies · configurare</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Auto-reply — 5. Suggested replies</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+    <div class="flex items-start gap-2.5 mb-7">
+      <a href="02-auto-reply.html"><svg class="w-5 h-5 text-ink-400 mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></a>
+      <div>
+        <a href="02-auto-reply.html" class="text-[12.5px] text-ink-400 hover:text-ink-700">Auto-reply</a>
+        <div class="text-2xl font-bold text-ink-900 tracking-tight">Suggested replies</div>
+        <div class="text-[13px] text-ink-500 mt-0.5">Drafts from your FAQs, shown next to the agent's reply box</div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="p-5 flex items-center gap-4">
+        <div class="flex-1">
+          <div class="text-[14.5px] font-semibold text-ink-900">Suggest replies to agents</div>
+          <div class="text-[12.5px] text-ink-500 mt-0.5">The reply box opens empty. The agent chooses whether to use a draft.</div>
+        </div>
+        <button type="button" role="switch" aria-checked="true" data-sw class="relative w-[42px] h-6 rounded-full bg-primary transition-colors shrink-0">
+          <span class="absolute top-0.5 left-[20px] w-5 h-5 rounded-full bg-white shadow transition-all"></span>
+        </button>
+      </div>
+      <div class="px-5 py-3.5 border-t border-surface-100 text-[12.5px] text-ink-500">
+        From your <strong class="text-ink-700">34</strong> FAQs only.
+        <a href="#" class="text-primary font-semibold hover:underline ml-1">Manage FAQs</a>
+      </div>
+    </div>
+
+    <!-- house rules — the Zendesk "Procedures" idea -->
+    <div class="card overflow-hidden mt-6">
+      <div class="p-5">
+        <div class="flex items-baseline gap-2 mb-2.5">
+          <div class="text-[14.5px] font-semibold text-ink-900">House rules</div>
+          <span class="text-[12px] text-ink-400">optional</span>
+        </div>
+        <textarea class="input w-full" rows="3">Menționează întotdeauna termenul legal de 30 de zile (Legea 544/2001). Adresează-te cu „dumneavoastră".</textarea>
+      </div>
+      <div class="px-5 py-3.5 border-t border-surface-100 text-[12.5px] text-ink-500">Applied to every draft.</div>
+    </div>
+
+    <!-- the instrument -->
+    <div class="card overflow-hidden mt-6">
+      <div class="px-5 py-4 border-b border-surface-100">
+        <div class="text-[14.5px] font-semibold text-ink-900">Last 30 days</div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4">
+        <div class="px-4 py-4">
+          <div class="text-[22px] font-bold text-ink-900 tracking-tight tabular-nums">214</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Suggested</div>
+        </div>
+        <div class="px-4 py-4 border-l border-surface-100">
+          <div class="text-[22px] font-bold text-ink-900 tracking-tight tabular-nums">148</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Used</div>
+          <div class="text-[10.5px] text-ink-400 mt-0.5">69%</div>
+        </div>
+        <div class="px-4 py-4 border-l border-surface-100">
+          <div class="text-[22px] font-bold text-primary tracking-tight tabular-nums">92</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Edited</div>
+          <div class="text-[10.5px] text-ink-400 mt-0.5">62% of used</div>
+        </div>
+        <div class="px-4 py-4 border-l border-surface-100">
+          <div class="text-[22px] font-bold text-ink-400 tracking-tight tabular-nums">66</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Dismissed</div>
+          <div class="text-[10.5px] text-ink-400 mt-0.5">31%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 rounded-xl border border-dashed border-surface-200 px-4 py-3 flex gap-2.5 items-start">
+      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3h6v4a4 4 0 01-1 2.6l-2 2.4 2 2.4A4 4 0 0115 17v4H9v-4a4 4 0 011-2.6l2-2.4-2-2.4A4 4 0 019 7z"/></svg>
+      <div class="text-[12.5px] text-ink-500 leading-relaxed">
+        <strong class="text-ink-700">„Edited" e instrumentul, nu decorul.</strong> Dacă scade spre zero în timp ce reclamaţiile cresc, agenţii ştampilează fără să citească — şi funcţia se opreşte pe baza unui număr, nu a unei impresii. Botul v1 a fost ucis pe impresii. <strong class="text-ink-700">House rules</strong> ghidează <em>cum</em> se scrie; FAQ-ul decide <em>ce</em> se scrie.
+      </div>
+    </div>
+
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <script>
+    document.querySelectorAll('[data-sw]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-checked') === 'true';
+        b.setAttribute('aria-checked', String(!on));
+        b.classList.toggle('bg-primary', !on); b.classList.toggle('bg-surface-300', on);
+        b.firstElementChild.classList.toggle('left-[20px]', !on);
+        b.firstElementChild.classList.toggle('left-0.5', on);
+      });
+    });
+  </script>
+</body>
+</html>

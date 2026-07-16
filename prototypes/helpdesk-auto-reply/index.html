@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-reply &amp; Suggested replies · Plan + ecrane</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .md { color: var(--color-ink-700); font-size: 14px; line-height: 1.7; }
+    .md h1 { font-size: 1.6rem; font-weight: 700; color: var(--color-ink-900); margin: 1.5rem 0 .75rem; }
+    .md h2 { font-size: 1.25rem; font-weight: 700; color: var(--color-ink-900); margin: 2rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-surface-200); }
+    .md h3 { font-size: 1.02rem; font-weight: 600; color: var(--color-ink-900); margin: 1.25rem 0 .4rem; }
+    .md p { margin: .6rem 0; }
+    .md ul, .md ol { margin: .6rem 0; padding-left: 1.4rem; }
+    .md li { margin: .25rem 0; }
+    .md a { color: var(--color-primary); text-decoration: underline; }
+    .md strong { color: var(--color-ink-900); font-weight: 600; }
+    .md code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82em; background: rgb(from var(--color-surface-200) r g b / .5); padding: .1rem .35rem; border-radius: .35rem; }
+    .md pre { background: var(--color-surface-100); border: 1px solid var(--color-surface-200); border-radius: .6rem; padding: 1rem; overflow-x: auto; margin: .8rem 0; }
+    .md pre code { background: none; padding: 0; font-size: .8rem; line-height: 1.5; }
+    .md table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .82rem; }
+    .md th, .md td { border: 1px solid var(--color-surface-200); padding: .45rem .65rem; text-align: left; vertical-align: top; }
+    .md th { background: var(--color-surface-100); font-weight: 600; color: var(--color-ink-800); }
+    .md hr { border: none; border-top: 1px solid var(--color-surface-200); margin: 2rem 0; }
+    .md blockquote { border-left: 3px solid var(--color-surface-300); padding-left: 1rem; color: var(--color-ink-500); margin: .8rem 0; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+    <div class="flex items-center justify-between mb-8">
+      <a href="../../index.html" class="text-[12px] font-medium text-ink-400 hover:text-ink-700 transition-colors flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Toate prototipurile
+      </a>
+      <button type="button" class="btn btn--sm"
+        onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+        Toggle dark
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4"/><path d="M5 10h11a4 4 0 010 8h-1"/></svg>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Auto-reply &amp; Suggested replies</div>
+        <div class="text-[13px] text-ink-400">Succesorul botului şters în #869 · 6 ecrane + plan cu dovezi</div>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+    </div>
+
+    <!-- the three decisions worth arguing about -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+      <div class="card p-4">
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1.5">Două funcţii</div>
+        <div class="text-[12.5px] text-ink-600 leading-relaxed">Ack fix (fără AI, 0 tokeni) şi draft AI. Risc şi cost diferit → switch-uri independente.</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1.5">Fără pre-fill</div>
+        <div class="text-[12.5px] text-ink-600 leading-relaxed">Composerul rămâne gol; sugestia stă alături. Ancorarea se produce şi când draftul e respins.</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1.5">creator_type: :system</div>
+        <div class="text-[12.5px] text-ink-600 leading-relaxed">Fiecare gardă din cod e <code class="text-[11px]">== "agent"</code> → o a treia valoare le exclude pe toate, gratis.</div>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Ecrane</div>
+      <div class="space-y-2">
+
+        <a href="01-settings.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">1</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Settings</div>
+            <div class="text-[12px] text-ink-400">Un rând nou lângă FAQs, cu badge „2 of 3 channels" în idiomul SLA</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="02-auto-reply.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">2</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Auto-reply · hub</div>
+            <div class="text-[12px] text-ink-400">Master toggle + 3 boxuri de canal + cardul „Suggested replies", în afara zonei toggle-ului</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="03-channel-forms.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">3</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Canal · Forms</div>
+            <div class="text-[12px] text-ink-400">Bară de limbi + mesaj standard + „Customized forms" (doar abaterile, cu prefix blocat)</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="04-channel-whatsapp.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">4</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Canal · WhatsApp</div>
+            <div class="text-[12px] text-ink-400">Verificare rută de escaladare (cerinţă Meta) + preview de conversaţie live</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="05-suggested-replies.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">5</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Suggested replies</div>
+            <div class="text-[12px] text-ink-400">Switch propriu + House rules + rata de editare ca instrument de decizie</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="06-ticket-suggestion.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+          <span class="flex items-center justify-center w-6 h-6 rounded-md bg-primary-100 dark:bg-primary-500/20 text-primary text-[11px] font-bold shrink-0">6</span>
+          <div>
+            <div class="text-[13px] font-medium text-ink-800">Ticket + sugestie <span class="text-[11px] text-primary font-semibold ml-1">← ecranul care contează</span></div>
+            <div class="text-[12px] text-ink-400">Composer gol, card punctat alături, „Use this draft", contor de editare</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- PLAN.md -->
+    <div class="mt-12 card p-6 md:p-8">
+      <div id="plan" class="md">Se încarcă planul…</div>
+    </div>
+
+  </div>
+
+  <script>
+    fetch('PLAN.md')
+      .then(function (r) { return r.text(); })
+      .then(function (t) { document.getElementById('plan').innerHTML = marked.parse(t); })
+      .catch(function () {
+        document.getElementById('plan').innerHTML =
+          '<p>Planul nu poate fi încărcat prin <code>file://</code> — rulează <code>npm run dev</code> şi deschide prin server, sau citeşte <code>PLAN.md</code> direct.</p>';
+      });
+  </script>
+</body>
+</html>
