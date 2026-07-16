@@ -41,8 +41,8 @@
           <div class="text-[14.5px] font-semibold text-ink-900">Suggest replies to agents</div>
           <div class="text-[12.5px] text-ink-500 mt-0.5">The reply box opens empty. The agent chooses whether to use a draft.</div>
         </div>
-        <button type="button" role="switch" aria-checked="true" data-sw class="relative w-[42px] h-6 rounded-full bg-primary transition-colors shrink-0">
-          <span class="absolute top-0.5 left-[20px] w-5 h-5 rounded-full bg-white shadow transition-all"></span>
+        <button type="button" role="switch" aria-checked="true" data-sw class="relative w-10.5 h-6 rounded-full bg-primary transition-colors shrink-0">
+          <span class="absolute top-0.5 left-5 w-5 h-5 rounded-full bg-white shadow transition-all"></span>
         </button>
       </div>
       <div class="px-5 py-3.5 border-t border-surface-100 text-[12.5px] text-ink-500">
@@ -110,7 +110,7 @@
         var on = b.getAttribute('aria-checked') === 'true';
         b.setAttribute('aria-checked', String(!on));
         b.classList.toggle('bg-primary', !on); b.classList.toggle('bg-surface-300', on);
-        b.firstElementChild.classList.toggle('left-[20px]', !on);
+        b.firstElementChild.classList.toggle('left-5', !on);
         b.firstElementChild.classList.toggle('left-0.5', on);
       });
     });
