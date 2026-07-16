@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-reply · WhatsApp</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Auto-reply — 4. Canal: WhatsApp</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+    <div class="flex items-start gap-2.5 mb-7">
+      <a href="02-auto-reply.html"><svg class="w-5 h-5 text-ink-400 mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></a>
+      <div class="flex-1">
+        <a href="02-auto-reply.html" class="text-[12.5px] text-ink-400 hover:text-ink-700">Auto-reply</a>
+        <div class="text-2xl font-bold text-ink-900 tracking-tight">WhatsApp</div>
+      </div>
+      <button class="btn btn--primary mt-1">Save</button>
+    </div>
+
+    <div class="card p-5 flex items-center gap-4 mb-6">
+      <div class="flex-1"><div class="text-[14.5px] font-semibold text-ink-900">Active on this channel</div></div>
+      <button type="button" role="switch" aria-checked="true" data-sw class="relative w-[42px] h-6 rounded-full bg-primary transition-colors shrink-0">
+        <span class="absolute top-0.5 left-[20px] w-5 h-5 rounded-full bg-white shadow transition-all"></span>
+      </button>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="flex items-center gap-1 px-3 py-2 border-b border-surface-100 bg-surface-50">
+        <button class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11.5px] font-semibold text-ink-900 bg-surface-0 border border-surface-200 shadow-sm">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Română
+        </button>
+        <button class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11.5px] font-medium text-ink-500 hover:text-ink-800">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Magyar
+        </button>
+        <button class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11.5px] font-medium text-ink-500 hover:text-ink-800">
+          <span class="w-1.5 h-1.5 rounded-full border-[1.5px] border-ink-300"></span>English
+        </button>
+        <span class="ml-auto text-[11px] text-ink-400">Sent in the ticket's language</span>
+      </div>
+
+      <div class="p-5">
+        <div class="flex items-baseline gap-2 mb-2.5">
+          <div class="text-[14.5px] font-semibold text-ink-900">Standard message</div>
+          <span class="text-[12px] text-ink-400">optional</span>
+        </div>
+        <textarea id="msg" class="input w-full" rows="3">Salut! Am primit mesajul tău și am deschis un tichet. Un coleg îți răspunde în cel mai scurt timp. Pentru urgențe: 0269 208 800.</textarea>
+        <div class="text-[12.5px] text-ink-500 mt-2.5">Sent in the conversation, once, when a ticket opens.</div>
+
+        <!-- WhatsApp policy: automated replies must offer a route to a human -->
+        <div class="mt-3 rounded-[9px] border border-emerald-200 dark:border-emerald-500/25 bg-emerald-50/60 dark:bg-emerald-500/5 px-3 py-2.5 flex gap-2.5 items-start">
+          <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M14.83 9.17l3.53-3.53M4.93 19.07l4.24-4.24"/></svg>
+          <div class="text-[12px] text-ink-700 leading-relaxed">
+            WhatsApp requires a way to reach a human in automated replies.
+            <strong id="escOk" class="text-emerald-700 dark:text-emerald-400">✓ found: 0269 208 800</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- preview -->
+      <div class="border-t border-surface-100 bg-surface-50 px-5 pt-4 pb-5">
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3.5">What the customer receives</div>
+        <div class="max-w-[320px] rounded-[11px] overflow-hidden border border-surface-200">
+          <div class="flex items-center gap-2.5 px-3 py-2.5" style="background:#075e54;color:#fff">
+            <div class="w-5 h-5 rounded-full bg-white/25"></div>
+            <div class="text-[12px] font-semibold">Primăria Sibiu</div>
+          </div>
+          <div class="px-3 py-3.5" style="background:#e5ddd5">
+            <div class="max-w-[90%] rounded-[9px] rounded-tl-sm px-3 py-2 text-[12.5px] leading-snug" style="background:#fff;color:#111">
+              <span id="prev">Salut! Am primit mesajul tău și am deschis un tichet. Un coleg îți răspunde în cel mai scurt timp. Pentru urgențe: 0269 208 800.</span>
+              <div class="text-[9.5px] text-right opacity-50 mt-1">10:42</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[11.5px] text-ink-400 mt-3">Not a reply — the first-response clock keeps running.</div>
+      </div>
+    </div>
+
+    <div class="mt-5 rounded-xl border border-dashed border-surface-200 px-4 py-3 flex gap-2.5 items-start">
+      <svg class="w-4 h-4 text-amber-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <div class="text-[12.5px] text-ink-500 leading-relaxed">
+        Ack-ul e in-window prin construcţie (mesajul clientului deschide fereastra de 24h), iar automatizarea e permisă explicit — dar politica cere <strong class="text-ink-700">o rută către un om</strong>. Şterge numărul de telefon şi caseta verde devine avertisment. Twilio respinge dur peste 1600 de caractere (eroare 21617) — nu trunchiază.
+      </div>
+    </div>
+
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    document.querySelectorAll('[data-sw]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-checked') === 'true';
+        b.setAttribute('aria-checked', String(!on));
+        b.classList.toggle('bg-primary', !on); b.classList.toggle('bg-surface-300', on);
+        b.firstElementChild.classList.toggle('left-[20px]', !on);
+        b.firstElementChild.classList.toggle('left-0.5', on);
+      });
+    });
+    var msg = document.getElementById('msg'), prev = document.getElementById('prev'), ok = document.getElementById('escOk');
+    msg.addEventListener('input', function () {
+      prev.textContent = msg.value.trim() || '(nothing is sent)';
+      var has = /\d{3,}|@/.test(msg.value);
+      ok.textContent = has ? '✓ found: a contact route' : '⚠ no phone or address found';
+      ok.className = has
+        ? 'text-emerald-700 dark:text-emerald-400'
+        : 'text-amber-700 dark:text-amber-400';
+    });
+  </script>
+</body>
+</html>
