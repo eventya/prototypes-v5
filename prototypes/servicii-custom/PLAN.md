@@ -138,7 +138,7 @@ Ion deschide  soma.ro/s/deseuri/abonari
 │  caută contul              →  limbă, fus, culori  │
 └───────────────────────┬──────────────────────────┘
                         │  cont · limbă · fus · rol
-                        │  cod de abonat · culoare · logo
+                        │  device_uid · culoare · logo
                         ▼
                  randează pagina
 ```
@@ -157,12 +157,13 @@ Cookie: <cookie-urile omului, retrimise ca atare>
   "limba":   "ro",
   "fus":     "Europe/Bucharest",
   "rol":     "vizitator",
-  "abonat":  "sub_7f3a9c",
+  "device_uid": "A3F9C2E1-8B44-…",
   "culoare": "#0E75BD",
   "logo":    "https://…/logo.svg" }
 ```
 
-Dacă v5 nu recunoaște pe nimeni, răspunde `rol: "anonim"` și fără cod de abonat.
+Dacă v5 nu recunoaște niciun telefon, răspunde `rol: "anonim"` și fără `device_uid` — omul nu se
+poate abona la notificări (vede programul, dar nu primește alerte).
 
 Atât. Fără chei, fără semnături, fără expirări de gestionat.
 
@@ -226,7 +227,7 @@ N-ar avea ce retransmite, și tot mecanismul ar cădea.
 | Ce face omul | Apel |
 |---|---|
 | Caută strada, vede programul | **nu** |
-| Se abonează la notificări | **da** — trebuie codul de abonat |
+| Se abonează la notificări | **da** — trebuie `device_uid` |
 | Își vede abonările | **da** — trebuie să știe ale cui |
 | Intră în administrare | **da** — trebuie rolul |
 
@@ -295,12 +296,18 @@ App pornește → înregistrează telefonul → v5 răspunde cu cookie-ul
 
 Se întâmplă la pornire, înainte de orice pagină — deci nu există moment în care cookie-ul lipsește.
 
-### Codul de abonat
+### Ce primește aplicația de servicii
 
-Aplicația de servicii primește **un cod fără înțeles**: `sub_7f3a9c`. Îl salvează ca text pe abonare
-și îl dă înapoi când vrea să trimită o notificare.
+`device_uid` — identificatorul telefonului, la fel ca în v4. Îl salvează pe abonare și îl dă înapoi
+când vrea să trimită o notificare.
 
-Nu află niciodată numărul de telefon și nici adresa de livrare. Doar v5 le știe.
+Nu primește niciodată adresa de livrare (tokenul de push). Doar v5 o are.
+
+Căutarea în v5 se face mereu pe **perechea** `device_uid` + `account_id` — indexul din
+`mobile_app_devices` e unic pe amândouă, iar același telefon poate fi înregistrat la mai multe
+primării.
+
+**Detaliat în anexa „Cum circulă `device_uid`”.**
 
 ### Verificat în cod
 
@@ -547,7 +554,8 @@ de notificări s-ar evapora fără ca nimeni să afle.
 ```
 POST /api/v1/notifications
 { "cheie":  "wp:8412:2026-08-13",
-  "abonat": "sub_7f3a9c",
+  "device_uid": "A3F9C2E1-8B44-…",
+  "cont":       "8f2a-…",
   "titlu":  "Colectare deșeuri mâine",
   "text":   "Reciclabile — Str. Mihai Viteazu 12",
   "link":   "/s/deseuri/programul-meu" }
@@ -674,7 +682,7 @@ decât mergând liniștit de la început.
 | 2 | `s` adăugat în `RESERVED_SLUGS` | 1 | 10 min |
 | 3 | `GET /api/v1/context` | 2 | ~3 h |
 | 4 | Cookie cu identificatorul telefonului, la înregistrare | 2 | ~1 h |
-| 5 | Codul de abonat | 2 | ~2 h |
+| 5 | Cookie-ul de device citit în `context` | 2 | ~1 h |
 | 6 | Coloana `services` pe metadatele contului | 3 | 30 min |
 | 7 | Client pentru catalog + cache 5 min | 3 | ~3 h |
 | 8 | Apelul de activare / dezactivare | 3 | ~2 h |
@@ -738,7 +746,7 @@ Fiecare cu motivul, ca validarea să poată contesta raționamentul, nu doar con
 | D2 | Montată sub domeniul clientului, pe cale `/s/*` | fără same-origin cad simultan cookie-urile, deep-link-urile din push, navigarea nativă și sesiunea comună |
 | D3 | Ambele forme de URL funcționează permanent | aplicația mobilă folosește mereu `eventya.net/soma/…`, chiar și după ce clientul are domeniu propriu |
 | D4 | Identitatea prin apel către v5, nu prin pachet semnat | pachetul aduce chei de rotit, reînnoiri care pot prinde omul în mijlocul unui formular, câmpuri greu de adăugat și drepturi care întârzie să dispară |
-| D5 | Cod de abonat opac, nu identificatorul telefonului | aplicația de servicii nu trebuie să afle niciodată pe ce telefon se livrează |
+| D5 | `device_uid` direct, nu un cod opac | fără migrație și fără concept nou; identic cu v4. Aplicația de servicii tot nu primește adresa de push |
 | D6 | Abonare fără cont | cerință fermă, ca în v4 |
 | D7 | Activarea o face echipa Eventya, din admin | modulele custom sunt contractate; clientul nu le pornește singur |
 | D8 | v5 cere catalogul, nu îl are scris în cod | un modul nou apare singur, fără niciun deploy de v5 |

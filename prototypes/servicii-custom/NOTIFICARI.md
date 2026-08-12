@@ -11,7 +11,8 @@ Trei bucăți de cod, în două aplicații.
 ```ruby
 # notification_outbox
 t.string   :idempotency_key, null: false, index: { unique: true }
-t.string   :subscriber_code, null: false      # "sub_7f3a9c" — codul primit de la v5
+t.string   :device_uid,      null: false      # identificatorul telefonului, primit de la v5
+t.uuid     :account_id,      null: false      # aceeași pereche ca indexul din v5
 t.string   :title
 t.text     :body
 t.string   :url
@@ -50,7 +51,8 @@ class Notifications::DeliveryJob < ApplicationJob
       req.headers["Content-Type"]  = "application/json"
       req.body = {
         cheie:  row.idempotency_key,
-        abonat: row.subscriber_code,
+        cont:       row.account_id,
+        device_uid: row.device_uid,
         titlu:  row.title,
         text:   row.body,
         link:   row.url
@@ -59,7 +61,7 @@ class Notifications::DeliveryJob < ApplicationJob
 
     case JSON.parse(response.body)["stare"]
     when "acceptat"   then row.update!(status: "sent")
-    when "necunoscut" then Subscription.where(subscriber_code: row.subscriber_code).delete_all
+    when "necunoscut" then Subscription.where(device_uid: row.device_uid).delete_all
     end
   end
 end
@@ -99,7 +101,8 @@ module Stejar
         private
 
         def find_device
-          Stejar::MobileApp::Device.find_by(subscriber_code: params[:abonat])
+          Stejar::MobileApp::Device.find_by(device_uid: params[:device_uid],
+                                            account_id: params[:cont])
         end
 
         def already_handled?
@@ -169,7 +172,7 @@ BAZA SERVICIILOR
         ▼
   Stejar::Api::V1::NotificationsController#create
         │  verifică tokenul
-        │  caută Device.find_by(subscriber_code: "sub_7f3a9c")
+        │  caută Device.find_by(device_uid:, account_id:)
         │  răspunde { stare: "acceptat" }
         │
         └──▶ DeliverServiceNotificationJob (în fundal)
@@ -187,14 +190,14 @@ BAZA SERVICIILOR
 | Decide **când** se trimite | ✅ | — |
 | Scrie **textul** | ✅ | — |
 | Face apelul HTTP | ✅ | — |
-| Știe **ce telefon** e `sub_7f3a9c` | — | ✅ |
+| Are adresa de push a telefonului | — | ✅ |
 | Are tokenul de push | — | ✅ |
 | Vorbește cu Google/Apple | — | ✅ |
 | Scrie în clopoțel | — | ✅ |
 
-Aplicația de servicii trimite **un mesaj scris, către un cod**. v5 traduce codul în telefon și livrează.
+Aplicația de servicii trimite **un mesaj scris, către un `device_uid`**. v5 îl caută și livrează.
 
-Aplicația de servicii nu vede niciodată tokenul de push și nu știe ce număr de telefon e în spate.
+Aplicația de servicii nu vede niciodată tokenul de push — doar v5 îl are.
 
 ---
 
@@ -212,7 +215,7 @@ Aplicația de servicii nu vede niciodată tokenul de push și nu știe ce număr
 - `app/jobs/stejar/deliver_service_notification_job.rb`
 - `app/notifiers/stejar/notifiers/service_notifier.rb`
 - ruta în `config/routes/api.rb`
-- coloana `subscriber_code` pe `mobile_app_devices`
+- *(nimic pe `mobile_app_devices` — `device_uid` există deja)*
 
 `FirebaseTokens`, `Noticed`, autentificarea prin token și limitarea de rată **există deja** — nu se
 modifică nimic în ele.
