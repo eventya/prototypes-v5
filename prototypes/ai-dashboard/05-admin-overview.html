@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Overview · Dashboard AI</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+  <div class="flex items-center gap-2 min-w-0">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#5 · Admin — Overview platformă (înlocuiește /stejar-admin/ai_usage)</span>
+  </div>
+  <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+</div>
+
+<div class="flex items-start gap-0">
+
+  <!-- ============ Admin sidebar (mock, după _admin_sidebar.html.erb) ============ -->
+  <aside class="hidden lg:flex w-64 shrink-0 flex-col px-3 pb-4 pt-4 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 sticky top-0 h-screen overflow-y-auto">
+    <nav class="space-y-6">
+      <div>
+        <h5 class="flex items-center gap-2 px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          Overview
+        </h5>
+        <ul class="space-y-0.5">
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Dashboard</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Accounts</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Users</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="flex items-center gap-2 px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          Tools
+        </h5>
+        <ul class="space-y-0.5">
+          <li>
+            <a href="05-admin-overview.html" class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-500/10">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span class="truncate">AI</span>
+              <span class="ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-300">nou</span>
+            </a>
+          </li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Themes</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Starters</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Sandbox App</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Mobile Deploys</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Background Jobs</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="flex items-center gap-2 px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+          Reference
+        </h5>
+        <ul class="space-y-0.5">
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Docs</span></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="mt-auto pt-4">
+      <div class="px-3 pt-4 mt-2 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">v5.0</span>
+        <span class="text-[11px] text-gray-400 dark:text-gray-500">Eventya Platform</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ Content ============ -->
+  <main class="flex-1 min-w-0 px-4 md:px-8 py-7 pb-24">
+
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+      <div class="min-w-0">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">AI</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Consum, cost și calitate pe toată platforma, cumulat din toate workspace-urile.</p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        </span>
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-200 min-w-[120px] text-center">Septembrie 2026</span>
+        <span class="w-8 h-8 flex items-center justify-center text-gray-300 dark:text-gray-600 cursor-not-allowed">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex items-center gap-1 border-b border-surface-200 overflow-x-auto overflow-y-hidden mb-5">
+      <a href="05-admin-overview.html"   class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-primary text-primary font-semibold">Overview</a>
+      <span class="px-4 py-2.5 text-sm -mb-px border-b-2 border-transparent text-ink-500 whitespace-nowrap">Backend</span>
+      <span class="px-4 py-2.5 text-sm -mb-px border-b-2 border-transparent text-ink-500 whitespace-nowrap">Public</span>
+      <span class="px-4 py-2.5 text-sm -mb-px border-b-2 border-transparent text-ink-500 whitespace-nowrap">Helpdesk</span>
+      <a href="06-admin-workspaces.html" class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-transparent text-ink-500 hover:text-ink-700">Workspaces</a>
+    </div>
+
+    <div class="rounded-xl border border-surface-200 bg-surface-0 px-4 py-2.5 mb-4 text-[12px] text-ink-500 leading-relaxed">
+      Taburile <strong class="text-ink-700">Backend · Public · Helpdesk</strong> au exact structura din
+      dashboard-ul de workspace (ecranele 2–4), doar că agregă toate workspace-urile. Nu le-am desenat
+      separat ca să nu dublăm 3 ecrane identice ca formă.
+    </div>
+
+    <!-- KPI -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+      <div class="card px-5 py-[18px]">
+        <div class="text-[12px] font-medium text-ink-400 tooltip tooltip--bottom cursor-help w-fit" tabindex="0"
+             data-tooltip="Estimare pe baza tokenilor consumați și a prețului de listă pentru gpt-5.4-mini. Factura reală poate fi mai mică — input-ul din cache se taxează redus și nu îl contorizăm separat.">
+          Cost estimat · platformă
+        </div>
+        <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">≈ $332,74</div>
+        <div class="flex items-center gap-1 mt-2 text-[12px] font-semibold text-amber-600 dark:text-amber-400">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
+          +31%<span class="text-ink-300 dark:text-zinc-600 font-normal">vs luna trecută</span>
+        </div>
+      </div>
+      <div class="card px-5 py-[18px]">
+        <div class="text-[12px] font-medium text-ink-400">Tokens</div>
+        <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">524,0M</div>
+        <div class="mt-2 text-[12px] text-ink-400">408,7M input · 115,3M output</div>
+      </div>
+      <div class="card px-5 py-[18px]">
+        <div class="text-[12px] font-medium text-ink-400">Conversații</div>
+        <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">200.400</div>
+        <div class="mt-2 text-[12px] text-ink-400">742.800 requests</div>
+      </div>
+      <div class="card px-5 py-[18px]">
+        <div class="text-[12px] font-medium text-ink-400">Workspace-uri cu AI</div>
+        <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">34 <span class="text-[15px] font-semibold text-ink-400">/ 41</span></div>
+        <div class="mt-2 text-[12px] text-ink-400">83% din platformă</div>
+      </div>
+    </div>
+
+    <!-- Cost over 12 months -->
+    <div class="card p-5 mb-4">
+      <div class="flex items-start justify-between gap-3 flex-wrap mb-4">
+        <div>
+          <div class="text-[15px] font-semibold text-ink-900">Cost estimat pe lună</div>
+          <div class="text-[12px] text-ink-400 mt-0.5">ultimele 12 luni · toate workspace-urile</div>
+        </div>
+      </div>
+      <div id="costmonths" class="overflow-x-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+
+      <!-- Adoption -->
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Adopție</div>
+        <div class="text-[12px] text-ink-400 mb-4">câte workspace-uri au fiecare funcție activată</div>
+        <div id="adoption"></div>
+        <p class="text-[11px] text-ink-400 mt-4 leading-relaxed">
+          7 workspace-uri nu au nicio funcție AI activă — candidați pentru onboarding.
+        </p>
+      </div>
+
+      <!-- Near the cap -->
+      <div class="card overflow-hidden">
+        <div class="px-5 py-4 border-b border-surface-200">
+          <div class="text-[15px] font-semibold text-ink-900">Aproape de plafon</div>
+          <div class="text-[12px] text-ink-400 mt-0.5">workspace-uri peste 70% din plafonul lunar de tokens</div>
+        </div>
+        <ul class="divide-y divide-surface-200">
+          <li class="px-5 py-3 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-md bg-rose-500 text-white grid place-items-center text-[10px] font-bold shrink-0">VC</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-medium text-ink-800 truncate">Visit Cluj</div>
+              <div class="h-1.5 rounded-full bg-surface-100 mt-1.5"><div class="h-full rounded-full bg-rose-500" style="width:96%"></div></div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-[13px] font-bold text-rose-600 dark:text-rose-400">96%</div>
+              <div class="text-[11px] text-ink-400">$61,90</div>
+            </div>
+          </li>
+          <li class="px-5 py-3 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-md bg-amber-500 text-white grid place-items-center text-[10px] font-bold shrink-0">DD</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-medium text-ink-800 truncate">Delta Dunării</div>
+              <div class="h-1.5 rounded-full bg-surface-100 mt-1.5"><div class="h-full rounded-full bg-rose-500" style="width:91%"></div></div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-[13px] font-bold text-rose-600 dark:text-rose-400">91%</div>
+              <div class="text-[11px] text-ink-400">$18,20</div>
+            </div>
+          </li>
+          <li class="px-5 py-3 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-md bg-blue-500 text-white grid place-items-center text-[10px] font-bold shrink-0">SL</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-medium text-ink-800 truncate">Sibiu Legacy</div>
+              <div class="h-1.5 rounded-full bg-surface-100 mt-1.5"><div class="h-full rounded-full bg-amber-500" style="width:82%"></div></div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-[13px] font-bold text-amber-600 dark:text-amber-400">82%</div>
+              <div class="text-[11px] text-ink-400">$15,66</div>
+            </div>
+          </li>
+          <li class="px-5 py-3 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-md bg-emerald-500 text-white grid place-items-center text-[10px] font-bold shrink-0">VM</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-[13px] font-medium text-ink-800 truncate">Visit Maramureș</div>
+              <div class="h-1.5 rounded-full bg-surface-100 mt-1.5"><div class="h-full rounded-full bg-amber-500" style="width:74%"></div></div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-[13px] font-bold text-amber-600 dark:text-amber-400">74%</div>
+              <div class="text-[11px] text-ink-400">$12,40</div>
+            </div>
+          </li>
+        </ul>
+        <div class="px-5 py-3 border-t border-surface-200">
+          <a href="06-admin-workspaces.html" class="text-[12px] font-medium text-primary hover:underline">Vezi toate workspace-urile →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top spenders + channel split -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Top 5 după cost</div>
+        <div class="text-[12px] text-ink-400 mb-4">septembrie 2026</div>
+        <div id="topspend"></div>
+      </div>
+
+      <div class="card p-5">
+        <div class="text-[15px] font-semibold text-ink-900 mb-1">Unde se duc banii</div>
+        <div class="text-[12px] text-ink-400 mb-4">costul pe canal, cumulat pe platformă</div>
+        <div id="channelsplit"></div>
+        <p class="text-[11px] text-ink-400 mt-4 leading-relaxed">
+          Ecranul vechi <code class="text-[11px] px-1 rounded bg-surface-200/60">/stejar-admin/ai_usage</code>
+          filtra doar <code class="text-[11px] px-1 rounded bg-surface-200/60">cms_audience</code>, deci arăta
+          exclusiv felia violet — <strong class="text-ink-700">82% din consum lipsea</strong> din raport.
+        </p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+  onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script src="charts.js"></script>
+<script>
+  var C = Charts.C;
+
+  Charts.bars(document.getElementById('costmonths'), [
+    { label: 'Oct', value: 92 },  { label: 'Noi', value: 100 }, { label: 'Dec', value: 83 },
+    { label: 'Ian', value: 96 },  { label: 'Feb', value: 108 }, { label: 'Mar', value: 131 },
+    { label: 'Apr', value: 156 }, { label: 'Mai', value: 184 }, { label: 'Iun', value: 219 },
+    { label: 'Iul', value: 265 }, { label: 'Aug', value: 254 }, { label: 'Sep', value: 333, color: '#6366f1' }
+  ], '#c7d2fe');
+
+  Charts.hbars(document.getElementById('adoption'), [
+    { label: 'Workspace-uri active',      value: 41, color: C.muted },
+    { label: 'Asistent public (web/app)', value: 34, color: C.website },
+    { label: 'Agent Helpdesk',            value: 22, color: C.helpdesk },
+    { label: 'Asistent CMS folosit',      value: 19, color: C.backend },
+    { label: 'Intelligence (MCP)',        value: 6,  color: C.indigo }
+  ]);
+
+  Charts.hbars(document.getElementById('topspend'), [
+    { label: 'București Turism',     value: 84.20, display: '$84,20', color: C.indigo },
+    { label: 'Visit Cluj',           value: 61.90, display: '$61,90', color: C.indigo },
+    { label: 'Explore Transylvania', value: 48.30, display: '$48,30', color: C.indigo },
+    { label: 'România Atractivă',    value: 31.70, display: '$31,70', color: C.indigo },
+    { label: 'Visit Brașov',         value: 24.90, display: '$24,90', color: C.indigo }
+  ]);
+
+  Charts.splitBar(document.getElementById('channelsplit'), [
+    { label: 'Website',   value: 284000000, money: 180.34, color: C.website },
+    { label: 'App mobil', value: 78000000,  money: 49.53,  color: C.app },
+    { label: 'Backend',   value: 96000000,  money: 60.96,  color: C.backend },
+    { label: 'Helpdesk',  value: 66000000,  money: 41.91,  color: C.helpdesk }
+  ]);
+</script>
+</body>
+</html>
