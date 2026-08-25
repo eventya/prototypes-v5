@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina Cod QR · Cod QR pentru pagini</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    code { overflow-wrap: anywhere; }
+    /* Plăcuța codului: fundal alb fix în ambele teme — un QR se citește prin contrast,
+       iar inversarea în dark mode l-ar face nescanabil. Aceeași decizie ca în .cms-qr__plate. */
+    .qr-plate { background: #fff; border-radius: 12px; padding: 14px; display: inline-block; line-height: 0; }
+    .qr-plate svg { display: block; width: 100%; height: auto; max-width: 190px; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#2 · Cod QR — pagina de generare (stare populată)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 py-2 md:px-8">
+
+    <!-- ============ Breadcrumb ============ -->
+    <div class="flex items-center gap-1.5 text-[11px] text-ink-400 mb-6 flex-wrap">
+      <span class="hover:text-ink-700 transition-colors flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        CMS
+      </span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span class="hover:text-ink-700 transition-colors">Pagini</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span class="hover:text-ink-700 transition-colors">Ruta Momârlanilor</span>
+      <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span class="text-ink-600 font-medium">Cod QR</span>
+    </div>
+
+    <!-- ============ Header ============ -->
+    <div class="flex items-center gap-3 mb-6">
+      <a href="01-meniu-more.html" class="p-1.5 rounded-lg text-ink-400 hover:text-ink-700 hover:bg-surface-100 transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </a>
+      <div class="text-2xl font-bold text-ink-900">Cod QR</div>
+      <span class="badge badge--positive ml-1">publicat</span>
+    </div>
+
+    <!-- ============ Locale tabs ============ -->
+    <div class="locale-bar rounded-lg mb-5" data-qr-tabs>
+      <button type="button" class="locale-tab active" data-locale="ro">
+        <span class="flag">🇷🇴</span> RO
+      </button>
+      <button type="button" class="locale-tab" data-locale="en">
+        <span class="flag">🇬🇧</span> EN
+      </button>
+      <button type="button" class="locale-tab" data-locale="de">
+        <span class="flag">🇩🇪</span> DE
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-5 items-start">
+
+      <!-- ============ LEFT: preview + config + export ============ -->
+      <div class="space-y-5">
+
+        <!-- Preview card, one per locale -->
+        <div class="bg-surface-0 rounded-xl border border-surface-200 p-6">
+
+          <!-- ── RO ── -->
+          <div data-locale-panel="ro">
+            <div class="flex flex-col sm:flex-row gap-6 items-center">
+              <div class="qr-plate shrink-0 ring-1 ring-surface-200"><svg xmlns="http://www.w3.org/2000/svg" width="164" height="164" viewBox="0 0 164 164" shape-rendering="crispEdges"><rect width="164" height="164" x="0" y="0" fill="#ffffff"/><path d="M0 0h7v7h-7zM9 0h1v1h-1zM12 0h1v2h-2v-1h1zM14 0h2v1h2v-1h2v1h-2v4h1v-3h1v3h-1v2h1v-2h2v-1h-1v-1h1v1h1v1h1v1h-1v2h-1v1h-1v1h1v-1h1v2h-4v-1h1v-1h-2v-1h-1v-1h-1v-1h1v-1h-1v-1h-1v-1h-1v-1h1v-1h-1zM23 0h1v1h1v2h-2v-1h-2v-1h2zM26 0h7v7h-7zM1 1v5h5v-5zM27 1v5h5v-5zM2 2h3v3h-3zM15 2v1h1v1h1v-2zM28 2h3v3h-3zM10 3h1v2h-1zM12 3h2v2h1v3h-1v-2h-1v1h-1v-1h-1v-1h2v-1h-1zM8 5h2v1h-1v1h-1zM10 6h1v1h-1zM17 6v1h1v-1zM21 6v1h1v-1zM24 6h1v2h1v1h1v-1h1v2h1v1h1v-1h1v-1h2v2h-1v-1h-1v1h-1v2h-1v-1h-1v-1h-1v-1h-3zM11 7h1v1h2v1h-2v3h1v2h-1v-1h-2v1h-1v-3h-1v3h-1v-1h-1v-1h-1v-1h-1v-1h-1v1h1v2h1v1h-2v2h-1v-3h1v-1h-2v-1h-1v-3h1v1h2v-1h1v2h5v-1h-1v-1h1v1h1v-1h1zM5 8h2v1h-2zM15 8h1v1h-1zM10 9v1h1v-1zM16 9h1v1h1v2h-4v-1h2zM6 11v1h1v-1zM10 11v1h1v-1zM23 11h1v1h-1zM25 11h1v1h1v2h1v-1h1v2h-1v1h-1v1h-1v-2h-3v-1h-2v-1h3v-1h1zM19 12h1v1h-1zM31 12h1v1h1v1h-1v4h1v1h-1v1h1v3h-1v-1h-1v-3h-1v-1h-1v-1h-1v-1h1v1h1v1h1v-3h-1v-2h1zM0 13h1v1h-1zM15 13h2v1h-2zM24 13v1h2v-1zM6 14h1v1h-1zM8 14h1v1h-1zM13 14h2v1h-1v1h-1zM20 14h1v1h-1zM7 15h1v1h-1zM11 15h1v1h-1zM15 15h1v1h-1zM17 15h3v1h1v-1h2v2h-1v1h-2v-1h-1v-1h-1v1h-1v2h1v-2h1v4h2v2h-1v-1h-1v2h-1v-2h-2v1h-1v-2h1v-5h1zM0 16h2v1h-2zM3 16h1v3h-1v1h1v-1h1v-1h2v-1h-2v-1h2v1h2v-1h1v2h1v-1h1v-1h1v1h-1v3h-1v1h-1v2h-1v1h-1v-2h-1v-1h-1v1h-3v-1h-1v1h1v1h-1v1h-1v-1h-1v-1h1v-1h-1v-1h2v-1h-2v-1h3zM23 17h2v2h-1v-1h-1zM27 17h1v1h-1zM7 18v1h-2v1h-1v1h1v-1h2v1h2v-1h-1v-2zM13 18h2v2h-1v-1h-1zM22 18h1v1h-1zM9 19v1h1v-1zM21 19h1v1h-1zM25 19h1v2h1v3h1v-1h1v-2h1v1h1v1h-1v3h2v-1h1v1h-1v1h-3v1h1v1h-1v2h-1v-2h-1v1h-1v-1h-2v-4h-1v-2h-1v-3h2v1h-1v2h3v-1h-2v-1h1zM27 19h1v1h-1zM12 20h2v1h-1v2h2v1h1v-1h1v1h-1v1h-1v2h-1v-3h-3v-3h1zM6 22h1v1h-1zM3 23h1v2h-2v-1h1zM5 23h1v1h1v1h-2zM21 23h1v2h-1v1h1v-1h1v1h-1v1h-1v1h-1v1h2v-1h1v1h-1v1h1v-1h1v1h2v1h1v1h-2v1h-1v-1h-1v-1h-1v2h-1v-3h-2v-3h1v-1h-2v-1h-1v-1h1v1h1v-1h2zM0 24h1v1h-1zM10 24h1v1h2v4h-1v-2h-1v1h-1v1h1v1h1v3h-1v-2h-1v2h-2v-1h1v-2h-1v-1h1v-1h-1v-1h1v-1h-1v-1h2zM25 25v3h3v-3zM0 26h7v7h-7zM26 26h1v1h-1zM1 27v5h5v-5zM16 27h1v2h-1v1h-1v-1h-1v-1h2zM2 28h3v3h-3zM13 29h1v1h1v1h-1v1h-1zM31 29h1v1h-1zM17 30h2v1h-1v1h-1v1h-1v-1h-1v-1h2zM32 30h1v1h-1zM14 32h1v1h-1zM18 32h1v1h-1zM28 32h2v1h-2zM31 32h1v1h-1z" fill="#000000" transform="translate(16,16) scale(4)"/></svg></div>
+              <div class="min-w-0">
+                <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Scanări</div>
+                <div class="text-[28px] font-bold text-ink-900 leading-none mt-1.5 tabular-nums">1.204</div>
+                <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">
+                  Doar codul în limba asta. Celelalte limbi au cifrele lor.
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-5 border-t border-surface-200">
+              <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1.5">Adresa măsurată</div>
+              <div class="flex items-stretch bg-surface-50 border border-surface-200 rounded-lg overflow-hidden">
+                <code class="flex-1 px-3 py-2.5 text-[12px] font-mono text-ink-700 break-all min-w-0">https://tursitulcea.ro/qr/ruta-momarlanilor</code>
+                <button type="button" class="px-3 border-l border-surface-200 text-ink-400 hover:text-ink-800 hover:bg-surface-100 transition-colors shrink-0" title="Copiază">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                </button>
+              </div>
+              <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">
+                Redirect 302 către <code class="text-[10px]">/ruta-momarlanilor?locale=ro&amp;utm_source=qr-ro</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── EN ── -->
+          <div data-locale-panel="en" hidden>
+            <div class="flex flex-col sm:flex-row gap-6 items-center">
+              <div class="qr-plate shrink-0 ring-1 ring-surface-200"><svg xmlns="http://www.w3.org/2000/svg" width="164" height="164" viewBox="0 0 164 164" shape-rendering="crispEdges"><rect width="164" height="164" x="0" y="0" fill="#ffffff"/><path d="M0 0h7v7h-7zM10 0h4v1h2v-1h5v1h-3v1h2v1h-3v1h-1v-1h-1v-1h-1v1h-1v-1h-1v-1h-1v1h-1v1h1v-1h1v2h1v1h-1v1h-1v1h-1v-3h-1v4h-1v-6h1v-1h1zM22 0h2v1h-1v1h-1zM26 0h7v7h-7zM1 1v5h5v-5zM27 1v5h5v-5zM2 2h3v3h-3zM24 2h1v5h-1v-3h-2v1h1v2h-1v-1h-1v1h-1v-2h1v-1h-1v-1h4zM28 2h3v3h-3zM14 3h1v1h-1zM15 4h1v1h1v-1h2v1h-1v1h-1v1h-1v-1h-1zM12 6h1v1h-1zM14 6h1v1h1v2h-1v1h-1v-1h-1v1h-2v-1h-1v-1h1v-1h1v1h-1v1h1v-1h2zM18 6h1v1h-1zM21 7h1v1h-1zM23 7h1v1h1v1h-1v1h-2v1h3v-1h1v-2h5v2h1v-1h1v1h-1v2h-2v2h-1v-1h-1v-3h-2v3h1v3h-1v1h1v-1h1v-2h1v1h2v-2h2v1h-1v1h-1v1h-2v1h-1v1h1v-1h2v1h1v-2h1v2h-1v1h-1v1h-1v1h-3v-3h-1v1h-1v1h1v1h-2v-1h-1v-1h-1v-1h1v-1h-1v-1h-2v2h-1v-4h1v-1h-2v-1h1v-1h-1v-2h-1v-1h2v1h1v-1h1v1h1v-1h1zM0 8h1v1h1v-1h5v1h-1v1h1v-1h1v1h-1v1h-1v1h-1v1h1v-1h1v-1h1v-1h1v-1h1v1h1v1h-1v2h2v1h-2v1h1v1h-1v1h-1v-1h-1v-1h1v-4h-1v2h-2v1h-1v1h-1v-1h-1v1h-1v-1h-1v2h-1zM2 9v1h1v-1zM4 9v1h1v-1zM16 9h1v3h-1v-1h-1v-1h1zM28 9v1h1v-1zM19 10v1h2v-1zM29 10v1h1v-1zM3 11v1h-2v1h3v-2zM11 11h1v1h-1zM14 11h1v1h-1zM20 12v1h1v-1zM22 12v1h2v-1zM13 13h5v2h-1v-1h-2v4h1v-1h1v-1h-1v-1h1v1h1v3h1v1h-2v1h-1v-1h-1v-1h-1v-2h-1v2h-1v-1h-1v-1h1v-1h2v-1h-1zM24 13v1h-1v3h1v1h-1v1h1v-1h1v-5zM6 14h1v1h-1zM20 14v1h1v-1zM1 16h1v1h-1zM4 16h3v1h-1v1h-1v-1h-1zM2 17h2v1h-2zM7 17h1v2h1v-1h2v2h1v1h-1v1h-2v-1h-1v-1h-1v-1h-1v-1h1zM0 18h1v1h-1zM4 18h1v1h-1zM20 18h1v1h-1zM29 18v1h1v-1zM2 19h1v1h-1zM9 19v2h1v-2zM13 19h1v1h-1zM3 20h1v1h-1zM6 20h1v1h-1zM20 20h3v1h-3zM31 20h2v2h-1v-1h-1zM0 21h2v1h-1v3h-1zM5 21h1v1h1v-1h1v1h1v2h1v1h-1v1h-1v-1h-2v-1h-1zM14 21h2v1h1v1h-1v2h-1v-2h-1zM18 21h1v2h-1zM23 21h1v1h-1zM26 21h1v1h-1zM3 22h1v1h-1zM20 22h3v1h-1v1h-1v-1h-1zM25 22h1v1h-1zM27 22h5v1h-1v1h-1v-1h-2v1h1v3h1v-2h1v-1h2v2h-1v-1h-1v1h1v1h-1v1h-1v2h1v2h-1v1h-1v-1h-1v-1h-2v2h-2v-1h1v-1h-2v-1h-3v-1h1v-1h-1v-2h-1v-1h3v-1h5zM2 23h1v1h-1zM6 23v1h1v-1zM4 24h1v1h-1zM11 24h3v1h-1v1h-1v-1h-1zM17 24h1v1h-1zM14 25h1v1h1v-1h1v3h-1v-1h-2zM22 25v2h1v-2zM25 25v3h3v-3zM0 26h7v7h-7zM9 26h3v1h-3zM18 26h1v1h-1zM26 26h1v1h-1zM1 27v5h5v-5zM8 27h1v1h1v1h-1v1h1v-1h2v-1h2v2h-1v-1h-1v2h2v1h-1v1h-1v-1h-1v1h-3v-1h1v-1h-1zM32 27h1v1h-1zM2 28h3v3h-3zM18 28h1v1h-1zM22 28v1h2v-1zM15 29h2v1h-2zM26 29v1h2v-1zM32 29h1v1h-1zM10 30v1h1v-1zM17 30h3v1h3v2h-1v-1h-2v1h-3v-1h-1v-1h1zM28 30v1h1v-1zM17 31v1h1v-1zM27 32h1v1h-1zM31 32h1v1h-1z" fill="#000000" transform="translate(16,16) scale(4)"/></svg></div>
+              <div class="min-w-0">
+                <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Scanări</div>
+                <div class="text-[28px] font-bold text-ink-900 leading-none mt-1.5 tabular-nums">318</div>
+                <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">
+                  Doar codul în limba asta. Celelalte limbi au cifrele lor.
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-5 border-t border-surface-200">
+              <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1.5">Adresa măsurată</div>
+              <div class="flex items-stretch bg-surface-50 border border-surface-200 rounded-lg overflow-hidden">
+                <code class="flex-1 px-3 py-2.5 text-[12px] font-mono text-ink-700 break-all min-w-0">https://tursitulcea.ro/qr/momarlani-route-en</code>
+                <button type="button" class="px-3 border-l border-surface-200 text-ink-400 hover:text-ink-800 hover:bg-surface-100 transition-colors shrink-0" title="Copiază">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                </button>
+              </div>
+              <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">
+                Redirect 302 către <code class="text-[10px]">/momarlani-route-en?locale=en&amp;utm_source=qr-en</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── DE ── -->
+          <div data-locale-panel="de" hidden>
+            <div class="flex flex-col sm:flex-row gap-6 items-center">
+              <div class="qr-plate shrink-0 ring-1 ring-surface-200"><svg xmlns="http://www.w3.org/2000/svg" width="164" height="164" viewBox="0 0 164 164" shape-rendering="crispEdges"><rect width="164" height="164" x="0" y="0" fill="#ffffff"/><path d="M0 0h7v7h-7zM8 0h2v2h-1v1h-1zM12 0h1v2h-1zM14 0h1v1h-1zM18 0h1v1h-1zM26 0h7v7h-7zM1 1v5h5v-5zM16 1h2v1h1v-1h4v2h-1v-1h-3v1h-2v-1h-1zM27 1v5h5v-5zM2 2h3v3h-3zM10 2h2v2h-1v-1h-1zM15 2h1v3h-2v-1h1zM24 2h1v3h-1v1h-1v-3h1zM28 2h3v3h-3zM9 3h1v1h-1zM8 4h1v1h-1zM12 4h1v1h-1zM18 4h1v1h-1zM20 4h2v1h-1v4h-1v1h-1v1h-1v1h1v-1h1v-1h2v1h-1v1h3v-1h-1v-2h1v-1h2v1h-2v2h1v-1h2v1h-1v1h-1v1h-1v1h-2v-1h-2v-1h-1v1h-1v2h-2v-3h-1v1h-2v3h1v1h2v2h-1v-1h-1v2h1v1h-2v1h-1v-1h-1v1h-1v-1h-1v-1h1v-1h1v-1h-2v-1h-1v1h-1v-1h-1v-1h1v-1h-1v-1h1v-1h-1v-1h-1v-1h1v-1h-1v-1h-2v-1h6v-1h-1v-1h1v-1h1v1h-1v1h1v-1h1v-1h1v1h-1v1h-1v1h-1v2h-2v-1h-1v1h1v1h-1v1h1v-1h1v1h-1v1h2v1h-1v1h1v-1h1v-3h-1v-1h1v-1h1v-2h1v-1h1v1h1v-1h1v1h-1v1h-1v2h-1v1h-1v-1h-1v1h1v1h3v-2h1v-1h-1v-1h5v-1h-1v-1h1v1h1zM16 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM0 8h1v1h-1zM28 8h1v1h1v-1h3v1h-2v1h2v1h-1v1h1v1h-2v-1h-1v-1h-2zM1 9h2v1h-2zM16 9v1h2v-1zM0 10h1v1h-1zM3 10h1v2h-1v1h-1v-2h1zM16 11v1h1v-1zM27 11h1v1h-1zM0 12h1v2h2v-1h1v-1h1v2h-2v5h-1v1h-2v-1h1v-1h-1v-1h1v-1h-1zM26 12h1v1h-1zM19 13h1v1h-1zM27 13h1v1h-1zM29 13h1v1h-1zM14 14h1v1h-1zM21 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM1 15v1h1v-1zM4 15h1v2h-1zM9 15v1h1v1h1v1h1v-3zM15 15h1v1h-1zM19 15h1v1h1v1h-1v2h2v2h2v-1h-1v-2h-2v-1h1v-1h2v1h-1v1h2v-3h1v1h1v-1h1v1h1v-1h2v1h-1v1h-1v1h-1v-1h-1v1h1v1h-1v1h-2v1h-1v3h-2v-1h-1v-1h-1v-1h-1v-1h-3v-1h3zM32 15h1v1h-1zM1 17v1h1v-1zM30 17h1v2h1v-2h1v4h-1v-1h-2v1h-1v-1h-1v-1h1v-1h1zM4 18h1v1h1v-1h1v1h-1v1h-2v1h-1v-2h1zM8 18h1v1h-1zM25 18v1h1v-1zM11 19v1h2v-1zM6 20h2v1h-2zM27 20h1v1h1v2h1v-1h3v1h-2v1h-1v1h-1v2h1v-2h2v1h-1v2h-2v1h-1v1h1v1h1v-1h2v-2h1v4h-3v1h-3v-1h-1v-1h1v-2h-1v1h-1v1h-1v-2h-1v-2h-5v-1h5v-1h1v-1h4v-1h-3v-1h2zM0 21h1v3h2v-1h-1v-1h2v-1h1v1h-1v1h1v1h-2v1h-3zM8 21h1v1h-1zM16 21h1v1h1v-1h1v2h-1v1h-1v2h-1v2h-1v-1h-1v1h-1v-2h-1v-2h-1v1h-2v-1h-1v-1h-2v-1h2v1h3v-1h1v2h1v2h2v-1h-1v-1h2v-1h-1v-1h1zM5 24h3v1h-3zM19 24h2v1h-2zM8 25h1v1h3v1h-2v1h-1v1h1v-1h2v2h1v-1h1v-1h1v3h1v-1h1v-2h2v1h-1v1h-1v2h1v-2h1v3h-3v-1h-2v-1h-3v1h-1v-1h-1v-1h-1zM25 25v3h3v-3zM0 26h7v7h-7zM26 26h1v1h-1zM1 27v5h5v-5zM2 28h3v3h-3zM20 28h2v1h-1v2h-1zM22 30h1v2h-1zM8 32h2v1h-2zM11 32h3v1h-3zM24 32h1v1h-1z" fill="#000000" transform="translate(16,16) scale(4)"/></svg></div>
+              <div class="min-w-0">
+                <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Scanări</div>
+                <div class="text-[28px] font-bold text-ink-900 leading-none mt-1.5 tabular-nums">42</div>
+                <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">
+                  Doar codul în limba asta. Celelalte limbi au cifrele lor.
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-5 border-t border-surface-200">
+              <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1.5">Adresa măsurată</div>
+              <div class="flex items-stretch bg-surface-50 border border-surface-200 rounded-lg overflow-hidden">
+                <code class="flex-1 px-3 py-2.5 text-[12px] font-mono text-ink-700 break-all min-w-0">https://tursitulcea.ro/qr/momarlani-route-de</code>
+                <button type="button" class="px-3 border-l border-surface-200 text-ink-400 hover:text-ink-800 hover:bg-surface-100 transition-colors shrink-0" title="Copiază">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                </button>
+              </div>
+              <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">
+                Redirect 302 către <code class="text-[10px]">/momarlani-route-de?locale=de&amp;utm_source=qr-de</code>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Export -->
+        <div class="bg-surface-0 rounded-xl border border-surface-200 p-6">
+          <div class="text-[13px] font-semibold text-ink-800 mb-1">Descarcă</div>
+          <p class="text-[12px] text-ink-500 leading-relaxed mb-4">
+            Fișierul poartă limba în nume: <code class="text-[11px]">qr-ruta-momarlanilor-ro.svg</code>
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" class="flex flex-col items-center gap-1.5 px-3 py-3.5 rounded-lg border border-surface-200 bg-surface-0 hover:border-primary-400 hover:bg-surface-50 transition-all">
+              <svg class="w-5 h-5 text-ink-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>
+              <span class="text-[12px] font-semibold text-ink-800">SVG</span>
+              <span class="text-[10px] text-ink-400">vector</span>
+            </button>
+            <button type="button" class="flex flex-col items-center gap-1.5 px-3 py-3.5 rounded-lg border border-surface-200 bg-surface-0 hover:border-primary-400 hover:bg-surface-50 transition-all">
+              <svg class="w-5 h-5 text-ink-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>
+              <span class="text-[12px] font-semibold text-ink-800">PNG</span>
+              <span class="text-[10px] text-ink-400">1024 px</span>
+            </button>
+            <button type="button" class="flex flex-col items-center gap-1.5 px-3 py-3.5 rounded-lg border border-surface-200 bg-surface-0 hover:border-primary-400 hover:bg-surface-50 transition-all">
+              <svg class="w-5 h-5 text-ink-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>
+              <span class="text-[12px] font-semibold text-ink-800">JPG</span>
+              <span class="text-[10px] text-amber-600 dark:text-amber-400">cu pierderi</span>
+            </button>
+            <button type="button" class="flex flex-col items-center gap-1.5 px-3 py-3.5 rounded-lg border border-surface-200 bg-surface-0 hover:border-primary-400 hover:bg-surface-50 transition-all">
+              <svg class="w-5 h-5 text-ink-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>
+              <span class="text-[12px] font-semibold text-ink-800">PDF</span>
+              <span class="text-[10px] text-ink-400">A4</span>
+            </button>
+          </div>
+
+          <div class="rounded-lg border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 p-3.5 mt-4 flex gap-2.5">
+            <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            <div class="text-[12px] text-amber-800 dark:text-amber-300 leading-relaxed">
+              <strong>JPG-ul comprimă cu pierderi</strong> și lasă artefacte exact pe muchiile alb/negru de care
+              depinde scanarea. Îl oferim pentru tipografiile care îl cer — dar pentru tipar folosește
+              <strong>SVG</strong>, iar pentru digital <strong>PNG</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ RIGHT: scan stats ============ -->
+      <div class="space-y-4 lg:sticky lg:top-4">
+
+        <!-- All-time total -->
+        <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+          <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Scanări · total</div>
+          <div class="text-[32px] font-bold text-ink-900 leading-none mt-2 tabular-nums">1.564</div>
+          <div class="text-[11px] text-ink-400 mt-1.5 leading-relaxed">
+            De la prima scanare. Citit din agregarea zilnică, deci nu scade niciodată.
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-surface-200 space-y-2.5">
+            <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1">Pe limbă</div>
+
+            <div>
+              <div class="flex items-center justify-between text-[12px] mb-1">
+                <span class="text-ink-700 flex items-center gap-1.5"><span>🇷🇴</span> Română</span>
+                <span class="font-semibold text-ink-900 tabular-nums">1.204</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-surface-100 overflow-hidden">
+                <div class="h-full rounded-full bg-primary" style="width:77%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-[12px] mb-1">
+                <span class="text-ink-700 flex items-center gap-1.5"><span>🇬🇧</span> English</span>
+                <span class="font-semibold text-ink-900 tabular-nums">318</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-surface-100 overflow-hidden">
+                <div class="h-full rounded-full bg-primary/60" style="width:20%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-[12px] mb-1">
+                <span class="text-ink-700 flex items-center gap-1.5"><span>🇩🇪</span> Deutsch</span>
+                <span class="font-semibold text-ink-900 tabular-nums">42</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-surface-100 overflow-hidden">
+                <div class="h-full rounded-full bg-primary/30" style="width:3%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Last 30 days -->
+        <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+          <div class="flex items-baseline justify-between gap-2">
+            <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Ultimele 30 de zile</div>
+            <div class="text-[16px] font-bold text-ink-900 tabular-nums">214</div>
+          </div>
+
+          <!-- sparkline: 30 bars, sum = 214, max = 20 -->
+          <svg class="w-full mt-3" viewBox="0 0 152 34" preserveAspectRatio="none" role="img" aria-label="Scanări zilnice, ultimele 30 de zile">
+            <g fill="currentColor" class="text-primary/70">
+              <rect x="0"   y="30.6" width="3.4" height="3.4" rx="1"/>
+              <rect x="5"   y="28.9" width="3.4" height="5.1" rx="1"/>
+              <rect x="10"  y="27.2" width="3.4" height="6.8" rx="1"/>
+              <rect x="15"  y="28.9" width="3.4" height="5.1" rx="1"/>
+              <rect x="20"  y="25.5" width="3.4" height="8.5" rx="1"/>
+              <rect x="25"  y="20.4" width="3.4" height="13.6" rx="1"/>
+              <rect x="30"  y="8.5"  width="3.4" height="25.5" rx="1"/>
+              <rect x="35"  y="18.7" width="3.4" height="15.3" rx="1"/>
+              <rect x="40"  y="23.8" width="3.4" height="10.2" rx="1"/>
+              <rect x="45"  y="27.2" width="3.4" height="6.8" rx="1"/>
+              <rect x="50"  y="25.5" width="3.4" height="8.5" rx="1"/>
+              <rect x="55"  y="22.1" width="3.4" height="11.9" rx="1"/>
+              <rect x="60"  y="18.7" width="3.4" height="15.3" rx="1"/>
+              <rect x="65"  y="3.4"  width="3.4" height="30.6" rx="1"/>
+              <rect x="70"  y="0"    width="3.4" height="34"   rx="1"/>
+              <rect x="75"  y="15.3" width="3.4" height="18.7" rx="1"/>
+              <rect x="80"  y="20.4" width="3.4" height="13.6" rx="1"/>
+              <rect x="85"  y="25.5" width="3.4" height="8.5" rx="1"/>
+              <rect x="90"  y="27.2" width="3.4" height="6.8" rx="1"/>
+              <rect x="95"  y="28.9" width="3.4" height="5.1" rx="1"/>
+              <rect x="100" y="27.2" width="3.4" height="6.8" rx="1"/>
+              <rect x="105" y="23.8" width="3.4" height="10.2" rx="1"/>
+              <rect x="110" y="20.4" width="3.4" height="13.6" rx="1"/>
+              <rect x="115" y="22.1" width="3.4" height="11.9" rx="1"/>
+              <rect x="120" y="25.5" width="3.4" height="8.5" rx="1"/>
+              <rect x="125" y="27.2" width="3.4" height="6.8" rx="1"/>
+              <rect x="130" y="28.9" width="3.4" height="5.1" rx="1"/>
+              <rect x="135" y="25.5" width="3.4" height="8.5" rx="1"/>
+              <rect x="140" y="22.1" width="3.4" height="11.9" rx="1"/>
+              <rect x="145" y="6.8"  width="3.4" height="27.2" rx="1" class="text-primary"/>
+            </g>
+          </svg>
+
+          <div class="flex items-center justify-between text-[11px] text-ink-400 mt-2">
+            <span>acum 30 de zile</span>
+            <span class="text-ink-700 font-medium">azi · 16</span>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-surface-200 text-[11px] text-ink-400 leading-relaxed">
+            Rândurile brute se păstrează 90 de zile. Graficul, dispozitivele și țările vin de acolo —
+            totalul de sus, nu.
+          </div>
+        </div>
+
+        <!-- Devices -->
+        <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+          <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Dispozitiv · 30 de zile</div>
+          <div class="space-y-2 text-[12px]">
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700">iOS</span>
+              <span class="text-ink-400"><span class="font-semibold text-ink-900 tabular-nums">152</span> · 71%</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700">Android</span>
+              <span class="text-ink-400"><span class="font-semibold text-ink-900 tabular-nums">60</span> · 28%</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700">Altele</span>
+              <span class="text-ink-400"><span class="font-semibold text-ink-900 tabular-nums">2</span> · 1%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Countries -->
+        <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+          <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Țară · 30 de zile</div>
+          <div class="space-y-2 text-[12px]">
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700 flex items-center gap-1.5"><span>🇷🇴</span> România</span>
+              <span class="font-semibold text-ink-900 tabular-nums">168</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700 flex items-center gap-1.5"><span>🇩🇪</span> Germania</span>
+              <span class="font-semibold text-ink-900 tabular-nums">24</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700 flex items-center gap-1.5"><span>🇭🇺</span> Ungaria</span>
+              <span class="font-semibold text-ink-900 tabular-nums">14</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-700 flex items-center gap-1.5"><span>🇬🇧</span> Marea Britanie</span>
+              <span class="font-semibold text-ink-900 tabular-nums">8</span>
+            </div>
+          </div>
+          <div class="text-[11px] text-ink-400 mt-3 pt-3 border-t border-surface-200 leading-relaxed">
+            Tot ce vezi aici vine gratis din <code class="text-[10px]">content_signals</code> — fără niciun tabel nou.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-10 pb-6 gap-3 flex-wrap">
+      <a href="01-meniu-more.html" class="text-[12px] text-ink-400 hover:text-ink-700 transition-colors">← ecranul anterior</a>
+      <a href="03-stari-goale.html" class="btn btn--primary btn--sm">Ecranul următor: stări speciale →</a>
+    </div>
+
+  </main>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    // Tab-urile de limbă chiar comută — ca reviewer-ul să vadă că fiecare limbă
+    // are cod, slug și cifră proprie, nu doar o etichetă.
+    (function () {
+      var bar = document.querySelector('[data-qr-tabs]');
+      if (!bar) return;
+      bar.addEventListener('click', function (e) {
+        var btn = e.target.closest('.locale-tab');
+        if (!btn) return;
+        var locale = btn.dataset.locale;
+        bar.querySelectorAll('.locale-tab').forEach(function (b) { b.classList.toggle('active', b === btn); });
+        document.querySelectorAll('[data-locale-panel]').forEach(function (p) {
+          p.hidden = p.dataset.localePanel !== locale;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

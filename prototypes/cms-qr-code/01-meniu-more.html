@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meniul „Mai multe" · Cod QR pentru pagini</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    code { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#1 · Cod QR — meniul „Mai multe" (⋮)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+  </div>
+
+  <main class="max-w-[1180px] mx-auto px-4 md:px-6 pb-24">
+
+    <div class="mb-2">
+      <h1 class="text-[28px] font-bold text-ink-900 tracking-tight">Meniul „Mai multe" al paginii</h1>
+      <p class="text-[13px] text-ink-500 leading-relaxed mt-2 max-w-2xl">
+        Un singur item nou, <strong class="text-ink-800">imediat sub SEO</strong>. Intră în ambele variante de meniu —
+        cea de admin și cea de page manager — pentru că SEO apare azi în amândouă.
+        Restul meniului rămâne neatins.
+      </p>
+    </div>
+
+    <!-- ============ Where it lives ============ -->
+    <div class="card p-5 mt-8">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Unde apare butonul</div>
+      <div class="rounded-xl border border-surface-200 bg-surface-50 overflow-hidden">
+        <!-- mock previewer topbar -->
+        <div class="flex items-center gap-2 px-3 py-2 bg-surface-0 border-b border-surface-200">
+          <div class="flex items-center gap-1.5 text-[11px] text-ink-400">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+            Pagini
+          </div>
+          <div class="text-[12px] font-semibold text-ink-800 ml-2 truncate">Ruta Momârlanilor</div>
+          <span class="badge badge--positive ml-1">publicat</span>
+          <div class="ml-auto flex items-center gap-1">
+            <span class="text-[11px] text-ink-400 px-2 py-1 rounded-lg hover:bg-surface-100">Desktop</span>
+            <span class="text-[11px] text-ink-400 px-2 py-1 rounded-lg hover:bg-surface-100">Mobil</span>
+            <span class="w-px h-4 bg-surface-200 mx-1"></span>
+            <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary ring-2 ring-primary/30">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="h-24 flex items-center justify-center text-[11px] text-ink-300">— previzualizarea paginii —</div>
+      </div>
+      <div class="text-[11px] text-ink-400 mt-2.5 flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <code class="text-[10px]">panels/_iframe_admin_menu.html.erb</code> — butonul ⋮ din header-ul previewer-ului
+      </div>
+    </div>
+
+    <!-- ============ Before / after ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">Meniul de admin · before / after</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+
+      <!-- BEFORE -->
+      <div>
+        <div class="flex items-center gap-2 mb-2.5">
+          <span class="text-[12px] font-semibold text-ink-500">Acum</span>
+          <span class="text-[11px] text-ink-300">6 iteme înainte de separator</span>
+        </div>
+        <div class="w-full max-w-[264px] bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg">
+          <div class="p-1.5" role="menu">
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Setări
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300 bg-gray-50 dark:bg-zinc-700/60">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              SEO
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+              Partajare
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+              Manager de pagină
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Urmăritori
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              Notificări
+              <span class="ml-auto inline-flex items-center justify-center min-w-4.5 h-4.5 px-1 rounded-full bg-violet-100 text-violet-700 text-[10px] font-semibold">3</span>
+            </div>
+            <div class="my-1 border-t border-gray-100 dark:border-zinc-700"></div>
+            <div class="px-3 pt-1.5 pb-1">
+              <span class="text-[10px] font-semibold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Pagini asociate</span>
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span class="flex-1 truncate">Eveniment nou</span>
+            </div>
+            <div class="my-1 border-t border-gray-100 dark:border-zinc-700"></div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Duplică
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              Exportă JSON
+            </div>
+            <div class="my-1 border-t border-gray-100 dark:border-zinc-700"></div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-red-600 dark:text-red-400">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              Șterge
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div>
+        <div class="flex items-center gap-2 mb-2.5">
+          <span class="text-[12px] font-semibold text-ink-900">Propus</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">+1 item</span>
+        </div>
+        <div class="w-full max-w-[264px] bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg">
+          <div class="p-1.5" role="menu">
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Setări
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              SEO
+            </div>
+
+            <!-- ✨ NEW ITEM -->
+            <a href="02-pagina-qr.html" class="relative flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300 bg-emerald-50 dark:bg-emerald-500/10 ring-1 ring-emerald-300 dark:ring-emerald-500/30 no-underline">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/>
+                <path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+                <path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+              </svg>
+              <span class="font-medium">Cod QR</span>
+              <span class="ml-auto text-[10px] font-semibold text-emerald-700 dark:text-emerald-300">nou</span>
+            </a>
+
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+              Partajare
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+              Manager de pagină
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Urmăritori
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              Notificări
+              <span class="ml-auto inline-flex items-center justify-center min-w-4.5 h-4.5 px-1 rounded-full bg-violet-100 text-violet-700 text-[10px] font-semibold">3</span>
+            </div>
+            <div class="my-1 border-t border-gray-100 dark:border-zinc-700"></div>
+            <div class="px-3 pt-1.5 pb-1">
+              <span class="text-[10px] font-semibold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Pagini asociate</span>
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span class="flex-1 truncate">Eveniment nou</span>
+            </div>
+            <div class="my-1 border-t border-gray-100 dark:border-zinc-700"></div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Duplică
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              Exportă JSON
+            </div>
+            <div class="my-1 border-t border-gray-100 dark:border-zinc-700"></div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-red-600 dark:text-red-400">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              Șterge
+            </div>
+          </div>
+        </div>
+        <div class="text-[11px] text-ink-400 mt-2.5 leading-relaxed">
+          Item-ul e clickabil în prototip → duce la ecranul #2.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Page manager variant ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Meniul de page manager · aceeași schimbare</div>
+    <div class="card p-5">
+      <div class="grid grid-cols-1 md:grid-cols-[264px_1fr] gap-6 items-start">
+        <div class="bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg">
+          <div class="p-1.5" role="menu">
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Setări
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              SEO
+            </div>
+            <a href="02-pagina-qr.html" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300 bg-emerald-50 dark:bg-emerald-500/10 ring-1 ring-emerald-300 dark:ring-emerald-500/30 no-underline">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/>
+                <path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+                <path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+              </svg>
+              <span class="font-medium">Cod QR</span>
+              <span class="ml-auto text-[10px] font-semibold text-emerald-700 dark:text-emerald-300">nou</span>
+            </a>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+              Partajare
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+              Manager de pagină
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-gray-700 dark:text-zinc-300">
+              <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Urmăritori
+            </div>
+          </div>
+        </div>
+
+        <div class="text-[13px] text-ink-600 leading-relaxed space-y-3">
+          <p>
+            Page managerii au propriul meniu, într-un fișier separat, cu aceleași iteme dar cu etichete
+            hardcodate în engleză. Nu e o duplicare pe care o rezolvăm acum — doar adăugăm item-ul
+            în același loc, ca cele două meniuri să nu diverjeze.
+          </p>
+          <div class="rounded-lg border border-surface-200 bg-surface-50 p-3.5 space-y-2">
+            <div class="text-[11px] font-semibold text-ink-500 uppercase tracking-wider">Fișiere atinse</div>
+            <div class="text-[11px] font-mono text-ink-600 leading-relaxed break-all">
+              <div>app/views/stejar/cms/pages/panels/<strong class="text-ink-900">_admin_page_menu_items.html.erb</strong></div>
+              <div class="text-ink-400">↳ după linia 20, sub item-ul SEO</div>
+              <div class="mt-2">app/components/stejar/cms/pages/<strong class="text-ink-900">page_manager_menu_items.html.erb</strong></div>
+              <div class="text-ink-400">↳ după linia 17, sub item-ul SEO</div>
+            </div>
+          </div>
+          <div class="rounded-lg border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 p-3.5">
+            <div class="text-[12px] text-sky-800 dark:text-sky-300 leading-relaxed">
+              <strong>Icoana</strong> e <code class="text-[11px]">icon-qr-code</code> din setul Lucide, deja folosită de
+              elementul de QR din pagină. În prototip apare ca SVG inline, pentru că fontul de icoane
+              nu e bundle-uit în CSS-ul standalone.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-10">
+      <a href="index.html" class="text-[12px] text-ink-400 hover:text-ink-700 transition-colors">← înapoi la set</a>
+      <a href="02-pagina-qr.html" class="btn btn--primary btn--sm">Ecranul următor: pagina Cod QR →</a>
+    </div>
+
+  </main>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

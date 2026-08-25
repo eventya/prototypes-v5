@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluxul de scanare · Cod QR pentru pagini</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    code { overflow-wrap: anywhere; }
+    .qr-plate { background: #fff; border-radius: 10px; padding: 10px; display: inline-block; line-height: 0; }
+    .qr-plate svg { display: block; width: 100%; height: auto; max-width: 104px; }
+    .step-num { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center;
+                justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+    .code-block { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; line-height: 1.65; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#4 · Cod QR — fluxul de scanare și măsurarea</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-4 md:px-8 pb-24">
+
+    <div class="mb-2">
+      <h1 class="text-[28px] font-bold text-ink-900 tracking-tight">De la afiș la cifră</h1>
+      <p class="text-[13px] text-ink-500 leading-relaxed mt-2 max-w-2xl">
+        Ce se întâmplă între momentul în care cineva îndreaptă camera spre un panou și momentul în care
+        numărul crește în backend. Patru pași, <strong class="text-ink-800">un singur rând scris în baza de date</strong>.
+      </p>
+    </div>
+
+    <!-- ============ The flow ============ -->
+    <div class="mt-8 space-y-3">
+
+      <!-- Step 1 -->
+      <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+        <div class="flex gap-4">
+          <div class="step-num bg-primary/10 text-primary">1</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[14px] font-semibold text-ink-900">Turistul scanează codul de sub steagul britanic</div>
+            <div class="text-[12px] text-ink-500 mt-1 leading-relaxed">
+              Panoul de la intrare are trei coduri, câte unul pe limbă. Camera telefonului deschide URL-ul —
+              scurt, ca să se prindă de la câțiva metri.
+            </div>
+            <div class="flex items-center gap-4 mt-4 flex-wrap">
+              <div class="qr-plate ring-1 ring-surface-200"><svg xmlns="http://www.w3.org/2000/svg" width="164" height="164" viewBox="0 0 164 164" shape-rendering="crispEdges"><rect width="164" height="164" x="0" y="0" fill="#ffffff"/><path d="M0 0h7v7h-7zM10 0h4v1h2v-1h5v1h-3v1h2v1h-3v1h-1v-1h-1v-1h-1v1h-1v-1h-1v-1h-1v1h-1v1h1v-1h1v2h1v1h-1v1h-1v1h-1v-3h-1v4h-1v-6h1v-1h1zM22 0h2v1h-1v1h-1zM26 0h7v7h-7zM1 1v5h5v-5zM27 1v5h5v-5zM2 2h3v3h-3zM24 2h1v5h-1v-3h-2v1h1v2h-1v-1h-1v1h-1v-2h1v-1h-1v-1h4zM28 2h3v3h-3zM14 3h1v1h-1zM15 4h1v1h1v-1h2v1h-1v1h-1v1h-1v-1h-1zM12 6h1v1h-1zM14 6h1v1h1v2h-1v1h-1v-1h-1v1h-2v-1h-1v-1h1v-1h1v1h-1v1h1v-1h2zM18 6h1v1h-1zM21 7h1v1h-1zM23 7h1v1h1v1h-1v1h-2v1h3v-1h1v-2h5v2h1v-1h1v1h-1v2h-2v2h-1v-1h-1v-3h-2v3h1v3h-1v1h1v-1h1v-2h1v1h2v-2h2v1h-1v1h-1v1h-2v1h-1v1h1v-1h2v1h1v-2h1v2h-1v1h-1v1h-1v1h-3v-3h-1v1h-1v1h1v1h-2v-1h-1v-1h-1v-1h1v-1h-1v-1h-2v2h-1v-4h1v-1h-2v-1h1v-1h-1v-2h-1v-1h2v1h1v-1h1v1h1v-1h1zM0 8h1v1h1v-1h5v1h-1v1h1v-1h1v1h-1v1h-1v1h-1v1h1v-1h1v-1h1v-1h1v-1h1v1h1v1h-1v2h2v1h-2v1h1v1h-1v1h-1v-1h-1v-1h1v-4h-1v2h-2v1h-1v1h-1v-1h-1v1h-1v-1h-1v2h-1zM2 9v1h1v-1zM4 9v1h1v-1zM16 9h1v3h-1v-1h-1v-1h1zM28 9v1h1v-1zM19 10v1h2v-1zM29 10v1h1v-1zM3 11v1h-2v1h3v-2zM11 11h1v1h-1zM14 11h1v1h-1zM20 12v1h1v-1zM22 12v1h2v-1zM13 13h5v2h-1v-1h-2v4h1v-1h1v-1h-1v-1h1v1h1v3h1v1h-2v1h-1v-1h-1v-1h-1v-2h-1v2h-1v-1h-1v-1h1v-1h2v-1h-1zM24 13v1h-1v3h1v1h-1v1h1v-1h1v-5zM6 14h1v1h-1zM20 14v1h1v-1zM1 16h1v1h-1zM4 16h3v1h-1v1h-1v-1h-1zM2 17h2v1h-2zM7 17h1v2h1v-1h2v2h1v1h-1v1h-2v-1h-1v-1h-1v-1h-1v-1h1zM0 18h1v1h-1zM4 18h1v1h-1zM20 18h1v1h-1zM29 18v1h1v-1zM2 19h1v1h-1zM9 19v2h1v-2zM13 19h1v1h-1zM3 20h1v1h-1zM6 20h1v1h-1zM20 20h3v1h-3zM31 20h2v2h-1v-1h-1zM0 21h2v1h-1v3h-1zM5 21h1v1h1v-1h1v1h1v2h1v1h-1v1h-1v-1h-2v-1h-1zM14 21h2v1h1v1h-1v2h-1v-2h-1zM18 21h1v2h-1zM23 21h1v1h-1zM26 21h1v1h-1zM3 22h1v1h-1zM20 22h3v1h-1v1h-1v-1h-1zM25 22h1v1h-1zM27 22h5v1h-1v1h-1v-1h-2v1h1v3h1v-2h1v-1h2v2h-1v-1h-1v1h1v1h-1v1h-1v2h1v2h-1v1h-1v-1h-1v-1h-2v2h-2v-1h1v-1h-2v-1h-3v-1h1v-1h-1v-2h-1v-1h3v-1h5zM2 23h1v1h-1zM6 23v1h1v-1zM4 24h1v1h-1zM11 24h3v1h-1v1h-1v-1h-1zM17 24h1v1h-1zM14 25h1v1h1v-1h1v3h-1v-1h-2zM22 25v2h1v-2zM25 25v3h3v-3zM0 26h7v7h-7zM9 26h3v1h-3zM18 26h1v1h-1zM26 26h1v1h-1zM1 27v5h5v-5zM8 27h1v1h1v1h-1v1h1v-1h2v-1h2v2h-1v-1h-1v2h2v1h-1v1h-1v-1h-1v1h-3v-1h1v-1h-1zM32 27h1v1h-1zM2 28h3v3h-3zM18 28h1v1h-1zM22 28v1h2v-1zM15 29h2v1h-2zM26 29v1h2v-1zM32 29h1v1h-1zM10 30v1h1v-1zM17 30h3v1h3v2h-1v-1h-2v1h-3v-1h-1v-1h1zM28 30v1h1v-1zM17 31v1h1v-1zM27 32h1v1h-1zM31 32h1v1h-1z" fill="#000000" transform="translate(16,16) scale(4)"/></svg></div>
+              <div class="min-w-0">
+                <div class="code-block text-ink-800 break-all">https://tursitulcea.ro/qr/momarlani-route-en</div>
+                <div class="text-[11px] text-ink-400 mt-1.5">33 × 33 module · fără parametri în URL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center py-0.5">
+        <svg class="w-4 h-4 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+        <div class="flex gap-4">
+          <div class="step-num bg-primary/10 text-primary">2</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[14px] font-semibold text-ink-900">Redirect-ul rezolvă slug-ul → pagină + limbă</div>
+            <div class="text-[12px] text-ink-500 mt-1 leading-relaxed">
+              O singură interogare. Slug-ul aparține unei anumite traduceri, deci ne spune și
+              <em>care</em> pagină, și <em>ce limbă</em>. Nu se scrie nimic aici — e un 302 curat.
+            </div>
+            <div class="rounded-lg bg-surface-50 border border-surface-200 p-3.5 mt-3 overflow-x-auto">
+              <pre class="code-block text-ink-700"><span class="text-ink-400"># Stejar::Website::QrCodesController#show</span>
+translation = Cms::Translation.find_by(slug: params[:slug], account_id: ...)
+page        = translation.translatable
+
+redirect_to page_url(slug:  translation.slug,
+                     locale: translation.locale,
+                     utm_source: <span class="text-emerald-600 dark:text-emerald-400">"qr-#{translation.locale}"</span>)</pre>
+            </div>
+            <div class="text-[11px] text-ink-400 mt-2.5">
+              Ruta stă în <code class="text-[10px]">eventya/config/routes/account_website.rb</code>,
+              obligatoriu <strong>înainte</strong> de catch-all-ul <code class="text-[10px]">get '/:id'</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center py-0.5">
+        <svg class="w-4 h-4 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+        <div class="flex gap-4">
+          <div class="step-num bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">3</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[14px] font-semibold text-ink-900">Pagina se încarcă în engleză — și <em>aici</em> se măsoară</div>
+            <div class="text-[12px] text-ink-500 mt-1 leading-relaxed">
+              Tracking-ul obișnuit al sitului rulează normal, doar că referrer-ul e forțat pe markerul limbii.
+              Rezultatul e <strong class="text-ink-800">exact un</strong> rând, cu IP, device și geolocație
+              de aceeași calitate ca la orice vizită.
+            </div>
+            <div class="code-block text-ink-800 break-all mt-3 rounded-lg bg-surface-50 border border-surface-200 px-3.5 py-2.5">
+              https://tursitulcea.ro/momarlani-route-en?locale=en&amp;<span class="text-emerald-600 dark:text-emerald-400 font-semibold">utm_source=qr-en</span>
+            </div>
+
+            <div class="rounded-lg border border-surface-200 overflow-hidden mt-3">
+              <div class="bg-surface-100 px-3.5 py-2 text-[10px] font-semibold text-ink-500 uppercase tracking-wider">content_signals_page_views</div>
+              <div class="p-3.5 overflow-x-auto">
+                <pre class="code-block text-ink-700">trackable_type  <span class="text-ink-400">→</span> "Stejar::Cms::Page"
+trackable_id    <span class="text-ink-400">→</span> 482
+<span class="text-emerald-600 dark:text-emerald-400">referrer        → "qr-en"</span>
+device_type     <span class="text-ink-400">→</span> "mobile"
+country_code    <span class="text-ink-400">→</span> "GB"
+viewed_at       <span class="text-ink-400">→</span> 2026-08-25 14:31</pre>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 p-3.5 mt-3 flex gap-2.5">
+              <svg class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div class="text-[12px] text-sky-800 dark:text-sky-300 leading-relaxed">
+                <strong>De ce nu măsurăm la pasul 2.</strong> Dacă redirect-ul ar scrie rândul, browserul ar
+                încărca apoi și pagina, care s-ar înregistra a doua oară — două rânduri pentru o scanare,
+                plus contorul de vizualizări al paginii umflat. Măsurând la aterizare, cifra rămâne curată
+                fără nicio logică de excludere.
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 p-3.5 mt-3 flex gap-2.5">
+              <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+              <div class="text-[12px] text-amber-800 dark:text-amber-300 leading-relaxed">
+                <strong>Markerul se validează, nu se copiază.</strong> <code class="text-[11px]">utm_source</code>
+                vine din URL, deci e controlat de oricine. Fără whitelist pe limbile configurate ale
+                workspace-ului, un vizitator ar putea scrie orice string în analytics.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center py-0.5">
+        <svg class="w-4 h-4 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bg-surface-0 rounded-xl border border-surface-200 p-5">
+        <div class="flex gap-4">
+          <div class="step-num bg-primary/10 text-primary">4</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[14px] font-semibold text-ink-900">Agregarea orară face cifra permanentă</div>
+            <div class="text-[12px] text-ink-500 mt-1 leading-relaxed">
+              Rândul brut trăiește 90 de zile. Agregarea îl mută într-un rollup zilnic care nu se purjează —
+              de acolo vine totalul istoric.
+            </div>
+            <div class="rounded-lg border border-surface-200 overflow-hidden mt-3">
+              <div class="bg-surface-100 px-3.5 py-2 text-[10px] font-semibold text-ink-500 uppercase tracking-wider">content_signals_analytics_daily_stats · referrer_breakdown</div>
+              <div class="p-3.5 overflow-x-auto">
+                <pre class="code-block text-ink-700">{ "google.com": 44, "facebook.com": 12,
+  <span class="text-emerald-600 dark:text-emerald-400">"qr-ro": 31, "qr-en": 9, "qr-de": 2</span> }</pre>
+              </div>
+            </div>
+            <div class="text-[11px] text-ink-400 mt-2.5 leading-relaxed">
+              Fiecare limbă își păstrează cheia ei, deci defalcarea pe limbă e la fel de durabilă ca totalul.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ The 90-day trap ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Capcana celor 90 de zile</div>
+    <div class="bg-surface-0 rounded-xl border border-surface-200 p-6">
+      <p class="text-[13px] text-ink-600 leading-relaxed max-w-2xl">
+        <code class="text-[12px]">PurgePageViewsJob</code> rulează <strong>zilnic la 3:30</strong> și șterge rândurile
+        mai vechi de 90 de zile. Pentru un cod tipărit, a cărui singură valoare e cifra cumulată în timp,
+        un total citit din rândurile brute ar <strong>scădea în tăcere</strong> după trei luni — fix genul de
+        defect care trece neobservat până când clientul întreabă de ce a scăzut numărul.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+        <div class="rounded-lg border border-surface-200 bg-surface-50 p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span class="text-[12px] font-semibold text-ink-800">Total istoric · 1.564</span>
+          </div>
+          <div class="text-[11px] text-ink-500 leading-relaxed">
+            Din <code class="text-[10px]">AnalyticsDailyStat</code>. Nu se purjează niciodată, deci nu scade.
+          </div>
+        </div>
+        <div class="rounded-lg border border-surface-200 bg-surface-50 p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+            <span class="text-[12px] font-semibold text-ink-800">30 de zile · 214</span>
+          </div>
+          <div class="text-[11px] text-ink-500 leading-relaxed">
+            Din <code class="text-[10px]">PageView</code>. Aici trăiesc graficul, dispozitivele și țările.
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-surface-200 bg-surface-50 p-4 mt-4">
+        <div class="text-[11px] font-semibold text-ink-500 uppercase tracking-wider mb-2">Testul care contează</div>
+        <div class="text-[12px] text-ink-600 leading-relaxed">
+          Rulează <code class="text-[11px]">AggregateAnalyticsJob</code>, apoi
+          <code class="text-[11px]">PurgePageViewsJob</code> cu o retenție mică. Totalul istoric trebuie să rămână
+          neschimbat, iar graficul pe 30 de zile să se golească.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Why marker is bare ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">De ce markerul e <code class="text-[11px]">qr-en</code> și nu un domeniu</div>
+    <div class="bg-surface-0 rounded-xl border border-surface-200 p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="rounded-lg border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50/40 dark:bg-emerald-500/5 p-4">
+          <div class="flex items-center gap-2 mb-2.5">
+            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            <span class="text-[12px] font-semibold text-ink-900"><code class="text-[11px]">"qr-en"</code></span>
+          </div>
+          <ul class="text-[12px] text-ink-600 leading-relaxed space-y-1.5 list-disc pl-4">
+            <li>Agregarea încearcă să extragă un host; nu găsește, deci păstrează stringul ca atare — cheia supraviețuiește.</li>
+            <li>Raportul de referrers al clientului cere un punct în host, deci rândul nu apare acolo.</li>
+          </ul>
+        </div>
+        <div class="rounded-lg border border-surface-200 bg-surface-50 p-4">
+          <div class="flex items-center gap-2 mb-2.5">
+            <svg class="w-4 h-4 text-ink-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+            <span class="text-[12px] font-semibold text-ink-900"><code class="text-[11px]">"https://qr.scan/"</code></span>
+          </div>
+          <ul class="text-[12px] text-ink-500 leading-relaxed space-y-1.5 list-disc pl-4">
+            <li>Ar apărea în „Top referrers" ca domeniul <code class="text-[11px]">qr.scan</code> — care nu există.</li>
+            <li>Arată a spam de referrer și pune la îndoială restul cifrelor din raport.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-[11px] text-ink-400 mt-4 leading-relaxed">
+        Scanările își au locul în panoul lor dedicat din pagina de Cod QR, nu amestecate printre
+        google.com și facebook.com.
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-10 gap-3 flex-wrap">
+      <a href="03-stari-goale.html" class="text-[12px] text-ink-400 hover:text-ink-700 transition-colors">← ecranul anterior</a>
+      <a href="index.html" class="btn btn--sm">Înapoi la set · vezi planul complet</a>
+    </div>
+
+  </main>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
