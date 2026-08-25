@@ -37,7 +37,7 @@
     <div class="inline-flex items-center gap-1 mb-8 p-1 rounded-xl bg-surface-100 dark:bg-surface-200/30">
       <a href="index.html" aria-current="page" class="px-4 py-1.5 rounded-lg text-[13px] font-semibold bg-surface-0 text-ink-900 shadow-sm flex items-center gap-1.5">
         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-        În review <span class="text-ink-400 font-normal">9</span>
+        În review <span class="text-ink-400 font-normal">10</span>
       </a>
       <a href="done.html" class="px-4 py-1.5 rounded-lg text-[13px] font-medium text-ink-500 hover:text-ink-800 transition-colors flex items-center gap-1.5">
         Done <span class="text-ink-400 font-normal">8</span>
@@ -46,6 +46,24 @@
 
     <!-- Sets grid: IN REVIEW only -->
     <div class="grid gap-4 sm:grid-cols-2">
+
+      <!-- CMS · Cod QR pentru pagini -->
+      <a href="prototypes/cms-qr-code/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">CMS · Cod QR pentru pagini</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Fiecare pagină își generează cod QR pentru afișe și plăcuțe — <strong class="text-ink-700">unul per limbă</strong>, pentru că slug-ul e per limbă — cu export SVG, PNG, JPG și PDF. Codurile trec printr-un redirect public scurt care le face măsurabile separat pe limbă, refolosind <code class="text-[11px]">content_signals</code>: fără tabele, coloane sau gem-uri noi.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          4 ecrane · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
 
       <!-- Dashboard AI -->
       <a href="prototypes/ai-dashboard/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
