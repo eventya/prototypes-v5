@@ -24,38 +24,35 @@ Un editor care nu deschide niciodată `/cms/links` beneficiază oricum: paginile
 
 ## Decizii luate
 
-### Domeniu scurt — propunere, de discutat cu echipa
+### Domeniu scurt: `link.eventya.net`
 
-> ⚠️ **Nedecis.** Secțiunea asta e o propunere, nu o decizie luată. `evy.link` e greu de găsit la înregistrare; `evy.to` pare o alternativă bună. **De verificat și decis împreună înainte de Faza 1** — vezi *Candidați* mai jos.
->
-> Link de verificat: <https://www.namecheap.com/domains/registration/results/?domain=evy.to>
->
-> Ecranele din prototip folosesc `evy.link` ca **placeholder vizual**. Se schimbă într-un singur loc când domeniul e ales.
+**Decis: un subdomeniu al platformei, nu un domeniu de sine stătător.** Zero cost de înregistrare, zero registrar nou, DNS și certificat pe infrastructura pe care o controlăm deja, și marca rămâne consecventă — un cetățean vede `eventya.net` în adresă și știe pe ce platformă e.
 
-**Ce e decis:** domeniul e **de sine stătător**, nu un subdomeniu al lui `eventya.net` (gen `l.eventya.net`). Motive, în ordinea greutății:
+Forma finală:
 
-- **Codul QR iese mai mic.** `https://evy.to/x7k2m9` = 21 de caractere → QR versiunea 2, grilă 25×25. Pe `l.eventya.net` același cod ar avea 28 → versiunea 3, grilă 29×29. La aceeași dimensiune tipărită, modulele sunt cu ~16% mai late: codul se scanează de mai departe și suportă mai bine o plăcuță ruginită sau un afiș plouat.
-- **Se poate tasta de pe un panou.** Cineva care citește „evy.to/x7k2m9" îl poate tasta. „l.eventya.net/x7k2m9" — nu.
-- **Izolare de reputație.** Un shortener e prin definiție un open redirector. Dacă e abuzat și Google Safe Browsing flaguiește domeniul, pe un domeniu separat pierzi shortener-ul; pe un subdomeniu al lui `eventya.net` pierzi reputația domeniului principal, inclusiv deliverability-ul pe email.
-- **Deep-links: o configurare, toate conturile.** Universal Links (iOS) și App Links (Android) se declanșează doar pentru domenii listate în aplicație. Un singur domeniu scurt înseamnă o singură asociere. Alternativa — deep-links pe fiecare domeniu custom de client — ar cere un release de app la fiecare client nou.
+```
+https://link.eventya.net/x7k2m9              ← cod auto-generat
+https://link.eventya.net/uricani/turism      ← slug personalizat
+```
 
-#### Candidați
+#### Ce am renunțat, ca să fie scris
 
-Verificați cu `whois` la 27 august 2026. **Whois e un semnal, nu o rezervare** — se confirmă la registrar înainte de decizie.
+Alternativa cântărită a fost un domeniu scurt propriu (`evy.to`, `evy.link`, `evya.ro` — toate verificate libere la 27 august 2026). Trei lucruri se pierd prin alegerea subdomeniului. Niciunul nu e blocant, dar merită să fie pe hârtie înainte să se tipărească primul afiș:
 
-| Domeniu | Lungime | Stare la verificare | Observații |
-|---|---|---|---|
-| `evy.to` | 6 | fără NS; `.to` nu are whois public accesibil | Cel mai scurt. De confirmat la registrar. `.to` e Tonga, revânzare liberă, folosit larg pentru shorteneri. |
-| `evy.link` | 8 | liber la registry (`whois.uniregistry.net`) | Greu de găsit la înregistrare în practică. `.link` e gTLD nou — unele filtre corporate de spam îl tratează cu suspiciune. |
-| `evya.ro` | 7 | **liber** | `.ro` inspiră încredere unui cetățean care scanează un cod de pe un panou al primăriei. Cel mai potrivit pentru publicul nostru real. |
-| `eyv.ro` | 6 | **liber** | Cel mai scurt `.ro`, dar greu de citit și de dictat. |
-| `evtya.ro` | 8 | **liber** | Rezervă. |
+1. **Codul QR e cu o versiune mai mare.** `https://link.eventya.net/x7k2m9` are 31 de caractere → QR versiunea 3, grilă **29×29**. Un domeniu de 6–8 caractere ar fi încăput în versiunea 2, grilă 25×25. La aceeași dimensiune tipărită, modulele noastre sunt cu ~14% mai înguste, deci codul se citește de puțin mai aproape și tolerează puțin mai puțină uzură. Pentru o plăcuță de 5 cm citită de la 1 metru, diferența e nesemnificativă; pentru un panou stradal citit din mașină, ar fi contat.
+   *Mitigare:* `QrCode::Image` rămâne pe corecție de eroare `:m` și zonă liniștită de 4 module. Nu compensăm scurtimea pierdută coborând corecția de eroare — un cod tipărit are nevoie de redundanța aia.
 
-Ocupate la verificare: `evy.ro`, `evt.ro`, `evnt.ro`, `ev.ro`, `ey.ro`, `eya.ro`, `evn.ro`, `eve.ro`, `evi.ro`, `eventy.ro`, `evya.com`, `evya.net`, `evya.eu`, `evya.app`.
+2. **Nu se poate tasta de pe un afiș.** Nimeni nu bate „link.eventya.net/x7k2m9" de mână. Codul rămâne scanabil, dar redundanța „dacă nu merge scanarea, tastează adresa" dispare.
+   *Mitigare:* slug-ul personalizat (`link.eventya.net/uricani/turism`) e memorabil chiar dacă e lung, și e forma de pus pe materiale tipărite unde omul ar putea tasta.
 
-**Recomandarea mea:** `evy.to` dacă e liber (cel mai scurt, arată ca un shortener), altfel `evya.ro` (încredere locală, cu o singură literă în plus).
+3. **Reputația nu mai e izolată.** Un shortener e prin definiție un open redirector. Dacă e abuzat și Google Safe Browsing flaguiește `link.eventya.net`, sancțiunea nu se mai oprește la shortener — poate atinge reputația lui `eventya.net`, inclusiv deliverability-ul pe email.
+   *Mitigare:* riscul urcă de la „acceptabil" la „de gestionat activ". Vezi *Riscuri* — rate limit la creare, blocklist global, ecran de platform-admin peste destinațiile externe. Recomand ca ecranul de monitorizare să intre în Faza 1, nu mai târziu.
 
-> ⚠️ **Decizia se ia o singură dată.** Codurile tipărite stau pe pereți 5–10 ani; domeniul din ele nu se mai poate schimba niciodată. Nu pornim „provizoriu" pe subdomeniu cu gândul că-l mutăm mai târziu.
+#### Ce nu se schimbă
+
+**Deep-links funcționează la fel de bine.** Universal Links (iOS) și App Links (Android) se declanșează pentru orice host listat în aplicație, subdomeniu inclus. Un singur host — `link.eventya.net` — înseamnă o singură asociere pentru toate conturile; alternativa, deep-links pe fiecare domeniu custom de client, ar fi cerut un release de app la fiecare client nou.
+
+> ⚠️ **Rămâne o decizie ireversibilă.** Codurile tipărite stau pe pereți 5–10 ani; hostul din ele nu se mai poate schimba niciodată. `link.eventya.net` trebuie tratat ca un angajament permanent — nu se redenumește, nu se mută, nu se refolosește pentru altceva.
 
 ### Namespace: cod plat + slug personalizat sub workspace
 
@@ -65,12 +62,12 @@ Soluția: **două forme, un singur tabel.**
 
 | Formă | Exemplu | Unicitate | Când |
 |---|---|---|---|
-| **Cod auto-generat** | `‹domeniu›/x7k2m9` | globală, prin construcție | mereu — orice link are unul |
-| **Slug personalizat** | `‹domeniu›/uricani/turism` | **în cadrul contului** | opțional, ales de editor |
+| **Cod auto-generat** | `link.eventya.net/x7k2m9` | globală, prin construcție | mereu — orice link are unul |
+| **Slug personalizat** | `link.eventya.net/uricani/turism` | **în cadrul contului** | opțional, ales de editor |
 
 - Primul segment al formei lungi e **slug-ul contului, care există deja** și e deja unic global — îl folosește rutarea path-based din eventya (`eventya.net/uricani/despre-noi`). Nu introducem o a doua sursă de adevăr.
 - Al doilea segment e unic **per cont**, exact ca orice altă entitate din Stejar. Uricani și Petrila pot avea amândouă `turism`.
-- Dezambiguizarea la rutare e totală, fără euristici: **1 segment = cod, 2 segmente = workspace + slug.** Nu servim niciodată un workspace la `‹domeniu›/uricani` singur, deci cazul ambiguu nu există.
+- Dezambiguizarea la rutare e totală, fără euristici: **1 segment = cod, 2 segmente = workspace + slug.** Nu servim niciodată un workspace la `link.eventya.net/uricani` singur, deci cazul ambiguu nu există.
 - Codurile auto-generate folosesc un alfabet fără caractere confundabile (fără `0/O`, `1/l/I`) — un cod citit de pe un afiș și tastat greșit e un 404 inutil.
 
 **Regulă de tipar: codul QR encodează întotdeauna `code`, niciodată slug-ul personalizat.** `code` e imuabil și cel mai scurt; slug-ul personalizat e editabil, deci un afiș tipărit cu el s-ar rupe la prima redenumire. Slug-ul personalizat există pentru oameni — postări, emailuri, ceva de dictat la telefon.
@@ -145,7 +142,7 @@ Rutele de host stau în **eventya**, codul în **stejar**.
 
 ```ruby
 # eventya: config/routes/short_links.rb
-constraints Stejar::ShortLinkRoutingConstraint do   # host == domeniul scurt
+constraints Stejar::ShortLinkRoutingConstraint do   # host == link.eventya.net
   get '/.well-known/apple-app-site-association', to: 'stejar/links/associations#apple'
   get '/.well-known/assetlinks.json',            to: 'stejar/links/associations#android'
   get '/api/links/:code',                        to: 'stejar/links/resolutions#show'
@@ -157,6 +154,18 @@ end
 Redirectul e calea fierbinte: un hit de cache pe `code`, fără ActiveRecord în cazul comun. Nu facem serviciu separat (vezi *De ce nu aplicație separată*), dar izolăm căutarea într-un singur obiect, ca extragerea de mai târziu să fie mecanică.
 
 `/.well-known/*` și `/api/*` sunt rezervate: un cod auto-generat nu le poate lovi (alfabet fix + verificare), iar slug-urile de workspace au deja lista lor de rezervări în Stejar.
+
+### Subdomeniul nu intră în conflict cu rutarea existentă
+
+Verificat în cod. Un request către `link.eventya.net/x7k2m9` trece azi prin `Stejar::WebsiteRoutingConstraint` (`lib/stejar/constraints/website_routing_constraint.rb`) și **nu e revendicat de nimic**:
+
+1. `CustomDomainConstraint` cere un rând `Stejar::Domain` verificat pentru host. `link.eventya.net` nu are unul → nu se potrivește.
+2. Ramura pentru contul-rădăcină cere `request.host == cms_domain`. `link.eventya.net` ≠ `eventya.net` → nu se potrivește.
+3. Ramura finală cere ca primul segment să fie un slug de cont existent. `x7k2m9` nu e → nu se potrivește.
+
+Deci e suficient ca `short_links.rb` să fie încărcat **înaintea** lui `account_website.rb`, iar constrângerea de host revendică subdomeniul curat, fără nicio modificare la rutarea publică.
+
+**Un lucru de blocat explicit:** `link.eventya.net` nu trebuie să poată fi revendicat vreodată ca domeniu custom de client. Dacă cineva ar reuși să înregistreze și să verifice un `Stejar::Domain` cu hostname-ul ăsta, pasul 1 de mai sus s-ar potrivi și site-ul acelui client ar înghiți toate linkurile scurte din platformă. Adăugăm hostname-ul pe lista de rezervări la verificarea domeniilor.
 
 ---
 
@@ -170,7 +179,7 @@ Redirectul e calea fierbinte: un hit de cache pe `code`, fără ActiveRecord în
 
 ### Preview-ul bogat nu are voie să se rupă
 
-Azi, când distribui pe WhatsApp, cardul cu imagine și titlu se construiește din meta tag-urile paginii. Dacă distribui `‹domeniu›/x7k2m9`, crawler-ul cere meta tag-uri de la domeniul scurt. Majoritatea urmăresc 302-ul, unele nu.
+Azi, când distribui pe WhatsApp, cardul cu imagine și titlu se construiește din meta tag-urile paginii. Dacă distribui `link.eventya.net/x7k2m9`, crawler-ul cere meta tag-uri de la domeniul scurt. Majoritatea urmăresc 302-ul, unele nu.
 
 Deci: **când user-agentul e un crawler cunoscut, redirectul servește un HTML minimal cu Open Graph tags** — titlu, descriere, imagine — plus un fallback `<meta refresh>`. Logica de titlu/descriere/imagine există deja în `ShareButton#description` și `#image`; se mută pe `Link`.
 
@@ -180,9 +189,9 @@ Aceleași fetch-uri **nu trebuie să umfle contorul**. `browser.bot?` din gem pr
 
 ## Deep links
 
-Scop: `‹domeniu›/x7k2m9` deschide aplicația nativă dacă e instalată, altfel cade pe web. Integrarea nativă e alt task; aici pregătim backendul.
+Scop: `link.eventya.net/x7k2m9` deschide aplicația nativă dacă e instalată, altfel cade pe web. Integrarea nativă e alt task; aici pregătim backendul.
 
-- `/.well-known/apple-app-site-association` și `/.well-known/assetlinks.json` servite de pe `‹domeniu›`, generate din configul aplicației.
+- `/.well-known/apple-app-site-association` și `/.well-known/assetlinks.json` servite de pe `link.eventya.net`, generate din configul aplicației.
 - **`GET /api/links/:code` → `{ destination, app_route, account, locale }`.** Piesa esențială și cea mai ușor de ratat: pe iOS, când aplicația e instalată, sistemul interceptează URL-ul **înainte** să ajungă la server. Aplicația trebuie să poată rezolva singură codul ca să știe unde să navigheze. Endpointul se proiectează acum, chiar dacă îl consumă alt task.
 - `app_route` se derivă automat din destinație când e pagină; câmp liber când nu.
 
@@ -230,7 +239,7 @@ Ce facem în schimb, pentru ~90% din beneficiu la ~2% din cost: host separat pri
 
 | Risc | Ce facem |
 |---|---|
-| **Open redirect → phishing → Safe Browsing flaguiește `‹domeniu›`** și se rup toate afișele din toate primăriile | Rate limit la creare; blocklist global; ecran de platform-admin care listează destinațiile externe. Nu restricționăm destinațiile (cerință explicită), dar monitorizăm. |
+| **Open redirect → phishing → Safe Browsing flaguiește `link.eventya.net`.** Pe subdomeniu, sancțiunea poate atinge și reputația lui `eventya.net`, inclusiv deliverability-ul pe email — nu doar shortener-ul. | Ridicat de la „acceptabil" la „de gestionat activ" prin alegerea subdomeniului. Rate limit la creare; blocklist global; ecran de platform-admin peste destinațiile externe, **în Faza 1, nu mai târziu**. Nu restricționăm destinațiile (cerință explicită), dar monitorizăm. |
 | **Codurile tipărite nu mor niciodată** | Stări `active/paused/archived`; `code` niciodată reutilizabil; **niciodată 404 sec** — pagină brand-uită „acest cod nu mai e activ" cu link către site. Avertisment tare înainte de ștergerea unui link cu scanări. |
 | **Link preview umflă contorul** | Listă explicită de UA pe endpointul de redirect, peste `browser.bot?`. |
 | **Slug personalizat redenumit rupe tiparul** | QR-ul encodează întotdeauna `code`, nu slug-ul. |
@@ -260,7 +269,7 @@ Nu există coduri în circulație, deci curățăm complet:
 
 ## Faze
 
-**Faza 1 — Fundația.** *Blocant: domeniul scurt ales și înregistrat.* Migrare `stejar_links`; model + generator de coduri; `ShortLinkRoutingConstraint`; controller de redirect cu cache; tracking ContentSignals cu enum de canal; pagina „cod inactiv". Ștergerea codului vechi. *Livrabil: un link creat în consolă redirectează și se contorizează.*
+**Faza 1 — Fundația.** Subdomeniu `link.eventya.net` (DNS + certificat). Migrare `stejar_links`; model + generator de coduri; `ShortLinkRoutingConstraint`; controller de redirect cu cache; tracking ContentSignals cu enum de canal; pagina „cod inactiv"; rate limit + ecran de platform-admin peste destinațiile externe. Ștergerea codului vechi. *Livrabil: un link creat în consolă redirectează și se contorizează.*
 
 **Faza 2 — Modulul CMS.** `/cms/links` listă + CRUD; formular cu selector de pagină și URL liber; slug personalizat cu verificare live; ecran de detaliu cu statistici; export QR (SVG, PNG, JPG, PDF — `jspdf` e deja în `package.json`); tile în „Jump to"; scurtătură din meniul ⋮ al paginii.
 
