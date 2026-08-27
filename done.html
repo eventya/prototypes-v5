@@ -36,10 +36,10 @@
     <div class="inline-flex items-center gap-1 mb-8 p-1 rounded-xl bg-surface-100 dark:bg-surface-200/30">
       <a href="index.html" class="px-4 py-1.5 rounded-lg text-[13px] font-medium text-ink-500 hover:text-ink-800 transition-colors flex items-center gap-1.5">
         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-        În review <span class="text-ink-400 font-normal">9</span>
+        În review <span class="text-ink-400 font-normal">3</span>
       </a>
       <a href="done.html" aria-current="page" class="px-4 py-1.5 rounded-lg text-[13px] font-semibold bg-surface-0 text-ink-900 shadow-sm flex items-center gap-1.5">
-        Done <span class="text-ink-400 font-normal">8</span>
+        Done <span class="text-ink-400 font-normal">16</span>
       </a>
     </div>
 
@@ -191,6 +191,149 @@
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
           Pagina de setări notificări pentru utilizatorii publici: master toggle, scope CE? (tot / doar urmărite), canale CUM? (email + push).
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          1 ecran · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Helpdesk · WhatsApp Onboarding -->
+      <a href="prototypes/helpdesk-auto-reply/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4"/><path d="M5 10h11a4 4 0 010 8h-1"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Auto-reply &amp; Suggested replies</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Succesorul botului WhatsApp şters în #869 („anything smarter gets built separately"). Două funcţii separate: un <strong>ack fix</strong> per canal, traductibil, trimis ca <code class="text-[11px]">creator_type: :system</code> ca să nu atingă SLA-ul; şi <strong>sugestii AI din FAQ</strong> afişate <em>lângă</em> composerul gol, niciodată precompletate. Plan cu dovezi din Zendesk/Intercom/Help Scout + cercetare pe automation bias.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          6 ecrane · plan cu dovezi
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="prototypes/whatsapp-onboarding/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · WhatsApp Onboarding</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Activare self-service a WhatsApp direct din panou, prin Twilio Senders API: wizard cu 4 pași (Detalii → Verificare cod OTP → Aprobare Meta → Activ), fără consolă Twilio și fără apel la client. Helpdesk-ul rămâne doar fallback. Include maparea UI↔API și plan de implementare cu cod.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          11 ecrane · plan cu cod
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Mobile App Deploys -->
+      <a href="prototypes/mobile-app-deploys/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/><path d="M9 9l3-3 3 3M12 6v7"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Mobile App Deploys</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Deploy iOS &amp; Android direct din stejar-admin, în loc de terminal + RustDesk pe Mac mini: alegi workspace-ul și platforma, apeși Deploy, vezi progresul live și primești build number-ul real din TestFlight / Google Play. Plus download de APK din browser. Mac mini-ul întreabă backend-ul dacă are de lucru — zero porturi deschise.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          9 ecrane · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- CMS · Pages REST API -->
+      <a href="prototypes/cms-pages-api/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">CMS · Pages REST API</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          API public read-only (headless) pentru paginile CMS: listă + detaliu cu conținut structurat, autentificare cu API keys per workspace (self-service în Settings), rate-limit per cheie și documentație OpenAPI/Swagger hostată local.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          5 ecrane · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Helpdesk · Email tichet nou (formulare dinamice) -->
+      <a href="prototypes/emails/10-helpdesk-dynamic-fields.html" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Email tichet nou (formulare dinamice)</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Mailul „ticket nou de preluat" cu formulare customizabile: 5 variante narative, fără tabele sau panouri — datele formularului curg ca text (identitatea în fraza de intro, mesajul ca paragrafe, restul ca propoziție de context). Varianta A (narativ) e recomandată.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          5 variante · note de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Helpdesk · Detaliu Customer -->
+      <a href="prototypes/helpdesk-customer-detail/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Detaliu Customer</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Pagina de detaliu a clientului: box de blocare reproiectat (cine/când/expirare clare, copy despre tichete, butoane grupate), fără stat-cards, iar lista de tickete devine identică cu Tickets#index, cu dropdown de filtrare pe status.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          3 ecrane · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Helpdesk · Detaliu ticket (redesign) -->
+      <a href="prototypes/helpdesk-ticket-detail-redesign/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Detaliu ticket (redesign)</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Antet minimal cu meniu „⋮", acțiuni secundare (istoric, SLA, spam, transfer) pe pagini dedicate, mesaj multi-departament în popover, secțiunea Client clarificată, butoane CTA consistente și fonturi mai mari.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          6 ecrane · plan de implementare
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Helpdesk · Listă tickete -->
+      <a href="prototypes/helpdesk-ticket-list/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M7 12h13"/><path d="M7 18h13"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Helpdesk · Listă tickete</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          Dropdown-ul de status din lista de tichete, regrupat în 3 secțiuni cu titluri: Tichete active (toate în afară de Închis), Închise separat și Spam separat.
         </div>
         <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
           1 ecran · plan de implementare
