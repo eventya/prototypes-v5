@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Workspaces · Dashboard AI</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+  <div class="flex items-center gap-2 min-w-0">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#6 · Admin — Workspaces (leaderboard, click pe rând → dashboard-ul workspace-ului)</span>
+  </div>
+  <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+</div>
+
+<div class="flex items-start gap-0">
+
+  <aside class="hidden lg:flex w-64 shrink-0 flex-col px-3 pb-4 pt-4 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 sticky top-0 h-screen overflow-y-auto">
+    <nav class="space-y-6">
+      <div>
+        <h5 class="flex items-center gap-2 px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          Overview
+        </h5>
+        <ul class="space-y-0.5">
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Dashboard</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Accounts</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Users</span></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="flex items-center gap-2 px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          Tools
+        </h5>
+        <ul class="space-y-0.5">
+          <li>
+            <a href="05-admin-overview.html" class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-500/10">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span class="truncate">AI</span>
+              <span class="ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-300">nou</span>
+            </a>
+          </li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Themes</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Starters</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Sandbox App</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Mobile Deploys</span></li>
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Background Jobs</span></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="flex items-center gap-2 px-3 mb-2 text-[11px] font-semibold tracking-widest uppercase text-gray-400 dark:text-gray-500">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+          Reference
+        </h5>
+        <ul class="space-y-0.5">
+          <li><span class="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg text-gray-600 dark:text-gray-400">Docs</span></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="mt-auto pt-4">
+      <div class="px-3 pt-4 mt-2 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">v5.0</span>
+        <span class="text-[11px] text-gray-400 dark:text-gray-500">Eventya Platform</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 min-w-0 px-4 md:px-8 py-7 pb-24">
+
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+      <div class="min-w-0">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">AI</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Consum, cost și calitate pe toată platforma, cumulat din toate workspace-urile.</p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        </span>
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-200 min-w-[120px] text-center">Septembrie 2026</span>
+        <span class="w-8 h-8 flex items-center justify-center text-gray-300 dark:text-gray-600 cursor-not-allowed">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-1 border-b border-surface-200 overflow-x-auto overflow-y-hidden mb-5">
+      <a href="05-admin-overview.html"   class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-transparent text-ink-500 hover:text-ink-700">Overview</a>
+      <span class="px-4 py-2.5 text-sm -mb-px border-b-2 border-transparent text-ink-500 whitespace-nowrap">Backend</span>
+      <span class="px-4 py-2.5 text-sm -mb-px border-b-2 border-transparent text-ink-500 whitespace-nowrap">Public</span>
+      <span class="px-4 py-2.5 text-sm -mb-px border-b-2 border-transparent text-ink-500 whitespace-nowrap">Helpdesk</span>
+      <a href="06-admin-workspaces.html" class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-primary text-primary font-semibold">Workspaces</a>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+      <div class="relative w-full sm:w-72">
+        <svg class="w-4 h-4 text-ink-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input class="input w-full pl-9" type="search" placeholder="Caută workspace…">
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="text-[12px] text-ink-400">34 cu activitate AI din 41</span>
+        <button class="btn btn--sm inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+          CSV
+        </button>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="text-[11px] uppercase tracking-wider text-ink-400 bg-surface-50">
+              <th class="px-5 py-2.5 font-medium">Workspace</th>
+              <th class="px-5 py-2.5 font-medium text-right whitespace-nowrap">
+                <span class="inline-flex items-center gap-1 text-primary">
+                  Cost estimat
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </span>
+              </th>
+              <th class="px-5 py-2.5 font-medium text-right">Tokens</th>
+              <th class="px-5 py-2.5 font-medium text-right whitespace-nowrap">In / Out</th>
+              <th class="px-5 py-2.5 font-medium text-right">Requests</th>
+              <th class="px-5 py-2.5 font-medium text-right">Conversații</th>
+              <th class="px-5 py-2.5 font-medium w-40">Plafon</th>
+              <th class="px-5 py-2.5 font-medium text-right">Rating</th>
+              <th class="px-5 py-2.5 font-medium text-right whitespace-nowrap">Ultima activitate</th>
+            </tr>
+          </thead>
+          <tbody id="rows" class="divide-y divide-surface-200 text-[13px]"></tbody>
+          <tfoot>
+            <tr class="bg-surface-50 text-[12px] text-ink-500">
+              <td class="px-5 py-3 font-medium">+ 22 workspace-uri sub $2</td>
+              <td class="px-5 py-3 text-right tabular-nums font-semibold text-ink-700">$12,48</td>
+              <td class="px-5 py-3 text-right tabular-nums">19,6M</td>
+              <td class="px-5 py-3"></td>
+              <td class="px-5 py-3 text-right tabular-nums">20.000</td>
+              <td class="px-5 py-3 text-right tabular-nums">8.020</td>
+              <td class="px-5 py-3"></td>
+              <td class="px-5 py-3"></td>
+              <td class="px-5 py-3"></td>
+            </tr>
+            <tr class="bg-surface-100 text-[13px] font-semibold text-ink-900">
+              <td class="px-5 py-3">Total platformă</td>
+              <td class="px-5 py-3 text-right tabular-nums">$332,74</td>
+              <td class="px-5 py-3 text-right tabular-nums">524,0M</td>
+              <td class="px-5 py-3 text-right tabular-nums text-[12px] text-ink-500 whitespace-nowrap">408,7M / 115,3M</td>
+              <td class="px-5 py-3 text-right tabular-nums">742.800</td>
+              <td class="px-5 py-3 text-right tabular-nums">200.400</td>
+              <td class="px-5 py-3"></td>
+              <td class="px-5 py-3 text-right tabular-nums">4,3</td>
+              <td class="px-5 py-3"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <p class="text-[12px] text-ink-400 mt-4 leading-relaxed max-w-3xl">
+      Click pe un rând deschide dashboard-ul AI al acelui workspace, cu aceleași taburi
+      Overview · Backend · Public · Helpdesk — vezi
+      <a href="01-overview.html" class="text-primary hover:underline">ecranul 1</a>.
+      Coloana <strong class="text-ink-600">Cost estimat</strong> folosește aceeași formulă ca peste tot:
+      tokens de input și output × prețul de listă al modelului. E un plafon superior, nu factura.
+    </p>
+  </main>
+</div>
+
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+  onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script src="charts.js"></script>
+<script>
+  // Tokens = cost / 0,635 $ per milion — aceeași rată peste tot, ca formula
+  // să poată fi verificată din ecran.
+  var rows = [
+    { name: 'București Turism',     slug: 'bucuresti-turism',     ini: 'BT', tone: 'bg-indigo-500',  cost: 84.20, tok: '132,6M', io: '103,4M / 29,2M', req: 186400, conv: 48200, cap: 66, rating: '4,4', seen: 'acum 2 min' },
+    { name: 'Visit Cluj',           slug: 'visit-cluj',           ini: 'VC', tone: 'bg-rose-500',    cost: 61.90, tok: '97,5M',  io: '76,1M / 21,4M',  req: 142100, conv: 36800, cap: 96, rating: '4,2', seen: 'acum 8 min' },
+    { name: 'Explore Transylvania', slug: 'explore-transylvania', ini: 'ET', tone: 'bg-emerald-500', cost: 48.30, tok: '76,1M',  io: '59,4M / 16,7M',  req: 108400, conv: 28900, cap: 61, rating: '4,5', seen: 'acum 14 min' },
+    { name: 'România Atractivă',    slug: 'romania-atractiva',    ini: 'RA', tone: 'bg-amber-500',   cost: 31.70, tok: '49,9M',  io: '38,9M / 11,0M',  req:  71200, conv: 19400, cap: 42, rating: '4,1', seen: 'acum 31 min' },
+    { name: 'Visit Brașov',         slug: 'visit-brasov',         ini: 'VB', tone: 'bg-sky-500',     cost: 24.90, tok: '39,2M',  io: '30,6M / 8,6M',   req:  56800, conv: 15100, cap: 52, rating: '4,3', seen: 'acum 45 min' },
+    { name: 'Delta Dunării',        slug: 'delta-dunarii',        ini: 'DD', tone: 'bg-teal-500',    cost: 18.20, tok: '28,7M',  io: '22,4M / 6,3M',   req:  41300, conv: 11200, cap: 91, rating: '4,6', seen: 'acum 1 oră' },
+    { name: 'Sibiu Legacy',         slug: 'sibiu-legacy',         ini: 'SL', tone: 'bg-blue-500',    cost: 15.66, tok: '24,7M',  io: '19,2M / 5,4M',   req:  35600, conv: 10180, cap: 82, rating: '4,3', seen: 'acum 2 ore', me: true },
+    { name: 'Visit Maramureș',      slug: 'visit-maramures',      ini: 'VM', tone: 'bg-violet-500',  cost: 12.40, tok: '19,5M',  io: '15,2M / 4,3M',   req:  28100, conv:  7900, cap: 74, rating: '4,4', seen: 'acum 3 ore' },
+    { name: 'Bucovina Turism',      slug: 'bucovina-turism',      ini: 'BU', tone: 'bg-pink-500',    cost:  9.80, tok: '15,4M',  io: '12,0M / 3,4M',   req:  22400, conv:  6200, cap: 38, rating: '4,2', seen: 'acum 5 ore' },
+    { name: 'Visit Oradea',         slug: 'visit-oradea',         ini: 'VO', tone: 'bg-indigo-500',  cost:  7.20, tok: '11,3M',  io: '8,8M / 2,5M',    req:  16800, conv:  4700, cap: 29, rating: '4,0', seen: 'acum 8 ore' },
+    { name: 'Țara Hațegului',       slug: 'tara-hategului',       ini: 'TH', tone: 'bg-emerald-500', cost:  4.10, tok: '6,5M',   io: '5,1M / 1,4M',    req:   9400, conv:  2600, cap: 16, rating: '4,5', seen: 'ieri' },
+    { name: 'Vama Veche',           slug: 'vama-veche',           ini: 'VV', tone: 'bg-amber-500',   cost:  1.90, tok: '3,0M',   io: '2,3M / 0,7M',    req:   4300, conv:  1200, cap:  8, rating: '3,9', seen: 'acum 3 zile' }
+  ];
+
+  function capTone(p) {
+    if (p >= 90) return { bar: 'bg-rose-500',   text: 'text-rose-600 dark:text-rose-400' };
+    if (p >= 70) return { bar: 'bg-amber-500',  text: 'text-amber-600 dark:text-amber-400' };
+    return { bar: 'bg-primary', text: 'text-ink-500' };
+  }
+
+  document.getElementById('rows').innerHTML = rows.map(function (r) {
+    var t = capTone(r.cap);
+    return '<tr class="hover:bg-surface-50 transition-colors cursor-pointer' + (r.me ? ' bg-primary-50 dark:bg-primary-500/10' : '') + '" onclick="location.href=\'01-overview.html\'">' +
+      '<td class="px-5 py-3"><div class="flex items-center gap-2.5 min-w-0">' +
+        '<span class="w-7 h-7 rounded-md text-white grid place-items-center text-[10px] font-bold shrink-0">' + r.ini + '</span>' +
+        '<span class="min-w-0"><span class="block font-medium text-ink-800 truncate">' + r.name + '</span>' +
+        '<span class="block text-[11px] text-ink-400 truncate">' + r.slug + '</span></span>' +
+      '</div></td>' +
+      '<td class="px-5 py-3 text-right tabular-nums font-semibold text-ink-900 whitespace-nowrap">' + Charts.money(r.cost) + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-700 whitespace-nowrap">' + r.tok + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-400 text-[12px] whitespace-nowrap">' + r.io + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-500">' + Charts.fmt(r.req) + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-500">' + Charts.fmt(r.conv) + '</td>' +
+      '<td class="px-5 py-3"><div class="flex items-center gap-2">' +
+        '<div class="h-2 rounded-full bg-surface-100 flex-1 min-w-[100px]">' +
+          '<div class="h-full rounded-full ' + t.bar + '" style="width:' + r.cap + '%"></div>' +
+        '</div><span class="text-[11px] tabular-nums w-8 text-right font-semibold ' + t.text + '">' + r.cap + '%</span>' +
+      '</div></td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-700 whitespace-nowrap">' + r.rating + ' <span class="text-amber-500">★</span></td>' +
+      '<td class="px-5 py-3 text-right text-ink-400 text-[12px] whitespace-nowrap">' + r.seen + '</td>' +
+      '</tr>';
+  }).join('');
+
+  // Culoarea avatarului vine din date, nu din markup — o aplicăm după randare
+  // ca să nu spargem scanarea de clase.
+  document.querySelectorAll('#rows tr').forEach(function (tr, i) {
+    tr.querySelector('span').classList.add(rows[i].tone);
+  });
+</script>
+</body>
+</html>

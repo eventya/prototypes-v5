@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk · Dashboard AI</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+  <div class="flex items-center gap-2 min-w-0">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#4 · Dashboard AI — Helpdesk (drafturi de răspuns)</span>
+  </div>
+  <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+</div>
+
+<header class="sticky top-0 z-40 bg-surface-0 border-b border-surface-200 px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+  <div class="flex items-center gap-3 min-w-0">
+    <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none"><path d="M12 2 L6 6 L6 12 C6 16 9 19 12 21 C15 19 18 16 18 12 L18 6 Z" fill="#1cc39a"/><circle cx="12" cy="11" r="2.4" fill="#fff"/></svg>
+    <div class="flex items-center gap-2 bg-surface-100 rounded-full pl-1.5 pr-3 py-1 min-w-0">
+      <span class="w-6 h-6 rounded-md bg-blue-500 text-white grid place-items-center text-[11px] font-bold shrink-0">SL</span>
+      <span class="text-[13px] font-semibold text-ink-800 truncate">Sibiu Legacy</span>
+    </div>
+  </div>
+  <nav class="hidden md:flex items-center gap-1.5">
+    <span class="px-3.5 py-2 rounded-full border border-surface-200 text-[13px] font-semibold text-ink-600">CMS</span>
+    <span class="px-3.5 py-2 rounded-full border border-surface-200 text-[13px] font-semibold text-ink-600">Helpdesk</span>
+    <span class="px-3.5 py-2 rounded-full border border-surface-200 text-[13px] font-semibold text-ink-600">Website</span>
+  </nav>
+  <div class="flex items-center gap-3 shrink-0">
+    <span class="text-[12px] font-semibold text-ink-500 hidden sm:block">RO</span>
+    <a href="07-entry-points.html" class="w-8 h-8 rounded-full bg-pink-500 text-white grid place-items-center text-[11px] font-bold ring-2 ring-primary">AE</a>
+  </div>
+</header>
+
+<main class="max-w-[1280px] mx-auto px-4 md:px-6 pb-24">
+
+  <div class="pt-7 pb-4">
+    <a href="07-entry-points.html" class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-400 mb-3 hover:text-ink-700 transition-colors">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+      Workspace
+    </a>
+    <div class="flex items-end justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-[28px] leading-none font-bold text-ink-900 tracking-tight">Rapoarte AI</h1>
+        <p class="text-[14px] text-ink-400 mt-2 max-w-2xl">Consum, cost și calitate pentru tot ce înseamnă AI în workspace — asistentul din CMS, chatbot-ul public și drafturile din Helpdesk.</p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="07-entry-points.html" class="btn btn--ghost btn--sm inline-flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.14.63.66 1.1 1.31 1.1H21a2 2 0 110 4h-.09c-.65 0-1.17.47-1.31 1.1z"/></svg>
+          Setări agent Helpdesk
+        </a>
+        <button class="btn btn--ghost btn--sm inline-flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+          Export PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-1 border-b border-surface-200 overflow-x-auto overflow-y-hidden">
+    <a href="01-overview.html" class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-transparent text-ink-500 hover:text-ink-700">Overview</a>
+    <a href="02-backend.html"  class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-transparent text-ink-500 hover:text-ink-700">Backend</a>
+    <a href="03-public.html"   class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-transparent text-ink-500 hover:text-ink-700">Public</a>
+    <a href="04-helpdesk.html" class="px-4 py-2.5 text-sm -mb-px border-b-2 transition-colors whitespace-nowrap border-primary text-primary font-semibold">Helpdesk</a>
+  </div>
+
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-5 mb-5">
+    <div class="flex flex-wrap items-center gap-3">
+      <div class="flex items-center gap-1 bg-surface-50 rounded-lg p-1 border border-surface-200 w-fit">
+        <span class="px-3 py-1.5 rounded-md text-[12.5px] font-medium text-ink-500">7 zile</span>
+        <span class="px-3 py-1.5 rounded-md text-[12.5px] font-semibold bg-surface-0 text-ink-900 shadow-sm">30 zile</span>
+        <span class="px-3 py-1.5 rounded-md text-[12.5px] font-medium text-ink-500">90 zile</span>
+        <span class="px-3 py-1.5 rounded-md text-[12.5px] font-medium text-ink-500">12 luni</span>
+      </div>
+      <button type="button" class="btn btn--sm inline-flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>
+        Toate departamentele
+        <svg class="w-3 h-3 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+    <div class="text-[12px] text-ink-400">1–30 septembrie 2026 · comparat cu perioada precedentă</div>
+  </div>
+
+  <!-- KPI -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+    <div class="card px-5 py-[18px]">
+      <div class="text-[12px] font-medium text-ink-400">Drafturi generate</div>
+      <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">1.180</div>
+      <div class="mt-2 text-[12px] text-ink-400">cerute de agenți, la tichete noi</div>
+    </div>
+    <div class="card px-5 py-[18px]">
+      <div class="text-[12px] font-medium text-ink-400">Folosite</div>
+      <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">742</div>
+      <div class="mt-2 text-[12px] font-semibold text-emerald-600 dark:text-emerald-400">63% din cele generate</div>
+    </div>
+    <div class="card px-5 py-[18px]">
+      <div class="text-[12px] font-medium text-ink-400 tooltip tooltip--bottom cursor-help w-fit" tabindex="0"
+           data-tooltip="Din drafturile folosite, câte au fost modificate de agent înainte de trimitere. Dacă scade spre zero, drafturile sunt trimise pe încredere, fără citire — semn că funcția trebuie reevaluată.">
+        Edit rate
+      </div>
+      <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">71%</div>
+      <div class="mt-2 text-[12px] text-ink-400">527 din 742 au fost modificate</div>
+    </div>
+    <div class="card px-5 py-[18px]">
+      <div class="text-[12px] font-medium text-ink-400">Neatinse</div>
+      <div class="text-[28px] font-extrabold leading-none mt-2 text-ink-900">214</div>
+      <div class="mt-2 text-[12px] text-ink-400">tichet închis fără niciun răspuns</div>
+    </div>
+  </div>
+
+  <!-- Funnel + cost -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+    <div class="card p-5 lg:col-span-2">
+      <div class="text-[15px] font-semibold text-ink-900 mb-1">Ce s-a întâmplat cu drafturile</div>
+      <div class="text-[12px] text-ink-400 mb-4">procentele sunt din totalul celor generate</div>
+      <div id="funnel"></div>
+      <p class="text-[11px] text-ink-400 mt-4 leading-relaxed">
+        <strong class="text-ink-600">Edit rate-ul e semnalul care contează.</strong> Un draft editat înseamnă
+        că agentul l-a citit și l-a corectat — exact ce vrem. Dacă edit rate-ul se prăbușește spre zero,
+        drafturile se trimit nevăzute, iar funcția face rău, nu bine.
+      </p>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-baseline justify-between gap-2 mb-1">
+        <div class="text-[15px] font-semibold text-ink-900">Tokens și cost</div>
+        <span class="text-[11px] text-ink-400">17% din total</span>
+      </div>
+      <div class="text-[12px] text-ink-400 mb-4">consumul canalului Helpdesk</div>
+
+      <div class="flex items-end gap-2 flex-wrap">
+        <div class="text-[26px] font-bold text-ink-900 leading-none">4.240.000</div>
+        <div class="text-[14px] font-semibold text-ink-500 mb-0.5">≈ $2,70</div>
+      </div>
+
+      <div class="border-t border-surface-200 mt-4 pt-4 flex flex-col gap-3">
+        <div class="flex items-baseline justify-between gap-2">
+          <span class="text-[12px] text-ink-500">Cost pe draft generat</span>
+          <span class="text-[13px] font-semibold text-ink-900">≈ $0,002</span>
+        </div>
+        <div class="flex items-baseline justify-between gap-2">
+          <span class="text-[12px] text-ink-500">Cost pe draft chiar folosit</span>
+          <span class="text-[13px] font-semibold text-ink-900">≈ $0,004</span>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-ink-400 mt-4 leading-relaxed">
+        Drafturile nefolosite se plătesc la fel — de aceea a doua cifră e cea onestă.
+      </p>
+    </div>
+  </div>
+
+  <!-- Over time -->
+  <div class="card p-5 mb-4">
+    <div class="flex items-start justify-between gap-3 flex-wrap mb-4">
+      <div>
+        <div class="text-[15px] font-semibold text-ink-900">Generate vs folosite, în timp</div>
+        <div class="text-[12px] text-ink-400 mt-0.5">distanța dintre linii e ce plătim degeaba</div>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px]">
+        <span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-0.5 rounded-full" style="background:#94a3b8"></span>Generate</span>
+        <span class="flex items-center gap-1.5 text-ink-400"><span class="w-2.5 h-0.5 rounded-full" style="background:#10b981"></span>Folosite</span>
+      </div>
+    </div>
+    <div id="overtime" class="overflow-x-auto"></div>
+  </div>
+
+  <!-- Per agent -->
+  <div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b border-surface-200">
+      <div class="text-[15px] font-semibold text-ink-900">Pe agent</div>
+      <div class="text-[12px] text-ink-400 mt-0.5">cine se bazează pe drafturi și cât le corectează</div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead>
+          <tr class="text-[11px] uppercase tracking-wider text-ink-400 bg-surface-50">
+            <th class="px-5 py-2.5 font-medium">Agent</th>
+            <th class="px-5 py-2.5 font-medium text-right">Oferite</th>
+            <th class="px-5 py-2.5 font-medium text-right">Folosite</th>
+            <th class="px-5 py-2.5 font-medium text-right">Editate</th>
+            <th class="px-5 py-2.5 font-medium text-right whitespace-nowrap">Edit rate</th>
+            <th class="px-5 py-2.5 font-medium w-44">Rată de folosire</th>
+          </tr>
+        </thead>
+        <tbody id="agents" class="divide-y divide-surface-200 text-[13px]"></tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3 border-t border-surface-200 text-[11px] text-ink-400 leading-relaxed">
+      Un edit rate foarte mic la un agent cu multe drafturi folosite merită o discuție —
+      poate trimite fără să citească.
+    </div>
+  </div>
+</main>
+
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+  onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script src="charts.js"></script>
+<script>
+  var C = Charts.C;
+
+  Charts.funnel(document.getElementById('funnel'), [
+    { label: 'Generate de AI',                  value: 1180, percent: 100, color: '#6366f1' },
+    { label: 'Inserate într-un răspuns',        value: 742,  percent: 63,  color: '#10b981' },
+    { label: 'modificate înainte de trimitere', value: 527,  percent: 45,  color: '#0ea5e9', indent: true },
+    { label: 'trimise exact cum au fost scrise',value: 215,  percent: 18,  color: '#34d399', indent: true },
+    { label: 'Neatinse — niciun răspuns dat',   value: 214,  percent: 18,  color: '#cbd5e1' },
+    { label: 'Ignorate — agentul a scris singur', value: 224, percent: 19, color: '#fda4af' }
+  ]);
+
+  var gen = Array.from({ length: 30 }, function (_, i) {
+    return (i % 7 === 5 || i % 7 === 6) ? Math.round(14 + Math.sin(i) * 4) : Math.round(46 + Math.sin(i * 0.6 + 1) * 12);
+  });
+  Charts.line(document.getElementById('overtime'), [
+    { data: gen, color: C.muted, label: 'Generate', dashed: true },
+    { data: gen.map(function (v, i) { return Math.round(v * (0.58 + Math.sin(i * 0.35) * 0.09)); }), color: C.helpdesk, label: 'Folosite' }
+  ]);
+
+  var agents = [
+    { name: 'Andrei Enache', dept: 'Turism',        initials: 'AE', tone: 'bg-pink-500',    offered: 342, used: 248, edited: 162 },
+    { name: 'Maria Popescu', dept: 'Turism',        initials: 'MP', tone: 'bg-blue-500',    offered: 298, used: 196, edited: 148 },
+    { name: 'Ioana Dumitru', dept: 'Evenimente',    initials: 'ID', tone: 'bg-emerald-500', offered: 246, used: 158, edited: 121 },
+    { name: 'Radu Marin',    dept: 'Infrastructură',initials: 'RM', tone: 'bg-amber-500',   offered: 184, used:  92, edited:  61 },
+    { name: 'Elena Șerban',  dept: 'Evenimente',    initials: 'EȘ', tone: 'bg-violet-500',  offered: 110, used:  48, edited:  35 }
+  ];
+  document.getElementById('agents').innerHTML = agents.map(function (a) {
+    var editRate = Math.round(a.edited / a.used * 100);
+    var useRate  = Math.round(a.used / a.offered * 100);
+    var editTone = editRate < 50 ? 'text-amber-600 dark:text-amber-400' : 'text-ink-900';
+    return '<tr class="hover:bg-surface-50 transition-colors">' +
+      '<td class="px-5 py-3"><div class="flex items-center gap-2.5 min-w-0">' +
+        '<span class="w-7 h-7 rounded-full ' + a.tone + ' text-white grid place-items-center text-[10px] font-bold shrink-0">' + a.initials + '</span>' +
+        '<span class="min-w-0"><span class="block font-medium text-ink-800 truncate">' + a.name + '</span>' +
+        '<span class="block text-[11px] text-ink-400">' + a.dept + '</span></span>' +
+      '</div></td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-500">' + a.offered + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-700">' + a.used + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums text-ink-500">' + a.edited + '</td>' +
+      '<td class="px-5 py-3 text-right tabular-nums font-semibold ' + editTone + '">' + editRate + '%</td>' +
+      '<td class="px-5 py-3"><div class="flex items-center gap-2">' +
+        '<div class="h-2 rounded-full bg-surface-100 flex-1 min-w-[100px]">' +
+          '<div class="h-full rounded-full" style="width:' + useRate + '%;background:' + C.helpdesk + '"></div>' +
+        '</div><span class="text-[11px] text-ink-400 tabular-nums w-8 text-right">' + useRate + '%</span>' +
+      '</div></td></tr>';
+  }).join('');
+</script>
+</body>
+</html>

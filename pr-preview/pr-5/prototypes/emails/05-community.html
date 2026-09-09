@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunitate · Email-uri</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="email.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Email-uri · 05 — Comunitate</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-6 md:py-8">
+    <div class="card p-6 mb-10">
+      <div class="text-xl font-bold text-ink-900">Comunitate</div>
+      <div class="text-sm text-ink-500 mt-1.5 leading-relaxed">
+        Notificări pentru followeri și owneri. A doua are header cu <strong class="text-ink-700">logo real de workspace</strong> (badge cu imagine, nu inițiale).
+      </div>
+    </div>
+    <div id="emails" class="space-y-12"></div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="email.js"></script>
+  <script>
+    var B = Email.B;
+    var ws = { type: 'ws', initial: '4', color: '#2563eb', name: '4MMP', slug: '4mmp' };
+    var wsLogo = { type: 'ws', logo: 'img/eventya-symbol.svg', name: 'Primăria Cluj', slug: 'primaria-cluj' };
+
+    Email.renderAll('#emails', [
+      {
+        meta: { mailer: 'Community::FollowMailer#page_updated', from: '4MMP <noreply@eventya.net>', ctx: 'ws' },
+        header: ws, category: 'Urmărire', ref: 'FOLLOW-002',
+        body: B.h1('Ceva nou pe o pagină pe care o urmărești')
+            + B.p('Tocmai am publicat „' + B.strong('Programul de vară 2026') + '” pe pagina pe care o urmărești. Aruncă un ochi.')
+            + B.btn('Vezi ce-i nou →')
+            + B.small('Primești acest mesaj pentru că urmărești această pagină.')
+      },
+      {
+        meta: { mailer: 'Community::ReviewMailer#new_review', from: 'Primăria Cluj <noreply@eventya.net>', ctx: 'ws' },
+        header: wsLogo, category: 'Recenzii', ref: 'REVIEW-001',
+        body: B.h1('Ai o recenzie nouă')
+            + B.author('A', 'Andrei Ionescu', '★★★★☆ · acum 2 ore')
+            + B.quote('„Servicii prompte și oameni amabili. M-au ajutat repede cu actele. Recomand!”')
+            + B.p(B.strong('Andrei Ionescu') + ' a lăsat o recenzie pe ' + B.strong('Direcția de Evidență a Persoanelor') + '.')
+            + B.btn('Vezi toate recenziile →')
+            + B.small('Primești acest mesaj pentru că ești owner pe Primăria Cluj.')
+      }
+    ]);
+  </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notificările mele · My Notifications</title>
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+
+  <style>
+    body {
+      background: var(--color-surface-50);
+      min-height: 100vh;
+    }
+
+    /* toggle switch */
+    .n-toggle {
+      width: 44px; height: 24px; border-radius: 12px;
+      background: var(--color-surface-300);
+      position: relative; flex-shrink: 0;
+      transition: background 0.2s; cursor: pointer;
+    }
+    .n-toggle.on { background: #16a34a; }
+    .n-toggle::after {
+      content: '';
+      position: absolute; top: 3px; left: 3px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      transition: transform 0.2s;
+    }
+    .n-toggle.on::after { transform: translateX(20px); }
+
+    /* radio option card */
+    .n-opt {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--color-surface-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      margin-bottom: 10px;
+    }
+    .n-opt:last-of-type { margin-bottom: 0; }
+    .n-opt:hover { background: var(--color-surface-50); }
+    .n-opt.sel { border-color: #16a34a; background: #f0fdf4; }
+    html[data-theme="dark"] .n-opt.sel { background: rgba(22,163,74,.07); border-color: rgba(22,163,74,.45); }
+
+    /* radio dot */
+    .n-radio {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--color-surface-300);
+      background: var(--color-surface-0);
+      flex-shrink: 0; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, background .15s;
+    }
+    .n-opt.sel .n-radio { border-color: #16a34a; background: #16a34a; }
+    .n-radio-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: white; opacity: 0; transition: opacity .15s;
+    }
+    .n-opt.sel .n-radio-dot { opacity: 1; }
+
+    /* channel card */
+    .n-channel {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px;
+      border: 1.5px solid var(--color-surface-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      margin-bottom: 10px;
+    }
+    .n-channel:last-of-type { margin-bottom: 0; }
+    .n-channel:hover { background: var(--color-surface-50); }
+    .n-channel.on { border-color: #16a34a; background: #f0fdf4; }
+    html[data-theme="dark"] .n-channel.on { background: rgba(22,163,74,.07); border-color: rgba(22,163,74,.45); }
+
+    /* followed pages */
+    .n-pages {
+      border: 1.5px dashed var(--color-surface-300);
+      border-radius: 10px; overflow: hidden; margin-top: 10px;
+    }
+    .n-pages-head {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 12px;
+      background: var(--color-surface-50);
+      border-bottom: 1px solid var(--color-surface-200);
+      font-size: 11px; font-weight: 600; color: var(--color-ink-500);
+    }
+    .n-page-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--color-surface-100);
+    }
+    .n-page-row:last-child { border-bottom: none; }
+
+    /* saved pill */
+    .n-saved {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px;
+      background: #dcfce7; color: #166534;
+      font-size: 13px; font-weight: 500;
+    }
+    html[data-theme="dark"] .n-saved { background: rgba(22,163,74,.18); color: #4ade80; }
+  </style>
+</head>
+<body class="text-ink-800 font-sans antialiased">
+
+  <!-- Prototype banner -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · My Notifications — Setări notificări</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- Top nav -->
+  <header class="flex items-center justify-between max-w-2xl mx-auto px-4 pt-2 pb-3">
+    <a href="#" class="flex items-center gap-1.5 text-[13px] font-medium text-ink-500 hover:text-ink-800 transition-colors">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" width="16" height="16">
+        <path d="M12 5l-5 5 5 5"/>
+      </svg>
+      Înapoi la profil
+    </a>
+    <span class="text-[11px] font-bold tracking-[0.15em] text-ink-400 uppercase">GONDOR</span>
+  </header>
+
+  <!-- Content -->
+  <div class="max-w-2xl mx-auto px-4 pb-16">
+
+    <!-- Page header -->
+    <div class="flex items-start gap-4 mb-5">
+      <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center shrink-0">
+        <svg fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 22 22" width="20" height="20" style="color:#d97706">
+          <path d="M5.5 9a5.5 5.5 0 0111 0v4.2l1.6 2H4L5.5 13V9zM9 17.2a2 2 0 004 0"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-ink-900">Notificări</h1>
+        <p class="text-[13px] text-ink-400 mt-0.5 leading-relaxed max-w-sm">
+          Alege despre ce și cum vrei să te anunțe Eventya despre paginile pe care le urmărești.
+        </p>
+      </div>
+    </div>
+
+    <!-- Status banner -->
+    <div id="js-banner" class="rounded-xl border px-4 py-3.5 mb-4 flex items-center gap-3 transition-all">
+      <span id="js-banner-ico" class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0">
+        <svg fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 22 22" width="18" height="18">
+          <path d="M5.5 9a5.5 5.5 0 0111 0v4.2l1.6 2H4L5.5 13V9zM9 17.2a2 2 0 004 0"/>
+        </svg>
+      </span>
+      <div class="flex-1 min-w-0">
+        <div id="js-banner-title" class="text-[13px] font-semibold"></div>
+        <div id="js-banner-sub" class="text-[12px] mt-0.5"></div>
+      </div>
+      <button id="js-banner-btn" class="text-[12px] font-medium px-3 py-1.5 rounded-lg border transition-all shrink-0 cursor-pointer" onclick="toggleEnabled()"></button>
+    </div>
+
+    <!-- Main card -->
+    <div class="bg-surface-0 rounded-2xl border border-surface-200 shadow-sm overflow-hidden">
+
+      <!-- CE? -->
+      <div class="p-6 border-b border-surface-100">
+        <div class="mb-4">
+          <div class="text-[10px] font-bold tracking-[.14em] text-ink-300 uppercase mb-0.5">CE?</div>
+          <div class="text-[15px] font-semibold text-ink-900">Despre ce să te anunțăm</div>
+        </div>
+
+        <!-- Scope: all -->
+        <div class="n-opt sel" id="js-opt-all" onclick="setScope('all')">
+          <div class="n-radio"><div class="n-radio-dot"></div></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20" width="14" height="14" class="text-ink-400 shrink-0">
+                <circle cx="10" cy="10" r="7"/><path d="M3 10h14M10 3c2.5 3 2.5 11 0 14M10 3c-2.5 3-2.5 11 0 14"/>
+              </svg>
+              <span class="text-[13px] font-semibold text-ink-800">Notifică-mă despre tot</span>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-green-100 text-green-700 dark:bg-green-500/15 dark:text-green-400">Recomandat</span>
+            </div>
+            <div class="text-[12px] text-ink-400 mt-1 leading-relaxed">
+              Mesaje noi, anunțuri, evenimente, schimbări de program și răspunsuri de la toate paginile urmărite.
+            </div>
+          </div>
+        </div>
+
+        <!-- Scope: followed -->
+        <div class="n-opt" id="js-opt-followed" onclick="setScope('followed')">
+          <div class="n-radio"><div class="n-radio-dot"></div></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" width="14" height="14" class="text-ink-400 shrink-0">
+                <path d="M10 16.5c-3.5-2.4-6.5-4.8-6.5-8a3 3 0 015.5-1.6A3 3 0 0114.5 6c1.7 0 3 1.3 3 3 0 3.2-3 5.6-6.5 8z"/>
+              </svg>
+              <span class="text-[13px] font-semibold text-ink-800">Doar despre paginile pe care le urmăresc</span>
+            </div>
+            <div class="text-[12px] text-ink-400 mt-1 leading-relaxed">
+              Te anunțăm doar când apar noutăți pe paginile alese mai jos. Restul rămâne disponibil oricând în feed.
+            </div>
+          </div>
+        </div>
+
+        <!-- Followed pages list -->
+        <div id="js-pages" class="n-pages" style="display:none">
+          <div class="n-pages-head">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" width="13" height="13">
+              <rect x="3" y="4" width="11" height="13" rx="1.5"/><path d="M6 3h11v13"/>
+            </svg>
+            Pagini urmărite — 4
+            <a href="#" class="text-primary hover:underline ml-auto" style="font-weight:500">Vezi toate →</a>
+          </div>
+          <div class="n-page-row">
+            <div class="w-7 h-7 rounded-lg bg-surface-100 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[12px] font-medium text-ink-800 truncate">Primăria Cluj-Napoca</div>
+              <div class="text-[11px] text-ink-400">Pagină profil</div>
+            </div>
+            <span class="text-[11px] text-ink-400 shrink-0">4 luni</span>
+          </div>
+          <div class="n-page-row">
+            <div class="w-7 h-7 rounded-lg bg-surface-100 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[12px] font-medium text-ink-800 truncate">Biblioteca Județeană Octavian Goga</div>
+              <div class="text-[11px] text-ink-400">Pagină profil</div>
+            </div>
+            <span class="text-[11px] text-ink-400 shrink-0">2 luni</span>
+          </div>
+          <div class="n-page-row">
+            <div class="w-7 h-7 rounded-lg bg-surface-100 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[12px] font-medium text-ink-800 truncate">Festivalul Untold 2026</div>
+              <div class="text-[11px] text-ink-400">Pagină eveniment</div>
+            </div>
+            <span class="text-[11px] text-ink-400 shrink-0">3 săpt</span>
+          </div>
+          <div class="n-page-row">
+            <div class="w-7 h-7 rounded-lg bg-surface-100 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[12px] font-medium text-ink-800 truncate">Muzeul de Artă Cluj</div>
+              <div class="text-[11px] text-ink-400">Pagină profil</div>
+            </div>
+            <span class="text-[11px] text-ink-400 shrink-0">9 zile</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CUM? -->
+      <div class="p-6 border-b border-surface-100">
+        <div class="mb-4">
+          <div class="text-[10px] font-bold tracking-[.14em] text-ink-300 uppercase mb-0.5">CUM?</div>
+          <div class="text-[15px] font-semibold text-ink-900">Pe ce canale</div>
+          <div class="text-[12px] text-ink-400 mt-0.5">Alege oricâte canale — primești același mesaj pe fiecare canal activ.</div>
+        </div>
+
+        <!-- Email -->
+        <div class="n-channel on" id="js-ch-email" onclick="toggleChannel('email')">
+          <span class="w-9 h-9 rounded-lg bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center shrink-0">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 22 22" width="18" height="18" style="color:#0284c7">
+              <rect x="3" y="5" width="16" height="13" rx="2.2"/><path d="M3 6.5l8 5.5 8-5.5"/>
+            </svg>
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="text-[13px] font-semibold text-ink-800">Email</div>
+            <div class="text-[12px] text-ink-400 mt-0.5">Un rezumat clar în inbox, cu link direct către conținutul nou.</div>
+            <div class="text-[11px] mt-1" id="js-email-meta">
+              <span class="font-medium" style="color:#166534">Activ</span>
+              <span class="text-ink-400"> · calin@eventya.net</span>
+            </div>
+          </div>
+          <div class="n-toggle on" id="js-email-toggle"></div>
+        </div>
+
+        <!-- Push -->
+        <div class="n-channel on" id="js-ch-push" onclick="toggleChannel('push')">
+          <span class="w-9 h-9 rounded-lg bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 22 22" width="18" height="18" style="color:#7c3aed">
+              <rect x="6.5" y="2.5" width="9" height="17" rx="2"/><path d="M9.5 17h3"/>
+            </svg>
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="text-[13px] font-semibold text-ink-800">Push</div>
+            <div class="text-[12px] text-ink-400 mt-0.5">Notificare instant pe telefon, chiar dacă aplicația e închisă.</div>
+            <div class="text-[11px] mt-1" id="js-push-meta">
+              <span class="font-medium" style="color:#166534">Activ</span>
+              <span class="text-ink-400"> · iPhone 15 · Pixel 8</span>
+            </div>
+          </div>
+          <div class="n-toggle on" id="js-push-toggle"></div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
+        <div id="js-foot-note" class="text-[12px] text-ink-400">
+          Modificările se aplică imediat după salvare.
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button class="btn btn--sm" onclick="cancelChanges()">Anulează</button>
+          <button class="btn btn--primary btn--sm" onclick="saveChanges()">Salvează modificările</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark-mode toggle -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    var S = { enabled: true, scope: 'all', email: true, push: true };
+    var savedTimer = null;
+
+    function render() {
+      var banner    = document.getElementById('js-banner');
+      var bannerIco = document.getElementById('js-banner-ico');
+      var bannerTitle = document.getElementById('js-banner-title');
+      var bannerSub   = document.getElementById('js-banner-sub');
+      var bannerBtn   = document.getElementById('js-banner-btn');
+
+      if (S.enabled) {
+        banner.style.cssText    = 'border-radius:12px;border:1.5px solid #bbf7d0;background:#f0fdf4;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;transition:all .2s';
+        bannerIco.style.cssText = 'width:36px;height:36px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#166534';
+        bannerTitle.textContent = 'Notificările sunt active';
+        bannerTitle.style.cssText = 'font-size:13px;font-weight:600;color:#166534';
+        bannerSub.textContent   = 'Primești notificări pe canalele alese de mai jos.';
+        bannerSub.style.cssText = 'font-size:12px;margin-top:2px;color:#15803d';
+        bannerBtn.textContent   = 'Dezactivează';
+        bannerBtn.style.cssText = 'font-size:12px;font-weight:500;padding:6px 12px;border-radius:8px;border:1.5px solid #86efac;background:white;color:#166534;cursor:pointer;flex-shrink:0;transition:background .15s';
+      } else {
+        banner.style.cssText    = 'border-radius:12px;border:1.5px solid var(--color-surface-200);background:var(--color-surface-100);padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;transition:all .2s';
+        bannerIco.style.cssText = 'width:36px;height:36px;border-radius:8px;background:var(--color-surface-200);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--color-ink-400)';
+        bannerTitle.textContent = 'Notificările sunt dezactivate';
+        bannerTitle.style.cssText = 'font-size:13px;font-weight:600;color:var(--color-ink-700)';
+        bannerSub.textContent   = 'Nu vei mai primi notificări pe niciun canal până le reactivezi.';
+        bannerSub.style.cssText = 'font-size:12px;margin-top:2px;color:var(--color-ink-400)';
+        bannerBtn.textContent   = 'Activează';
+        bannerBtn.style.cssText = 'font-size:12px;font-weight:500;padding:6px 12px;border-radius:8px;border:1.5px solid var(--color-surface-300);background:var(--color-surface-0);color:var(--color-ink-700);cursor:pointer;flex-shrink:0;transition:background .15s';
+      }
+
+      // scope
+      document.getElementById('js-opt-all').classList.toggle('sel', S.scope === 'all');
+      document.getElementById('js-opt-followed').classList.toggle('sel', S.scope === 'followed');
+      document.getElementById('js-pages').style.display = S.scope === 'followed' ? '' : 'none';
+
+      // channels
+      renderChannel('email', S.email, '<span class="font-medium" style="color:#166534">Activ</span><span style="color:var(--color-ink-400)"> · calin@eventya.net</span>');
+      renderChannel('push',  S.push,  '<span class="font-medium" style="color:#166534">Activ</span><span style="color:var(--color-ink-400)"> · iPhone 15 · Pixel 8</span>');
+    }
+
+    function renderChannel(id, on, activeMeta) {
+      var card   = document.getElementById('js-ch-' + id);
+      var toggle = document.getElementById('js-' + id + '-toggle');
+      var meta   = document.getElementById('js-' + id + '-meta');
+      card.classList.toggle('on', on);
+      toggle.classList.toggle('on', on);
+      meta.innerHTML = on ? activeMeta : '<span style="color:var(--color-ink-400)">Inactiv</span>';
+    }
+
+    function toggleEnabled() { S.enabled = !S.enabled; render(); }
+
+    function setScope(s) { S.scope = s; render(); }
+
+    function toggleChannel(ch) { S[ch] = !S[ch]; render(); }
+
+    function saveChanges() {
+      if (savedTimer) clearTimeout(savedTimer);
+      var note = document.getElementById('js-foot-note');
+      note.innerHTML = '<span class="n-saved"><svg fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" width="13" height="13"><path d="M4 11l4 4 8-9"/></svg>Setări salvate</span>';
+      savedTimer = setTimeout(function () {
+        note.textContent = 'Modificările se aplică imediat după salvare.';
+      }, 2400);
+    }
+
+    function cancelChanges() {
+      S = { enabled: true, scope: 'all', email: true, push: true };
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

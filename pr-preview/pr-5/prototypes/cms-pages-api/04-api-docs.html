@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Docs · Swagger UI · CMS Pages API</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    .code { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .json { white-space: pre; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.55; }
+    .tok-key { color: var(--color-primary); }
+    .tok-str { color: #059669; }
+    [data-theme="dark"] .tok-str { color: #34d399; }
+    .tok-num { color: #d97706; }
+    [data-theme="dark"] .tok-num { color: #fbbf24; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+<div class="max-w-4xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 mb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#4 · Pagina de documentație (Swagger UI hostat)</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- API title block -->
+  <div class="flex items-start gap-3 mb-2">
+    <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center shrink-0">
+      <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+    <div>
+      <div class="flex items-center gap-2">
+        <div class="text-2xl font-bold text-ink-900">CMS Pages API</div>
+        <span class="badge badge--number">v1</span>
+      </div>
+      <div class="text-[13px] text-ink-400 mt-0.5">Acces read-only la paginile publicate ale workspace-ului. OpenAPI 3.1.</div>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-2 mt-3 mb-8 text-[12px] text-ink-500">
+    <span class="font-semibold text-ink-600">Base URL</span>
+    <code class="code px-2 py-1 rounded-md bg-surface-100 border border-surface-200 text-ink-700">https://api.eventya.app/api/v1</code>
+    <a href="#" class="ml-auto text-[12px] text-primary hover:underline flex items-center gap-1">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      openapi.yaml
+    </a>
+  </div>
+
+  <!-- Auth -->
+  <div class="bg-surface-0 rounded-xl border border-surface-200 p-5 mb-6">
+    <div class="flex items-center gap-2 mb-2">
+      <svg class="w-4 h-4 text-ink-500" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span class="text-[13px] font-semibold text-ink-900">Autentificare</span>
+    </div>
+    <div class="text-[12px] text-ink-500 mb-3">Trimite cheia ta API în antetul <code class="code text-ink-700">Authorization</code>. Creezi chei din <span class="text-ink-700">Settings › Developer › API Keys</span>.</div>
+    <code class="code block px-3.5 py-2.5 rounded-lg bg-surface-100 border border-surface-200 text-[12px] text-ink-700">Authorization: Bearer evt_live_4f2a…3c91</code>
+  </div>
+
+  <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Endpoints</div>
+
+  <!-- Endpoint 1: GET /pages (expanded) -->
+  <div class="bg-surface-0 rounded-xl border border-surface-200 overflow-hidden mb-4">
+    <div class="flex items-center gap-3 px-4 py-3 border-b border-surface-100">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold text-white bg-emerald-600">GET</span>
+      <code class="code text-[13px] font-semibold text-ink-800">/pages</code>
+      <span class="text-[12px] text-ink-400 truncate">Listă paginată de pagini publicate</span>
+      <span class="ml-auto text-[11px] text-primary font-medium">Try it out</span>
+    </div>
+
+    <div class="p-5">
+      <div class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-2">Query parameters</div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[12px] mb-5">
+          <thead>
+            <tr class="text-left text-ink-400 border-b border-surface-100">
+              <th class="py-1.5 pr-4 font-semibold">Param</th>
+              <th class="py-1.5 pr-4 font-semibold">Tip</th>
+              <th class="py-1.5 font-semibold">Descriere</th>
+            </tr>
+          </thead>
+          <tbody class="text-ink-600">
+            <tr class="border-b border-surface-100"><td class="py-1.5 pr-4 code text-ink-800">locale</td><td class="py-1.5 pr-4 text-ink-400">string</td><td class="py-1.5">Cod locale (ro, en, fr, de, es). Default: locale-ul implicit.</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-1.5 pr-4 code text-ink-800">collection</td><td class="py-1.5 pr-4 text-ink-400">string</td><td class="py-1.5">Slug de colecție.</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-1.5 pr-4 code text-ink-800">category</td><td class="py-1.5 pr-4 text-ink-400">string</td><td class="py-1.5">Slug de categorie.</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-1.5 pr-4 code text-ink-800">tag</td><td class="py-1.5 pr-4 text-ink-400">string</td><td class="py-1.5">Slug de etichetă.</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-1.5 pr-4 code text-ink-800">updated_since</td><td class="py-1.5 pr-4 text-ink-400">date-time</td><td class="py-1.5">ISO8601. Sync incremental (updated_at ≥).</td></tr>
+            <tr class="border-b border-surface-100"><td class="py-1.5 pr-4 code text-ink-800">page</td><td class="py-1.5 pr-4 text-ink-400">integer</td><td class="py-1.5">Numărul paginii. Default 1.</td></tr>
+            <tr><td class="py-1.5 pr-4 code text-ink-800">per_page</td><td class="py-1.5 pr-4 text-ink-400">integer</td><td class="py-1.5">Elemente pe pagină. Default 25, max 100.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-2">Răspuns <span class="text-emerald-600">200</span></div>
+      <div class="rounded-lg bg-surface-100 border border-surface-200 p-4 overflow-x-auto">
+<div class="json"><span class="tok-key">{</span>
+  <span class="tok-key">"data"</span>: [
+    {
+      <span class="tok-key">"id"</span>: <span class="tok-str">"a1b2…"</span>,
+      <span class="tok-key">"title"</span>: <span class="tok-str">"Despre noi"</span>,
+      <span class="tok-key">"slug"</span>: <span class="tok-str">"despre-noi"</span>,
+      <span class="tok-key">"locale"</span>: <span class="tok-str">"ro"</span>,
+      <span class="tok-key">"status"</span>: <span class="tok-str">"published"</span>,
+      <span class="tok-key">"published_at"</span>: <span class="tok-str">"2026-06-01T09:00:00Z"</span>,
+      <span class="tok-key">"updated_at"</span>: <span class="tok-str">"2026-07-02T14:30:00Z"</span>,
+      <span class="tok-key">"cover_url"</span>: <span class="tok-str">"https://…/cover.jpg"</span>,
+      <span class="tok-key">"categories"</span>: [<span class="tok-str">"festival"</span>],
+      <span class="tok-key">"tags"</span>: [<span class="tok-str">"vara"</span>],
+      <span class="tok-key">"url"</span>: <span class="tok-str">"/api/v1/pages/despre-noi"</span>
+    }
+  ],
+  <span class="tok-key">"meta"</span>: { <span class="tok-key">"page"</span>: <span class="tok-num">1</span>, <span class="tok-key">"per_page"</span>: <span class="tok-num">25</span>, <span class="tok-key">"total_pages"</span>: <span class="tok-num">4</span>, <span class="tok-key">"total_count"</span>: <span class="tok-num">87</span> }
+<span class="tok-key">}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Endpoint 2: GET /pages/:slug (expanded) -->
+  <div class="bg-surface-0 rounded-xl border border-surface-200 overflow-hidden mb-4">
+    <div class="flex items-center gap-3 px-4 py-3 border-b border-surface-100">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold text-white bg-emerald-600">GET</span>
+      <code class="code text-[13px] font-semibold text-ink-800">/pages/{slug}</code>
+      <span class="text-[12px] text-ink-400 truncate">Detaliu pagină — conținut structurat</span>
+      <span class="ml-auto text-[11px] text-primary font-medium">Try it out</span>
+    </div>
+
+    <div class="p-5">
+      <div class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-2">Path parameters</div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[12px] mb-5">
+          <tbody class="text-ink-600">
+            <tr><td class="py-1.5 pr-4 code text-ink-800 w-24">slug</td><td class="py-1.5 pr-4 text-ink-400 w-24">string</td><td class="py-1.5">Slug-ul paginii (per locale). Ex: <code class="code">despre-noi</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-2">Răspuns <span class="text-emerald-600">200</span> — arbore <span class="code text-ink-600">blocks → elements → contents</span></div>
+      <div class="rounded-lg bg-surface-100 border border-surface-200 p-4 overflow-x-auto">
+<div class="json"><span class="tok-key">{</span>
+  <span class="tok-key">"id"</span>: <span class="tok-str">"a1b2…"</span>,
+  <span class="tok-key">"title"</span>: <span class="tok-str">"Despre noi"</span>,
+  <span class="tok-key">"slug"</span>: <span class="tok-str">"despre-noi"</span>,
+  <span class="tok-key">"locale"</span>: <span class="tok-str">"ro"</span>,
+  <span class="tok-key">"status"</span>: <span class="tok-str">"published"</span>,
+  <span class="tok-key">"seo"</span>: { <span class="tok-key">"title"</span>: <span class="tok-str">"Despre noi | Primăria X"</span>, <span class="tok-key">"description"</span>: <span class="tok-str">"…"</span> },
+  <span class="tok-key">"cover_url"</span>: <span class="tok-str">"https://…/cover.jpg"</span>,
+  <span class="tok-key">"categories"</span>: [{ <span class="tok-key">"slug"</span>: <span class="tok-str">"festival"</span>, <span class="tok-key">"name"</span>: <span class="tok-str">"Festival"</span> }],
+  <span class="tok-key">"tags"</span>: [{ <span class="tok-key">"slug"</span>: <span class="tok-str">"vara"</span>, <span class="tok-key">"name"</span>: <span class="tok-str">"Vară"</span> }],
+  <span class="tok-key">"blocks"</span>: [
+    {
+      <span class="tok-key">"type"</span>: <span class="tok-str">"hero"</span>,
+      <span class="tok-key">"settings"</span>: { <span class="tok-key">"background"</span>: <span class="tok-str">"surface-50"</span>, <span class="tok-key">"padding"</span>: <span class="tok-str">"lg"</span> },
+      <span class="tok-key">"elements"</span>: [
+        { <span class="tok-key">"type"</span>: <span class="tok-str">"heading"</span>, <span class="tok-key">"content"</span>: { <span class="tok-key">"text"</span>: <span class="tok-str">"Despre noi"</span>, <span class="tok-key">"level"</span>: <span class="tok-num">1</span> } },
+        { <span class="tok-key">"type"</span>: <span class="tok-str">"image"</span>,   <span class="tok-key">"content"</span>: { <span class="tok-key">"url"</span>: <span class="tok-str">"https://…/img.jpg"</span>, <span class="tok-key">"alt"</span>: <span class="tok-str">"…"</span> } }
+      ],
+      <span class="tok-key">"blocks"</span>: []
+    }
+  ]
+<span class="tok-key">}</span></div>
+      </div>
+
+      <div class="flex items-center gap-3 mt-4 text-[11px]">
+        <span class="text-ink-400">Erori:</span>
+        <span class="badge badge--warning">401 unauthorized</span>
+        <span class="badge badge--negative">404 not_found</span>
+        <span class="badge badge--number">429 rate_limited</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-[11px] text-ink-400 mt-6">Mockup al paginii Swagger UI care va fi servită la <code class="code">/api/v1/docs</code> (asset-uri vendorate local, fără CDN). În implementarea reală, „Try it out" execută request-uri live cu cheia introdusă.</p>
+
+</div>
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+</body>
+</html>

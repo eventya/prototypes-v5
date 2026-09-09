@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email-uri · Plan + ecrane</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .md { color: var(--color-ink-700); font-size: 14px; line-height: 1.7; }
+    .md h1 { font-size: 1.6rem; font-weight: 700; color: var(--color-ink-900); margin: 1.5rem 0 .75rem; }
+    .md h2 { font-size: 1.25rem; font-weight: 700; color: var(--color-ink-900); margin: 2rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-surface-200); }
+    .md h3 { font-size: 1.02rem; font-weight: 600; color: var(--color-ink-900); margin: 1.25rem 0 .4rem; }
+    .md p { margin: .6rem 0; }
+    .md ul, .md ol { margin: .6rem 0; padding-left: 1.4rem; }
+    .md li { margin: .25rem 0; }
+    .md a { color: var(--color-primary); text-decoration: underline; }
+    .md strong { color: var(--color-ink-900); font-weight: 600; }
+    .md code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82em; background: rgb(from var(--color-surface-200) r g b / .5); padding: .1rem .35rem; border-radius: .35rem; }
+    .md table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .82rem; }
+    .md th, .md td { border: 1px solid var(--color-surface-200); padding: .45rem .65rem; text-align: left; vertical-align: top; }
+    .md th { background: var(--color-surface-100); font-weight: 600; color: var(--color-ink-800); }
+    .md hr { border: none; border-top: 1px solid var(--color-surface-200); margin: 2rem 0; }
+    .md blockquote { border-left: 3px solid var(--color-surface-300); padding-left: 1rem; color: var(--color-ink-500); margin: .8rem 0; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+    <!-- Banner / back to hub -->
+    <div class="flex items-center justify-between mb-8">
+      <a href="../../index.html" class="text-[12px] font-medium text-ink-400 hover:text-ink-700 transition-colors flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Toate prototipurile
+      </a>
+      <button type="button" class="btn btn--sm"
+        onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+        Toggle dark
+      </button>
+    </div>
+
+    <!-- Set header -->
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Email-uri</div>
+        <div class="text-[13px] text-ink-400">Header & footer noi · copy uman (RO) · hartă completă</div>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+    </div>
+
+    <!-- Screens -->
+    <div class="mt-10 space-y-6">
+
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Prezentare</div>
+        <div class="space-y-2">
+          <a href="01-harta.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">01</span>
+            <div class="text-[13px] font-medium text-ink-800">Harta email-urilor — toate, cu declanșator · destinatar · FROM</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Email-uri randate (design + copy)</div>
+        <div class="space-y-2">
+          <a href="02-auth.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">02</span>
+            <div class="text-[13px] font-medium text-ink-800">Auth — coduri de verificare, ștergere cont, cont existent</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="03-onboarding.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">03</span>
+            <div class="text-[13px] font-medium text-ink-800">Onboarding — welcome client, editor, membru</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="04-team.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">04</span>
+            <div class="text-[13px] font-medium text-ink-800">Echipă — invitație, confirmare, membru nou, schimbare acces</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="05-community.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">05</span>
+            <div class="text-[13px] font-medium text-ink-800">Comunitate — pagină urmărită, recenzie nouă</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="06-digest.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">06</span>
+            <div class="text-[13px] font-medium text-ink-800">Digest — sumar zilnic / săptămânal / lunar</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="07-migrare.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">07</span>
+            <div class="text-[13px] font-medium text-ink-800">Migrare — reminder de lansare, raport de migrare</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="08-helpdesk.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">08</span>
+            <div class="text-[13px] font-medium text-ink-800">Helpdesk — ticket nou, confirmare, asignări, SLA, comentarii</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="09-platforma.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">09</span>
+            <div class="text-[13px] font-medium text-ink-800">Platformă — cont, ștergere workspace, alerte conținut & admin</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="10-helpdesk-dynamic-fields.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">10</span>
+            <div class="text-[13px] font-medium text-ink-800">Helpdesk — tichet nou cu formular dinamic (5 variante narative, fără tabele)</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Plan -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Plan & note</div>
+    <div class="bg-surface-0 rounded-xl border border-surface-200 p-7 md:p-9">
+      <div class="md" id="plan">Se încarcă planul…</div>
+    </div>
+
+  </div>
+
+  <script>
+    fetch('PLAN.md')
+      .then(r => r.text())
+      .then(md => { document.getElementById('plan').innerHTML = marked.parse(md); })
+      .catch(() => { document.getElementById('plan').textContent = 'Nu am putut încărca PLAN.md (servește printr-un server local, nu file://).'; });
+  </script>
+</body>
+</html>

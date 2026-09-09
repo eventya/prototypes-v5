@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platformă · Email-uri</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="email.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Email-uri · 09 — Platformă</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-6 md:py-8">
+    <div class="card p-6 mb-10">
+      <div class="text-xl font-bold text-ink-900">Platformă</div>
+      <div class="text-sm text-ink-500 mt-1.5 leading-relaxed">
+        Email-uri de platformă (header cu <strong class="text-ink-700">logo Eventya</strong>, FROM „Eventya”): lifecycle cont, ștergere workspace, alerte admin. Plus alertele de conținut, care merg în numele workspace-ului.
+      </div>
+    </div>
+    <div id="emails" class="space-y-12"></div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="email.js"></script>
+  <script>
+    var B = Email.B;
+    var pf = { type: 'pf' };
+    var ws = { type: 'ws', initial: '4', color: '#2563eb', name: '4MMP', slug: '4mmp' };
+    var fromPF = 'Eventya <noreply@eventya.net>';
+    var fromWS = '4MMP <noreply@eventya.net>';
+
+    Email.renderAll('#emails', [
+      {
+        meta: { mailer: 'Accounts::LifecycleMailer#account_created', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Cont nou', ref: 'EVENTYA-001',
+        body: B.h1('Contul tău Eventya e gata!')
+            + B.lead('Salut, Andrei! Contul ' + B.strong('4MMP') + ' e creat și gata de treabă. Hai să-i dăm formă:')
+            + B.steps([
+                { t: 'Construiește-ți paginile', d: 'Pornește de la șablon și fă-l al tău.' },
+                { t: 'Încarcă-ți conținutul', d: 'Texte, poze, documente — tot ce ai nevoie.' },
+                { t: 'Invită-ți echipa', d: 'Lucrați împreună, fiecare cu rolul lui.' }
+              ])
+            + B.btn('Intră în cont →')
+      },
+      {
+        meta: { mailer: 'Accounts::LifecycleMailer#trial_expiring', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Trial', ref: 'EVENTYA-003',
+        body: B.h1('Trialul tău se termină în 5 zile')
+            + B.p('Salut, Andrei! Perioada de probă pentru ' + B.strong('4MMP') + ' mai are 5 zile.')
+            + B.callout('warn', 'Ca să nu pierzi nimic, alege-ți un plan înainte să expire.')
+            + B.btn('Alege un plan →')
+      },
+      {
+        meta: { mailer: 'Accounts::LifecycleMailer#account_suspended', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Cont', ref: 'EVENTYA-002',
+        body: B.h1('Contul tău a fost suspendat')
+            + B.p('Salut, Andrei. Contul ' + B.strong('4MMP') + ' a fost suspendat, iar site-ul e momentan indisponibil.')
+            + B.callout('danger', 'Crezi că e o greșeală? Scrie-ne și lămurim cât putem de repede.')
+      },
+      {
+        meta: { mailer: 'Accounts::LifecycleMailer#plan_changed', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Plan', ref: 'EVENTYA-004',
+        body: B.h1('Ți-am actualizat planul')
+            + B.p('Salut, Andrei! Planul pentru ' + B.strong('4MMP') + ' tocmai s-a schimbat.')
+            + B.panel([['De la', 'Basic'], ['La', 'Pro']])
+            + B.p('Modificările sunt deja active. Spor la treabă!')
+      },
+      {
+        meta: { mailer: 'Workspace::DeletionMailer#completed', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Ștergere', ref: '',
+        body: B.icon('🗑️', '#fef2f2')
+            + B.h1('Workspace-ul a fost șters')
+            + B.p('Salut, Andrei. Workspace-ul ' + B.strong('4MMP') + ' a fost șters definitiv, împreună cu toate datele lui.')
+            + B.panel([['Workspace', '4MMP'], ['Șters pe', '15 iunie 2026']])
+            + B.small('Dacă n-ai cerut tu ștergerea, scrie-ne imediat.')
+      },
+      {
+        meta: { mailer: 'Workspace::DeletionMailer#admin_notice', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Admin', ref: '',
+        body: B.h1('Un workspace a fost șters')
+            + B.p('Un workspace a fost șters definitiv. Iată detaliile:')
+            + B.panel([['Workspace', '4MMP'], ['Șters de', 'andrei@example.com'], ['Data', '15 iun 2026, 14:32 UTC']])
+      },
+      {
+        meta: { mailer: 'Workspace::DeletionMailer#failure', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Admin', ref: '',
+        body: B.h1('Ștergerea unui workspace a eșuat')
+            + B.p('Jobul de ștergere pentru ' + B.strong('4MMP') + ' a picat și are nevoie de o privire.')
+            + B.callout('danger', B.strong('Eroare: ') + 'Database connection lost')
+            + B.panel([['Workspace', '4MMP'], ['Cerut de', 'andrei@example.com']])
+      },
+      {
+        meta: { mailer: 'Content::AlertsMailer#page_published', from: fromWS, ctx: 'ws' },
+        header: ws, category: 'Conținut', ref: 'EVENTYA-005',
+        body: B.h1('O pagină nouă e live')
+            + B.p('Pagina ' + B.strong('Programul de vară 2026') + ' tocmai a fost publicată pe 4MMP.')
+            + B.btn('Vezi pagina →')
+      },
+      {
+        meta: { mailer: 'Content::AlertsMailer#media_storage_warning', from: fromWS, ctx: 'ws' },
+        header: ws, category: 'Stocare', ref: 'EVENTYA-007',
+        body: B.h1('Stocarea e aproape plină')
+            + B.p('Salut, Andrei! Spațiul media pentru ' + B.strong('4MMP') + ' e la ' + B.strong('88%') + '.')
+            + B.callout('warn', 'Curăță fișierele nefolosite sau treci pe un plan mai mare, ca să nu rămâi fără spațiu.')
+      },
+      {
+        meta: { mailer: 'Admin::PlatformMailer#new_account_registered', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Admin', ref: 'EVENTYA-008',
+        body: B.h1('Cont nou pe platformă')
+            + B.p('Tocmai s-a înregistrat un workspace nou:')
+            + B.panel([['Workspace', 'Primăria Bistrița'], ['Owner', 'Ion Pop'], ['Email', 'ion@example.com']])
+      },
+      {
+        meta: { mailer: 'Admin::PlatformMailer#system_alert', from: fromPF, ctx: 'pf' },
+        header: pf, category: 'Admin', ref: 'EVENTYA-010',
+        body: B.h1('Alertă de sistem')
+            + B.callout('danger', B.strong('disk_usage — ') + 'partiția /data e la 92%. Verifică înainte să se umple.')
+      }
+    ]);
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "prototypes-v5",
+  "private": true,
+  "description": "Eventya design prototypes — static HTML screens + implementation plans, styled with the real Stejar design system.",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./build/prototypes.css -o ./assets/application.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./build/prototypes.css -o ./assets/application.css --watch",
+    "stamp": "node ./build/stamp.mjs",
+    "serve": "npx serve -l 4000 .",
+    "dev": "npm-run-all --parallel watch:css serve"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "flowbite": "^2.5.2",
+    "npm-run-all": "^4.1.5",
+    "serve": "^14.2.4",
+    "tailwindcss": "^4.0.12",
+    "trix": "^2.1.16"
+  }
+}

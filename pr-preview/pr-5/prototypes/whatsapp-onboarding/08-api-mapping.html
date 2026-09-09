@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI ↔ Senders API · WhatsApp Onboarding</title>
+  <script>
+    (function () { var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <style>
+    .api { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; }
+    .verb { font-weight: 700; }
+    .step-line { position: absolute; left: 15px; top: 32px; bottom: -18px; width: 2px; background: var(--color-surface-200); }
+    .step:last-of-type .step-line { display: none; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · WhatsApp Onboarding — 8. UI ↔ Senders API</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 py-6 md:px-8 md:py-8">
+
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Ce se automatizează, pas cu pas</div>
+        <div class="text-[13px] text-ink-400">Fiecare acțiune din panou → un apel Twilio Senders API</div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex flex-wrap items-center gap-4 my-6 text-xs">
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span class="text-ink-500">Automat, prin platformă</span></span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span><span class="text-ink-500">Rulează în fundal (webhook)</span></span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span class="text-ink-500">Așteptare la Meta (nu o controlezi)</span></span>
+    </div>
+
+    <!-- Steps -->
+    <div class="space-y-0">
+
+      <!-- 1 -->
+      <div class="step relative pl-11 pb-6">
+        <div class="step-line"></div>
+        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 text-sm font-bold flex items-center justify-center">1</div>
+        <div class="card p-4">
+          <div class="text-sm font-semibold text-ink-900 mb-1">Client trimite formularul + alege SMS/Voce</div>
+          <div class="text-xs text-ink-500 mb-3">Telefon, <strong>display name</strong>, poză, metoda de verificare. La create, <strong>Meta trimite automat OTP-ul</strong> pe număr.</div>
+          <div class="rounded-lg bg-surface-100 border border-surface-200 px-3 py-2 api"><span class="verb text-emerald-600 dark:text-emerald-400">POST</span> <span class="text-ink-700">/v2/Channels/Senders</span></div>
+          <div class="rounded-lg bg-surface-100 border border-surface-200 px-3 py-2 api mt-1.5 text-ink-500">{ sender_id:"whatsapp:+40…", profile.name, profile.logo_url,<br>&nbsp;&nbsp;configuration.verification_method:"voice"|<i>sms</i>, webhook.callback_url }</div>
+          <div class="text-xs text-ink-400 mt-2">→ Status: <span class="api">CREATING</span> · OTP-ul pleacă automat pe număr</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="step relative pl-11 pb-6">
+        <div class="step-line"></div>
+        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 text-sm font-bold flex items-center justify-center">2</div>
+        <div class="card p-4">
+          <div class="text-sm font-semibold text-ink-900 mb-1">Codul ajunge pe telefonul clientului</div>
+          <div class="text-xs text-ink-500 mb-3">SMS sau apel vocal, în funcție de <span class="api">verification_method</span>. Nu e un apel API separat — îl trimite Meta.</div>
+          <div class="rounded-lg bg-surface-100 border border-surface-200 px-3 py-2 api text-ink-400">(fără apel din partea ta — clientul citește codul de pe telefonul lui)</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="step relative pl-11 pb-6">
+        <div class="step-line"></div>
+        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 text-sm font-bold flex items-center justify-center">3</div>
+        <div class="card p-4">
+          <div class="text-sm font-semibold text-ink-900 mb-1">Clientul introduce codul de 6 cifre → „Verifică"</div>
+          <div class="text-xs text-ink-500 mb-3">Îl tastează el, în panou — <strong>nimeni nu-l sună.</strong></div>
+          <div class="rounded-lg bg-surface-100 border border-surface-200 px-3 py-2 api"><span class="verb text-emerald-600 dark:text-emerald-400">POST</span> <span class="text-ink-700">/v2/Channels/Senders/{Sid}</span> <span class="text-ink-400">— { configuration.verification_code:"481234" }</span></div>
+          <div class="text-xs text-ink-400 mt-2">→ Sender status: <span class="api">VERIFYING</span></div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="step relative pl-11 pb-6">
+        <div class="step-line"></div>
+        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-sky-50 dark:bg-sky-500/10 border-2 border-sky-500 text-sky-600 dark:text-sky-400 text-sm font-bold flex items-center justify-center">4</div>
+        <div class="card p-4">
+          <div class="text-sm font-semibold text-ink-900 mb-1">În fundal: urmărești statusul sender-ului</div>
+          <div class="text-xs text-ink-500 mb-3">Prin webhook-ul dat la create (Twilio → tine) sau polling. Panoul se actualizează singur.</div>
+          <div class="rounded-lg bg-surface-100 border border-surface-200 px-3 py-2 api"><span class="verb text-sky-600 dark:text-sky-400">GET</span> <span class="text-ink-700">/v2/Channels/Senders/{Sid}</span> <span class="text-ink-400">— sau callback pe webhook.callback_url</span></div>
+          <div class="text-xs text-ink-400 mt-2">→ <span class="api">CREATING → VERIFYING → OFFLINE (tranzitoriu) → ONLINE</span></div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="step relative pl-11 pb-6">
+        <div class="step-line"></div>
+        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-amber-50 dark:bg-amber-500/10 border-2 border-amber-500 text-amber-600 dark:text-amber-400 text-sm font-bold flex items-center justify-center">5</div>
+        <div class="card p-4 border-amber-200 dark:border-amber-500/25">
+          <div class="text-sm font-semibold text-ink-900 mb-1">Meta aprobă numele afișat</div>
+          <div class="text-xs text-ink-500 mb-3">Singurul pas pe care <strong>nu-l controlezi</strong>. Ore–zile, asincron. Nu se rezolvă cu un telefon oricum.</div>
+          <div class="rounded-lg bg-surface-100 border border-surface-200 px-3 py-2 api"><span class="text-ink-400">(fără apel din partea ta — aștepți callback-ul)</span> → status <span class="verb text-emerald-600 dark:text-emerald-400">ONLINE</span></div>
+          <div class="text-xs text-ink-400 mt-2">→ Panoul devine automat „Activ". Dacă numele e respins → limită 250 msg/24h; clientul editează numele → <span class="api">POST /v2/Channels/Senders/{Sid}</span> (update profile.name) → re-review.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom line -->
+    <div class="mt-6 rounded-xl border border-surface-200 bg-surface-0 p-5">
+      <div class="text-sm font-semibold text-ink-900 mb-2">Pe scurt</div>
+      <ul class="space-y-2 text-[13px] text-ink-600 list-none p-0 m-0">
+        <li class="flex gap-2.5"><svg class="w-4 h-4 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Pașii 1–4 sunt <strong>100% prin platformă</strong>: fără consolă Twilio, fără apel la client.</span></li>
+        <li class="flex gap-2.5"><svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span>Pasul 5 (aprobare Meta) e o <strong>așteptare</strong>, nu o muncă manuală — devine o stare în panou.</span></li>
+        <li class="flex gap-2.5"><svg class="w-4 h-4 shrink-0 mt-0.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Endpoint-urile sunt cele reale din <strong>Senders API - WhatsApp</strong> (twilio.com/docs/whatsapp/register-senders-using-api, GA). Twilio recomandă API-ul pentru volum (bulk); pentru puține numere → Self Sign-up. Numere fixe = <span class="api">verification_method:"voice"</span>; IVR/robot nu pot primi OTP.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

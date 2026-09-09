@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Declarația de Accesibilitate · Plan + ecrane</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* Minimal markdown styling using design-system tokens (no typography plugin needed) */
+    .md { color: var(--color-ink-700); font-size: 14px; line-height: 1.7; }
+    .md h1 { font-size: 1.6rem; font-weight: 700; color: var(--color-ink-900); margin: 1.5rem 0 .75rem; }
+    .md h2 { font-size: 1.25rem; font-weight: 700; color: var(--color-ink-900); margin: 2rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-surface-200); }
+    .md h3 { font-size: 1.02rem; font-weight: 600; color: var(--color-ink-900); margin: 1.25rem 0 .4rem; }
+    .md p { margin: .6rem 0; }
+    .md ul, .md ol { margin: .6rem 0; padding-left: 1.4rem; }
+    .md li { margin: .25rem 0; }
+    .md a { color: var(--color-primary); text-decoration: underline; }
+    .md strong { color: var(--color-ink-900); font-weight: 600; }
+    .md code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82em; background: rgb(from var(--color-surface-200) r g b / .5); padding: .1rem .35rem; border-radius: .35rem; }
+    .md pre { background: var(--color-surface-100); border: 1px solid var(--color-surface-200); border-radius: .6rem; padding: 1rem; overflow-x: auto; margin: .8rem 0; }
+    .md pre code { background: none; padding: 0; font-size: .8rem; line-height: 1.5; }
+    .md table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .82rem; }
+    .md th, .md td { border: 1px solid var(--color-surface-200); padding: .45rem .65rem; text-align: left; vertical-align: top; }
+    .md th { background: var(--color-surface-100); font-weight: 600; color: var(--color-ink-800); }
+    .md hr { border: none; border-top: 1px solid var(--color-surface-200); margin: 2rem 0; }
+    .md blockquote { border-left: 3px solid var(--color-surface-300); padding-left: 1rem; color: var(--color-ink-500); margin: .8rem 0; }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+    <!-- Banner / back to hub -->
+    <div class="flex items-center justify-between mb-8">
+      <a href="../../index.html" class="text-[12px] font-medium text-ink-400 hover:text-ink-700 transition-colors flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Toate prototipurile
+      </a>
+      <button type="button" class="btn btn--sm"
+        onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+        Toggle dark
+      </button>
+    </div>
+
+        <!-- Set header -->
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-11 h-11 rounded-xl bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-sky-600 dark:text-sky-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><path d="M8 10.5h8"/><path d="M12 10.5V15"/><path d="m12 15-2 3.5"/><path d="m12 15 2 3.5"/></svg>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-ink-900">Declarația de Accesibilitate</div>
+        <div class="text-[13px] text-ink-400">7 ecrane propuse și planul de implementare</div>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+    </div>
+
+    <div class="text-[13px] text-ink-500 leading-relaxed mt-4 max-w-2xl">
+      Orice instituție publică este obligată prin <strong class="text-ink-800">OUG 112/2018</strong> să publice pe site o declarație de accesibilitate, după modelul stabilit prin <strong class="text-ink-800">Decizia (UE) 2018/1523</strong>. Amenda este între 6.000 și 12.000 de lei, verificarea o face ADR, iar în momentul de față niciun site pe care îl livrăm nu are declarația. Propunerea: să o genereze platforma, pentru fiecare workspace. <strong class="text-ink-800">Patru dintre cele șase secțiuni se completează automat</strong>, iar clientul scrie doar excepțiile și datele de contact.
+    </div>
+
+    <div class="rounded-lg border border-red-200 dark:border-red-500/20 bg-red-50/60 dark:bg-red-500/5 px-4 py-3 mt-4 flex gap-2.5 max-w-2xl">
+      <svg class="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div class="text-[11.5px] text-red-800 dark:text-red-200 leading-relaxed"><strong>Regula după care se ordonează tot planul: nu publicăm declarația înainte ca ea să spună adevărul.</strong> O declarație falsă lasă amenda la client și răspunderea la noi. De aceea nicăieri în platformă nu există un câmp în care cineva să scrie stadiul de conformitate: valoarea este calculată din verificarea automată care rulează la fiecare modificare de cod. Și de aceea prima etapă de lucru este verificarea site-urilor, nu construirea paginii.</div>
+    </div>
+
+    <div class="rounded-lg border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-3 mt-3 flex gap-2.5 max-w-2xl">
+      <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <div class="text-[11.5px] text-amber-800 dark:text-amber-200 leading-relaxed"><strong>De verificat în textul oficial înainte de implementare.</strong> Structura celor șase secțiuni a fost reconstruită din Decizia 2018/1523, din Norma ADR din 06.12.2022 și din declarații publicate care urmează modelul. Trei lucruri nu au putut fi verificate cuvânt cu cuvânt și sunt marcate ca atare în plan: formulările exacte în română, termenul legal în care instituția trebuie să răspundă la o sesizare și dacă este obligatorie o dată de reevaluare a excepțiilor.</div>
+    </div>
+
+    <!-- Screens, grouped by phase -->
+    <div class="mt-10 space-y-6">
+
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Ce vede cetățeanul pe site</div>
+        <div class="space-y-2">
+          <a href="01-declaratie-publica.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">1</span>
+            <div class="text-[13px] font-medium text-ink-800">Pagina publică · cele șase secțiuni cerute de lege și linkul din subsol</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="02-feedback-si-raspuns.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">2</span>
+            <div class="text-[13px] font-medium text-ink-800">Mecanismul de sesizare · sesizarea devine tichet, plus varianta fără modulul Helpdesk</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Ce completează clientul · secțiunile 2–5</div>
+        <div class="space-y-2">
+          <a href="03-setari-accesibilitate.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">3</span>
+            <div class="text-[13px] font-medium text-ink-800">Setări workspace · ce se completează automat, ce scrie clientul, ce este blocat</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="04-continut-neaccesibil.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">4</span>
+            <div class="text-[13px] font-medium text-ink-800">Conținut neaccesibil · cele trei temeiuri legale și exemplele predefinite</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="05-istoric-versiuni.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">5</span>
+            <div class="text-[13px] font-medium text-ink-800">Istoricul versiunilor · versiuni care se adaugă, cu textul salvat așa cum a fost afișat</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Ce ținem noi, ca platformă</div>
+        <div class="space-y-2">
+          <a href="07-de-unde-vine-statusul.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">6</span>
+            <div class="text-[13px] font-medium text-ink-800">De unde vine stadiul de conformitate · drumul de la verificare până la pagină</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="06-admin-flota.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">7</span>
+            <div class="text-[13px] font-medium text-ink-800">Panoul de administrare · evaluarea platformei și diferențele dintre site-uri</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Plan -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Plan de implementare</div>
+    <div class="bg-surface-0 rounded-xl border border-surface-200 p-7 md:p-9">
+      <div class="md" id="plan">Se încarcă planul…</div>
+    </div>
+
+  </div>
+
+  <script>
+    fetch('PLAN.md')
+      .then(r => r.text())
+      .then(md => { document.getElementById('plan').innerHTML = marked.parse(md); })
+      .catch(() => { document.getElementById('plan').textContent = 'Nu am putut încărca PLAN.md (servește printr-un server local, nu file://).'; });
+  </script>
+</body>
+</html>

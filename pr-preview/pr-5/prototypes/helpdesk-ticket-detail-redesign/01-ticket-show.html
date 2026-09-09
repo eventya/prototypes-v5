@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detaliu ticket · redesign · Helpdesk</title>
+
+  <!-- FOUC-free dark mode -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+
+  <!-- ░░ pct. 6 — fonturi mai mari „general în Stejar", demonstrat scoped peste tokenii Tailwind v4.
+       Urcăm scala cu ~o treaptă; utilitarele text-* numite (text-xs/sm/base/lg/xl) cresc peste tot.
+       Rollout-ul real = același bump în blocul @theme din stejar/.../application.css. ░░ -->
+  <style>
+    :root {
+      --text-xs: 0.8125rem;   /* 12 → 13 */
+      --text-sm: 0.9375rem;   /* 14 → 15 */
+      --text-base: 1.0625rem; /* 16 → 17 */
+      --text-lg: 1.1875rem;   /* 18 → 19 */
+      --text-xl: 1.375rem;    /* 20 → 22 */
+    }
+  </style>
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased h-dvh overflow-hidden">
+
+  <!-- ══════════ App shell (layouts/stejar/application) ══════════ -->
+  <div class="grid grid-rows-[auto_1fr_auto] h-dvh">
+
+    <!-- ── Navbar (h-14) ── -->
+    <header class="flex items-center h-14 gap-4 px-4 bg-surface-0 border-b border-surface-200 relative z-50">
+      <div class="flex items-center justify-between w-full mx-auto max-w-7xl">
+        <div class="flex items-center gap-3">
+          <div class="hidden md:flex w-7 h-7 rounded-lg bg-linear-to-br from-primary-600 to-primary-400 items-center justify-center text-white text-xs font-bold shadow-sm">E</div>
+          <div class="hidden md:block w-px h-6 bg-surface-200"></div>
+          <div class="hidden md:flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-600 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">PE</div>
+            <span class="text-sm font-semibold text-ink-900 max-w-32 truncate">Primăria Exemplu</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex items-center gap-2">
+          <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-0 border border-surface-200 text-ink-700 rounded-full text-sm font-medium hover:border-surface-400 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            Acasă
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-0 border border-surface-200 text-ink-700 rounded-full text-sm font-medium hover:border-surface-400 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            Pagini
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full text-sm font-medium transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Helpdesk
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-surface-0 border border-surface-200 text-ink-700 rounded-full text-sm font-medium hover:border-surface-400 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Contacte
+          </a>
+        </nav>
+        <div class="flex items-center gap-2.5">
+          <button type="button" class="w-9 h-9 rounded-lg flex items-center justify-center text-ink-500 hover:bg-surface-100 transition-colors" aria-label="Asistent AI">
+            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>
+          </button>
+          <button type="button" class="w-9 h-9 rounded-lg flex items-center justify-center text-ink-500 hover:bg-surface-100 transition-colors relative" aria-label="Notificări">
+            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-red-500"></span>
+          </button>
+          <div class="hidden md:block w-px h-5 bg-surface-200"></div>
+          <button type="button" class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center justify-center" aria-label="Cont">AI</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Main ── -->
+    <main class="flex flex-col px-4 md:px-8 overflow-hidden">
+      <div class="w-full mx-auto max-w-5xl">
+        <div class="h-[calc(100dvh-3.5rem-2.5rem)] -mx-4 md:-mx-8 overflow-hidden">
+          <div class="flex h-full overflow-hidden">
+
+            <!-- ═══ Main column ═══ -->
+      <div class="flex flex-col flex-1 min-w-0 h-full min-h-0 border-l border-surface-200">
+
+        <!-- ── Header (pct. 1 — antet minimal: un singur meniu „⋮") ── -->
+        <div class="shrink-0 bg-surface-0 border-b border-surface-200">
+          <div class="flex items-center gap-3 px-4 lg:px-5 py-3">
+            <a href="#" class="btn btn--ghost btn--icon btn--sm shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </a>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="text-base font-bold text-ink-900 inline-flex items-center cursor-pointer" title="Click to copy">Ticket #HD-1042</span>
+                <span class="shrink-0 inline-flex items-center gap-1.5" title="Înaltă">
+                  <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                  <span class="text-xs font-medium text-ink-500">Înaltă</span>
+                </span>
+              </div>
+              <div class="text-xs text-ink-400 mt-0.5 truncate inline-flex items-center gap-1">
+                <svg class="w-[11px] h-[11px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                via Formular contact
+              </div>
+            </div>
+
+            <!-- ⋮ Meniu acțiuni (Print, Istoric, SLA, SPAM) -->
+            <div class="relative shrink-0" data-menu>
+              <button type="button" data-menu-toggle class="btn btn--ghost btn--icon btn--sm" title="Mai multe acțiuni" aria-label="Mai multe acțiuni">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </button>
+              <div hidden data-menu-list class="absolute right-0 mt-1.5 z-30 w-60 bg-surface-0 rounded-xl border border-surface-200 shadow-lg overflow-hidden p-1">
+                <a href="#" target="_blank" class="rh w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium text-ink-700">
+                  <svg class="w-4 h-4 text-ink-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  Printează ticketul
+                </a>
+                <a href="02-history.html" class="rh w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium text-ink-700">
+                  <svg class="w-4 h-4 text-ink-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+                  Istoric modificări
+                </a>
+                <div class="my-1 h-px bg-surface-200"></div>
+                <a href="04-spam.html" class="rh w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2 3 7v6c0 5 3.8 8.5 9 9 5.2-.5 9-4 9-9V7z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                  Marchează ca SPAM
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Conversation area ── -->
+        <div class="relative flex flex-col flex-1 min-h-0">
+          <div class="flex-1 min-h-0 overflow-y-auto bg-surface-50 px-4 lg:px-5 py-5">
+            <div class="lg:max-w-2xl lg:mx-auto">
+
+              <!-- Hero: original message -->
+              <div class="bg-blue-50/50 dark:bg-blue-500/5 rounded-xl border border-blue-100 dark:border-blue-500/20 overflow-hidden mb-6">
+                <div class="p-4 lg:p-5">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                      <svg class="w-[11px] h-[11px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      Mesaj original
+                    </span>
+                    <span class="text-ink-300">&middot;</span>
+                    <span class="text-xs text-ink-400">9 iunie 2026, 09:14</span>
+                  </div>
+                  <div class="flex items-center justify-between gap-3 mb-3">
+                    <div class="flex items-center gap-3 min-w-0 flex-1">
+                      <span class="w-9 h-9 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-xs font-bold flex items-center justify-center shrink-0">MP</span>
+                      <div class="min-w-0">
+                        <div class="text-sm font-semibold text-ink-800 truncate">Maria Popescu</div>
+                        <div class="text-xs text-ink-400 truncate">maria.popescu@example.com</div>
+                      </div>
+                    </div>
+                    <div class="shrink-0 hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-50 border border-surface-200">
+                      <div class="flex items-center gap-1.5 min-w-0 text-xs text-ink-600">
+                        <svg class="w-3.5 h-3.5 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                        <span class="truncate">Cont și autentificare</span>
+                        <svg class="w-2.5 h-2.5 text-ink-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                        <span class="font-medium text-ink-800 truncate">Resetare parolă</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pl-12">
+                    <p class="text-sm font-semibold text-ink-900 mb-3">Nu pot accesa contul meu</p>
+                    <div class="text-sm text-ink-700 leading-relaxed">
+                      Bună ziua, de ieri nu mai pot să mă autentific în cont. Am încercat și resetarea parolei,
+                      dar nu primesc emailul de resetare. Vă rog să mă ajutați, am nevoie urgentă de acces pentru
+                      a descărca o factură. Mulțumesc!
+                    </div>
+                  </div>
+                  <div class="pl-12 mt-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                      <div>
+                        <div class="text-[11px] font-semibold uppercase tracking-wide text-ink-400">Telefon</div>
+                        <div class="text-sm text-ink-700">0721 234 567</div>
+                      </div>
+                      <div>
+                        <div class="text-[11px] font-semibold uppercase tracking-wide text-ink-400">Nr. client</div>
+                        <div class="text-sm text-ink-700">CLT-88213</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Comments -->
+              <div id="comments">
+                <div class="flex items-center gap-3 mt-5 mb-1 first:mt-0">
+                  <div class="flex-1 h-px bg-surface-200"></div>
+                  <span class="text-[11px] font-bold uppercase tracking-wide text-ink-300 shrink-0">Astăzi</span>
+                  <div class="flex-1 h-px bg-surface-200"></div>
+                </div>
+
+                <div class="flex gap-3.5 py-4">
+                  <div class="w-12 shrink-0 pt-0.5 text-right text-xs font-medium text-ink-400 tabular-nums whitespace-nowrap">09:32</div>
+                  <span class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center justify-center shrink-0">AI</span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center flex-wrap gap-2 mb-1.5">
+                      <span class="text-sm font-semibold text-ink-800">Andrei</span>
+                      <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold capitalize bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">Agent</span>
+                    </div>
+                    <div class="text-sm text-ink-700 leading-relaxed">
+                      Bună ziua, Maria! Mulțumim pentru sesizare. Am verificat și văd că emailurile de resetare
+                      erau blocate temporar. Tocmai am retrimis manual un link de resetare către adresa
+                      dumneavoastră — ar trebui să sosească în câteva minute. Vă rog să verificați și folderul Spam.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex gap-3.5 py-4 border-t border-surface-200">
+                  <div class="w-12 shrink-0 pt-0.5 text-right text-xs font-medium text-ink-400 tabular-nums whitespace-nowrap">09:35</div>
+                  <span class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center justify-center shrink-0">AI</span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center flex-wrap gap-2 mb-1.5">
+                      <span class="text-sm font-semibold text-ink-800">Andrei</span>
+                      <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                        <svg class="w-[9px] h-[9px]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Notă internă
+                      </span>
+                    </div>
+                    <div class="text-sm leading-relaxed text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/40 rounded-lg px-3.5 py-2.5">
+                      Probabil ține de bounce-ul de pe SMTP din această dimineață. Dacă mai sunt cazuri similare,
+                      escaladăm către echipa de infrastructură. Am notat și în canalul #incidente.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex gap-3.5 py-4 border-t border-surface-200">
+                  <div class="w-12 shrink-0 pt-0.5 text-right text-xs font-medium text-ink-400 tabular-nums whitespace-nowrap">09:48</div>
+                  <span class="w-10 h-10 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-xs font-bold flex items-center justify-center shrink-0">MP</span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center flex-wrap gap-2 mb-1.5">
+                      <span class="text-sm font-semibold text-ink-800">Maria</span>
+                      <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold capitalize bg-surface-100 text-ink-500">Client</span>
+                    </div>
+                    <div class="text-sm text-ink-700 leading-relaxed">
+                      Am primit linkul și am reușit să intru în cont. Mulțumesc mult pentru rapiditate! 🙏
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="absolute bottom-4 right-4 lg:right-6 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-surface-0 border border-surface-200 shadow-md text-ink-500 hover:text-ink-800 hover:border-surface-300 cursor-pointer transition-opacity">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 3h14"/><path d="m18 13-6-6-6 6"/><path d="M12 7v14"/></svg>
+          </button>
+        </div>
+
+        <!-- ── Composer (collapsed) ── -->
+        <div class="shrink-0 relative z-10 bg-surface-50 border-t border-surface-200">
+          <div class="p-4">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button type="button" class="flex-1 inline-flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl border-[1.5px] cursor-pointer transition-colors
+                                            bg-blue-100 text-blue-900 border-blue-200 hover:bg-blue-200 hover:border-blue-300
+                                            dark:bg-blue-500/15 dark:text-blue-200 dark:border-blue-500/25 dark:hover:bg-blue-500/25">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                <span class="font-semibold text-base">Răspunde clientului</span>
+              </button>
+              <button type="button" class="flex-1 inline-flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl border-[1.5px] cursor-pointer transition-colors
+                                            bg-amber-100 text-amber-900 border-amber-200 hover:bg-amber-200 hover:border-amber-300
+                                            dark:bg-amber-500/15 dark:text-amber-200 dark:border-amber-500/25 dark:hover:bg-amber-500/25">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                <span class="font-semibold text-base">Notă internă</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ Right sidebar ═══ -->
+      <aside class="shrink-0 border-l border-surface-200 bg-surface-100 overflow-y-auto w-80 xl:w-[340px]" data-sla="on">
+
+        <!-- ── 01 · CLIENT (pct. 4) ── -->
+        <div class="px-4 lg:px-5 py-5 border-b border-surface-200">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-ink-400 mb-4">Client</h3>
+          <div class="flex items-start gap-2.5">
+            <span class="w-9 h-9 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center justify-center shrink-0">MP</span>
+            <div class="min-w-0 flex-1">
+              <!-- Nume = link spre profil, cu external-link IMEDIAT în dreapta numelui -->
+              <a href="#" class="group inline-flex items-center gap-1 max-w-full text-sm font-semibold text-ink-800 hover:text-primary">
+                <span class="truncate">Maria Popescu</span>
+                <svg class="w-3.5 h-3.5 shrink-0 text-ink-400 group-hover:text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <!-- Email = link spre profil -->
+              <a href="#" class="block text-xs text-ink-400 hover:text-primary truncate">maria.popescu@example.com</a>
+              <!-- Acțiune discretă, aliniată cu numele clientului (pct. 1) -->
+              <a href="#" class="inline-flex items-center gap-1.5 mt-2 text-xs font-medium text-ink-500 hover:text-primary underline decoration-ink-300 hover:decoration-primary underline-offset-2 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                Atribuie altui client
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 02 · STARE ── -->
+        <div class="px-4 lg:px-5 pt-5 pb-5 border-b border-surface-200">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-ink-400 mb-4">Stare</h3>
+
+          <!-- Status (dropdown interactiv) — pct. 2: mesaj multi-dept ÎN popover, sub Rezolvat/Închis -->
+          <div class="mb-5" data-dd>
+            <label class="block text-sm font-semibold text-ink-700 mb-2">Status</label>
+            <div class="relative">
+              <button type="button" data-dd-toggle class="appearance-none w-full flex items-center justify-between pl-3 pr-8 py-2 border border-surface-200 rounded-lg bg-surface-0 cursor-pointer hover:border-surface-300 transition-colors">
+                <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-md bg-blue-100 text-blue-600" data-status-badge>În lucru</span>
+              </button>
+              <svg class="w-3.5 h-3.5 text-ink-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+              <div hidden data-dd-menu class="absolute left-0 right-0 mt-1 z-20 bg-surface-0 rounded-xl border border-surface-200 shadow-lg overflow-hidden p-1">
+                <button type="button" data-status="open"        class="w-full flex items-center gap-2 px-2 py-2 rounded-md hover:bg-surface-50 text-left"><span class="w-2 h-2 rounded-full bg-red-500"></span><span class="text-sm font-medium text-ink-700">Deschis</span></button>
+                <button type="button" data-status="in_progress" class="w-full flex items-center gap-2 px-2 py-2 rounded-md hover:bg-surface-50 text-left"><span class="w-2 h-2 rounded-full bg-blue-500"></span><span class="text-sm font-medium text-ink-700">În lucru</span></button>
+                <button type="button" data-status="pending"     class="w-full flex items-center gap-2 px-2 py-2 rounded-md hover:bg-surface-50 text-left"><span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-sm font-medium text-ink-700">În așteptare</span></button>
+                <!-- Rezolvat / Închis blocate -->
+                <div class="w-full flex items-center justify-between gap-2 px-2 py-2 rounded-md opacity-60 cursor-not-allowed"><span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="text-sm font-medium text-ink-500">Rezolvat</span></span><svg class="w-3.5 h-3.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div class="w-full flex items-center justify-between gap-2 px-2 py-2 rounded-md opacity-60 cursor-not-allowed"><span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-ink-400"></span><span class="text-sm font-medium text-ink-500">Închis</span></span><svg class="w-3.5 h-3.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <!-- Rând nou de mesaj contextual, cu iconiță specifică -->
+                <div class="mt-1 mx-1 mb-0.5 flex items-start gap-2 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25 px-2.5 py-2">
+                  <svg class="w-4 h-4 shrink-0 mt-px text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span class="text-xs leading-snug text-amber-800 dark:text-amber-200">Rezolvat și Închis sunt blocate până confirmă toate departamentele <span class="font-semibold">(2/3 finalizate)</span>.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Confirmare schimbare status (pct. 7) -->
+            <div hidden data-status-confirm class="mt-2 rounded-lg border border-primary/40 bg-primary/5 px-3 py-2.5">
+              <div class="text-xs text-ink-700 mb-2">Schimbi statusul în <span class="font-semibold text-ink-900" data-status-confirm-label>—</span>?</div>
+              <div class="flex items-center gap-2">
+                <button type="button" data-status-confirm-ok class="btn btn--primary btn--sm">Confirmă</button>
+                <button type="button" data-status-confirm-cancel class="btn btn--ghost btn--sm">Anulează</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Etichete -->
+          <div>
+            <label class="block text-sm font-semibold text-ink-700 mb-2">Etichete</label>
+            <div class="relative">
+              <button type="button" class="appearance-none w-full flex items-center justify-between pl-3 pr-8 py-2 border border-surface-200 rounded-lg bg-surface-0 cursor-pointer hover:border-surface-300 transition-colors min-h-9">
+                <span class="flex flex-wrap items-center gap-1">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded-md bg-red-100 text-red-600"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Urgent</span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded-md bg-blue-100 text-blue-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Facturare</span>
+                </span>
+              </button>
+              <svg class="w-3.5 h-3.5 text-ink-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 03 · POLITICA DE RĂSPUNS (pct. 3 — redenumit din „Termene & prioritate") ── -->
+        <div class="px-4 lg:px-5 pt-5 pb-5 border-b border-surface-200">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-ink-400 mb-4" data-deadlines-title>Politica de răspuns</h3>
+
+          <!-- Prioritate — valoare ca text (nu dropdown), cu link „Schimbă" → pagină dedicată -->
+          <div class="mb-5">
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-sm font-semibold text-ink-700">Prioritate</label>
+              <a href="06-priority.html" class="text-xs font-medium text-ink-500 hover:text-primary underline decoration-ink-300 hover:decoration-primary underline-offset-2 transition-colors">Schimbă</a>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-500" data-prio-dot></span>
+              <span class="text-sm font-medium text-ink-800" data-prio-label>Medie</span>
+            </div>
+          </div>
+
+          <!-- Politica SLA (doar când SLA e activ) — label + nume ca text + valorile de rezolvare -->
+          <div data-sla-only>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-sm font-semibold text-ink-700">Politica SLA</label>
+              <a href="03-sla-policy.html" class="text-xs font-medium text-ink-500 hover:text-primary underline decoration-ink-300 hover:decoration-primary underline-offset-2 transition-colors">Schimbă</a>
+            </div>
+            <div class="flex gap-2">
+              <svg class="w-3.5 h-3.5 text-ink-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div class="flex-1 min-w-0">
+                <div class="text-sm font-medium text-ink-800 mb-4">Standard Business</div>
+
+                <!-- Valorile SLA — aliniate pe orizontală cu numele politicii -->
+                <div class="space-y-4">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                      <span class="text-xs font-medium text-ink-600">Termen primul răspuns</span>
+                      <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-semibold rounded-md" data-first-chip>
+                        <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span data-first-remain>1h</span>
+                      </span>
+                    </div>
+                    <div class="text-[11px] text-ink-400"><span data-first-target>țintă 1h</span> · <span data-first-due>scadent —</span></div>
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                      <span class="text-xs font-medium text-ink-600">Termen rezolvare</span>
+                      <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-semibold rounded-md" data-res-chip>
+                        <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span data-res-remain>30 zile</span>
+                      </span>
+                    </div>
+                    <div class="text-[11px] text-ink-400"><span data-res-target>țintă 30 zile</span> · <span data-res-due>scadent —</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 04 · ATRIBUIRE — CTA transfer sus, vizibil (pct. 3), apoi rutarea read-only ── -->
+        <div class="px-4 lg:px-5 py-5">
+          <div class="flex items-center justify-between mb-1.5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-ink-400">Atribuire</h3>
+            <!-- Buton „Transferă" ca în Stejar: pill discret primary, în antetul secțiunii -->
+            <a href="05-transfer.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-primary bg-primary/10 hover:bg-primary/15 dark:bg-primary/15 dark:hover:bg-primary/25 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+              Transferă
+            </a>
+          </div>
+          <!-- Caption explicativ + progres, ca să fie clar ce arată zona -->
+          <div class="text-xs text-ink-400 mb-3 leading-snug">Departamentele și responsabilii care lucrează la tichet · <span class="font-semibold text-ink-600">2 din 3 au confirmat</span></div>
+
+          <!-- Listă: departament · responsabil · stare etichetată -->
+          <div class="flex flex-col rounded-xl border border-surface-200 bg-surface-0 divide-y divide-surface-100 overflow-hidden">
+            <div class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                <span class="flex-1 min-w-0 text-sm font-semibold text-ink-900 truncate">Suport Tehnic</span>
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 shrink-0"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Gata</span>
+              </div>
+              <div class="text-xs text-ink-400 truncate pl-4">Andrei Ionescu · dispecer</div>
+            </div>
+            <div class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                <span class="flex-1 min-w-0 text-sm font-semibold text-ink-900 truncate">Facturare</span>
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 shrink-0"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Gata</span>
+              </div>
+              <div class="text-xs text-ink-400 truncate pl-4">Maria Ene · dispecer</div>
+            </div>
+            <div class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                <span class="flex-1 min-w-0 text-sm font-semibold text-ink-900 truncate">Administrativ</span>
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-ink-400 shrink-0"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>În lucru</span>
+              </div>
+              <div class="text-xs text-ink-400 truncate pl-4">Paul Neagu · dispecer</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── Footer (h-10) ── -->
+    <footer class="flex items-center justify-between h-10 px-4 md:px-8 border-t border-surface-200 text-[11px] text-ink-400 shrink-0">
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded bg-linear-to-br from-primary-600 to-primary-400 flex items-center justify-center text-white text-[8px] font-bold opacity-70">E</div>
+        <span class="text-ink-300">&middot;</span>
+        <span>&copy; 2026 Eventya</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="hover:text-ink-600 transition-colors">Terms</a>
+        <a href="#" class="hover:text-ink-600 transition-colors">Privacy</a>
+        <a href="#" class="hover:text-ink-600 transition-colors">Cookies</a>
+        <span class="text-ink-300">&middot;</span>
+        <span class="font-mono text-[10px] text-ink-300">v5.0</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ══════════ Prototype controls (floating) ══════════ -->
+  <div class="fixed bottom-4 left-4 z-[1100] flex items-center gap-2">
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-amber-50/90 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25 backdrop-blur shadow-sm">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · ticket-detail-redesign</span>
+    </span>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline px-1">← set</a>
+    <button type="button" data-sla-toggle class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-0 border border-surface-200 shadow-sm text-[11px] font-semibold text-ink-600 hover:border-surface-300 transition-colors">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" data-sla-dot></span>
+      SLA: <span data-sla-state>activ</span>
+    </button>
+  </div>
+  <button type="button" class="btn fixed bottom-4 right-4 z-[1100] shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <!-- ══════════ Interacțiuni de prototip (vanilla JS) ══════════ -->
+  <script>
+  (function () {
+    var MONTHS = ['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','noi','dec'];
+    var HOUR = 3600e3, DAY = 864e5, MIN = 60e3;
+
+    // ── Meniu „⋮" din antet ──
+    var menu = document.querySelector('[data-menu]');
+    if (menu) {
+      var mToggle = menu.querySelector('[data-menu-toggle]');
+      var mList = menu.querySelector('[data-menu-list]');
+      mToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        mList.hidden = !mList.hidden;
+      });
+    }
+
+    // ── Dropdown-uri generice (status + prioritate) ──
+    document.querySelectorAll('[data-dd]').forEach(function (dd) {
+      var toggle = dd.querySelector('[data-dd-toggle]');
+      var ddMenu = dd.querySelector('[data-dd-menu]');
+      if (!toggle || !ddMenu) return;
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = !ddMenu.hidden;
+        document.querySelectorAll('[data-dd-menu]').forEach(function (m) { m.hidden = true; });
+        ddMenu.hidden = open;
+      });
+    });
+    document.addEventListener('click', function () {
+      document.querySelectorAll('[data-dd-menu]').forEach(function (m) { m.hidden = true; });
+      if (menu) menu.querySelector('[data-menu-list]').hidden = true;
+    });
+
+    // ── Status — cu pas de confirmare (pct. 7) ──
+    var STATUS = {
+      open:        { label: 'Deschis',      badge: 'bg-red-100 text-red-600' },
+      in_progress: { label: 'În lucru',     badge: 'bg-blue-100 text-blue-600' },
+      pending:     { label: 'În așteptare', badge: 'bg-amber-100 text-amber-600' }
+    };
+    var statusBadge = document.querySelector('[data-status-badge]');
+    var sConfirm = document.querySelector('[data-status-confirm]');
+    var sConfirmLabel = document.querySelector('[data-status-confirm-label]');
+    var pendingStatus = null;
+    document.querySelectorAll('[data-status]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var s = STATUS[btn.getAttribute('data-status')];
+        if (!s) return;
+        pendingStatus = s;
+        sConfirmLabel.textContent = s.label;
+        sConfirm.hidden = false;
+        document.querySelectorAll('[data-dd-menu]').forEach(function (m) { m.hidden = true; });
+      });
+    });
+    document.querySelector('[data-status-confirm-ok]').addEventListener('click', function () {
+      if (!pendingStatus) return;
+      statusBadge.textContent = pendingStatus.label;
+      statusBadge.className = 'inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-md ' + pendingStatus.badge;
+      pendingStatus = null;
+      sConfirm.hidden = true;
+    });
+    document.querySelector('[data-status-confirm-cancel]').addEventListener('click', function () {
+      pendingStatus = null;
+      sConfirm.hidden = true;
+    });
+
+    // ── Prioritate → recalculează termenele ──
+    var PRIO = {
+      low:      { label: 'Scăzută', dot: 'bg-green-500',             first: 8 * HOUR,  res: 30 * DAY,  firstLbl: '8h',  resLbl: '30 zile' },
+      medium:   { label: 'Medie',   dot: 'bg-amber-500',             first: 1 * HOUR,  res: 30 * DAY,  firstLbl: '1h',  resLbl: '30 zile' },
+      high:     { label: 'Înaltă',  dot: 'bg-red-500',               first: 1 * HOUR,  res: 7 * DAY,   firstLbl: '1h',  resLbl: '7 zile' },
+      critical: { label: 'Critică', dot: 'bg-red-600 animate-pulse', first: 30 * MIN, res: 24 * HOUR, firstLbl: '30m', resLbl: '24h' }
+    };
+    var current = 'medium';
+    var firstDeadline = null, resDeadline = null;
+
+    function fmtRemain(ms) {
+      if (ms <= 0) return 'depășit';
+      var m = Math.floor(ms / MIN), h = Math.floor(m / 60), d = Math.floor(h / 24);
+      if (d >= 1) return (h % 24) ? d + 'z ' + (h % 24) + 'h' : d + 'z';
+      if (h >= 1) return (m % 60) ? h + 'h ' + (m % 60) + 'm' : h + 'h';
+      return m + 'm';
+    }
+    function fmtDue(dt) {
+      var now = new Date();
+      var hh = ('0' + dt.getHours()).slice(-2), mm = ('0' + dt.getMinutes()).slice(-2);
+      if (dt.toDateString() === now.toDateString()) return 'scadent azi, ' + hh + ':' + mm;
+      return 'scadent ' + dt.getDate() + ' ' + MONTHS[dt.getMonth()];
+    }
+    function chipClasses(remMs, tgtMs) {
+      if (remMs <= 0) return 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300';
+      if (remMs / tgtMs < 0.25) return 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300';
+      return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300';
+    }
+    var firstChip = document.querySelector('[data-first-chip]');
+    var resChip = document.querySelector('[data-res-chip]');
+    var clock = '<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
+    function setChip(chip, remId, tgtMs, deadline) {
+      var rem = deadline - new Date();
+      chip.className = 'inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-semibold rounded-md ' + chipClasses(rem, tgtMs);
+      chip.innerHTML = clock + '<span data-' + remId + '>' + fmtRemain(rem) + '</span>';
+    }
+    function renderDeadlines() {
+      var p = PRIO[current];
+      setChip(firstChip, 'first-remain', p.first, firstDeadline);
+      setChip(resChip, 'res-remain', p.res, resDeadline);
+      document.querySelector('[data-first-target]').textContent = 'țintă ' + p.firstLbl;
+      document.querySelector('[data-res-target]').textContent = 'țintă ' + p.resLbl;
+      document.querySelector('[data-first-due]').textContent = fmtDue(firstDeadline);
+      document.querySelector('[data-res-due]').textContent = fmtDue(resDeadline);
+    }
+    function applyPriority(key, recomputeDeadlines) {
+      current = key;
+      var p = PRIO[key];
+      document.querySelector('[data-prio-label]').textContent = p.label;
+      document.querySelector('[data-prio-dot]').className = 'w-2 h-2 rounded-full ' + p.dot;
+      if (recomputeDeadlines) {
+        var now = new Date();
+        firstDeadline = new Date(now.getTime() + p.first);
+        resDeadline = new Date(now.getTime() + p.res);
+      }
+      renderDeadlines();
+    }
+    document.querySelectorAll('[data-prio]').forEach(function (btn) {
+      btn.addEventListener('click', function () { applyPriority(btn.getAttribute('data-prio'), true); });
+    });
+    applyPriority('medium', true);
+    setInterval(renderDeadlines, 30000);
+
+    // ── Comutator SLA activ / inactiv (flag de cont) ──
+    var aside = document.querySelector('aside[data-sla]');
+    var slaToggle = document.querySelector('[data-sla-toggle]');
+    function setSla(on) {
+      aside.setAttribute('data-sla', on ? 'on' : 'off');
+      document.querySelectorAll('[data-sla-only]').forEach(function (el) { el.hidden = !on; });
+      document.querySelector('[data-deadlines-title]').textContent = on ? 'Politica de răspuns' : 'Prioritate';
+      document.querySelector('[data-sla-state]').textContent = on ? 'activ' : 'inactiv';
+      document.querySelector('[data-sla-dot]').className = 'w-1.5 h-1.5 rounded-full ' + (on ? 'bg-emerald-500' : 'bg-ink-300');
+    }
+    slaToggle.addEventListener('click', function () { setSla(aside.getAttribute('data-sla') !== 'on'); });
+  })();
+  </script>
+</body>
+</html>

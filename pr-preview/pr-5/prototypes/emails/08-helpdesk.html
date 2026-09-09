@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk · Email-uri</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="email.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Email-uri · 08 — Helpdesk</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 py-6 md:px-6 md:py-8">
+    <div class="card p-6 mb-10">
+      <div class="text-xl font-bold text-ink-900">Helpdesk</div>
+      <div class="text-sm text-ink-500 mt-1.5 leading-relaxed">
+        Tichete și comentarii — către agenți și clienți. Exemplele folosesc <strong class="text-ink-700">Primăria Cluj</strong> (logo real în badge). La email-urile către client, FROM e adresa <strong class="text-ink-700">canalului verificat</strong> al workspace-ului; la cele interne, numele workspace-ului pe <code class="text-[12px] px-1 rounded bg-surface-200/60">noreply@eventya.net</code>.
+      </div>
+    </div>
+    <div id="emails" class="space-y-12"></div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="email.js"></script>
+  <script>
+    var B = Email.B;
+    var hd = { type: 'ws', logo: 'img/eventya-symbol.svg', name: 'Primăria Cluj', slug: 'primaria-cluj' };
+    var fromInternal = 'Primăria Cluj <noreply@eventya.net>';
+    var fromVerified = 'Primăria Cluj <suport@primariacluj.ro>';
+
+    Email.renderAll('#emails', [
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#notify_agent_on_new_ticket', from: fromInternal, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-001',
+        body: B.h1('Ticket nou de preluat')
+            + B.p(B.strong('Maria Ionescu') + ' tocmai a deschis un ticket și așteaptă să fie preluat.')
+            + B.panel([['Ticket', '#1042'], ['Subiect', 'Nu pot încărca documentele'], ['Departament', 'Urbanism']])
+            + B.quote('„Bună ziua, încerc să încarc actele pentru autorizație, dar îmi dă eroare la fiecare fișier PDF. Ce pot face?”')
+            + B.btn('Deschide ticketul →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#confirm_new_ticket_registration_to_customer', from: fromVerified, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-003',
+        body: B.h1('Gata, ți-am primit cererea')
+            + B.p('Ți-am înregistrat solicitarea — are numărul ' + B.strong('#1042') + '. Ne uităm peste ea și revenim cât de repede putem.')
+            + B.btn('Vezi cererea →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#send_validation_code_to_customer', from: fromVerified, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-002',
+        body: B.h1('Confirmă-ți cererea')
+            + B.lead('Folosește codul de mai jos ca să confirmăm că tu ai trimis cererea. Expiră în 10 minute.')
+            + B.code('552 318')
+            + B.small('Dacă n-ai trimis tu nicio cerere, ignoră liniștit mesajul.')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#notify_agent_of_assigned_ticket', from: fromInternal, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-004',
+        body: B.h1('Ți s-a dat un ticket')
+            + B.p('Ticketul ' + B.strong('#1042') + ' e acum al tău. Aruncă un ochi când ai un moment.')
+            + B.btn('Deschide ticketul →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#notify_agent_of_transferred_ticket', from: fromInternal, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-005',
+        body: B.h1('Un ticket a ajuns la tine')
+            + B.p('Ticketul ' + B.strong('#1042') + ' a fost transferat la departamentul ' + B.strong('Urbanism') + '.')
+            + B.btn('Deschide ticketul →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#notify_customer_reply_to_closed_ticket', from: fromVerified, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-008',
+        body: B.h1('Cererea asta e deja închisă')
+            + B.p('Am primit răspunsul tău la ' + B.strong('#1042') + ', dar cererea e închisă și nu mai putem adăuga mesaje pe ea.')
+            + B.callout('info', 'Dacă mai ai nevoie de ajutor, deschide o cerere nouă — îți răspundem cu drag.')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#sla_approaching_deadline', from: fromInternal, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-SLA-APPROACHING',
+        body: B.h1('Mai e puțin timp pe ticketul #1042')
+            + B.callout('warn', 'S-au consumat ' + B.strong('75%') + ' din timpul de primă reacție. Hai să-l prindem înainte să expire.')
+            + B.btn('Deschide ticketul →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Tickets::TicketMailer#sla_breached', from: fromInternal, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-SLA-BREACHED',
+        body: B.h1('Ticketul #1042 a depășit SLA')
+            + B.callout('danger', 'Timpul de ' + B.strong('primă reacție') + ' a fost depășit. Hai să-i răspundem clientului cât mai repede.')
+            + B.btn('Deschide ticketul →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Comments::CommentMailer#notify_customer_on_new_comment', from: fromVerified, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-006',
+        body: B.h1('Ai un mesaj nou la cererea ta')
+            + B.p('Cererea ' + B.strong('#1042') + ' are un răspuns nou de la echipă.')
+            + B.quote('„Bună ziua! Problema era de la dimensiunea fișierelor. Am mărit limita — încercați din nou, vă rog.”')
+            + B.btn('Vezi conversația →')
+      },
+      {
+        meta: { mailer: 'Helpdesk::Comments::CommentMailer#comment_digest', from: fromInternal, ctx: 'ws' },
+        header: hd, category: 'Helpdesk', ref: 'HELPDESK-007',
+        body: B.h1('3 mesaje noi pe ticketul #1042')
+            + B.p('S-au adunat ' + B.strong('3 mesaje noi') + ' pe ticketul #1042 de când n-ai mai intrat.')
+            + B.callout('info', 'Ai fost menționat într-unul dintre ele.')
+            + B.btn('Deschide ticketul →')
+      }
+    ]);
+  </script>
+</body>
+</html>

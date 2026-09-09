@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legături din UI · Dashboard AI</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between gap-3">
+  <div class="flex items-center gap-2 min-w-0">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300 truncate">#7 · Legăturile din UI — de unde se ajunge la dashboard</span>
+  </div>
+  <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline shrink-0">← înapoi la set</a>
+</div>
+
+<main class="max-w-[1280px] mx-auto px-4 md:px-6 pb-24">
+
+  <div class="pt-4 pb-6">
+    <h1 class="text-[28px] leading-none font-bold text-ink-900 tracking-tight">Legături din UI</h1>
+    <p class="text-[14px] text-ink-400 mt-2 max-w-2xl">
+      Patru puncte de intrare. Unul nou (dropdown-ul de avatar), unul redenumit (sidebar Admin) și
+      două pagini de setări care rămân doar cu setări și trimit mai departe.
+    </p>
+  </div>
+
+  <!-- ============ 1 · Dropdown avatar ============ -->
+  <div class="flex items-center gap-2 mb-3">
+    <span class="w-6 h-6 rounded-md bg-primary text-white grid place-items-center text-[11px] font-bold shrink-0">1</span>
+    <h2 class="text-[16px] font-bold text-ink-900">Dropdown-ul de avatar — intrarea principală</h2>
+  </div>
+  <div class="card p-5 md:p-7 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+      <div>
+        <!-- mini navbar -->
+        <div class="rounded-xl border border-surface-200 bg-surface-0 overflow-visible">
+          <div class="px-4 py-3 flex items-center justify-between gap-4 border-b border-surface-200">
+            <div class="flex items-center gap-3 min-w-0">
+              <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none"><path d="M12 2 L6 6 L6 12 C6 16 9 19 12 21 C15 19 18 16 18 12 L18 6 Z" fill="#1cc39a"/><circle cx="12" cy="11" r="2.4" fill="#fff"/></svg>
+              <div class="flex items-center gap-2 bg-surface-100 rounded-full pl-1.5 pr-3 py-1 min-w-0">
+                <span class="w-6 h-6 rounded-md bg-blue-500 text-white grid place-items-center text-[11px] font-bold shrink-0">SL</span>
+                <span class="text-[13px] font-semibold text-ink-800 truncate">Sibiu Legacy</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="text-[12px] font-semibold text-ink-500">RO</span>
+              <span class="w-8 h-8 rounded-full bg-pink-500 text-white grid place-items-center text-[11px] font-bold ring-2 ring-primary">AE</span>
+            </div>
+          </div>
+
+          <!-- dropdown, open -->
+          <div class="p-4 bg-surface-50 flex justify-end">
+            <div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg overflow-visible">
+
+              <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+                <div class="text-sm font-medium text-gray-900 dark:text-white">Andrei Enache</div>
+                <div class="mt-1"><span class="badge badge--positive">owner</span></div>
+              </div>
+
+              <div class="p-1.5">
+                <p class="px-2.5 pt-1 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Comunitate</p>
+                <span class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Contul meu</span>
+
+                <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+                <span class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Tichetele mele</span>
+
+                <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">CMS</p>
+                <span class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Echipă</span>
+                <span class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Setări workspace</span>
+
+                <!-- NEW -->
+                <a href="01-overview.html" class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-500/10 ring-1 ring-primary">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  <span>Rapoarte AI</span>
+                </a>
+              </div>
+
+              <div class="border-t border-gray-200 dark:border-zinc-700 p-1.5">
+                <span class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-gray-500 dark:text-zinc-400">Schimbă workspace…</span>
+              </div>
+
+              <div class="border-t border-gray-200 dark:border-zinc-700 p-1.5">
+                <p class="px-2.5 pt-1 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Administrare</p>
+                <a href="05-admin-overview.html" class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Admin</a>
+              </div>
+
+              <div class="border-t border-gray-200 dark:border-zinc-700 p-1.5">
+                <p class="px-2.5 pt-1 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Preferințe</p>
+                <span class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Limbă</span>
+                <span class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Temă închisă</span>
+              </div>
+
+              <div class="border-t border-gray-200 dark:border-zinc-700 p-1.5">
+                <span class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300">Deconectare</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-[13px] font-semibold text-ink-900 mb-2">Unde intră, exact</div>
+        <p class="text-[13px] text-ink-500 leading-relaxed mb-4">
+          În <code class="text-[12px] px-1 rounded bg-surface-200/60">_menu_items.html.erb</code>,
+          imediat sub <em>Setări workspace</em> — deci în interiorul blocului
+          <code class="text-[12px] px-1 rounded bg-surface-200/60">current_membership&amp;.full_access?</code>,
+          la linia 26. Gating-ul e deja acolo: doar owner și developer văd secțiunea.
+        </p>
+
+        <div class="rounded-lg border border-surface-200 bg-surface-50 p-3 mb-4 overflow-x-auto">
+          <pre class="text-[11.5px] leading-relaxed text-ink-600"><code>&lt;% if current_membership&amp;.full_access? %&gt;
+  &lt;p class="…"&gt;&lt;%= t('…user_menu.section_cms') %&gt;&lt;/p&gt;
+  &lt;%= link_to … team_members_path … %&gt;
+  &lt;%= link_to … workspace_settings_path … %&gt;
+<span class="text-emerald-600 dark:text-emerald-400">  &lt;%= link_to t('ai_reports.title'),
+              stejar.ai_reports_overview_path(account_id: current_account.slug),
+              class: "…" %&gt;</span>
+&lt;% end %&gt;</code></pre>
+        </div>
+
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-700 mb-1.5">Rută</div>
+          <div class="text-[12px] text-ink-500 leading-relaxed">
+            <code class="text-[11.5px] px-1 rounded bg-surface-200/60">/:account/stejar/ai/overview</code><br>
+            Namespace nou <code class="text-[11.5px] px-1 rounded bg-surface-200/60">ai_reports</code>, un controller și
+            un URL per tab, filtrele ca query params — același tipar ca la Helpdesk Reports.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2 · Admin sidebar ============ -->
+  <div class="flex items-center gap-2 mb-3">
+    <span class="w-6 h-6 rounded-md bg-primary text-white grid place-items-center text-[11px] font-bold shrink-0">2</span>
+    <h2 class="text-[16px] font-bold text-ink-900">Sidebar-ul de Admin — „AI Usage" devine „AI"</h2>
+  </div>
+  <div class="card p-5 md:p-7 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400 mb-2">Înainte</div>
+          <div class="rounded-lg border border-surface-200 bg-white dark:bg-gray-800 p-2.5">
+            <div class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-2 mb-1.5">Tools</div>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400 line-through">AI Usage</div>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400">Themes</div>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400">Starters</div>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400">Sandbox App</div>
+          </div>
+          <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">Un singur tabel, doar tokens, doar <code class="text-[10px] px-1 rounded bg-surface-200/60">cms_audience</code>.</div>
+        </div>
+
+        <div>
+          <div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">După</div>
+          <div class="rounded-lg border border-surface-200 bg-white dark:bg-gray-800 p-2.5">
+            <div class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-2 mb-1.5">Tools</div>
+            <a href="05-admin-overview.html" class="flex items-center gap-2 px-2 py-1.5 text-[12px] rounded-md font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-500/10">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              AI
+            </a>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400">Themes</div>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400">Starters</div>
+            <div class="px-2 py-1.5 text-[12px] rounded-md text-gray-600 dark:text-gray-400">Sandbox App</div>
+          </div>
+          <div class="text-[11px] text-ink-400 mt-2 leading-relaxed">5 taburi, toate canalele, cost în dolari.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-[13px] font-semibold text-ink-900 mb-2">Ce se schimbă în rute</div>
+        <ul class="text-[13px] text-ink-500 leading-relaxed flex flex-col gap-2">
+          <li class="flex gap-2">
+            <span class="text-rose-500 shrink-0 font-bold">−</span>
+            <span><code class="text-[11.5px] px-1 rounded bg-surface-200/60">resources :ai_usage</code> — ecranul dispare</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-emerald-600 dark:text-emerald-400 shrink-0 font-bold">+</span>
+            <span><code class="text-[11.5px] px-1 rounded bg-surface-200/60">namespace :ai</code> cu Overview · Backend · Public · Helpdesk · Workspaces</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-amber-600 dark:text-amber-400 shrink-0 font-bold">→</span>
+            <span><code class="text-[11.5px] px-1 rounded bg-surface-200/60">accounts#ai_performance</code> redirectează în noul dashboard, scopat pe workspace</span>
+          </li>
+        </ul>
+
+        <div class="rounded-lg border border-surface-200 bg-surface-50 p-3 mt-4">
+          <div class="text-[12px] font-semibold text-ink-700 mb-1.5">Al patrulea punct de intrare</div>
+          <div class="text-[12px] text-ink-500 leading-relaxed">
+            Cardul „AI Assistant" din <code class="text-[11.5px] px-1 rounded bg-surface-200/60">admin/accounts#show</code>
+            rămâne, dar duce în dashboard-ul AI al acelui workspace, nu într-un ecran separat.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 · CMS settings ============ -->
+  <div class="flex items-center gap-2 mb-3">
+    <span class="w-6 h-6 rounded-md bg-primary text-white grid place-items-center text-[11px] font-bold shrink-0">3</span>
+    <h2 class="text-[16px] font-bold text-ink-900">CMS › Setări › Asistent AI — rămâne doar setarea</h2>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+
+    <div class="card p-5">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400 mb-3">Înainte</div>
+      <div class="flex flex-col gap-2.5">
+        <div class="rounded-lg border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 p-3">
+          <div class="text-[12px] font-semibold text-ink-800 mb-2">Utilizare luna aceasta</div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="rounded-md bg-surface-0 p-2"><div class="text-[10px] uppercase tracking-wider text-ink-400">Conversații</div><div class="text-[17px] font-bold text-ink-900">6.420</div></div>
+            <div class="rounded-md bg-surface-0 p-2"><div class="text-[10px] uppercase tracking-wider text-ink-400">Requests</div><div class="text-[17px] font-bold text-ink-900">9.870</div></div>
+          </div>
+          <div class="text-[10.5px] text-rose-600 dark:text-rose-400 font-medium mt-2">→ pleacă în dashboard</div>
+        </div>
+        <div class="rounded-lg border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 p-3">
+          <div class="text-[12px] font-semibold text-ink-800">Tokens consumați</div>
+          <div class="text-[17px] font-bold text-ink-900 mt-1">24.660.000</div>
+          <div class="h-2 rounded-full bg-surface-200 mt-2 overflow-hidden"><div class="h-full bg-amber-500 rounded-full" style="width:82%"></div></div>
+          <div class="text-[10.5px] text-rose-600 dark:text-rose-400 font-medium mt-2">→ pleacă în dashboard</div>
+        </div>
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-800 mb-1.5">Instrucțiuni personalizate</div>
+          <div class="rounded-md border border-surface-200 bg-surface-50 h-14"></div>
+        </div>
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-800">Cum funcționează</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">După</div>
+      <div class="flex flex-col gap-2.5">
+        <a href="03-public.html" class="rounded-lg border border-primary bg-primary-50 dark:bg-primary-500/10 p-3 flex items-center gap-3 hover:bg-primary-100 transition-colors">
+          <span class="w-8 h-8 rounded-lg bg-primary text-white grid place-items-center shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="text-[12.5px] font-semibold text-primary-700 dark:text-primary-300">Rapoarte AI · Public</div>
+            <div class="text-[11px] text-ink-500">Conversații, rating, întrebări fără răspuns, cost</div>
+          </div>
+          <svg class="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-800 mb-1.5">Instrucțiuni personalizate</div>
+          <div class="rounded-md border border-surface-200 bg-surface-50 h-14"></div>
+        </div>
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-800">Cum funcționează</div>
+        </div>
+      </div>
+      <p class="text-[11px] text-ink-400 mt-3 leading-relaxed">
+        Pagina rămâne ce spune numele ei: o pagină de setări. Cifrele nu mai trăiesc în două locuri. În ciuda numelui, ea configurează <strong class="text-ink-600">asistentul public</strong> (<code class="text-[11px] px-1 rounded bg-surface-200/60">ai_public_assistant_prompt</code>) — de aceea linkul duce în tabul Public, nu în Backend.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============ 4 · Helpdesk settings ============ -->
+  <div class="flex items-center gap-2 mb-3">
+    <span class="w-6 h-6 rounded-md bg-primary text-white grid place-items-center text-[11px] font-bold shrink-0">4</span>
+    <h2 class="text-[16px] font-bold text-ink-900">Helpdesk › Setări › Agent AI — la fel</h2>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+    <div class="card p-5">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400 mb-3">Înainte</div>
+      <div class="flex flex-col gap-2.5">
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-800 mb-1.5">Reguli ale casei</div>
+          <div class="rounded-md border border-surface-200 bg-surface-50 h-14"></div>
+        </div>
+        <div class="rounded-lg border border-surface-200 p-3 flex items-center justify-between gap-2">
+          <div class="text-[12px] font-semibold text-ink-800">Profilul workspace-ului</div>
+          <span class="badge badge--positive">generat</span>
+        </div>
+        <div class="rounded-lg border border-rose-200 dark:border-rose-500/20 bg-rose-50 dark:bg-rose-500/10 p-3">
+          <div class="grid grid-cols-4 gap-1.5 mb-2">
+            <div class="rounded-md bg-surface-0 p-1.5 text-center"><div class="text-[9px] text-ink-400">Generate</div><div class="text-[14px] font-bold text-ink-900">1.180</div></div>
+            <div class="rounded-md bg-surface-0 p-1.5 text-center"><div class="text-[9px] text-ink-400">Folosite</div><div class="text-[14px] font-bold text-ink-900">742</div></div>
+            <div class="rounded-md bg-surface-0 p-1.5 text-center"><div class="text-[9px] text-ink-400">Edit rate</div><div class="text-[14px] font-bold text-ink-900">71%</div></div>
+            <div class="rounded-md bg-surface-0 p-1.5 text-center"><div class="text-[9px] text-ink-400">Neatinse</div><div class="text-[14px] font-bold text-ink-900">214</div></div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="h-1.5 rounded-full bg-primary" style="width:100%"></div>
+            <div class="h-1.5 rounded-full bg-emerald-500" style="width:63%"></div>
+            <div class="h-1.5 rounded-full bg-sky-500" style="width:45%"></div>
+          </div>
+          <div class="text-[10.5px] text-rose-600 dark:text-rose-400 font-medium mt-2">→ KPI + funnel + tokens pleacă în dashboard</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">După</div>
+      <div class="flex flex-col gap-2.5">
+        <a href="04-helpdesk.html" class="rounded-lg border border-primary bg-primary-50 dark:bg-primary-500/10 p-3 flex items-center gap-3 hover:bg-primary-100 transition-colors">
+          <span class="w-8 h-8 rounded-lg bg-primary text-white grid place-items-center shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="text-[12.5px] font-semibold text-primary-700 dark:text-primary-300">Rapoarte AI · Helpdesk</div>
+            <div class="text-[11px] text-ink-500">Soarta drafturilor, edit rate pe agent, cost pe draft</div>
+          </div>
+          <svg class="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <div class="rounded-lg border border-surface-200 p-3">
+          <div class="text-[12px] font-semibold text-ink-800 mb-1.5">Reguli ale casei</div>
+          <div class="rounded-md border border-surface-200 bg-surface-50 h-14"></div>
+        </div>
+        <div class="rounded-lg border border-surface-200 p-3 flex items-center justify-between gap-2">
+          <div class="text-[12px] font-semibold text-ink-800">Profilul workspace-ului</div>
+          <span class="badge badge--positive">generat</span>
+        </div>
+      </div>
+      <p class="text-[11px] text-ink-400 mt-3 leading-relaxed">
+        Linkul duce direct în tabul Helpdesk, nu în Overview — omul venea deja cu o întrebare despre drafturi.
+      </p>
+    </div>
+  </div>
+
+  <!-- Summary map -->
+  <div class="card p-5 md:p-7 mt-8">
+    <div class="text-[15px] font-semibold text-ink-900 mb-4">Harta completă</div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-[13px]">
+        <thead>
+          <tr class="text-[11px] uppercase tracking-wider text-ink-400 bg-surface-50">
+            <th class="px-4 py-2.5 font-medium">De unde</th>
+            <th class="px-4 py-2.5 font-medium">Unde ajunge</th>
+            <th class="px-4 py-2.5 font-medium">Cine vede</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-200">
+          <tr>
+            <td class="px-4 py-3 text-ink-800">Avatar → <strong>Rapoarte AI</strong> <span class="badge badge--positive">nou</span></td>
+            <td class="px-4 py-3 text-ink-500"><code class="text-[11.5px] px-1 rounded bg-surface-200/60">/ai/overview</code></td>
+            <td class="px-4 py-3 text-ink-500">owner, developer</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-ink-800">CMS › Setări › Asistent AI <span class="text-ink-400">(configurează asistentul public)</span></td>
+            <td class="px-4 py-3 text-ink-500"><code class="text-[11.5px] px-1 rounded bg-surface-200/60">/ai/public</code></td>
+            <td class="px-4 py-3 text-ink-500">owner, developer</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-ink-800">Helpdesk › Setări › Agent AI</td>
+            <td class="px-4 py-3 text-ink-500"><code class="text-[11.5px] px-1 rounded bg-surface-200/60">/ai/helpdesk</code></td>
+            <td class="px-4 py-3 text-ink-500">owner, developer</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-ink-800">Admin › sidebar › <strong>AI</strong> <span class="text-ink-400">(fost AI Usage)</span></td>
+            <td class="px-4 py-3 text-ink-500"><code class="text-[11.5px] px-1 rounded bg-surface-200/60">/stejar-admin/ai/overview</code></td>
+            <td class="px-4 py-3 text-ink-500">admin platformă</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-ink-800">Admin › Accounts › card „AI Assistant"</td>
+            <td class="px-4 py-3 text-ink-500">dashboard-ul AI al workspace-ului</td>
+            <td class="px-4 py-3 text-ink-500">admin platformă</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-2 mt-8">
+    <a href="01-overview.html" class="btn btn--primary btn--sm">Vezi dashboard-ul →</a>
+    <a href="05-admin-overview.html" class="btn btn--sm">Vezi zona de Admin →</a>
+    <a href="index.html" class="btn btn--ghost btn--sm">Planul de implementare</a>
+  </div>
+</main>
+
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" aria-label="Comută tema"
+  onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+</body>
+</html>

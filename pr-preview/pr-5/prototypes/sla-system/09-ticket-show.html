@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket detail · sidebar SLA panel · Helpdesk SLA</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+<div class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 mb-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#9 · Ticket detail — sidebar SLA panel</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- Layout: main + sidebar -->
+  <div class="flex gap-6">
+
+    <!-- ─── Main pane ─── -->
+    <div class="flex-1 min-w-0 bg-surface-0 rounded-xl border border-surface-200 p-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-ink-500 font-bold text-[14px]">#1042</span>
+        <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-red-100 text-red-700">critical</span>
+        <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-red-100 text-red-600">Open</span>
+      </div>
+      <div class="text-xl font-semibold text-ink-900 mb-4">Site-ul nu se mai încarcă deloc, primesc 504</div>
+
+      <div class="border-l-2 border-surface-200 pl-4 py-1 mb-6">
+        <div class="text-[11px] text-ink-400 mb-1">Andrei Popescu · andrei.popescu@example.ro</div>
+        <div class="text-[14px] text-ink-700 leading-relaxed">
+          Bună, ne-a picat site-ul complet în urmă cu 30 de minute. Toți utilizatorii primesc 504 Gateway Timeout.
+          Avem nevoie urgent de o intervenție. Mulțumesc.
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-dashed border-surface-200 p-8 text-center">
+        <div class="text-[12px] text-ink-400">— conversation thread (mock) —</div>
+      </div>
+    </div>
+
+    <!-- ─── Sidebar ─── -->
+    <div class="w-80 shrink-0 bg-surface-0 rounded-xl border border-surface-200 overflow-hidden self-start">
+
+      <!-- STATE section (existing pattern shown abbreviated) -->
+      <div class="px-5 pt-5 pb-5 border-b border-surface-200">
+        <h3 class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-4">State</h3>
+        <div class="mb-3">
+          <label class="block text-[12px] font-semibold text-ink-600 mb-1">Status</label>
+          <div class="w-full pl-3 pr-8 py-2 border border-surface-200 rounded-lg bg-surface-0">
+            <span class="inline-flex items-center px-2 py-[2px] text-[11px] font-semibold rounded-md bg-red-100 text-red-600">Open</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="block text-[12px] font-semibold text-ink-600 mb-1">Priority</label>
+          <div class="w-full pl-3 pr-8 py-2 border border-surface-200 rounded-lg bg-surface-0 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span class="text-[13px] font-medium text-ink-700">Critical</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── NEW: SLA section ─── -->
+      <div class="px-5 pt-5 pb-5 border-b border-surface-200">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-[11px] font-bold uppercase tracking-wider text-ink-400">SLA</h3>
+          <span class="text-[10px] text-ink-400">Standard SLA</span>
+        </div>
+
+        <!-- First Response -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-semibold text-ink-600">First Response</span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-surface-100 text-ink-500">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Achieved · 12m
+            </span>
+          </div>
+          <div class="h-1.5 bg-surface-100 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-400" style="width: 100%;"></div>
+          </div>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-[10px] text-ink-400">Target: 1h</span>
+            <span class="text-[10px] text-ink-400">Completed: 12:42</span>
+          </div>
+        </div>
+
+        <!-- Next Response -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-semibold text-ink-600">Next Response</span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+              Due in 28m
+            </span>
+          </div>
+          <div class="h-1.5 bg-surface-100 rounded-full overflow-hidden">
+            <div class="h-full bg-amber-500" style="width: 78%;"></div>
+          </div>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-[10px] text-ink-400">Target: 30m</span>
+            <span class="text-[10px] text-ink-400">Due: 14:30</span>
+          </div>
+        </div>
+
+        <!-- Resolution -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-semibold text-ink-600">Resolution</span>
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-md bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Breached · 45m
+            </span>
+          </div>
+          <div class="h-1.5 bg-surface-100 rounded-full overflow-hidden">
+            <div class="h-full bg-red-500" style="width: 100%;"></div>
+          </div>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-[10px] text-ink-400">Target: 4h</span>
+            <span class="text-[10px] text-red-600 font-semibold">Was due: 14:00</span>
+          </div>
+        </div>
+
+        <!-- Timeline / event log -->
+        <details class="mt-4 group">
+          <summary class="list-none cursor-pointer flex items-center justify-between text-[11px] font-semibold text-ink-500 hover:text-ink-700">
+            <span>Timeline (4 events)</span>
+            <svg class="w-3 h-3 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="mt-3 space-y-2">
+            <div class="flex items-start gap-2.5 text-[11px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-ink-300 mt-1.5 shrink-0"></span>
+              <div class="min-w-0 flex-1">
+                <span class="text-ink-500 font-mono mr-2">12:30</span>
+                <span class="text-ink-600">Ticket creat — clock pornit</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5 text-[11px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-ink-300 mt-1.5 shrink-0"></span>
+              <div class="min-w-0 flex-1">
+                <span class="text-ink-500 font-mono mr-2">12:42</span>
+                <span class="text-ink-600">Agent a răspuns — First Response completat</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5 text-[11px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-ink-300 mt-1.5 shrink-0"></span>
+              <div class="min-w-0 flex-1">
+                <span class="text-ink-500 font-mono mr-2">13:15</span>
+                <span class="text-ink-600">Status → pending — clock pauzat</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5 text-[11px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-ink-300 mt-1.5 shrink-0"></span>
+              <div class="min-w-0 flex-1">
+                <span class="text-ink-500 font-mono mr-2">13:50</span>
+                <span class="text-ink-600">Client a răspuns — clock resumed</span>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Routing (existing pattern, abbreviated) -->
+      <div class="px-5 pt-5 pb-5 border-b border-surface-200">
+        <h3 class="text-[11px] font-bold uppercase tracking-wider text-ink-400 mb-4">Routing</h3>
+        <div class="mb-3">
+          <label class="block text-[12px] font-semibold text-ink-600 mb-1">Department</label>
+          <div class="w-full pl-3 pr-8 py-2 border border-surface-200 rounded-lg bg-surface-0 text-[13px] text-ink-700">Customer Support</div>
+        </div>
+        <div>
+          <label class="block text-[12px] font-semibold text-ink-600 mb-1">Agent</label>
+          <div class="w-full pl-3 pr-8 py-2 border border-surface-200 rounded-lg bg-surface-0 text-[13px] text-ink-700">Maria Ionescu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50" onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+</body>
+</html>
