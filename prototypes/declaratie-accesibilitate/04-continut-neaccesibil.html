@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excepții · Declarația de Accesibilitate</title>
+<script>(function(){var t=localStorage.getItem('proto-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația de Accesibilitate — 4. Conținut neaccesibil</span>
+  </div>
+  <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+</div>
+
+<div class="max-w-3xl mx-auto px-4 md:px-8 pb-10">
+
+  <div class="flex items-center gap-1.5 text-[11px] text-ink-400 mb-4">
+    <a href="03-setari-accesibilitate.html" class="hover:text-ink-700 no-underline">Accesibilitate</a>
+    <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+    <span class="text-ink-600 font-medium">Conținut neaccesibil</span>
+  </div>
+
+  <div class="text-2xl font-bold tracking-tight text-ink-900">Conținut neaccesibil</div>
+  <div class="text-[13px] text-ink-500 mt-1.5 leading-relaxed max-w-2xl">
+    Legea cere ca fiecare excepție să fie încadrată în unul dintre cele trei temeiuri de mai jos și în niciun altul. Nu este o listă liberă de justificări, ci o clasificare pe care ADR o citește ca atare.
+  </div>
+
+  <!-- language tabs -->
+  <div class="flex items-center gap-1 mt-6 mb-4 p-1 rounded-xl bg-surface-100 dark:bg-surface-200/30 w-fit">
+    <button class="px-3.5 py-1.5 rounded-lg text-[12px] font-semibold bg-surface-0 text-ink-900 shadow-sm">Română</button>
+    <button class="px-3.5 py-1.5 rounded-lg text-[12px] font-medium text-ink-500 hover:text-ink-800">English <span class="text-amber-600 dark:text-amber-400">·</span></button>
+    <button class="px-3.5 py-1.5 rounded-lg text-[12px] font-medium text-ink-500 hover:text-ink-800">Magyar <span class="text-amber-600 dark:text-amber-400">·</span></button>
+  </div>
+  <div class="text-[11px] text-ink-400 -mt-2 mb-6">Punctul portocaliu arată limbile în care textele nu au fost încă traduse. Declarația trebuie să existe în toate limbile site-ului.</div>
+
+  <!-- a) non-conformance -->
+  <div class="card p-5 mb-4">
+    <div class="flex items-center gap-2.5 mb-1">
+      <span class="badge">a</span>
+      <div class="text-[14px] font-bold text-ink-900">Neconformitate cu OUG 112/2018</div>
+    </div>
+    <div class="text-[12px] text-ink-500 leading-relaxed mb-4">Material care ar trebui să fie accesibil, dar nu este. Este categoria cea mai des folosită.</div>
+
+    <div class="space-y-2.5">
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
+        <div class="flex items-start gap-3">
+          <svg class="w-4 h-4 text-ink-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <div class="min-w-0 flex-1">
+            <div class="text-[13px] text-ink-700 leading-relaxed">Documentele PDF publicate înainte de 23 septembrie 2018 nu au structură semantică și nu pot fi citite integral de cititoarele de ecran.</div>
+            <div class="text-[11px] text-ink-400 mt-1.5">Stabilită de noi · activă în toate site-urile · nu poate fi ștearsă</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
+        <div class="flex items-start gap-3">
+          <svg class="w-4 h-4 text-ink-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <div class="min-w-0 flex-1">
+            <div class="text-[13px] text-ink-700 leading-relaxed">Unele imagini încărcate de redactori nu au text alternativ.</div>
+            <div class="text-[11px] text-ink-400 mt-1.5">Stabilită de noi · nu poate fi ștearsă</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border-2 border-primary/40 bg-surface-0 p-3.5">
+        <textarea class="input text-[13px] mb-2" rows="2">Anumite tabele de date publicate în articole nu au anteturi de coloană marcate corect.</textarea>
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] text-ink-400 mr-auto">Excepție adăugată de instituție</span>
+          <button class="btn btn--sm btn--ghost">Șterge</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn--sm mt-3">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      Adaugă o excepție
+    </button>
+  </div>
+
+  <!-- b) disproportionate burden -->
+  <div class="card p-5 mb-4">
+    <div class="flex items-center gap-2.5 mb-1">
+      <span class="badge badge--warning">b</span>
+      <div class="text-[14px] font-bold text-ink-900">Sarcină disproporționată</div>
+    </div>
+    <div class="text-[12px] text-ink-500 leading-relaxed mb-4">Material pe care instituția nu îl poate face accesibil cu resursele de care dispune. Acest temei cere o justificare scrisă și trebuie reevaluat periodic. Nu este o scutire permanentă.</div>
+
+    <div class="rounded-xl border-2 border-primary/40 bg-surface-0 p-3.5">
+      <label class="block text-[12px] font-medium text-ink-700 mb-1.5">Ce anume</label>
+      <textarea class="input text-[13px] mb-3" rows="2">Arhiva de ședințe de consiliu local (peste 1.900 de documente scanate, 2009–2018).</textarea>
+
+      <label class="block text-[12px] font-medium text-ink-700 mb-1.5">Justificarea <span class="text-red-600 dark:text-red-400">— obligatorie pe acest temei</span></label>
+      <textarea class="input text-[13px] mb-1.5" rows="2">Reconversia integrală depășește resursele instituției. La cerere, orice document din arhivă se furnizează în format accesibil în termen de 5 zile lucrătoare.</textarea>
+      <div class="text-[11px] text-ink-400 mb-3">O sarcină disproporționată invocată fără să oferiți o alternativă nu este suficientă. Scrieți ce puteți pune la dispoziție la cerere.</div>
+
+      <label class="block text-[12px] font-medium text-ink-700 mb-1.5">Evaluarea se reia până la</label>
+      <input class="input max-w-[200px]" type="date" value="2027-06-01">
+      <div class="text-[11px] text-ink-400 mt-1.5">Vă anunțăm înainte de expirare. O excepție invocată în 2026 și nereevaluată în 2029 transformă declarația într-una falsă.</div>
+    </div>
+  </div>
+
+  <!-- c) out of scope -->
+  <div class="card p-5 mb-4">
+    <div class="flex items-center gap-2.5 mb-1">
+      <span class="badge">c</span>
+      <div class="text-[14px] font-bold text-ink-900">Conținut în afara domeniului de aplicare</div>
+    </div>
+    <div class="text-[12px] text-ink-500 leading-relaxed mb-4">Material pe care legea îl scutește explicit: hărți folosite pentru orientare, transmisiuni în direct care nu rămân publicate și arhive care nu mai sunt actualizate.</div>
+
+    <div class="space-y-2.5">
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5 flex items-start gap-3">
+        <svg class="w-4 h-4 text-ink-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="min-w-0">
+          <div class="text-[13px] text-ink-700 leading-relaxed">Hărțile interactive furnizate de terți, folosite pentru orientare. Adresele și programul de funcționare sunt disponibile și în text, pe aceleași pagini.</div>
+          <div class="text-[11px] text-ink-400 mt-1.5">Stabilită de noi · elementele de hartă din CMS aparțin platformei, nu instituției</div>
+        </div>
+      </div>
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5 flex items-start gap-3">
+        <svg class="w-4 h-4 text-ink-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="min-w-0">
+          <div class="text-[13px] text-ink-700 leading-relaxed">Transmisiunile video în direct ale ședințelor, nearhivate.</div>
+          <div class="text-[11px] text-ink-400 mt-1.5">Stabilită de noi · se poate dezactiva dacă instituția nu transmite în direct</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- examples library -->
+  <div class="card p-5">
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1">Exemple predefinite</div>
+    <div class="text-[12px] text-ink-500 leading-relaxed mb-4">Formulări deja traduse în toate limbile platformei. Nu îi cerem unui om care nu a citit niciodată standardul WCAG să scrie de la zero un text cu valoare juridică.</div>
+
+    <div class="space-y-1.5">
+      <button class="w-full text-left rounded-xl border border-surface-200 bg-surface-0 px-3.5 py-2.5 hover:border-primary-400 hover:bg-surface-50 flex items-center gap-3">
+        <span class="badge shrink-0">a</span>
+        <span class="text-[12.5px] text-ink-700 min-w-0">Formularele publicate ca fișiere Word descărcabile nu pot fi completate cu tehnologii asistive.</span>
+        <svg class="w-3.5 h-3.5 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="w-full text-left rounded-xl border border-surface-200 bg-surface-0 px-3.5 py-2.5 hover:border-primary-400 hover:bg-surface-50 flex items-center gap-3">
+        <span class="badge shrink-0">a</span>
+        <span class="text-[12.5px] text-ink-700 min-w-0">Materialele video publicate anterior anului 2024 nu au subtitrare.</span>
+        <svg class="w-3.5 h-3.5 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="w-full text-left rounded-xl border border-surface-200 bg-surface-0 px-3.5 py-2.5 hover:border-primary-400 hover:bg-surface-50 flex items-center gap-3">
+        <span class="badge badge--warning shrink-0">b</span>
+        <span class="text-[12.5px] text-ink-700 min-w-0">Documentele de urbanism (planșe, planuri) nu pot fi redate în format textual echivalent.</span>
+        <svg class="w-3.5 h-3.5 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="w-full text-left rounded-xl border border-surface-200 bg-surface-0 px-3.5 py-2.5 hover:border-primary-400 hover:bg-surface-50 flex items-center gap-3">
+        <span class="badge shrink-0">c</span>
+        <span class="text-[12.5px] text-ink-700 min-w-0">Conținutul de arhivă nepublicat și neactualizat după 23 septembrie 2019.</span>
+        <svg class="w-3.5 h-3.5 text-ink-300 ml-auto shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="rounded-lg border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-3 mt-4 flex gap-2.5">
+    <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+    <div class="text-[11.5px] text-amber-800 dark:text-amber-200 leading-relaxed">
+      <strong>Cea mai importantă dintre excepții este cea despre documentele PDF.</strong> Un client care încarcă 400 de documente scanate face declarația falsă chiar în ziua în care le încarcă, fără ca cineva să observe. De aceea excepția este activă automat și nu poate fi ștearsă, iar în Etapa 4 adăugăm și un semnal în panoul de administrare atunci când un site încarcă un număr neobișnuit de documente PDF.
+    </div>
+  </div>
+
+</div>
+
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+  onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+</body>
+</html>
