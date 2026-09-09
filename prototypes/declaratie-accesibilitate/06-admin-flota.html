@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin flotă · Declarația de Accesibilitate</title>
+<script>(function(){var t=localStorage.getItem('proto-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+<div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația de Accesibilitate — 6. Admin platformă</span>
+  </div>
+  <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+</div>
+
+<div class="max-w-4xl mx-auto px-4 md:px-8 pb-10">
+
+  <div class="flex items-center gap-1.5 text-[11px] text-ink-400 mb-4">
+    <a href="#" class="hover:text-ink-700 no-underline">Admin</a>
+    <svg class="w-3 h-3 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+    <span class="text-ink-600 font-medium">Accesibilitate</span>
+  </div>
+
+  <div class="text-2xl font-bold tracking-tight text-ink-900">Accesibilitate — flota</div>
+  <div class="text-[13px] text-ink-500 mt-1.5 leading-relaxed max-w-2xl">
+    Ecranul acesta <strong class="text-ink-700">nu modifică nimic</strong>. Este doar o vedere de ansamblu: ce declarăm noi, unde a schimbat un client valorile stabilite de platformă și unde ceva a rămas neactualizat.
+  </div>
+
+  <!-- platform statement, read only -->
+  <div class="card p-5 mt-6">
+    <div class="flex items-center gap-2 mb-3.5">
+      <svg class="w-3.5 h-3.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Evaluarea platformei · fișierul <code class="bg-surface-100 px-1 rounded normal-case tracking-normal">stejar/config/accessibility.yml</code></div>
+    </div>
+
+    <div class="grid sm:grid-cols-4 gap-3">
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
+        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Stadiu</div>
+        <div class="text-[13px] font-bold text-ink-900 mt-1">Parțial conform</div>
+        <div class="text-[11px] text-ink-500">WCAG 2.1 AA</div>
+      </div>
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
+        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Metodă</div>
+        <div class="text-[13px] font-bold text-ink-900 mt-1">Verificare proprie</div>
+        <div class="text-[11px] text-ink-500">axe-core + Pa11y</div>
+      </div>
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
+        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Ultima revizuire</div>
+        <div class="text-[13px] font-bold text-ink-900 mt-1">3 sept. 2026</div>
+        <div class="text-[11px] text-emerald-600 dark:text-emerald-400">acum 6 zile</div>
+      </div>
+      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
+        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Versiunea</div>
+        <div class="text-[13px] font-bold text-ink-900 mt-1 font-mono">7b2e1af</div>
+        <a href="#" class="text-[11px] text-primary underline">raportul</a>
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-surface-200 bg-surface-50 px-3.5 py-2.5 mt-3.5 flex gap-2.5">
+      <svg class="w-4 h-4 text-ink-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="text-[11.5px] text-ink-600 leading-relaxed">
+        Nu există buton de editare aici, iar asta este intenționat. Stadiul se schimbă doar printr-o modificare de cod, cu autor și cu un coleg care o aprobă. Un buton în panoul de administrare ar fi exact felul în care cineva grăbit ar declara conformitate fără să o fi verificat.
+      </div>
+    </div>
+  </div>
+
+  <!-- alerts -->
+  <div class="grid sm:grid-cols-3 gap-3 mt-4">
+    <div class="card p-4">
+      <div class="text-2xl font-bold text-ink-900">147</div>
+      <div class="text-[12px] text-ink-500 mt-0.5">workspace-uri cu declarația publicată</div>
+      <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1.5 font-medium">toate site-urile · nicio lipsă</div>
+    </div>
+    <div class="card p-4">
+      <div class="text-2xl font-bold text-amber-600 dark:text-amber-400">3</div>
+      <div class="text-[12px] text-ink-500 mt-0.5">excepții „sarcină disproporționată" care trebuie reevaluate</div>
+      <div class="text-[11px] text-ink-400 mt-1.5">proprietarii au fost anunțați</div>
+    </div>
+    <div class="card p-4">
+      <div class="text-2xl font-bold text-red-600 dark:text-red-400">2</div>
+      <div class="text-[12px] text-ink-500 mt-0.5">site-uri fără date de contact la secțiunea 5</div>
+      <div class="text-[11px] text-ink-400 mt-1.5">singurul câmp pe care nu îl putem completa noi</div>
+    </div>
+  </div>
+
+  <!-- fleet table -->
+  <div class="card p-5 mt-4">
+    <div class="flex items-center justify-between gap-3 mb-3.5">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Diferențe față de valorile stabilite de platformă</div>
+      <div class="flex gap-1.5">
+        <button class="btn btn--sm btn--ghost">Toate</button>
+        <button class="btn btn--sm">Doar cu probleme</button>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="table w-full text-[12.5px]">
+        <thead>
+          <tr>
+            <th class="text-left">Workspace</th>
+            <th class="text-left">Stadiu</th>
+            <th class="text-left">Excepții proprii</th>
+            <th class="text-left">Ultima revizuire</th>
+            <th class="text-left">Semnal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-medium text-ink-900">Uricani</td>
+            <td>Parțial conform</td>
+            <td>2</td>
+            <td>3 sept. 2026</td>
+            <td><span class="badge badge--positive">în regulă</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium text-ink-900">Petrila</td>
+            <td>Parțial conform</td>
+            <td>0</td>
+            <td>3 sept. 2026</td>
+            <td><span class="badge badge--negative">fără contact</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium text-ink-900">Reghin</td>
+            <td><span class="text-amber-700 dark:text-amber-300 font-medium">Neconform</span> <span class="text-ink-400">— schimbat de client</span></td>
+            <td>5</td>
+            <td>18 aug. 2026</td>
+            <td><span class="badge badge--warning">de discutat</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium text-ink-900">Visit Timiș</td>
+            <td>Parțial conform</td>
+            <td>3</td>
+            <td>12 iul. 2026</td>
+            <td><span class="badge badge--warning">excepție de reevaluat</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium text-ink-900">Galați</td>
+            <td>Parțial conform</td>
+            <td>1</td>
+            <td>3 sept. 2026</td>
+            <td><span class="badge badge--positive">în regulă</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium text-ink-900">Visit Covasna</td>
+            <td>Parțial conform</td>
+            <td>0</td>
+            <td>3 sept. 2026</td>
+            <td><span class="badge badge--negative">fără contact</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-[11px] text-ink-400 mt-3 leading-relaxed">
+      „Schimbat de client" nu este o eroare. Este dreptul lui și, uneori, chiar adevărul. De aceea semnalul spune „de discutat", nu „de reparat": un client care se declară neconform este un client care are nevoie de ajutorul nostru.
+    </div>
+  </div>
+
+  <div class="rounded-lg border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 px-4 py-3 mt-4 flex gap-2.5">
+    <svg class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    <div class="text-[11.5px] text-sky-800 dark:text-sky-200 leading-relaxed">
+      <strong>Ecranul acesta este ultimul livrat, în Etapa 4.</strong> Conformitatea legală a site-urilor nu depinde de el: este doar un instrument de lucru pentru noi. Dacă timpul este scurt, de aici se taie.
+    </div>
+  </div>
+
+</div>
+
+<button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+  onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+</body>
+</html>
