@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>De unde vine stadiul · Declarația de Accesibilitate</title>
+<title>De unde vine situația conformității · Declarația privind accesibilitatea</title>
 <script>(function(){var t=localStorage.getItem('proto-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <link rel="stylesheet" href="../../assets/application.css">
 </head>
@@ -12,14 +12,14 @@
 <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
   <div class="flex items-center gap-2">
     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația de Accesibilitate — 7. De unde vine stadiul de conformitate</span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația privind accesibilitatea — 7. De unde vine situația conformității</span>
   </div>
   <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
 </div>
 
 <div class="max-w-3xl mx-auto px-4 md:px-8 pb-10">
 
-  <div class="text-2xl font-bold tracking-tight text-ink-900">De unde vine stadiul de conformitate</div>
+  <div class="text-2xl font-bold tracking-tight text-ink-900">De unde vine situația conformității</div>
   <div class="text-[13px] text-ink-500 mt-1.5 leading-relaxed max-w-2xl">
     Ecranul acesta nu este o interfață, ci explicația deciziei de care depinde tot restul planului. Merită parcursă pas cu pas, pentru că acesta este singurul loc din platformă în care un câmp completat greșit creează o obligație juridică pentru altcineva.
   </div>
@@ -36,9 +36,9 @@
           <div class="w-px flex-1 bg-surface-200 my-1.5"></div>
         </div>
         <div class="pb-6 min-w-0">
-          <div class="text-[13.5px] font-bold text-ink-900">1 · Verificarea automată rulează la fiecare modificare de cod</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Două programe consacrate, axe-core și Pa11y, verifică un set fix de pagini ale temei publice: prima pagină, o pagină de conținut, o listă, o hartă, un formular, căutarea și chiar pagina de declarație. <strong class="text-ink-800">Dacă apare o problemă nouă, codul nu poate fi integrat</strong> — verificarea nu doar raportează, ci oprește.</div>
-          <div class="text-[11px] text-ink-400 mt-1.5">axe-core acoperă în jur de 30–40% dintre criteriile WCAG. Prin urmare, verificarea automată nu poate susține niciodată afirmația „conform în totalitate". Poate susține, în mod onest, doar „parțial conform".</div>
+          <div class="text-[13.5px] font-bold text-ink-900">1 · Verificarea automată, în două momente</div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Două programe consacrate, axe-core și Pa11y, verifică un set fix de pagini ale temei publice și acoperă obligatoriu cele șapte neconformități pe care ADR le găsește cel mai des. Aceeași verificare, două roluri: <strong class="text-ink-800">la fiecare modificare de cod oprește integrarea</strong> dacă apare o regresie, iar <strong class="text-ink-800">pe un site de referință deja publicat</strong>, cu conținut real, produce valoarea care ajunge în fișierul de evaluare.</div>
+          <div class="text-[11px] text-ink-400 mt-1.5">Separarea vine din Ghidul ADR: o evaluare făcută în timpul dezvoltării nu poate susține o declarație de conformitate pentru site-ul finalizat. Iar axe-core acoperă în jur de 30–40% dintre criteriile WCAG, deci nu poate susține niciodată varianta „pe deplin conform", care cere ca <em>toate</em> cerințele să fie îndeplinite.</div>
         </div>
       </div>
 
@@ -51,9 +51,9 @@
         </div>
         <div class="pb-6 min-w-0">
           <div class="text-[13.5px] font-bold text-ink-900">2 · Rezultatul se scrie într-un fișier din codul platformei</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Fișierul <code class="bg-surface-100 px-1 rounded">config/accessibility.yml</code> din stejar este singura sursă a stadiului de conformitate. Este scris de verificarea automată și poate fi modificat de un om doar printr-o schimbare de cod aprobată de un coleg. <strong class="text-ink-800">Și doar către o valoare mai proastă.</strong></div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Fișierul <code class="bg-surface-100 px-1 rounded">config/accessibility.yml</code> din stejar este singura sursă a situației conformității. Este scris de verificarea automată și poate fi modificat de un om doar printr-o schimbare de cod aprobată de un coleg. <strong class="text-ink-800">Și doar către o valoare mai proastă.</strong></div>
           <div class="rounded-xl border border-surface-200 bg-surface-100 p-3.5 mt-2.5 font-mono text-[11px] leading-relaxed text-ink-700 overflow-x-auto">
-<pre>standard:     "WCAG 2.1 AA"
+<pre>standard:     "EN 301 549 / WCAG 2.1 AA"
 status:       partially_conformant
 method:       self_assessment
 assessed_on:  2026-10-14
@@ -74,14 +74,14 @@ report_url:   "https://…/raport-2026-09.html"</pre>
           <div class="text-[13.5px] font-bold text-ink-900">3 · Clientul poate doar să înrăutățească valoarea</div>
           <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Materialul pe care îl încarcă el — documente PDF scanate, hărți, conținut preluat din alte surse — poate doar să <strong class="text-ink-800">scadă</strong> accesibilitatea site-ului, niciodată să o crească. Noi nu avem cum să garantăm nimic despre ce va încărca mâine.</div>
           <div class="flex items-center gap-2 mt-2.5 flex-wrap">
-            <span class="badge badge--positive">Conform</span>
+            <span class="badge badge--positive">Pe deplin conform</span>
             <svg class="w-3.5 h-3.5 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
             <span class="badge badge--warning">Parțial conform</span>
             <span class="text-[11px] text-ink-500 font-medium">← aici este platforma</span>
             <svg class="w-3.5 h-3.5 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
             <span class="badge badge--negative">Neconform</span>
           </div>
-          <div class="text-[11px] text-ink-400 mt-2">Clientul poate alege între „parțial conform" și „neconform". Opțiunea mai bună rămâne afișată, dar dezactivată, cu motivul scris alături.</div>
+          <div class="text-[11px] text-ink-400 mt-2">Clientul poate alege între „parțial conform" și „neconform" — cele trei valori sunt exact variantele a), b) și c) din model. Opțiunea mai bună rămâne afișată, dar dezactivată, cu motivul scris alături.</div>
         </div>
       </div>
 
@@ -93,7 +93,7 @@ report_url:   "https://…/raport-2026-09.html"</pre>
         </div>
         <div class="min-w-0">
           <div class="text-[13.5px] font-bold text-ink-900">4 · Pagina afișează varianta mai proastă dintre cele două</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Nimeni nu a scris de mână stadiul de conformitate. Nici nu există un câmp în care să poată fi scris.</div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Nimeni nu a scris de mână situația conformității. Nici nu există un câmp în care să poată fi scrisă.</div>
         </div>
       </div>
 
@@ -138,7 +138,7 @@ report_url:   "https://…/raport-2026-09.html"</pre>
       </div>
     </div>
     <div class="rounded-lg border border-surface-200 bg-surface-50 px-3.5 py-2.5 mt-4 text-[11.5px] text-ink-600 leading-relaxed">
-      Rezultă că <strong class="text-ink-800">nu avem nevoie de un tabel de audituri și nici de o bibliotecă de urmărire a versiunilor.</strong> Istoricul evaluărilor este chiar istoricul modificărilor fișierului. În plus, un test automat oprește livrarea dacă cineva scrie „conform în totalitate" fără să existe un raport de audit făcut de o firmă externă.
+      Rezultă că <strong class="text-ink-800">nu avem nevoie de un tabel de audituri și nici de o bibliotecă de urmărire a versiunilor.</strong> Istoricul evaluărilor este chiar istoricul modificărilor fișierului. În plus, un test automat oprește livrarea dacă cineva scrie „pe deplin conform" fără un raport de la un organism de inspecție acreditat RENAR — singura dovadă pe care legea o recunoaște.
     </div>
   </div>
 
