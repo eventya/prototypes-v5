@@ -1,9 +1,5 @@
 # Declarația privind accesibilitatea — plan de implementare
 
-> **Notă de versiune.** Prima versiune reconstruia modelul din surse secundare și marca trei lucruri neverificate. Între timp au fost citite integral textele oficiale — modelul european, directiva, ordonanța, normele ADR cu **modelul obligatoriu românesc**, Ghidul tehnic ADR și raportul de monitorizare pe 2025. Secțiunea 4 arată ce s-a confirmat și ce a trebuit corectat; sursele sunt la final.
-
----
-
 ## 1. De ce facem asta
 
 Orice instituție publică din România este obligată prin lege să publice pe site o **declarație privind accesibilitatea**. Este un document public, cu o formă fixată prin lege, în care instituția spune deschis cât de accesibil este site-ul ei pentru persoanele cu dizabilități și ce anume nu este încă accesibil.
@@ -19,9 +15,9 @@ Orice instituție publică din România este obligată prin lege să publice pe 
 
 Verificarea și sancționarea le face **Autoritatea pentru Digitalizarea României (ADR)**.
 
-### Amenzile — corectate față de prima versiune a planului
+### Amenzile
 
-Prima versiune spunea „6.000–12.000 lei". **Cifra nu se regăsește în textul legii.** OUG 112/2018, art. 11, exprimă amenzile în *puncte*, iar art. 11 alin. (2) definește: **un punct = salariul minim brut pe țară garantat în plată.**
+OUG 112/2018, art. 11, exprimă amenzile în *puncte*, iar alin. (2) definește: **un punct = salariul minim brut pe țară garantat în plată.** Nu există o sumă fixă în lege.
 
 | Fapta | Amenda |
 |---|---|
@@ -75,13 +71,13 @@ Din această regulă decurg trei decizii care structurează tot restul:
 
 ---
 
-## 4. Modelul oficial — ce s-a confirmat și ce a trebuit corectat
+## 4. Modelul oficial
 
 Modelul obligatoriu în România este **anexa nr. 1 la Normele ADR din 06.12.2022**. Este o preluare a modelului european din Decizia 2018/1523, cu o diferență esențială, explicată mai jos.
 
 ### Structura oficială
 
-Legea numerotează **două secțiuni**, nu șase:
+Legea numerotează **două secțiuni**:
 
 - **SECȚIUNEA 1 — Conținutul obligatoriu**
 - **SECȚIUNEA a 2-a — Conținutul opțional**
@@ -128,20 +124,11 @@ Procedura de asigurare a aplicării — modelul dă chiar datele de contact:
 > **Autoritatea pentru Digitalizarea României (ADR)**, Bd. Libertății nr. 14, București, sector 5
 > e-mail: monitorizare.accesibilitateweb@adr.gov.ro
 
-### Ce am greșit în prima versiune
+### Conformitatea se declară față de ordonanță, nu față de standard
 
-| Ce scria în prototip | Ce spune modelul oficial |
-|---|---|
-| „Declarație de accesibilitate" | **„Declarație privind accesibilitatea"** |
-| „Stadiul conformității" | **„Situația conformității"** |
-| „Conținut neaccesibil" | **„Conținutul inaccesibil"** |
-| „Întocmirea declarației" | **„Elaborarea prezentei declarații privind accesibilitatea"** |
-| „Procedura de asigurare a respectării legislației" | **„Procedura de asigurare a aplicării"** |
-| „excepții" | **„exceptări"** |
-| „parțial conform **cu WCAG 2.1 AA**" | **„parțial conform cu O.U.G. nr. 112/2018"** |
-| „cele șase secțiuni ale modelului" | două secțiuni: conținut obligatoriu și conținut opțional |
+Este detaliul cel mai ușor de ratat. Modelul românesc raportează conformitatea la **O.U.G. nr. 112/2018**. Standardul — EN 301 549, care preia WCAG 2.1 AA — rămâne instrumentul prin care se măsoară, dar afirmația publică se face față de ordonanță.
 
-**Ultima corectură este cea care contează cel mai mult.** Modelul românesc raportează conformitatea la **ordonanță**, nu direct la standard. Standardul (EN 301 549 → WCAG 2.1 AA) rămâne instrumentul prin care se măsoară, dar afirmația publică se face față de OUG 112/2018. Pe pagină scriem forma legală și explicăm standardul într-o propoziție separată, ca cititorul să înțeleagă ce s-a măsurat.
+Pe pagină scriem forma legală și explicăm standardul într-o propoziție separată, ca cititorul să înțeleagă ce anume s-a măsurat. Terminologia modelului se respectă la fel de strict: se spune **„exceptări"**, nu „excepții".
 
 ### Un detaliu care ne ajută
 
@@ -151,7 +138,7 @@ Modelul european cere să se indice **metoda** folosită la elaborarea declaraț
 
 ## 5. Ce adaugă legea românească peste model
 
-Aici sunt lucrurile pe care prima versiune a planului nu le știa. Fiecare are consecință directă asupra a ce construim.
+Ordonanța și normele merg mai departe decât modelul european. Fiecare obligație de mai jos are consecință directă asupra a ce construim.
 
 ### 5.1 Declarația se reînnoiește **anual**, iar la o problemă constatată se actualizează **în 3 zile**
 
@@ -165,7 +152,7 @@ La nivel european, revizuirea anuală este doar *recomandată*. În România est
 
 > OUG 112/2018, art. 6 alin. (5): „…un răspuns adecvat pentru fiecare informare sau solicitare, **în termen de 30 de zile de la data înregistrării solicitării**."
 
-Directiva spune doar „într-o perioadă de timp rezonabilă"; România pune un număr. **Gap închis.**
+Directiva spune doar „într-o perioadă de timp rezonabilă"; România pune un număr.
 
 **Ce construim:** termenul se scrie pe pagină și în e-mailul de confirmare. Tichetul creat în Helpdesk primește un termen de 30 de zile de la înregistrare.
 
@@ -205,7 +192,7 @@ Alegem varianta a doua. Este exact ce făcea deja prototipul.
 
 > OUG 112/2018, art. 7 și 9 alin. (2): conformitatea se evaluează de **organisme de inspecție de tip A, acreditate de RENAR**. Normele ADR: raportul de inspecție este valabil **3 ani**.
 
-**Ce corectăm:** peste tot unde scria „audit făcut de o firmă externă" scriem „**organism de inspecție acreditat RENAR**". Nu orice firmă de consultanță produce un raport care contează în fața ADR.
+**Ce construim:** peste tot unde interfața vorbește despre o evaluare externă, termenul folosit este „**organism de inspecție acreditat RENAR**". Nu orice firmă de consultanță produce un raport care contează în fața ADR.
 
 ### 5.9 Ce spune Ghidul ADR și cum verifică ADR în practică
 
@@ -229,9 +216,9 @@ Ghidul tehnic al ADR (v1.0, februarie 2023) și rapoartele anuale de monitorizar
 | 6 | Corelații greu de stabilit între elemente | nu — verificare manuală |
 | 7 | Lipsa valorii semantice pentru structura paginii | da |
 
-**O evaluare făcută în timpul dezvoltării nu poate susține o declarație de conformitate.** Ghidul spune asta explicit: evaluările din etapele de proiectare „nu trebuie utilizate pentru a face declarații de conformitate cu site-ul finalizat". Este o corectură directă a designului nostru inițial.
+**O evaluare făcută în timpul dezvoltării nu poate susține o declarație de conformitate.** Ghidul spune asta explicit: evaluările din etapele de proiectare „nu trebuie utilizate pentru a face declarații de conformitate cu site-ul finalizat".
 
-*Ce schimbăm:* verificarea din procesul de integrare rămâne, dar rolul ei este **să nu lase o regresie să ajungă în producție**. Valoarea care ajunge în `config/accessibility.yml` se ia dintr-o **rulare pe un site de referință deja publicat**, cu conținut real, nu dintr-o rulare pe o ramură de dezvoltare. Practic: același job, două momente și două roluri diferite.
+*Consecința:* verificarea din procesul de integrare are rolul de **a nu lăsa o regresie să ajungă în producție**. Valoarea care ajunge în `config/accessibility.yml` se ia dintr-o **rulare pe un site de referință deja publicat**, cu conținut real, nu dintr-o rulare pe o ramură de dezvoltare. Același job, două momente și două roluri diferite.
 
 **Automat și manual, împreună.** Ghidul cere explicit ambele metode. Lista manuală o parcurgem la fiecare livrare importantă și acoperă exact punctele 1 și 6 din tabel.
 
@@ -411,7 +398,7 @@ Rulează în două momente, cu două roluri diferite:
 | La fiecare modificare de cod | **Oprește integrarea** dacă apare o regresie. Nu produce afirmații publice. |
 | Pe un site de referință publicat, cu conținut real | **Produce valoarea** care ajunge în `config/accessibility.yml` și raportul public. |
 
-Separarea vine din Ghidul ADR, care spune că o evaluare din etapa de dezvoltare nu poate susține o declarație de conformitate pentru site-ul finalizat.
+Separarea vine din Ghidul ADR: o evaluare din etapa de dezvoltare nu poate susține o declarație de conformitate pentru site-ul finalizat.
 
 - raportul se publică și ajunge ca link în declarație; clientul îl poate descărca pentru analiza cerută de art. 8 din norme;
 - ce nu poate fi verificat automat — vizibilitatea focalizării, corelațiile dintre elemente, ordinea logică de citire, dacă textele alternative chiar descriu imaginea — intră într-o listă de verificare manuală, parcursă la fiecare livrare importantă. Ghidul cere explicit ambele metode, folosite împreună.
@@ -535,8 +522,6 @@ Un test automat parcurge toate titlurile oficiale în toate limbile platformei �
 
 Nicio bibliotecă nouă. Nicio permisiune nouă. Nicio modificare a tabelului `accounts`. **Un singur tabel nou** și **o singură sarcină programată**, aceasta din urmă doar pentru că legea cere reînnoirea anuală.
 
-Față de prima versiune a planului, s-au adăugat exact două lucruri: jobul anual și câmpurile impuse de lege (responsabilul cu accesibilitatea și evaluarea publicată). Restul a rămas la fel — ceea ce este un semn bun pentru forma aleasă.
-
 ### Dacă timpul este scurt
 
 Etapa 1 și pașii 4–7 din Etapa 2 aduc conformitatea legală de bază pentru toate site-urile. **Etapa 4 nu este opțională**: fără republicarea anuală, clientul intră sub art. 11 alin. (1) lit. b). Ce se poate amâna este ecranul de administrare, nu jobul.
@@ -565,4 +550,4 @@ Textele au fost citite integral, în limba română, din următoarele surse:
 - **Ghidul tehnic ADR** privind accesibilitatea și utilizarea resurselor internet, v1.0, februarie 2023 — [PDF pe adr.gov.ro](https://www.adr.gov.ro/accesibilitate-site-uri-web/), capitolele 2, 4 și 5.
 - **Raportul ADR de monitorizare a accesibilității, 2025** — [PDF pe adr.gov.ro](https://www.adr.gov.ro/accesibilitate-site-uri-web/): instrumentul folosit, pragurile de scor și cele șapte neconformități cele mai frecvente.
 
-Tot lanțul normativ și documentele ADR au fost citite. Nu a mai rămas niciun document deschis.
+Toate textele de mai sus au fost citite integral, în original.
