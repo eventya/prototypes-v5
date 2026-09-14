@@ -106,7 +106,7 @@ Declarația fiecărui workspace o preia
 Clientul o poate doar înrăutăți
 ```
 
-**Evaluarea platformei este una singură**, pentru codul comun: tema, componentele și paginile generate rulează identic pe toate workspace-urile, deci toate o moștenesc. **Se publică dintr-un ecran în `/stejar-admin`**, cu situația conformității, metoda, data, scorul, linkul către raport și exceptările valabile pentru toate site-urile. Trei reguli îl țin onest:
+**Evaluarea platformei este una singură**, pentru codul comun: tema, componentele și paginile generate rulează identic pe toate workspace-urile, deci toate o moștenesc. **Se publică dintr-un ecran în `/stejar-admin`**, cu doar patru câmpuri: situația conformității, metoda, data și linkul către raport. Ecranul nu conține nicio listă de exceptări - exceptările privesc conținutul instituției și stau în setările ei. Trei reguli îl țin onest:
 
 1. **Se publică, nu se editează.** Fiecare publicare este un rând nou, cu autor și dată. Nimic nu se modifică în loc și nimic nu se șterge - istoricul este chiar lista publicărilor.
 2. **„Pe deplin conform" cere un raport de la un organism acreditat RENAR.** Opțiunea rămâne dezactivată până când raportul e atașat. O verificare automată nu poate demonstra că *toate* cerințele sunt îndeplinite, iar modelul cere exact asta pentru varianta a).
@@ -163,9 +163,8 @@ O precizare de realism: axe-core acoperă în jur de 30-40% din criteriile WCAG.
 | Coloana | Ce conține |
 |---|---|
 | `status` | `conformant` / `partially_conformant` / `non_conformant` |
-| `method` | `self_assessment` / `accredited_inspection` |
-| `assessed_on`, `report_url`, `score` | Data, raportul și scorul Lighthouse |
-| `known_issues` (jsonb) | Exceptările valabile pentru toate site-urile |
+| `evaluation_method` | `self_assessment` / `accredited_inspection` |
+| `assessed_on`, `report_url` | Data evaluării și, opțional, raportul |
 | `published_by_id`, `created_at` | Cine și când |
 
 **Ce completează clientul** - în `account.settings['accessibility']`, lângă `legal_data` și `legal_contact` care există deja. Coloana e `jsonb`, deci nicio migrare pe `accounts`:
@@ -173,8 +172,8 @@ O precizare de realism: axe-core acoperă în jur de 30-40% din criteriile WCAG.
 ```ruby
 {
   "officer"          => { "name" => "…", "email" => "…", "phone" => "…" },
-  "exceptions"       => [ { "basis" => "non_conformance", "key" => "scanned_pdfs" },
-                          { "basis" => "disproportionate_burden",
+  "catalog_keys"     => ["scanned_pdfs", "word_forms"],   # exceptări predefinite bifate; implicit: PDF-uri, imagini fără text, hărți terțe
+  "custom"           => [ { "basis" => "disproportionate_burden",
                             "text" => { "ro" => "…" }, "assessment" => { "ro" => "…" } } ],
   "status_override"  => nil,                       # doar către o valoare mai proastă
   "helpdesk_form"    => { "enabled" => true, "department_id" => 3 },
@@ -192,11 +191,11 @@ Salvăm textul, nu referințe: o versiune din 2027 reconstituită în 2029 ar pr
 
 ## 9. Pagina și linkul din subsol
 
-- **Ruta** stă în eventya, `config/routes/account_website.rb`, deasupra rutei generale de pagini CMS - tiparul deja folosit de `delete_user` și `all_reviews`. Funcționează și pe domeniu propriu, și pe `eventya.net/<slug>/accesibilitate`.
+- **Ruta** stă în eventya, `config/routes/account_website.rb`, deasupra rutei generale de pagini CMS - tiparul deja folosit de `delete_user` și `all_reviews`. O singură rută, constrânsă la adresele din fișierele de traducere (`/accesibilitate`, `/accessibility`, `/barrierefreiheit`…): un workspace cu 14 limbi are 14 adrese, unul cu una are una, iar adresa vizitată alege limba, dacă `?locale=` nu spune altfel. Funcționează și pe domeniu propriu, și pe `eventya.net/<slug>/…`.
 - **Controllerul** moștenește `Stejar::Website::BaseController` și **sare peste `enforce_account_visibility`**: altfel un workspace privat și-ar ascunde propria declarație legală în spatele autentificării.
 - **Limbile**: `?locale=xx`, ca peste tot pe platformă. Textele standard stau în fișierele de traducere; textele clientului se completează pe fiecare limbă.
 - **Adresa** intră în `RESERVED_SLUGS`; pagina intră în `sitemap.xml`.
-- **Linkul din subsol** se adaugă în `FooterComponent#legal_pages`, în cod, **pe ultima poziție**, după linkurile configurate din CMS. Nu e element de meniu, deci nu poate fi șters.
+- **Linkul din subsol** se adaugă în `FooterComponent#legal_pages`, în cod, **pe ultima poziție**, după linkurile configurate din CMS. Nu e element de meniu, deci nu poate fi șters. Dacă un workspace a legat deja declarația printr-un element de meniu, linkul nu se dublează.
 - **Pagina e ea însăși în setul verificat**: un singur `h1`, structură semantică, iar culoarea de brand a clientului nu se aplică pe text mic.
 
 ---
@@ -232,7 +231,7 @@ Etapa 1 și pașii din Etapa 2 aduc conformitatea de bază pentru toate site-uri
 | Riscul | Cum e închis |
 |---|---|
 | Declarăm o conformitate pe care nu o avem | Situația nu se scrie în CMS. În admin, „pe deplin conform" cere raport de la organism acreditat; fiecare publicare rămâne în istoric, cu autor. |
-| Clientul urcă sute de PDF-uri scanate | Exceptarea despre PDF-uri e a platformei, activă automat, și clientul nu o poate șterge. |
+| Clientul urcă sute de PDF-uri scanate | Exceptarea despre PDF-uri e bifată implicit în orice workspace nou; declarația o listează din prima zi. |
 | O pagină CMS `/accesibilitate` o ascunde pe a noastră | Ruta noastră e declarată înaintea celei generale și adresa e rezervată. |
 | Cineva șterge linkul din subsol | Nu e element de meniu; e în cod. |
 | Un workspace privat își ascunde declarația | Controllerul sare peste verificarea de vizibilitate. |
