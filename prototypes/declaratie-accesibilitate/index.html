@@ -69,12 +69,12 @@
 
     <div class="rounded-lg border border-red-200 dark:border-red-500/20 bg-red-50/60 dark:bg-red-500/5 px-4 py-3 mt-4 flex gap-2.5 max-w-2xl">
       <svg class="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <div class="text-[11.5px] text-red-800 dark:text-red-200 leading-relaxed"><strong>Regula după care se ordonează tot planul: nu publicăm declarația înainte ca ea să spună adevărul.</strong> O declarație falsă lasă amenda la client și răspunderea la noi. De aceea nicăieri în platformă nu există un câmp în care cineva să scrie stadiul de conformitate: valoarea este calculată din verificarea automată care rulează la fiecare modificare de cod. Și de aceea prima etapă de lucru este verificarea site-urilor, nu construirea paginii.</div>
+      <div class="text-[11.5px] text-red-800 dark:text-red-200 leading-relaxed"><strong>Regula după care se ordonează tot planul: nu publicăm declarația înainte ca ea să spună adevărul.</strong> O declarație falsă lasă amenda la client și răspunderea la noi. De aceea situația conformității nu se scrie de mână în CMS: vine din evaluarea platformei, pe care o publicăm noi, din admin, cu autor și istoric. Și de aceea prima etapă de lucru este verificarea site-urilor, nu construirea paginii.</div>
     </div>
 
     <div class="rounded-lg border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-3 mt-3 flex gap-2.5 max-w-2xl">
       <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-      <div class="text-[11.5px] text-amber-800 dark:text-amber-200 leading-relaxed"><strong>Formulările sunt cele din anexa nr. 1 la Normele ADR, cuvânt cu cuvânt.</strong> Ordonanța adaugă peste modelul european trei termene ferme — declarația se reînnoiește <strong>anual</strong>, se actualizează în <strong>3 zile</strong> de la o problemă constatată, iar o sesizare primește răspuns în <strong>30 de zile</strong>. Din Ghidul tehnic ADR și din raportul de monitorizare pe 2025 știm cu ce instrument verifică ADR, pe ce praguri de scor și care sunt cele șapte neconformități găsite cel mai des. Secțiunile 4, 5 și 11 din plan detaliază, cu sursele.</div>
+      <div class="text-[11.5px] text-amber-800 dark:text-amber-200 leading-relaxed"><strong>Formulările sunt cele din anexa nr. 1 la Normele ADR, cuvânt cu cuvânt.</strong> Ordonanța adaugă trei termene ferme: declarația se reînnoiește <strong>anual</strong>, se actualizează în <strong>3 zile</strong> de la o problemă constatată, iar o sesizare primește răspuns în <strong>30 de zile</strong>. Verificarea folosește un singur motor, axe-core - același care stă în Lighthouse și în instrumentul ADR - direct în suita RSpec. Evaluarea platformei se publică dintr-un ecran de admin, cu istoric.</div>
     </div>
 
     <!-- Screens, grouped by phase -->
@@ -101,7 +101,7 @@
         <div class="space-y-2">
           <a href="03-setari-accesibilitate.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">3</span>
-            <div class="text-[13px] font-medium text-ink-800">Setări workspace · responsabilul cu accesibilitatea, exceptările, ce e blocat</div>
+            <div class="text-[13px] font-medium text-ink-800">Setări workspace · responsabilul cu accesibilitatea, exceptările, formularul</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
           <a href="04-continut-neaccesibil.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
@@ -122,12 +122,12 @@
         <div class="space-y-2">
           <a href="07-de-unde-vine-statusul.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">6</span>
-            <div class="text-[13px] font-medium text-ink-800">De unde vine situația conformității · drumul de la verificare până la pagină</div>
+            <div class="text-[13px] font-medium text-ink-800">De unde vine situația conformității · verificare → evaluare publicată → declarație</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
           <a href="06-admin-flota.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">7</span>
-            <div class="text-[13px] font-medium text-ink-800">Panoul de administrare · evaluarea platformei și termenele anuale</div>
+            <div class="text-[13px] font-medium text-ink-800">Admin · publicarea evaluării platformei, cu istoric, și vederea de ansamblu</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
         </div>

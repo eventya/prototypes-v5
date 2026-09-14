@@ -12,7 +12,7 @@
 <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
   <div class="flex items-center gap-2">
     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația privind accesibilitatea — 6. Admin platformă</span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația privind accesibilitatea - 6. Admin platformă</span>
   </div>
   <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
 </div>
@@ -25,146 +25,143 @@
     <span class="text-ink-600 font-medium">Accesibilitate</span>
   </div>
 
-  <div class="text-2xl font-bold tracking-tight text-ink-900">Accesibilitate — flota</div>
+  <div class="text-2xl font-bold tracking-tight text-ink-900">Accesibilitate</div>
   <div class="text-[13px] text-ink-500 mt-1.5 leading-relaxed max-w-2xl">
-    Ecranul acesta <strong class="text-ink-700">nu modifică nimic</strong>. Este o vedere de ansamblu: ce declarăm noi, unde a schimbat un client valorile stabilite de platformă și — cel mai important — unde o declarație se apropie de termenul anual de reînnoire.
+    Aici publicăm evaluarea platformei - una singură, pentru codul comun. Declarația fiecărui workspace o preia automat, iar fiecare workspace are în plus propria verificare lunară, cu scor.
   </div>
 
-  <!-- platform statement, read only -->
+  <!-- Evaluarea platformei: formular de publicare -->
   <div class="card p-5 mt-6">
-    <div class="flex items-center gap-2 mb-3.5">
-      <svg class="w-3.5 h-3.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Evaluarea platformei · fișierul <code class="bg-surface-100 px-1 rounded normal-case tracking-normal">stejar/config/accessibility.yml</code></div>
+    <div class="flex items-start justify-between gap-3 mb-4">
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1">Evaluarea platformei</div>
+        <div class="text-[12px] text-ink-500 leading-relaxed">Valabilă în acest moment: publicată la <strong class="text-ink-800">3 sept. 2026</strong> de Andrei Pop.</div>
+      </div>
+      <span class="badge badge--warning shrink-0">parțial conform</span>
     </div>
 
-    <div class="grid sm:grid-cols-4 gap-3">
-      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
-        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Situația conformității</div>
-        <div class="text-[13px] font-bold text-ink-900 mt-1">Parțial conform</div>
-        <div class="text-[11px] text-ink-500">WCAG 2.1 AA</div>
+    <div class="text-[12px] font-medium text-ink-700 mb-2">Situația conformității</div>
+    <div class="space-y-2 mb-5">
+      <label class="flex items-start gap-2.5 rounded-xl border border-surface-200 bg-surface-100/60 p-3.5 opacity-55 cursor-not-allowed">
+        <input type="radio" name="st" disabled class="mt-0.5">
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-ink-800 flex items-center gap-2">
+            a) Pe deplin conform
+            <svg class="w-3 h-3 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="text-[11.5px] text-ink-500 mt-0.5 leading-relaxed">Se poate alege doar cu un raport de la un organism de inspecție acreditat RENAR. Modelul cere ca <em>toate</em> cerințele să fie îndeplinite, iar o verificare automată nu poate demonstra asta.</div>
+        </div>
+      </label>
+      <label class="flex items-start gap-2.5 rounded-xl border-2 border-primary bg-primary-light p-3.5 cursor-pointer">
+        <input type="radio" name="st" checked class="mt-0.5">
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-ink-900">b) Parțial conform</div>
+          <div class="text-[11.5px] text-ink-600 mt-0.5 leading-relaxed">Majoritatea cerințelor sunt îndeplinite, cu exceptările de mai jos.</div>
+        </div>
+      </label>
+      <label class="flex items-start gap-2.5 rounded-xl border border-surface-200 bg-surface-0 p-3.5 cursor-pointer hover:border-surface-300">
+        <input type="radio" name="st" class="mt-0.5">
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-ink-900">c) Neconform</div>
+          <div class="text-[11.5px] text-ink-500 mt-0.5 leading-relaxed">Majoritatea cerințelor nu sunt îndeplinite.</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-3 mb-5">
+      <div>
+        <label for="m" class="block text-[12px] font-medium text-ink-700 mb-1.5">Metoda</label>
+        <div class="relative">
+          <input id="m" class="input pr-9" type="text" value="Autoevaluare">
+          <svg class="w-4 h-4 text-ink-300 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
       </div>
-      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
-        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Metodă</div>
-        <div class="text-[13px] font-bold text-ink-900 mt-1">Autoevaluare</div>
-        <div class="text-[11px] text-ink-500">axe-core + Pa11y</div>
+      <div>
+        <label for="d" class="block text-[12px] font-medium text-ink-700 mb-1.5">Data evaluării</label>
+        <input id="d" class="input" type="date" value="2026-09-03">
       </div>
-      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
-        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Ultima revizuire</div>
-        <div class="text-[13px] font-bold text-ink-900 mt-1">3 sept. 2026</div>
-        <div class="text-[11px] text-emerald-600 dark:text-emerald-400">acum 6 zile</div>
-      </div>
-      <div class="rounded-xl border border-surface-200 bg-surface-50 p-3.5">
-        <div class="text-[10px] text-ink-400 uppercase tracking-wider">Versiunea</div>
-        <div class="text-[13px] font-bold text-ink-900 mt-1 font-mono">7b2e1af</div>
-        <a href="#" class="text-[11px] text-primary underline">raportul</a>
+      <div>
+        <label for="sc" class="block text-[12px] font-medium text-ink-700 mb-1.5">Scor Lighthouse</label>
+        <input id="sc" class="input" type="number" value="94">
       </div>
     </div>
 
-    <div class="rounded-lg border border-surface-200 bg-surface-50 px-3.5 py-2.5 mt-3.5 flex gap-2.5">
-      <svg class="w-4 h-4 text-ink-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      <div class="text-[11.5px] text-ink-600 leading-relaxed">
-        Nu există buton de editare aici, iar asta este intenționat. Situația conformității se schimbă doar printr-o modificare de cod, cu autor și cu un coleg care o aprobă. Un buton în panoul de administrare ar fi exact felul în care cineva grăbit ar declara conformitate fără să o fi verificat.
-      </div>
+    <label for="r" class="block text-[12px] font-medium text-ink-700 mb-1.5">Raportul de evaluare</label>
+    <input id="r" class="input mb-1.5" type="url" value="https://eventya.net/rapoarte/accesibilitate-2026-09.html">
+    <div class="text-[11px] text-ink-400 mb-5">Rularea Lighthouse pe site-ul de referință, cu conținut real. Rulează automat după fiecare deploy în producție și precompletează câmpurile de mai sus; publicarea rămâne un click. Apare ca link în declarația fiecărui workspace.</div>
+
+    <div class="text-[12px] font-medium text-ink-700 mb-2">Exceptări valabile pentru toate site-urile</div>
+    <div class="flex flex-wrap gap-1.5 mb-5">
+      <span class="badge">a · documente PDF publicate anterior datei de 23 sept. 2018</span>
+      <span class="badge">a · imagini încărcate de redactori fără text alternativ</span>
+      <span class="badge">c · hărți interactive furnizate de terți</span>
+      <span class="badge">c · transmisiuni în direct nearhivate</span>
+      <button class="btn btn--sm btn--ghost">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        Adaugă
+      </button>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-4 border-t border-surface-200">
+      <div class="text-[11.5px] text-ink-500 leading-relaxed">Publicarea creează o evaluare nouă, cu autor și dată. Cea veche rămâne în istoric. Nimic nu se editează în loc și nimic nu se șterge.</div>
+      <button class="btn btn--primary shrink-0 sm:ml-auto">Publică evaluarea</button>
     </div>
   </div>
 
-  <!-- alerts -->
-  <div class="grid sm:grid-cols-3 gap-3 mt-4">
-    <div class="card p-4">
-      <div class="text-2xl font-bold text-ink-900">147</div>
-      <div class="text-[12px] text-ink-500 mt-0.5">workspace-uri cu declarația publicată</div>
-      <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1.5 font-medium">toate site-urile · nicio lipsă</div>
+  <!-- Istoric -->
+  <div class="card p-5 mt-4">
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3.5">Istoricul evaluărilor</div>
+    <div class="rounded-xl border border-surface-200 divide-y divide-surface-200 overflow-hidden">
+      <div class="flex flex-wrap items-center gap-3 px-4 py-2.5">
+        <span class="text-[12px] font-medium text-ink-900 w-28">3 sept. 2026</span>
+        <span class="badge badge--warning">parțial conform</span>
+        <span class="text-[12px] text-ink-600">scor 94 · autoevaluare</span>
+        <span class="text-[11px] text-ink-400 ml-auto">Andrei Pop</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 px-4 py-2.5">
+        <span class="text-[12px] font-medium text-ink-900 w-28">2 mar. 2026</span>
+        <span class="badge badge--warning">parțial conform</span>
+        <span class="text-[12px] text-ink-600">scor 91 · autoevaluare · + exceptare: transmisiuni în direct</span>
+        <span class="text-[11px] text-ink-400 ml-auto">Andrei Pop</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 px-4 py-2.5">
+        <span class="text-[12px] font-medium text-ink-900 w-28">14 oct. 2025</span>
+        <span class="badge badge--warning">parțial conform</span>
+        <span class="text-[12px] text-ink-600">scor 87 · autoevaluare · prima evaluare</span>
+        <span class="text-[11px] text-ink-400 ml-auto">Ioana Radu</span>
+      </div>
     </div>
-    <div class="card p-4">
-      <div class="text-2xl font-bold text-amber-600 dark:text-amber-400">3</div>
-      <div class="text-[12px] text-ink-500 mt-0.5">site-uri fără evaluarea sarcinii disproporționate publicată</div>
-      <div class="text-[11px] text-ink-400 mt-1.5">obligatorie prin art. 4 alin. (7)</div>
-    </div>
-    <div class="card p-4">
-      <div class="text-2xl font-bold text-red-600 dark:text-red-400">2</div>
-      <div class="text-[12px] text-ink-500 mt-0.5">site-uri fără responsabil cu accesibilitatea desemnat</div>
-      <div class="text-[11px] text-ink-400 mt-1.5">publicarea rămâne blocată până atunci</div>
-    </div>
+    <div class="text-[11px] text-ink-400 mt-3 leading-relaxed">Fiecare rând e o evaluare publicată. La o inspecție, lista asta arată cine a declarat ce și când.</div>
   </div>
 
-  <!-- fleet table -->
+  <!-- Flota -->
   <div class="card p-5 mt-4">
     <div class="flex items-center justify-between gap-3 mb-3.5">
-      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Diferențe față de valorile stabilite de platformă</div>
-      <div class="flex gap-1.5">
-        <button class="btn btn--sm btn--ghost">Toate</button>
-        <button class="btn btn--sm">Doar cu probleme</button>
-      </div>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Workspace-uri · 147 cu declarația publicată · verificare lunară, ultima pe 1 sept. 2026</div>
+      <button class="btn btn--sm">Doar cu probleme</button>
     </div>
-
     <div class="overflow-x-auto">
       <table class="table w-full text-[12.5px]">
         <thead>
           <tr>
             <th class="text-left">Workspace</th>
             <th class="text-left">Situația conformității</th>
-            <th class="text-left">Exceptări proprii</th>
+            <th class="text-left">Scor</th>
+            <th class="text-left">Responsabil</th>
             <th class="text-left">Reînnoire anuală</th>
             <th class="text-left">Semnal</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="font-medium text-ink-900">Uricani</td>
-            <td>Parțial conform</td>
-            <td>2</td>
-            <td>peste 11 luni</td>
-            <td><span class="badge badge--positive">în regulă</span></td>
-          </tr>
-          <tr>
-            <td class="font-medium text-ink-900">Petrila</td>
-            <td>Parțial conform</td>
-            <td>0</td>
-            <td>peste 11 luni</td>
-            <td><span class="badge badge--negative">fără responsabil</span></td>
-          </tr>
-          <tr>
-            <td class="font-medium text-ink-900">Reghin</td>
-            <td><span class="text-amber-700 dark:text-amber-300 font-medium">Neconform</span> <span class="text-ink-400">— schimbat de client</span></td>
-            <td>5</td>
-            <td>peste 10 luni</td>
-            <td><span class="badge badge--warning">de discutat</span></td>
-          </tr>
-          <tr>
-            <td class="font-medium text-ink-900">Visit Timiș</td>
-            <td>Parțial conform</td>
-            <td>3</td>
-            <td><strong>în 19 zile</strong></td>
-            <td><span class="badge badge--warning">fără evaluare publicată</span></td>
-          </tr>
-          <tr>
-            <td class="font-medium text-ink-900">Galați</td>
-            <td>Parțial conform</td>
-            <td>1</td>
-            <td>peste 11 luni</td>
-            <td><span class="badge badge--positive">în regulă</span></td>
-          </tr>
-          <tr>
-            <td class="font-medium text-ink-900">Visit Covasna</td>
-            <td>Parțial conform</td>
-            <td>0</td>
-            <td>peste 11 luni</td>
-            <td><span class="badge badge--negative">fără responsabil</span></td>
-          </tr>
+          <tr><td class="font-medium text-ink-900">Uricani</td><td>Parțial conform</td><td>91</td><td>da</td><td>peste 11 luni</td><td><span class="badge badge--positive">în regulă</span></td></tr>
+          <tr><td class="font-medium text-ink-900">Petrila</td><td>Parțial conform</td><td>88</td><td><strong class="text-red-600 dark:text-red-400">lipsă</strong></td><td>peste 11 luni</td><td><span class="badge badge--negative">fără responsabil</span></td></tr>
+          <tr><td class="font-medium text-ink-900">Reghin</td><td><span class="text-amber-700 dark:text-amber-300 font-medium">Neconform</span> <span class="text-ink-400">- schimbat de client</span></td><td><strong class="text-red-600 dark:text-red-400">47</strong></td><td>da</td><td>peste 10 luni</td><td><span class="badge badge--warning">de discutat</span></td></tr>
+          <tr><td class="font-medium text-ink-900">Visit Timiș</td><td>Parțial conform</td><td>93</td><td>da</td><td><strong>în 19 zile</strong></td><td><span class="badge badge--warning">evaluare nepublicată</span></td></tr>
+          <tr><td class="font-medium text-ink-900">Galați</td><td>Parțial conform</td><td>90</td><td>da</td><td>peste 11 luni</td><td><span class="badge badge--positive">în regulă</span></td></tr>
         </tbody>
       </table>
     </div>
-
-    <div class="text-[11px] text-ink-400 mt-3 leading-relaxed">
-      „Schimbat de client" nu este o eroare. Este dreptul lui și, uneori, chiar adevărul. De aceea semnalul spune „de discutat", nu „de reparat": un client care se declară neconform este un client care are nevoie de ajutorul nostru.
-    </div>
-  </div>
-
-  <div class="rounded-lg border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 px-4 py-3 mt-4 flex gap-2.5">
-    <svg class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    <div class="text-[11.5px] text-sky-800 dark:text-sky-200 leading-relaxed">
-      <strong>Ecranul acesta se livrează în Etapa 4, împreună cu reînnoirea anuală automată.</strong> Ecranul se poate amâna; <strong>jobul anual nu</strong> — fără el, clientul intră sub amenda pentru neactualizare.
-    </div>
+    <div class="text-[11px] text-ink-400 mt-3 leading-relaxed">Scorul e cel al verificării lunare pe paginile publice ale fiecărui workspace, pe pragurile ADR: sub 50 inaccesibil, 50-89 parțial, 90-100 accesibil. Scorul e un semnal, nu schimbă declarația singur. Reghin a coborât-o el, la 47 - e dreptul lui și, aici, adevărul.</div>
   </div>
 
 </div>
