@@ -35,9 +35,9 @@
           <div class="w-px flex-1 bg-surface-200 my-1.5"></div>
         </div>
         <div class="pb-6 min-w-0">
-          <div class="text-[13.5px] font-bold text-ink-900">1 · Verificarea, cu un singur motor: axe-core</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Același motor stă în Lighthouse și în instrumentul folosit de ADR. Îl folosim în două locuri: <strong class="text-ink-800">în suita RSpec</strong>, prin gemul oficial <code class="bg-surface-100 px-1 rounded">axe-core-rspec</code>, unde oprește integrarea codului la orice regresie; și <strong class="text-ink-800">ca scor Lighthouse pe un site de referință publicat</strong>, cu conținut real, pe care oricine îl poate reproduce din Chrome DevTools.</div>
-          <div class="text-[11px] text-ink-400 mt-1.5">Separarea vine din Ghidul ADR: o evaluare din etapa de dezvoltare nu poate susține o declarație de conformitate pentru site-ul finalizat. Scorul se compară direct cu pragurile ADR: 0-49 inaccesibil, 50-89 parțial, 90-100 accesibil.</div>
+          <div class="text-[13.5px] font-bold text-ink-900">1 · Auditul rulează în platformă, cu axe-core</div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Același motor stă în Lighthouse și în instrumentul folosit de ADR. Un job din platformă deschide Chromium în containerul aplicației, duminică noaptea, workspace după workspace, și la cerere din Setări → Accesibilitate. Pentru fiecare workspace verifică un eșantion derivat din codul și conținutul lui: paginile de sistem, până la trei pagini pentru fiecare componentă folosită, o pagină pe template și cele mai vizitate pagini, cel mult 60. Un site cu mii de pagini se auditează în câteva minute.</div>
+          <div class="text-[11px] text-ink-400 mt-1.5">Fără GitHub, fără teste locale, fără dependență de mașina cuiva: rezultatul e scris direct în platformă, cu revizia de cod pe care a rulat. Ce arată un iframe (YouTube, Google Maps) e conținut terț și nu se evaluează.</div>
         </div>
       </div>
 
@@ -49,9 +49,9 @@
           <div class="w-px flex-1 bg-surface-200 my-1.5"></div>
         </div>
         <div class="pb-6 min-w-0">
-          <div class="text-[13.5px] font-bold text-ink-900">2 · Noi publicăm evaluarea platformei, din admin</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Situația conformității, metoda, data, scorul, raportul și exceptările valabile pentru toate site-urile. <strong class="text-ink-800">Fiecare publicare e un rând nou, cu autor și dată</strong> - nimic nu se editează în loc și nimic nu se șterge. Vezi <a href="06-admin-flota.html" class="text-primary underline">ecranul 6</a>.</div>
-          <div class="text-[11px] text-ink-400 mt-1.5">O singură gardă: „pe deplin conform" se poate alege doar cu un raport de la un organism de inspecție acreditat RENAR, pentru că modelul cere ca <em>toate</em> cerințele să fie îndeplinite, iar o verificare automată nu poate demonstra asta.</div>
+          <div class="text-[13.5px] font-bold text-ink-900">2 · Auditul scrie statusul workspace-ului</div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">b) parțial conform când nu găsește nimic grav, c) neconform când găsește ceva grav sau critic. <strong class="text-ink-800">Fiecare rulare e un rând nou, cu paginile și problemele găsite</strong> - nimic nu se editează în loc. Nimeni nu publică de mână. Vezi <a href="06-admin-flota.html" class="text-primary underline">ecranul 6</a>.</div>
+          <div class="text-[11px] text-ink-400 mt-1.5">O singură excepție: „pe deplin conform" apare doar cu un raport de la un organism de inspecție acreditat RENAR, pus de instituție în setări, valabil 3 ani, și doar cât timp auditul nu găsește nimic grav. Modelul cere ca <em>toate</em> cerințele să fie îndeplinite, iar o verificare automată nu poate demonstra asta.</div>
         </div>
       </div>
 
@@ -63,17 +63,17 @@
           <div class="w-px flex-1 bg-surface-200 my-1.5"></div>
         </div>
         <div class="pb-6 min-w-0">
-          <div class="text-[13.5px] font-bold text-ink-900">3 · Clientul poate doar să înrăutățească valoarea</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Materialul pe care îl încarcă el - documente PDF scanate, hărți, conținut preluat - poate doar să <strong class="text-ink-800">scadă</strong> accesibilitatea site-ului, niciodată să o crească. Noi nu avem cum să garantăm nimic despre ce va încărca mâine.</div>
+          <div class="text-[13.5px] font-bold text-ink-900">3 · Constatările devin text de declarație; clientul adaugă ce știe el</div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Fiecare regulă axe are o propoziție în cele 7 limbi („Unele texte nu au contrast suficient față de fundal."), afișată la „Conținutul inaccesibil, a) neconformitate" cu numărul de pagini pe care a apărut. Materialul pe care îl încarcă instituția - documente PDF scanate, hărți, conținut preluat - îl adaugă ea, cu temeiul legal și, pentru b), cu evaluarea cerută de lege. Statusul nu îl poate schimba.</div>
           <div class="flex items-center gap-2 mt-2.5 flex-wrap">
             <span class="badge badge--positive">Pe deplin conform</span>
             <svg class="w-3.5 h-3.5 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
             <span class="badge badge--warning">Parțial conform</span>
-            <span class="text-[11px] text-ink-500 font-medium">← aici este platforma</span>
+            <span class="text-[11px] text-ink-500 font-medium">← auditul</span>
             <svg class="w-3.5 h-3.5 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
             <span class="badge badge--negative">Neconform</span>
           </div>
-          <div class="text-[11px] text-ink-400 mt-2">Cele trei valori sunt exact variantele a), b) și c) din model. Opțiunea mai bună rămâne afișată, dar dezactivată, cu motivul alături.</div>
+          <div class="text-[11px] text-ink-400 mt-2">Cele trei valori sunt exact variantele a), b) și c) din model. Nu există un select: valoarea o dă auditul, iar a) doar raportul RENAR.</div>
         </div>
       </div>
 
@@ -84,42 +84,42 @@
           </div>
         </div>
         <div class="min-w-0">
-          <div class="text-[13.5px] font-bold text-ink-900">4 · Pagina afișează varianta mai proastă dintre cele două</div>
-          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">În formularea din anexa nr. 1: „parțial conform cu O.U.G. nr. 112/2018, ca urmare a neconformităților și/sau exceptărilor menționate mai jos".</div>
+          <div class="text-[13.5px] font-bold text-ink-900">4 · Pagina se compune live, la fiecare vizită</div>
+          <div class="text-[12.5px] text-ink-600 leading-relaxed mt-1">Din ultimul audit și din ce a completat instituția, în formularea din anexa nr. 1: „neconform cu O.U.G. nr. 112/2018. Neconformitățile și/sau exceptările sunt indicate mai jos". „Elaborată la" e data primului audit, „revizuită la" e data ultimului.</div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-9 mb-3">Înainte de prima evaluare</div>
+  <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-9 mb-3">Înainte de primul audit</div>
 
   <div class="card p-5">
     <div class="rounded-xl border border-red-200 dark:border-red-500/20 bg-red-50/60 dark:bg-red-500/5 p-5">
       <div class="flex gap-3.5">
         <svg class="w-6 h-6 text-red-600 dark:text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <div>
-          <div class="text-[14px] font-bold text-red-800 dark:text-red-200">Nu există nicio evaluare publicată</div>
-          <div class="text-[12.5px] text-red-800 dark:text-red-200/90 leading-relaxed mt-1.5">Pagina publică răspunde cu 404, ecranul de setări al clientului e inactiv, iar linkul din subsol nu apare. Regula „întâi verificarea, apoi declarația" e impusă de cod, nu de disciplină - nici măcar noi nu o putem ocoli într-o săptămână în care un client cere declarația până vineri.</div>
+          <div class="text-[14px] font-bold text-red-800 dark:text-red-200">Workspace-ul nu a fost auditat încă</div>
+          <div class="text-[12.5px] text-red-800 dark:text-red-200/90 leading-relaxed mt-1.5">Pagina publică răspunde cu 404 și linkul din subsol nu apare; ecranul de setări spune că primul audit rulează automat, sau imediat, la cerere. Regula „întâi verificarea, apoi declarația" e impusă de cod, nu de disciplină.</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="card p-5 mt-4">
-    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3.5">De ce „publică", nu „salvează"</div>
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3.5">De ce rânduri de audit, nu un câmp</div>
     <div class="space-y-3">
       <div class="flex gap-3">
         <span class="flex items-center justify-center w-5 h-5 rounded-md bg-surface-100 text-ink-500 text-[10px] font-bold shrink-0 mt-0.5">1</span>
-        <div class="text-[12.5px] text-ink-600 leading-relaxed"><strong class="text-ink-800">O afirmație cu valoare juridică are nevoie de un autor și de o dată.</strong> Un câmp editat în loc le pierde pe amândouă. Un rând nou la fiecare publicare le păstrează pe toate, pentru totdeauna.</div>
+        <div class="text-[12.5px] text-ink-600 leading-relaxed"><strong class="text-ink-800">O afirmație cu valoare juridică are nevoie de o dată și de o bază.</strong> Un câmp editat în loc le pierde pe amândouă. Un rând nou la fiecare audit le păstrează pe toate, pentru totdeauna.</div>
       </div>
       <div class="flex gap-3">
         <span class="flex items-center justify-center w-5 h-5 rounded-md bg-surface-100 text-ink-500 text-[10px] font-bold shrink-0 mt-0.5">2</span>
-        <div class="text-[12.5px] text-ink-600 leading-relaxed"><strong class="text-ink-800">Istoricul e gratuit.</strong> Nu avem nevoie de o bibliotecă de urmărire a versiunilor: lista publicărilor <em>este</em> istoricul.</div>
+        <div class="text-[12.5px] text-ink-600 leading-relaxed"><strong class="text-ink-800">Istoricul e gratuit.</strong> Nu avem nevoie de versiuni publicate sau de o bibliotecă de urmărire: lista auditurilor <em>este</em> istoricul.</div>
       </div>
       <div class="flex gap-3">
         <span class="flex items-center justify-center w-5 h-5 rounded-md bg-surface-100 text-ink-500 text-[10px] font-bold shrink-0 mt-0.5">3</span>
-        <div class="text-[12.5px] text-ink-600 leading-relaxed"><strong class="text-ink-800">Declarația fiecărui workspace primește data revizuirii din ultima evaluare publicată.</strong> Cerința „data revizuirii se actualizează automat la fiecare livrare importantă" devine: publicăm o evaluare după fiecare livrare importantă.</div>
+        <div class="text-[12.5px] text-ink-600 leading-relaxed"><strong class="text-ink-800">Declarația primește data revizuirii din ultimul audit.</strong> Cerințele legii - reînnoire anuală, actualizare în 3 zile de la constatare - sunt acoperite de auditul săptămânal, fără niciun pas manual.</div>
       </div>
     </div>
   </div>

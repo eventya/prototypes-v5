@@ -1,0 +1,760 @@
+diff --git a/app/assets/stylesheets/stejar/elements/business-hours.css b/app/assets/stylesheets/stejar/elements/business-hours.css
+index db424832e..67f92a9e7 100644
+--- a/app/assets/stylesheets/stejar/elements/business-hours.css
++++ b/app/assets/stylesheets/stejar/elements/business-hours.css
+@@ -43,6 +43,6 @@
+   }
+ 
+   .cms-business-hours__closed-text {
+-    @apply italic opacity-60;
++    @apply italic;
+   }
+ }
+diff --git a/app/assets/stylesheets/stejar/elements/link.css b/app/assets/stylesheets/stejar/elements/link.css
+index 7ff08e365..948346651 100644
+--- a/app/assets/stylesheets/stejar/elements/link.css
++++ b/app/assets/stylesheets/stejar/elements/link.css
+@@ -17,13 +17,13 @@
+ 
+ /* ── Primary: solid filled button ── */
+ .cms-link--primary {
+-  background: var(--color-primary-500);
++  background: var(--color-primary-600);
+   color: white;
+   border-radius: 0.5rem;
+   border: 2px solid transparent;
+ }
+ .cms-link--primary:hover {
+-  background: var(--color-primary-600);
++  background: var(--color-primary-700);
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+ }
+ 
+@@ -41,7 +41,7 @@
+ /* ── Outline: bordered button ── */
+ .cms-link--outline {
+   background: transparent;
+-  color: var(--color-primary-500);
++  color: var(--color-primary-600);
+   border: 2px solid var(--color-primary-500);
+   border-radius: 0.5rem;
+ }
+@@ -53,7 +53,7 @@
+ /* ── Ghost: minimal, no border ── */
+ .cms-link--ghost {
+   background: transparent;
+-  color: var(--color-primary-500);
++  color: var(--color-primary-600);
+   border: 2px solid transparent;
+   border-radius: 0.5rem;
+   padding-left: 0.5rem;
+@@ -66,7 +66,7 @@
+ /* ── Text: simple text link ── */
+ .cms-link--text {
+   background: transparent;
+-  color: var(--color-primary-500);
++  color: var(--color-primary-600);
+   padding: 0;
+   border: none;
+   text-decoration: none;
+diff --git a/app/assets/stylesheets/stejar/helpdesk_public.css b/app/assets/stylesheets/stejar/helpdesk_public.css
+index f8177eb8a..55a81e1e8 100644
+--- a/app/assets/stylesheets/stejar/helpdesk_public.css
++++ b/app/assets/stylesheets/stejar/helpdesk_public.css
+@@ -94,7 +94,7 @@
+     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 10%, transparent);
+   }
+   &:disabled { @apply bg-surface-100 cursor-not-allowed opacity-60; }
+-  &::placeholder { @apply text-ink-300; }
++  &::placeholder { @apply text-ink-500; }
+   input { @apply ring-0 focus:ring-0 focus:outline-none; }
+ }
+ 
+diff --git a/app/components/stejar/cms/elements/action_bar.html.erb b/app/components/stejar/cms/elements/action_bar.html.erb
+index 611e85cb4..799149a1e 100644
+--- a/app/components/stejar/cms/elements/action_bar.html.erb
++++ b/app/components/stejar/cms/elements/action_bar.html.erb
+@@ -16,7 +16,7 @@
+ <% elsif lazy? %>
+   <%# Turbo-frame placeholder — loads real content via separate uncached request %>
+   <%= content_tag('turbo-frame', nil, id: turbo_frame_id, src: action_bar_url, loading: :eager) do %>
+-    <div class="cms-action-bar-scroll">
++    <div class="cms-action-bar-scroll" aria-hidden="true">
+     <div class="cms-action-bar <%= action_bar_radius %>" role="group">
+       <% enabled_buttons.each_with_index do |(key, button), index| %>
+         <% if index > 0 %><div class="cms-action-bar__divider"></div><% end %>
+diff --git a/app/components/stejar/cms/elements/audio.html.erb b/app/components/stejar/cms/elements/audio.html.erb
+index 5ad3e88c2..4c0468cc3 100644
+--- a/app/components/stejar/cms/elements/audio.html.erb
++++ b/app/components/stejar/cms/elements/audio.html.erb
+@@ -10,8 +10,9 @@
+        class="items-center gap-4 px-5 py-3.5 max-w-full hover:shadow-md transition-shadow">
+     <button type="button"
+             data-action="click->audio-player#toggle"
++            aria-label="<%= t('stejar.website.audio.play_pause', title: label_text) %>"
+             class="w-11 h-11 rounded-full bg-accent flex items-center justify-center shrink-0 cursor-pointer shadow-sm hover:brightness-110 transition">
+-      <i class="icon-play text-white text-sm ml-0.5"></i>
++      <i class="icon-play text-white text-sm ml-0.5" aria-hidden="true"></i>
+     </button>
+     <div class="flex flex-col gap-0.5 pe-1 min-w-0">
+       <span class="text-sm font-medium text-ink-700 dark:text-ink-700 truncate">
+diff --git a/app/components/stejar/cms/elements/embed_code.html.erb b/app/components/stejar/cms/elements/embed_code.html.erb
+index 97b4b4005..cfdeabee0 100644
+--- a/app/components/stejar/cms/elements/embed_code.html.erb
++++ b/app/components/stejar/cms/elements/embed_code.html.erb
+@@ -19,6 +19,7 @@
+       </div>
+       <iframe data-iframe-loader-target="iframe"
+               src="<%= website %>"
++              title="<%= t('stejar.website.frames.embed') %>"
+               referrerpolicy="no-referrer-when-downgrade"
+               allow="fullscreen; geolocation; clipboard-write"
+               allowfullscreen
+@@ -64,6 +65,7 @@
+       </div>
+       <iframe data-iframe-loader-target="iframe"
+               src="<%= src %>"
++              title="<%= t('stejar.website.frames.embed') %>"
+               width="100%"
+               <% unless code_auto? %>height="<%= embed_code_height %>"<% end %>
+               frameborder="0"
+diff --git a/app/components/stejar/cms/elements/file.html.erb b/app/components/stejar/cms/elements/file.html.erb
+index a78c419c8..4704b4a92 100644
+--- a/app/components/stejar/cms/elements/file.html.erb
++++ b/app/components/stejar/cms/elements/file.html.erb
+@@ -4,7 +4,7 @@
+     <span class="cms-file-placeholder__label">Upload a file</span>
+   </div>
+ <% elsif embed? %>
+-  <iframe src="<%= helpers.main_app.rails_blob_path(content_asset.file, disposition: 'inline') %>" class="<%= embed_css_classes %> border-0 rounded-lg"></iframe>
++  <iframe src="<%= helpers.main_app.rails_blob_path(content_asset.file, disposition: 'inline') %>" title="<%= content_asset.title %>" class="<%= embed_css_classes %> border-0 rounded-lg"></iframe>
+ <% else %>
+   <div class="flex">
+     <%= link_to rails_blob_path(content_asset.file, disposition: 'inline'), target: :_blank,
+diff --git a/app/components/stejar/cms/elements/helpdesk_form.html.erb b/app/components/stejar/cms/elements/helpdesk_form.html.erb
+index 27e6c1ad8..5f1c6bfee 100644
+--- a/app/components/stejar/cms/elements/helpdesk_form.html.erb
++++ b/app/components/stejar/cms/elements/helpdesk_form.html.erb
+@@ -4,6 +4,7 @@
+        data-iframe-loader-fit-content-value="<%= auto_resize? %>"
+        style="<%= wrapper_style %>">
+     <iframe src="<%= embed_url %>"
++            title="<%= form.title %>"
+             loading="lazy"
+             style="border:0; display:block; width:100%; height:100%;">
+     </iframe>
+diff --git a/app/components/stejar/cms/elements/image.rb b/app/components/stejar/cms/elements/image.rb
+index b6e8c0d36..821fbf7c3 100644
+--- a/app/components/stejar/cms/elements/image.rb
++++ b/app/components/stejar/cms/elements/image.rb
+@@ -22,7 +22,7 @@ module Stejar
+           frame = tag.div(class: "overflow-hidden #{wrapper_size_class}".strip, style: placeholder_style) do
+             helpers.blurhash_image_tag(
+               content_asset.file,
+-              alt:     content_asset.description,
++              alt:     content_asset.alt_text,
+               variant: :big,
+               class:   "w-full h-full #{object_fit_class} opacity-0 transition-opacity duration-500",
+               data:    { controller: "image-reveal" }
+diff --git a/app/components/stejar/cms/elements/image_gallery.html.erb b/app/components/stejar/cms/elements/image_gallery.html.erb
+index ee50cbf51..d5947fa70 100644
+--- a/app/components/stejar/cms/elements/image_gallery.html.erb
++++ b/app/components/stejar/cms/elements/image_gallery.html.erb
+@@ -16,7 +16,7 @@
+           <div style="<%= image_wrapper_style(asset) %>" class="w-full rounded-lg overflow-hidden">
+             <%= link_to helpers.main_app.url_for(asset.file.variant(:big)),
+                   data: { description: asset.description.presence, tags: asset.tags.map(&:title).join(', ').presence } do %>
+-              <%= helpers.blurhash_image_tag asset.file, variant: :big, alt: asset.description, class: 'h-auto max-w-full w-full opacity-0 transition-opacity duration-500', data: { controller: 'image-reveal' } %>
++              <%= helpers.blurhash_image_tag asset.file, variant: :big, alt: asset.alt_text, class: 'h-auto max-w-full w-full opacity-0 transition-opacity duration-500', data: { controller: 'image-reveal' } %>
+             <% end %>
+           </div>
+           <div class="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+@@ -37,7 +37,7 @@
+         <div class="h-52 w-full overflow-hidden shadow-md hover:shadow-xl rounded-lg group relative cursor-pointer" data-src="<%= helpers.main_app.url_for(asset.file.variant(:big)) %>">
+           <%= link_to helpers.main_app.url_for(asset.file.variant(:big)),
+                 data: { description: asset.description.presence, tags: asset.tags.map(&:title).join(', ').presence } do %>
+-            <%= helpers.blurhash_image_tag asset.file, variant: :list, alt: asset.description, class: 'w-full h-full object-cover opacity-0 transition-opacity duration-500', data: { controller: 'image-reveal' } %>
++            <%= helpers.blurhash_image_tag asset.file, variant: :list, alt: asset.alt_text, class: 'w-full h-full object-cover opacity-0 transition-opacity duration-500', data: { controller: 'image-reveal' } %>
+           <% end %>
+           <div class="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+             <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+diff --git a/app/components/stejar/cms/elements/instagram_feed.html.erb b/app/components/stejar/cms/elements/instagram_feed.html.erb
+index 6adf9d537..a542fcc9b 100644
+--- a/app/components/stejar/cms/elements/instagram_feed.html.erb
++++ b/app/components/stejar/cms/elements/instagram_feed.html.erb
+@@ -2,6 +2,7 @@
+   <div class="w-full overflow-hidden <%= feed_rounded %>">
+     <script src="//lightwidget.com/widgets/lightwidget.js"></script>
+     <iframe src="<%= parsed_src %>"
++            title="<%= t('stejar.website.frames.instagram') %>"
+             scrolling="no"
+             allowtransparency="true"
+             class="lightwidget-widget"
+diff --git a/app/components/stejar/cms/elements/video.rb b/app/components/stejar/cms/elements/video.rb
+index 2083b37e0..563747a37 100644
+--- a/app/components/stejar/cms/elements/video.rb
++++ b/app/components/stejar/cms/elements/video.rb
+@@ -103,6 +103,7 @@ module Stejar
+           content_tag(:div, class: 'cms-video', style: "aspect-ratio: #{video_aspect};") do
+             content_tag(:iframe, nil,
+               src: "https://www.youtube.com/embed/#{vid}#{params}",
++              title: I18n.t('stejar.website.frames.video'),
+               frameborder: '0',
+               allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+               allowfullscreen: true,
+@@ -139,6 +140,7 @@ module Stejar
+           content_tag(:div, class: 'cms-video', style: "aspect-ratio: #{video_aspect};") do
+             content_tag(:iframe, nil,
+               src: "https://player.vimeo.com/video/#{vid}#{params}",
++              title: I18n.t('stejar.website.frames.video'),
+               frameborder: '0',
+               allow: 'autoplay; fullscreen; picture-in-picture',
+               allowfullscreen: true,
+diff --git a/app/components/stejar/helpdesk/form_fields/category.html.erb b/app/components/stejar/helpdesk/form_fields/category.html.erb
+index 9034878da..a7d9f4f7c 100644
+--- a/app/components/stejar/helpdesk/form_fields/category.html.erb
++++ b/app/components/stejar/helpdesk/form_fields/category.html.erb
+@@ -19,7 +19,7 @@
+             <%= parent.t(:title) %>
+           </span>
+           <% if children.any? %>
+-            <i class="icon-chevron-down text-ink-400 transition-transform duration-150"
++            <i class="icon-chevron-down text-ink-500 transition-transform duration-150"
+                data-category-field-target="chevron"></i>
+           <% end %>
+         </button>
+diff --git a/app/components/stejar/helpdesk/form_fields/file.html.erb b/app/components/stejar/helpdesk/form_fields/file.html.erb
+index 956349c6e..083aa7aca 100644
+--- a/app/components/stejar/helpdesk/form_fields/file.html.erb
++++ b/app/components/stejar/helpdesk/form_fields/file.html.erb
+@@ -3,7 +3,7 @@
+   data-file-upload-type-value="file">
+   <div data-controller="dropzone" class="rounded-md border border-dashed p-8 flex items-center justify-center">
+     <div class="text-center">
+-      <p class="text-sm text-ink-400">Drag and drop file here</p>
++      <p class="text-sm text-ink-500">Drag and drop file here</p>
+       <label class="btn btn--outline btn--sm mt-3">
+         <i class="icon-upload"></i>
+         Upload file
+diff --git a/app/components/stejar/helpdesk/form_fields/files.html.erb b/app/components/stejar/helpdesk/form_fields/files.html.erb
+index 63b654463..b771742f4 100644
+--- a/app/components/stejar/helpdesk/form_fields/files.html.erb
++++ b/app/components/stejar/helpdesk/form_fields/files.html.erb
+@@ -3,7 +3,7 @@
+   data-file-upload-type-value="file">
+   <div data-controller="dropzone" class="rounded-md border border-dashed p-8 flex items-center justify-center">
+     <div class="text-center">
+-      <p class="text-sm text-ink-400">Drag and drop file here</p>
++      <p class="text-sm text-ink-500">Drag and drop file here</p>
+       <label class="btn btn--outline btn--sm mt-3">
+         <i class="icon-upload"></i>
+         Upload files
+diff --git a/app/components/stejar/helpdesk/form_fields/image.html.erb b/app/components/stejar/helpdesk/form_fields/image.html.erb
+index af3445ffc..675093aba 100644
+--- a/app/components/stejar/helpdesk/form_fields/image.html.erb
++++ b/app/components/stejar/helpdesk/form_fields/image.html.erb
+@@ -3,7 +3,7 @@
+   data-file-upload-type-value="image">
+   <div data-controller="dropzone" class="rounded-md border border-dashed p-8 flex items-center justify-center">
+     <div class="text-center">
+-      <p class="text-sm text-ink-400">Drag and drop file here</p>
++      <p class="text-sm text-ink-500">Drag and drop file here</p>
+       <label class="btn btn--outline btn--sm mt-3">
+         <i class="icon-upload"></i>
+         Upload image
+diff --git a/app/components/stejar/helpdesk/form_fields/images.html.erb b/app/components/stejar/helpdesk/form_fields/images.html.erb
+index 1f3fc988d..6a79faf28 100644
+--- a/app/components/stejar/helpdesk/form_fields/images.html.erb
++++ b/app/components/stejar/helpdesk/form_fields/images.html.erb
+@@ -3,7 +3,7 @@
+   data-file-upload-type-value="image">
+   <div data-controller="dropzone" class="rounded-md border border-dashed p-8 flex items-center justify-center">
+     <div class="text-center">
+-      <p class="text-sm text-ink-400">Drag and drop file here</p>
++      <p class="text-sm text-ink-500">Drag and drop file here</p>
+       <label class="btn btn--outline btn--sm mt-3">
+         <i class="icon-upload"></i>
+         Upload images
+diff --git a/app/components/stejar/helpdesk/form_fields/location.html.erb b/app/components/stejar/helpdesk/form_fields/location.html.erb
+index f9f0bd134..75c65beb2 100644
+--- a/app/components/stejar/helpdesk/form_fields/location.html.erb
++++ b/app/components/stejar/helpdesk/form_fields/location.html.erb
+@@ -29,7 +29,7 @@
+             t('helpdesk.form_fields.location.no_location_yet', default: 'Mark where you saw the problem, not where you are now') %>
+       </span>
+     </p>
+-    <p class="text-xs text-ink-400 mt-1 ml-6"
++    <p class="text-xs text-ink-500 mt-1 ml-6"
+        data-location-field-target="coordsLabel"
+        <%= 'hidden' if existing_latitude.blank? %>>
+       <% if existing_latitude.present? && existing_longitude.present? %>
+diff --git a/app/models/stejar/media/asset.rb b/app/models/stejar/media/asset.rb
+index 7613c5270..81f4feab8 100644
+--- a/app/models/stejar/media/asset.rb
++++ b/app/models/stejar/media/asset.rb
+@@ -62,6 +62,11 @@ module Stejar
+         file.content_type == 'application/pdf'
+       end
+ 
++      # What a screen reader says for the image when the editor wrote no description.
++      def alt_text
++        description.presence || title
++      end
++
+       def file_icon
+         case file.content_type
+         when 'application/pdf' then 'stejar/custom_icons/files/pdf_icon.svg'
+diff --git a/app/views/layouts/stejar/helpdesk_public/application.html.erb b/app/views/layouts/stejar/helpdesk_public/application.html.erb
+index b0d822ec3..23dd1af2c 100644
+--- a/app/views/layouts/stejar/helpdesk_public/application.html.erb
++++ b/app/views/layouts/stejar/helpdesk_public/application.html.erb
+@@ -6,7 +6,7 @@
+ <body class="bg-surface-50 antialiased flex flex-col min-h-screen">
+   <%= stejar_flash_messages %>
+   <main class="flex-1"><%= yield %></main>
+-  <footer class="py-6 text-center text-xs text-ink-400">
++  <footer class="py-6 text-center text-xs text-ink-500">
+     Powered by <a href="https://www.eventya.net" target="_blank" class="font-semibold text-ink-500 hover:text-primary">eventya</a>
+   </footer>
+ </body>
+diff --git a/app/views/stejar/helpdesk_public/comments/_agent_comment.html.erb b/app/views/stejar/helpdesk_public/comments/_agent_comment.html.erb
+index 0053c7598..8affd8bc1 100644
+--- a/app/views/stejar/helpdesk_public/comments/_agent_comment.html.erb
++++ b/app/views/stejar/helpdesk_public/comments/_agent_comment.html.erb
+@@ -15,7 +15,7 @@
+       <%= link_to main_app.url_for(file), target: :_blank, class: "inline-flex items-center gap-2 p-2 bg-surface-50 rounded-lg text-xs font-medium hover:bg-surface-100 transition-colors no-underline" do %>
+         <i class="icon-paperclip text-sm"></i>
+         <%= file.filename.to_s %>
+-        <span class="text-ink-400 font-normal">· <%= number_to_human_size(file.byte_size) %></span>
++        <span class="text-ink-500 font-normal">· <%= number_to_human_size(file.byte_size) %></span>
+       <% end %>
+     <% end %>
+   </div>
+diff --git a/app/views/stejar/helpdesk_public/comments/_comment.html.erb b/app/views/stejar/helpdesk_public/comments/_comment.html.erb
+index 82784437b..a22d1f6f2 100644
+--- a/app/views/stejar/helpdesk_public/comments/_comment.html.erb
++++ b/app/views/stejar/helpdesk_public/comments/_comment.html.erb
+@@ -4,7 +4,7 @@
+ <% first_of_day = local_assigns.fetch(:first_of_day, false) %>
+ <% author = comment.user || comment.creator %>
+ <div id="<%= dom_id comment %>" class="flex gap-3.5 py-4<%= ' border-t border-surface-200' unless first_of_day %>">
+-  <div class="w-12 shrink-0 pt-0.5 text-right text-xs font-medium text-ink-400 tabular-nums whitespace-nowrap">
++  <div class="w-12 shrink-0 pt-0.5 text-right text-xs font-medium text-ink-500 tabular-nums whitespace-nowrap">
+     <%= comment.created_at&.strftime('%H:%M') %>
+   </div>
+   <% if author %>
+diff --git a/app/views/stejar/helpdesk_public/comments/_customer_comment.html.erb b/app/views/stejar/helpdesk_public/comments/_customer_comment.html.erb
+index 0fdbb51fa..d62a2428a 100644
+--- a/app/views/stejar/helpdesk_public/comments/_customer_comment.html.erb
++++ b/app/views/stejar/helpdesk_public/comments/_customer_comment.html.erb
+@@ -9,7 +9,7 @@
+       <%= link_to main_app.url_for(file), target: :_blank, class: "inline-flex items-center gap-2 p-2 bg-surface-50 rounded-lg text-xs font-medium hover:bg-surface-100 transition-colors no-underline" do %>
+         <i class="icon-paperclip text-sm"></i>
+         <%= file.filename.to_s %>
+-        <span class="text-ink-400 font-normal">· <%= number_to_human_size(file.byte_size) %></span>
++        <span class="text-ink-500 font-normal">· <%= number_to_human_size(file.byte_size) %></span>
+       <% end %>
+     <% end %>
+   </div>
+diff --git a/app/views/stejar/helpdesk_public/comments/_form.html.erb b/app/views/stejar/helpdesk_public/comments/_form.html.erb
+index 1038cd92d..37132a461 100644
+--- a/app/views/stejar/helpdesk_public/comments/_form.html.erb
++++ b/app/views/stejar/helpdesk_public/comments/_form.html.erb
+@@ -26,7 +26,7 @@
+       <div data-file-upload-target="preview" class="hidden mx-4 mb-2 flex flex-wrap gap-2 p-2 bg-surface-50 rounded-lg"></div>
+       <div data-file-upload-target="feedback" class="text-xs text-ink-500 px-4"></div>
+       <div class="flex items-center gap-2 px-4 py-3 border-t border-surface-100">
+-        <label class="p-2 text-ink-400 hover:text-ink-600 rounded-lg hover:bg-surface-50 cursor-pointer">
++        <label class="p-2 text-ink-500 hover:text-ink-600 rounded-lg hover:bg-surface-50 cursor-pointer">
+           <i class="icon-paperclip text-base"></i>
+           <%= form.file_field :files, multiple: true, class: "hidden",
+                               accept: Stejar::Helpdesk::Comment::FILE_ACCEPT,
+diff --git a/app/views/stejar/helpdesk_public/tickets/_breadcrumb.html.erb b/app/views/stejar/helpdesk_public/tickets/_breadcrumb.html.erb
+index 032f5b896..25ade628d 100644
+--- a/app/views/stejar/helpdesk_public/tickets/_breadcrumb.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/_breadcrumb.html.erb
+@@ -1,4 +1,4 @@
+-<div class="flex items-center gap-1.5 text-xs text-ink-400 mb-8">
++<div class="flex items-center gap-1.5 text-xs text-ink-500 mb-8">
+   <%= link_to account_home_path, class: "hover:text-ink-700 transition-colors flex items-center gap-1.5" do %>
+     <i class="icon-house text-sm"></i>
+     <span><%= current_account.name %></span>
+diff --git a/app/views/stejar/helpdesk_public/tickets/_customer_message.erb b/app/views/stejar/helpdesk_public/tickets/_customer_message.erb
+index f328cbec5..352e29339 100644
+--- a/app/views/stejar/helpdesk_public/tickets/_customer_message.erb
++++ b/app/views/stejar/helpdesk_public/tickets/_customer_message.erb
+@@ -7,7 +7,7 @@
+         <div class="inline-flex items-center px-2 py-0.5 text-[10px] font-medium text-primary bg-primary/10 rounded-full"><%= @ticket.form.title %></div>
+       </div>
+       <div class="trix-content text-sm text-ink-700 mb-2"><%= format_comment_body(@ticket.customer_message) %></div>
+-      <div class="text-xs text-ink-400"><%= @ticket.created_at.strftime('%b %d, %Y, %I:%M %p') %></div>
++      <div class="text-xs text-ink-500"><%= @ticket.created_at.strftime('%b %d, %Y, %I:%M %p') %></div>
+     </div>
+   </div>
+ </div>
+diff --git a/app/views/stejar/helpdesk_public/tickets/_status_filter_option.html.erb b/app/views/stejar/helpdesk_public/tickets/_status_filter_option.html.erb
+index 774a08f20..402034469 100644
+--- a/app/views/stejar/helpdesk_public/tickets/_status_filter_option.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/_status_filter_option.html.erb
+@@ -5,5 +5,5 @@
+     <span class="w-2 h-2 rounded-full <%= status_dot_color(option[:key]) %>"></span>
+     <%= option[:label] %>
+   </span>
+-  <span class="text-[11px] text-ink-400"><%= option[:count] %></span>
++  <span class="text-[11px] text-ink-500"><%= option[:count] %></span>
+ <% end %>
+diff --git a/app/views/stejar/helpdesk_public/tickets/_status_filters.html.erb b/app/views/stejar/helpdesk_public/tickets/_status_filters.html.erb
+index 80c06869a..38dcf3062 100644
+--- a/app/views/stejar/helpdesk_public/tickets/_status_filters.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/_status_filters.html.erb
+@@ -8,7 +8,7 @@
+           class="flex items-center gap-2 px-3 py-2 text-[13px] font-medium bg-surface-0 border rounded-lg transition-all whitespace-nowrap cursor-pointer <%= tickets.filtered? ? 'border-primary/40 text-primary bg-primary/5' : 'border-surface-300 text-ink-700 hover:bg-surface-50 hover:border-ink-300' %>">
+     <span class="w-2 h-2 rounded-full <%= status_dot_color(tickets.status) %>"></span>
+     <%= tickets.selected_label %>
+-    <i class="icon-chevron-down text-[10px] text-ink-400"></i>
++    <i class="icon-chevron-down text-[10px] text-ink-500"></i>
+   </button>
+ 
+   <div class="absolute right-0 top-full mt-1 z-50 hidden w-60 bg-surface-0 rounded-xl border border-surface-200 shadow-lg overflow-hidden"
+diff --git a/app/views/stejar/helpdesk_public/tickets/details.html.erb b/app/views/stejar/helpdesk_public/tickets/details.html.erb
+index ecdaef645..c61ae7f78 100644
+--- a/app/views/stejar/helpdesk_public/tickets/details.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/details.html.erb
+@@ -16,7 +16,7 @@
+         <h1 class="text-xl font-bold text-ink-900"><%= t('helpdesk.tickets.show.ticket_number', id: @ticket.displayed_identifier) %></h1>
+         <span class="inline-flex items-center gap-1 px-2.5 py-[3px] text-[11px] font-semibold rounded-md <%= status_badge_classes(@ticket.status) %>"><%= t(@ticket.status, scope: %i[helpdesk tickets statuses]) %></span>
+       </div>
+-      <p class="text-sm text-ink-400">
++      <p class="text-sm text-ink-500">
+         <%= t('helpdesk.helpdesk_public.tickets.details.created', date: l(@ticket.created_at, format: :long)) %>
+       </p>
+     </div>
+@@ -62,7 +62,7 @@
+                 <%= t('helpdesk.tickets.show.original_message') %>
+               </span>
+               <span class="text-ink-300">&middot;</span>
+-              <span class="text-[11px] text-ink-400"><%= l(@ticket.created_at, format: :long) %></span>
++              <span class="text-[11px] text-ink-500"><%= l(@ticket.created_at, format: :long) %></span>
+               <% if @ticket.category.present? %>
+                 <div class="ml-auto shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-0 border border-surface-200">
+                   <%= render 'stejar/helpdesk/tickets/category_breadcrumb', ticket: @ticket %>
+@@ -131,8 +131,8 @@
+         <% elsif original_text.blank? %>
+           <div id="comments-empty" class="flex flex-col items-center justify-center py-12 text-center">
+             <i class="icon-message-circle text-3xl text-ink-200 mb-3"></i>
+-            <div class="text-sm font-medium text-ink-400"><%= t('helpdesk.helpdesk_public.tickets.details.empty') %></div>
+-            <div class="text-xs text-ink-300 mt-1"><%= t('helpdesk.helpdesk_public.tickets.details.empty_hint') %></div>
++            <div class="text-sm font-medium text-ink-500"><%= t('helpdesk.helpdesk_public.tickets.details.empty') %></div>
++            <div class="text-xs text-ink-500 mt-1"><%= t('helpdesk.helpdesk_public.tickets.details.empty_hint') %></div>
+           </div>
+         <% end %>
+       </div>
+@@ -141,7 +141,7 @@
+     <%# Reply area %>
+     <% if @ticket.resolved? || @ticket.closed? %>
+       <div class="flex items-center gap-3 px-4 py-3 rounded-xl border border-surface-200 bg-surface-50">
+-        <i class="<%= @ticket.resolved? ? 'icon-circle-check text-emerald-500' : 'icon-archive text-ink-400' %> text-lg"></i>
++        <i class="<%= @ticket.resolved? ? 'icon-circle-check text-emerald-500' : 'icon-archive text-ink-500' %> text-lg"></i>
+         <span class="text-sm text-ink-500">
+           <%= t("helpdesk.helpdesk_public.tickets.details.ticket_#{@ticket.status}", date: time_ago_in_words(@ticket.updated_at)) %>
+         </span>
+diff --git a/app/views/stejar/helpdesk_public/tickets/index.html.erb b/app/views/stejar/helpdesk_public/tickets/index.html.erb
+index 2930f9a9f..d4d99cd01 100644
+--- a/app/views/stejar/helpdesk_public/tickets/index.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/index.html.erb
+@@ -21,7 +21,7 @@
+                       class: "flex items-center gap-4 px-5 py-5 hover:bg-surface-50 transition-colors" do %>
+             <div class="min-w-0 flex-1">
+               <div class="flex items-baseline gap-2 mb-1.5">
+-                <span class="text-sm font-bold text-ink-400 tabular-nums shrink-0">#<%= ticket.displayed_identifier %></span>
++                <span class="text-sm font-bold text-ink-500 tabular-nums shrink-0">#<%= ticket.displayed_identifier %></span>
+                 <span class="text-base font-semibold text-ink-800 truncate"><%= subject %></span>
+               </div>
+               <% if ticket.category.present? %>
+@@ -36,7 +36,7 @@
+                     <%= t('helpdesk.tickets.time_ago', time: time_ago_in_words(ticket.updated_at)) %>
+                   </span>
+                 <% else %>
+-                  <span class="text-ink-400"><%= t('helpdesk.tickets.time_ago', time: time_ago_in_words(ticket.created_at)) %></span>
++                  <span class="text-ink-500"><%= t('helpdesk.tickets.time_ago', time: time_ago_in_words(ticket.created_at)) %></span>
+                 <% end %>
+               </div>
+             </div>
+@@ -56,8 +56,8 @@
+       <%# Empty state %>
+       <div class="flex flex-col items-center justify-center py-16 text-center">
+         <i class="icon-message-circle text-3xl text-ink-200 mb-3"></i>
+-        <div class="text-sm font-medium text-ink-400"><%= @tickets.empty_title %></div>
+-        <div class="text-xs text-ink-300 mt-1"><%= @tickets.empty_hint %></div>
++        <div class="text-sm font-medium text-ink-500"><%= @tickets.empty_title %></div>
++        <div class="text-xs text-ink-500 mt-1"><%= @tickets.empty_hint %></div>
+       </div>
+     <% end %>
+   </div>
+diff --git a/app/views/stejar/helpdesk_public/tickets/show.html.erb b/app/views/stejar/helpdesk_public/tickets/show.html.erb
+index 3009541b8..f9b2226cd 100644
+--- a/app/views/stejar/helpdesk_public/tickets/show.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/show.html.erb
+@@ -14,12 +14,12 @@
+ 
+           <h2 class="text-2xl font-bold text-ink-900 mb-2"><%= t('helpdesk.helpdesk_public.tickets.show.title') %></h2>
+           <p class="text-ink-500 mb-2"><%= t('helpdesk.helpdesk_public.tickets.show.subtitle') %></p>
+-          <p class="text-sm text-ink-400 mb-6"><%= t('helpdesk.helpdesk_public.tickets.show.email_info', email: @ticket.creator&.email) %></p>
++          <p class="text-sm text-ink-500 mb-6"><%= t('helpdesk.helpdesk_public.tickets.show.email_info', email: @ticket.creator&.email) %></p>
+ 
+           <%# Ticket reference %>
+           <div class="bg-surface-50 rounded-xl p-4 mb-6 text-left">
+             <div class="flex items-center justify-between mb-2">
+-              <span class="text-xs font-semibold text-ink-400 uppercase"><%= t('helpdesk.helpdesk_public.tickets.show.reference_label') %></span>
++              <span class="text-xs font-semibold text-ink-500 uppercase"><%= t('helpdesk.helpdesk_public.tickets.show.reference_label') %></span>
+               <span class="text-sm font-bold text-ink-800">#<%= @ticket.displayed_identifier %></span>
+             </div>
+             <p class="text-sm text-ink-500"><%= t('helpdesk.helpdesk_public.tickets.show.reference_hint') %></p>
+diff --git a/app/views/stejar/helpdesk_public/tickets/verification.html.erb b/app/views/stejar/helpdesk_public/tickets/verification.html.erb
+index 8b5568703..dd79ee77a 100644
+--- a/app/views/stejar/helpdesk_public/tickets/verification.html.erb
++++ b/app/views/stejar/helpdesk_public/tickets/verification.html.erb
+@@ -57,7 +57,7 @@
+         <% end %>
+ 
+         <div class="mt-4 pt-4 border-t border-surface-100 text-center">
+-          <%= link_to new_helpdesk_public_form_ticket_path(@form), class: "text-sm text-ink-400 hover:text-ink-600 inline-flex items-center justify-center gap-1" do %>
++          <%= link_to new_helpdesk_public_form_ticket_path(@form), class: "text-sm text-ink-500 hover:text-ink-600 inline-flex items-center justify-center gap-1" do %>
+             <i class="icon-chevron-left text-sm"></i>
+             <%= t('helpdesk.helpdesk_public.tickets.verification.back_to_form') %>
+           <% end %>
+diff --git a/app/views/stejar/public_ai_assistant/_trigger_button.html.erb b/app/views/stejar/public_ai_assistant/_trigger_button.html.erb
+index 524726105..f8ec70001 100644
+--- a/app/views/stejar/public_ai_assistant/_trigger_button.html.erb
++++ b/app/views/stejar/public_ai_assistant/_trigger_button.html.erb
+@@ -3,7 +3,7 @@
+           onclick="document.dispatchEvent(new CustomEvent('public-ai-chat:open'))"
+           class="relative flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-primary-500 transition-colors cursor-pointer"
+           title="AI Assistant">
+-    <i class="icon-sparkles text-base text-primary-500 dark:text-primary-400"></i>
+-    <span class="hidden md:inline text-xs font-medium text-primary-500 dark:text-primary-400">AI Assistant</span>
++    <i class="icon-sparkles text-base text-primary-500 dark:text-primary-400" aria-hidden="true"></i>
++    <span class="hidden md:inline text-xs font-medium text-primary-600 dark:text-primary-400">AI Assistant</span>
+   </button>
+ <% end %>
+diff --git a/app/views/stejar/website/notifications/_notification_item.html.erb b/app/views/stejar/website/notifications/_notification_item.html.erb
+index e31e0d475..41e706104 100644
+--- a/app/views/stejar/website/notifications/_notification_item.html.erb
++++ b/app/views/stejar/website/notifications/_notification_item.html.erb
+@@ -28,8 +28,8 @@
+       <%= Stejar::Support::HtmlText.sanitize_notification(notification.message) %>
+     </div>
+     <div class="flex items-center justify-between gap-2 mt-1">
+-      <span class="text-xs text-gray-400 dark:text-gray-500"><%= time_ago_in_words(notification.try(:feed_time) || notification.created_at) %> <%= t('member_dashboard.ago') %></span>
+-      <span class="font-mono text-[10px] text-gray-300 dark:text-gray-600"><%= notification.code %></span>
++      <span class="text-xs text-gray-500 dark:text-gray-400"><%= time_ago_in_words(notification.try(:feed_time) || notification.created_at) %> <%= t('member_dashboard.ago') %></span>
++      <span class="font-mono text-[10px] text-gray-500 dark:text-gray-400"><%= notification.code %></span>
+     </div>
+   </div>
+ <% end %>
+diff --git a/config/locales/de/website.yml b/config/locales/de/website.yml
+index 16e738248..cc640765e 100644
+--- a/config/locales/de/website.yml
++++ b/config/locales/de/website.yml
+@@ -52,6 +52,12 @@ de:
+           attributes:
+             label: "Filter"
+             reset: "Zurücksetzen"
++      frames:
++        video: "Video"
++        embed: "Eingebetteter Inhalt"
++        instagram: "Instagram-Feed"
++      audio:
++        play_pause: "Abspielen oder pausieren: %{title}"
+       business_hours:
+         open: "Geöffnet"
+         closed: "Geschlossen"
+diff --git a/config/locales/en/website.yml b/config/locales/en/website.yml
+index 0ff0f5125..41a230e28 100644
+--- a/config/locales/en/website.yml
++++ b/config/locales/en/website.yml
+@@ -97,6 +97,12 @@ en:
+         show_my_location: "Show my location"
+         map: "Map"
+         navigation: "Navigation"
++      frames:
++        video: "Video"
++        embed: "Embedded content"
++        instagram: "Instagram feed"
++      audio:
++        play_pause: "Play or pause: %{title}"
+       business_hours:
+         open: "Open"
+         closed: "Closed"
+diff --git a/config/locales/es/website.yml b/config/locales/es/website.yml
+index 7c0a9d779..9f6ceb941 100644
+--- a/config/locales/es/website.yml
++++ b/config/locales/es/website.yml
+@@ -52,6 +52,12 @@ es:
+           attributes:
+             label: "Filtros"
+             reset: "Restablecer"
++      frames:
++        video: "Vídeo"
++        embed: "Contenido incrustado"
++        instagram: "Feed de Instagram"
++      audio:
++        play_pause: "Reproducir o pausar: %{title}"
+       business_hours:
+         open: "Abierto"
+         closed: "Cerrado"
+diff --git a/config/locales/fr/website.yml b/config/locales/fr/website.yml
+index 2be09e01c..91615899b 100644
+--- a/config/locales/fr/website.yml
++++ b/config/locales/fr/website.yml
+@@ -52,6 +52,12 @@ fr:
+           attributes:
+             label: "Filtres"
+             reset: "Réinitialiser"
++      frames:
++        video: "Vidéo"
++        embed: "Contenu intégré"
++        instagram: "Flux Instagram"
++      audio:
++        play_pause: "Lire ou mettre en pause : %{title}"
+       business_hours:
+         open: "Ouvert"
+         closed: "Fermé"
+diff --git a/config/locales/hu/website.yml b/config/locales/hu/website.yml
+index 739f9b246..471c8c47b 100644
+--- a/config/locales/hu/website.yml
++++ b/config/locales/hu/website.yml
+@@ -79,6 +79,12 @@ hu:
+         show_my_location: "Saját helyzetem mutatása"
+         map: "Térkép"
+         navigation: "Navigáció"
++      frames:
++        video: "Videó"
++        embed: "Beágyazott tartalom"
++        instagram: "Instagram hírfolyam"
++      audio:
++        play_pause: "Lejátszás vagy szünet: %{title}"
+       business_hours:
+         open: "Nyitva"
+         closed: "Zárva"
+diff --git a/config/locales/it/website.yml b/config/locales/it/website.yml
+index dd39c2b48..91ceaf8b6 100644
+--- a/config/locales/it/website.yml
++++ b/config/locales/it/website.yml
+@@ -52,6 +52,12 @@ it:
+           attributes:
+             label: "Filtri"
+             reset: "Reimposta"
++      frames:
++        video: "Video"
++        embed: "Contenuto incorporato"
++        instagram: "Feed Instagram"
++      audio:
++        play_pause: "Riproduci o metti in pausa: %{title}"
+       business_hours:
+         open: "Aperto"
+         closed: "Chiuso"
+diff --git a/config/locales/ro/website.yml b/config/locales/ro/website.yml
+index 44db79edc..e29971907 100644
+--- a/config/locales/ro/website.yml
++++ b/config/locales/ro/website.yml
+@@ -97,6 +97,12 @@ ro:
+         show_my_location: "Arată locația mea"
+         map: "Hartă"
+         navigation: "Navigare"
++      frames:
++        video: "Video"
++        embed: "Conținut încorporat"
++        instagram: "Feed Instagram"
++      audio:
++        play_pause: "Redă sau oprește: %{title}"
+       business_hours:
+         open: "Deschis"
+         closed: "Închis"
+diff --git a/lib/stejar/color_palette.rb b/lib/stejar/color_palette.rb
+index 3d6c58d66..036bc9cc4 100644
+--- a/lib/stejar/color_palette.rb
++++ b/lib/stejar/color_palette.rb
+@@ -23,17 +23,22 @@ module Stejar
+       950 => -0.65
+     }.freeze
+ 
++    # Text and buttons use shade 600 and darker, so those hang off a base dark
++    # enough to read on white (WCAG AA) even when the brand color itself is light.
++    READABLE_CONTRAST = 4.5
++
+     class << self
+       def generate(hex)
+         return {} unless hex.present? && hex.match?(/\A#[0-9a-fA-F]{6}\z/)
+ 
+         h, s, l = hex_to_hsl(hex)
++        dark_l = readable_lightness(h, s, l)
+ 
+         SHADES.each_with_object({}) do |(shade, factor), palette|
+           adjusted_l = if factor.positive?
+                          l + (1.0 - l) * factor
+                        elsif factor.negative?
+-                         l * (1.0 + factor)
++                         dark_l * (1.0 + factor)
+                        else
+                          l
+                        end
+@@ -42,8 +47,29 @@ module Stejar
+         end
+       end
+ 
++      def contrast_on_white(hex)
++        1.05 / (relative_luminance(hex) + 0.05)
++      end
++
+       private
+ 
++      def readable_lightness(hue, saturation, lightness)
++        lightness -= 0.01 while lightness.positive? && too_light?(hue, saturation, lightness)
++        lightness.clamp(0.0, 1.0)
++      end
++
++      def too_light?(hue, saturation, lightness)
++        contrast_on_white(hsl_to_hex(hue, saturation, lightness)) < READABLE_CONTRAST
++      end
++
++      def relative_luminance(hex)
++        r, g, b = hex.delete('#').scan(/../).map do |channel|
++          value = channel.to_i(16) / 255.0
++          value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055)**2.4
++        end
++        (0.2126 * r) + (0.7152 * g) + (0.0722 * b)
++      end
++
+       def hex_to_hsl(hex)
+         r, g, b = hex.delete('#').scan(/../).map { |c| c.to_i(16) / 255.0 }
+ 
+diff --git a/spec/lib/stejar/color_palette_spec.rb b/spec/lib/stejar/color_palette_spec.rb
+index fa894c463..9d19dbab4 100644
+--- a/spec/lib/stejar/color_palette_spec.rb
++++ b/spec/lib/stejar/color_palette_spec.rb
+@@ -40,6 +40,24 @@ RSpec.describe Stejar::ColorPalette do
+       end
+     end
+ 
++    context 'with a brand color too light to read on white' do
++      let(:palette) { described_class.generate('#14ba08') }
++
++      it 'keeps the brand color at shade 500' do
++        expect(palette[500]).to eq('#14ba08')
++      end
++
++      it 'makes shade 600 and darker readable on white' do
++        [600, 700, 800, 900, 950].each do |shade|
++          expect(described_class.contrast_on_white(palette[shade])).to be >= 4.5
++        end
++      end
++
++      it 'leaves a readable brand color untouched' do
++        expect(described_class.generate('#2563eb')[600]).to eq('#1350d4')
++      end
++    end
++
+     context 'with pure red' do
+       let(:palette) { described_class.generate('#ff0000') }
+ 
