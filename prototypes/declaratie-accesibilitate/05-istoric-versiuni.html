@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Istoric versiuni · Declarația privind accesibilitatea</title>
+<title>Istoricul auditurilor · Declarația privind accesibilitatea</title>
 <script>(function(){var t=localStorage.getItem('proto-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <link rel="stylesheet" href="../../assets/application.css">
 </head>
@@ -12,7 +12,7 @@
 <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
   <div class="flex items-center gap-2">
     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația privind accesibilitatea - 5. Istoricul versiunilor</span>
+    <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">Prototype · Declarația privind accesibilitatea - 5. Istoricul auditurilor</span>
   </div>
   <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
 </div>
@@ -25,9 +25,9 @@
     <span class="text-ink-600 font-medium">Istoric</span>
   </div>
 
-  <div class="text-2xl font-bold tracking-tight text-ink-900">Istoricul declarațiilor</div>
+  <div class="text-2xl font-bold tracking-tight text-ink-900">Istoricul auditurilor</div>
   <div class="text-[13px] text-ink-500 mt-1.5 leading-relaxed max-w-2xl">
-    Fiecare publicare adaugă o versiune nouă. Nimic nu se modifică și nimic nu se șterge. Într-o discuție cu ADR-ul contează ce scria pe pagină în ziua respectivă, nu ce scrie astăzi - și, la fel de important, <strong class="text-ink-800">că declarația a fost reînnoită la timp</strong>: legea o cere anual, iar neactualizarea are amendă separată.
+    Fiecare audit adaugă un rând nou. Nimic nu se modifică și nimic nu se șterge. Într-o discuție cu ADR-ul contează ce a găsit auditul în ziua respectivă și <strong class="text-ink-800">că declarația a fost ținută la zi</strong>: legea o cere anual și în 3 zile de la constatare, iar neactualizarea are amendă separată. Auditul săptămânal acoperă amândouă.
   </div>
 
   <div class="mt-7 space-y-2.5">
@@ -36,8 +36,8 @@
       <div class="flex flex-wrap items-center gap-3">
         <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-primary-light text-primary text-[12px] font-bold shrink-0">4</span>
         <div class="min-w-0">
-          <div class="text-[13px] font-semibold text-ink-900 flex items-center gap-2">3 septembrie 2026, 11:42 <span class="badge badge--positive">publicată acum</span></div>
-          <div class="text-[11.5px] text-ink-500 mt-0.5">Andrei Pop · parțial conform · 6 exceptări · publicare manuală</div>
+          <div class="text-[13px] font-semibold text-ink-900 flex items-center gap-2">14 septembrie 2026, 02:14 <span class="badge badge--positive">declarația de acum</span></div>
+          <div class="text-[11.5px] text-ink-500 mt-0.5"><span class="badge badge--negative">neconform</span> · 40 de pagini · 4 constatări: imagini fără alt, buton fără nume, contrast, cadre fără titlu</div>
         </div>
         <div class="flex gap-1.5 ml-auto shrink-0">
           <a href="01-declaratie-publica.html" class="btn btn--sm btn--ghost">Vezi</a>
@@ -49,17 +49,16 @@
       <div class="flex flex-wrap items-center gap-3">
         <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-surface-100 text-ink-500 text-[12px] font-bold shrink-0">3</span>
         <div class="min-w-0">
-          <div class="text-[13px] font-semibold text-ink-900">11 iunie 2026, 09:15</div>
-          <div class="text-[11.5px] text-ink-500 mt-0.5">Andrei Pop · parțial conform · 5 exceptări · publicare manuală</div>
+          <div class="text-[13px] font-semibold text-ink-900 flex items-center gap-2">7 septembrie 2026, 02:11</div>
+          <div class="text-[11.5px] text-ink-500 mt-0.5"><span class="badge badge--negative">neconform</span> · 38 de pagini · 4 constatări</div>
         </div>
         <div class="flex gap-1.5 ml-auto shrink-0">
-          <button class="btn btn--sm btn--ghost">Vezi</button>
-          <button class="btn btn--sm btn--ghost">Compară cu 4</button>
+          <a href="01-declaratie-publica.html" class="btn btn--sm btn--ghost">Vezi</a>
         </div>
       </div>
       <div class="mt-3 pt-3 border-t border-surface-200 text-[11.5px] text-ink-600 flex flex-wrap gap-x-4 gap-y-1">
-        <span class="text-emerald-600 dark:text-emerald-400">s-a adăugat o exceptare: tabele fără anteturi</span>
-        <span class="text-ink-500">s-a schimbat contactul: <span class="line-through text-ink-400">primarie@uricani.ro</span> → accesibilitate@uricani.ro</span>
+        <span class="text-emerald-600 dark:text-emerald-400">a dispărut: liste fără structură</span>
+        <span class="text-ink-400">revizia de cod <code class="bg-surface-100 px-1 rounded font-mono text-[10.5px]">a41f9c2</code></span>
       </div>
     </div>
 
@@ -67,17 +66,12 @@
       <div class="flex flex-wrap items-center gap-3">
         <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-surface-100 text-ink-500 text-[12px] font-bold shrink-0">2</span>
         <div class="min-w-0">
-          <div class="text-[13px] font-semibold text-ink-900">2 martie 2026, 16:03</div>
-          <div class="text-[11.5px] text-ink-500 mt-0.5">Platforma · parțial conform · 4 exceptări · reînnoire anuală</div>
+          <div class="text-[13px] font-semibold text-ink-900 flex items-center gap-2">31 august 2026, 02:09</div>
+          <div class="text-[11.5px] text-ink-500 mt-0.5"><span class="badge badge--negative">neconform</span> · 38 de pagini · 5 constatări</div>
         </div>
         <div class="flex gap-1.5 ml-auto shrink-0">
-          <button class="btn btn--sm btn--ghost">Vezi</button>
-          <button class="btn btn--sm btn--ghost">Compară cu 3</button>
+          <a href="01-declaratie-publica.html" class="btn btn--sm btn--ghost">Vezi</a>
         </div>
-      </div>
-      <div class="mt-3 pt-3 border-t border-surface-200 text-[11.5px] text-ink-600 flex flex-wrap gap-x-4 gap-y-1">
-        <span class="text-ink-500">s-a schimbat data revizuirii platformei: 14 oct. 2025 → 2 mar. 2026</span>
-        <span class="text-ink-400">versiunea evaluării <code class="bg-surface-100 px-1 rounded font-mono text-[10.5px]">a41f9c2</code></span>
       </div>
     </div>
 
@@ -85,35 +79,33 @@
       <div class="flex flex-wrap items-center gap-3">
         <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-surface-100 text-ink-500 text-[12px] font-bold shrink-0">1</span>
         <div class="min-w-0">
-          <div class="text-[13px] font-semibold text-ink-900">14 octombrie 2025, 08:00</div>
-          <div class="text-[11.5px] text-ink-500 mt-0.5">Platforma · parțial conform · 4 exceptări · <span class="text-ink-400">prima publicare, la crearea workspace-ului</span></div>
+          <div class="text-[13px] font-semibold text-ink-900 flex items-center gap-2">24 august 2026, 02:05</div>
+          <div class="text-[11.5px] text-ink-500 mt-0.5"><span class="badge badge--warning">parțial conform</span> · 31 de pagini · 2 constatări, niciuna gravă</div>
         </div>
         <div class="flex gap-1.5 ml-auto shrink-0">
-          <button class="btn btn--sm btn--ghost">Vezi</button>
+          <a href="01-declaratie-publica.html" class="btn btn--sm btn--ghost">Vezi</a>
         </div>
       </div>
+      <div class="mt-3 pt-3 border-t border-surface-200 text-[11.5px] text-ink-500">primul audit, la prima duminică după activarea workspace-ului; de atunci există pagina și linkul din subsol</div>
     </div>
 
   </div>
 
-  <!-- what a stored revision holds -->
+  <!-- what a stored audit holds -->
   <div class="card p-5 mt-6">
-    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3.5">Ce se salvează pentru fiecare versiune</div>
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3.5">Ce se salvează pentru fiecare audit</div>
     <div class="rounded-xl border border-surface-200 bg-surface-100 p-4 font-mono text-[11.5px] leading-relaxed text-ink-700 overflow-x-auto">
-<pre>versiunea:            4
-stadiul:              parțial conform
-motivul publicării:   manual | anual | constatare
-evaluarea platformei: 7b2e1af
-publicată la:         2026-09-03 11:42
-publicată de:         Andrei Pop
-textul salvat:        română  → toate cele 6 secțiuni, așa cum au fost afișate
-                      engleză → …
-                      maghiară → …</pre>
+<pre>stadiul:          neconform
+revizia de cod:   7b2e1af
+rulat la:         2026-09-14 02:14
+motor:            axe-core 4.13.0
+constatări:       o linie pe regulă: impact, pe câte pagini, câte elemente
+pagini:           fiecare pagină din eșantion: adresa, ce acoperă, încălcările găsite</pre>
     </div>
     <div class="rounded-lg border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 px-3.5 py-2.5 mt-3.5 flex gap-2.5">
       <svg class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <div class="text-[11.5px] text-sky-800 dark:text-sky-200 leading-relaxed">
-        <strong>Salvăm textul complet, așa cum a fost afișat, nu referințe către datele curente.</strong> Dacă am salva doar identificatori, o versiune din 2027 s-ar reconstitui în 2029 cu numele instituției de atunci și cu textul standard de atunci. Ar fi o reconstituire, nu o dovadă. Ocupă în jur de 4 KB pe versiune, câteva versiuni pe an. Nu merită optimizat.
+        <strong>Declarația se compune live din ultimul audit</strong> și din ce a completat instituția. Nu există versiuni publicate de mână: „elaborată la" e data primului audit, „revizuită la" e data ultimului. Un rând de audit are câțiva KB, unul pe săptămână. Nu merită optimizat.
       </div>
     </div>
   </div>
@@ -121,7 +113,7 @@ textul salvat:        română  → toate cele 6 secțiuni, așa cum au fost afi
   <div class="rounded-lg border border-surface-200 bg-surface-0 px-4 py-3 mt-4 flex gap-2.5">
     <svg class="w-4 h-4 text-ink-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>
     <div class="text-[11.5px] text-ink-600 leading-relaxed">
-      Versiunile publicate de <strong class="text-ink-800">platformă</strong> apar la reînnoirea anuală și atunci când se schimbă ceva la nivelul nostru: o evaluare nouă sau un text standard. Clientul nu trebuie să facă nimic pentru ca declarația lui să rămână actuală - iar coloana „motivul publicării" dovedește, la o inspecție, că reînnoirea a avut loc.
+      Auditul rulează <strong class="text-ink-800">în fiecare duminică noaptea</strong>, workspace după workspace, și oricând la cerere din Setări → Accesibilitate. Clientul nu trebuie să facă nimic pentru ca declarația lui să rămână actuală - iar rândurile de aici dovedesc, la o inspecție, că a fost ținută la zi.
     </div>
   </div>
 

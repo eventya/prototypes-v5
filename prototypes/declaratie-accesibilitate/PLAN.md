@@ -36,13 +36,13 @@ Cine completează ce:
 | Partea declarației | Cine |
 |---|---|
 | Angajamentul (instituția, site-ul, aplicațiile) | Platforma, din datele workspace-ului |
-| Situația conformității | Calculată. Clientul o poate schimba doar către o variantă mai proastă |
-| Conținutul inaccesibil | Exceptările stabilite de noi pentru toate site-urile + cele adăugate de client |
+| Situația conformității | Auditul automat al site-ului; clientul nu o poate scrie |
+| Conținutul inaccesibil | Ce a găsit auditul, în cuvinte, + exceptările adăugate de client |
 | Elaborarea declarației (date) | Platforma |
 | Feedback și date de contact | Clientul: responsabilul cu accesibilitatea |
 | Procedura de asigurare a aplicării | Platforma, text identic pentru toți |
 
-Declarația există din prima zi a workspace-ului și se reînnoiește automat o dată pe an.
+Declarația există de la primul audit al workspace-ului și se reînnoiește automat o dată pe săptămână.
 
 ---
 
@@ -52,8 +52,8 @@ Declarația există din prima zi a workspace-ului și se reînnoiește automat o
 
 O declarație falsă lasă amenda la client și răspunderea la noi - și îl expune pe client la amenda mai mare, cea pentru lipsa accesibilității. De aici decurg trei decizii:
 
-1. **Situația conformității nu se scrie de mână în CMS.** Vine din evaluarea platformei, publicată de noi (secțiunea 6).
-2. **Clientul o poate doar înrăutăți**, niciodată îmbunătăți.
+1. **Situația conformității nu se scrie de mână în CMS.** Vine din auditul automat al fiecărui site (secțiunea 6).
+2. **Clientul nu o poate schimba**, nici în bine, nici în rău. Poate doar să adauge ce știe el că nu e accesibil și pe ce temei.
 3. **Prima etapă de lucru este verificarea site-urilor, nu construirea paginii.**
 
 ---
@@ -83,7 +83,7 @@ Terminologia se respectă strict: „exceptări", nu „excepții"; „parțial 
 
 | Obligația | Sursa | Ce construim |
 |---|---|---|
-| Declarația se oferă **anual** și se actualizează **în 3 zile de la constatarea** unei probleme | OUG art. 6 (1) | O sarcină programată republică declarația fiecărui workspace o dată pe an. O regresie găsită de verificare poate declanșa republicarea. |
+| Declarația se oferă **anual** și se actualizează **în 3 zile de la constatarea** unei probleme | OUG art. 6 (1) | Auditul săptămânal al fiecărui workspace; declarația se compune din ultimul audit, deci nu poate rămâne în urmă. |
 | Răspuns la o sesizare **în 30 de zile de la înregistrare** | OUG art. 6 (5) | Termenul e scris pe pagină; tichetul din Helpdesk îl primește automat. |
 | **Evaluarea sarcinii disproporționate se publică** alături de declarație | OUG art. 4 (7) | Câmp de text, publicat ca document separat, legat din dreptul temeiului b). |
 | Lipsa timpului, a priorității, a cunoștințelor și lipsa unui CMS accesibil **nu sunt motive legitime** | OUG art. 4 (5) | Avertisment în editorul de exceptări, pe temeiul b). |
@@ -97,95 +97,72 @@ Terminologia se respectă strict: „exceptări", nu „excepții"; „parțial 
 ## 6. Situația conformității
 
 ```
-Verificarea (secțiunea 7)
+Auditul automat al workspace-ului (săptămânal, sau la cerere din Setări → Accesibilitate)
       ↓
-Admin → Accesibilitate: noi publicăm evaluarea platformei
+Rând nou în stejar_accessibility_audits: status, constatări, pagini, revizia de cod
       ↓
-Declarația fiecărui workspace o preia
-      ↓
-Clientul o poate doar înrăutăți
+Declarația se compune live din ultimul audit + ce a completat instituția
 ```
 
-**Evaluarea platformei este una singură**, pentru codul comun: tema, componentele și paginile generate rulează identic pe toate workspace-urile, deci toate o moștenesc. **Se publică dintr-un ecran în `/stejar-admin`**, cu doar patru câmpuri: situația conformității, metoda, data și linkul către raport. Ecranul nu conține nicio listă de exceptări - exceptările privesc conținutul instituției și stau în setările ei. Trei reguli îl țin onest:
+**Fiecare workspace are auditul lui**, pe paginile lui, așa cum le văd vizitatorii lui: aceeași componentă arată altfel cu alt brand și alt conținut. Nu există o evaluare comună moștenită; codul comun se vede în admin ca „ce cade pe multe workspace-uri deodată". Trei reguli țin statusul onest:
 
-1. **Se publică, nu se editează.** Fiecare publicare este un rând nou, cu autor și dată. Nimic nu se modifică în loc și nimic nu se șterge - istoricul este chiar lista publicărilor.
-2. **„Pe deplin conform" cere un raport de la un organism acreditat RENAR.** Opțiunea rămâne dezactivată până când raportul e atașat. O verificare automată nu poate demonstra că *toate* cerințele sunt îndeplinite, iar modelul cere exact asta pentru varianta a).
-3. **Fără evaluare publicată, nu există pagină.** Ruta răspunde 404, ecranul de setări e inactiv. Regula „întâi verificarea, apoi declarația" e impusă de cod, nu de disciplină.
+1. **Auditul nu poate declara „pe deplin conform".** Modelul cere ca *toate* cerințele să fie îndeplinite, iar axe-core acoperă în jur de o treime dintre ele. Auditul dă b) când nu găsește nimic grav și c) când găsește o problemă gravă sau critică.
+2. **a) vine doar de la un organism de inspecție acreditat RENAR.** Instituția pune în setări linkul și data raportului; cât timp raportul are sub 3 ani și auditul nu găsește nimic grav, declarația spune a).
+3. **Fiecare audit e un rând nou, cu revizia de cod pe care a rulat.** Nimic nu se editează în loc, nimic nu se șterge; istoricul e dovada că declarația e ținută la zi.
 
-**Clientul poate doar înrăutăți.** Materialul lui - PDF-uri scanate, hărți, conținut preluat - poate doar să scadă accesibilitatea. Se afișează varianta mai proastă dintre valoarea platformei și cea aleasă de client, în ordinea *pe deplin conform → parțial conform → neconform*. Opțiunile mai bune sunt afișate, dar dezactivate, cu motivul alături.
-
-**Fiecare workspace are și propria verificare.** ADR verifică fiecare site separat, nu platforma. De aceea rulăm lunar, automat, aceeași verificare Lighthouse pe paginile publice ale fiecărui workspace și păstrăm scorul: îl vedem noi în admin, îl vede clientul în setări. Scorul este un semnal - declarația nu se schimbă singură. Coborârea rămâne un click al nostru sau al clientului, care încape în cele 3 zile cerute de lege.
+**Fără audit, nu există pagină.** Până la primul audit ruta răspunde 404 și linkul din subsol nu apare; primul audit rulează în prima duminică după deploy sau, la cerere, imediat.
 
 ---
 
 ## 7. Verificarea
 
-**Un singur motor: axe-core.** Este motorul din Lighthouse și din instrumentul folosit de ADR (ACHECKS combină AChecker și Lighthouse). Îl folosim în două locuri:
+**Un singur motor: axe-core.** Este motorul din Lighthouse și din instrumentul folosit de ADR (ACHECKS combină AChecker și Lighthouse). Rulează într-un singur loc: **în platformă**, `Accessibility::AuditJob`, Chromium headless în containerul aplicației, duminică noaptea, workspace după workspace, și la cerere pentru un workspace din Setări → Accesibilitate sau pentru toate din admin. Fără GitHub, fără teste locale, fără dependență de mașina cuiva.
 
-| Unde | Cum | Rolul |
-|---|---|---|
-| **În suita RSpec**, prin gemul oficial `axe-core-rspec` (Deque) | Specuri de sistem pe un set fix de pagini: prima pagină, o pagină de conținut, o listă, o hartă, un formular, căutarea, pagina de declarație | Blochează integrarea codului la orice regresie. Nu produce afirmații publice. |
-| **Lighthouse, pe un site de referință publicat**, cu conținut real | Scorul de accesibilitate 0-100, reproductibil de oricine din Chrome DevTools | Scorul și raportul publicate în admin. Se compară direct cu pragurile ADR: 0-49 inaccesibil, 50-89 parțial, 90-100 accesibil. |
+**Eșantionul** nu e ales de mână, ci derivat din codul și conținutul fiecărui workspace (`AuditTargets`), cu plafon de 60 de pagini, ca un site cu mii de pagini să fie auditat în câteva minute:
 
-Separarea vine din Ghidul ADR: o evaluare din etapa de dezvoltare nu poate susține o declarație de conformitate pentru site-ul finalizat.
+| Criteriu | Ce prinde |
+|---|---|
+| paginile de sistem (prima pagină, notificări, căutare, ștergere cont, declarația) | codul comun |
+| până la trei pagini publicate pentru fiecare componentă CMS în uz | același element în contexte de conținut diferite |
+| o pagină pentru fiecare template de pagină | structura fiecărui tip de pagină |
+| cele mai vizitate zece pagini | ce văd efectiv cetățenii |
 
-**Când rulează.** Totul este automat; singurul click uman este publicarea evaluării platformei, pentru că are valoare juridică.
+Fiecare pagină e derulată până jos ca listele, bara de acțiuni și restul conținutului încărcat ulterior să fie verificate. Ce arată un iframe (player YouTube, hartă Google) este conținut terț și nu se evaluează; iframe-ul în sine, da. O pagină care nu se deschide e notată ca atare, nu oprește auditul. Fiecare pagină din rezultat spune ce acoperă. Un workspace cu 25 de componente ajunge la 20-40 de pagini, 2-3 minute; 30 de workspace-uri, în jur de o oră pe săptămână.
 
-| Ce | Când | Ce produce |
-|---|---|---|
-| `axe-core-rspec` | la fiecare modificare de cod | blochează regresia înainte să ajungă în producție |
-| Lighthouse pe site-ul de referință | după fiecare deploy în producție | evaluarea platformei, precompletată în admin; noi apăsăm „Publică" |
-| Lighthouse per workspace | lunar, plus la cerere | scor și raport per workspace; semnal în admin și în setările clientului |
-| Republicarea declarației | anual, per workspace | rând nou în istoric, cu `trigger: anual` |
+Auditul acoperă cele șapte neconformități pe care ADR le găsește cel mai des (raportul de monitorizare 2025): focalizare puțin vizibilă, contrast redus, câmpuri fără etichete, imagini fără text alternativ, tabele fără anteturi, corelații greu de stabilit, lipsa structurii semantice. Ce nu e automat - focalizarea, corelațiile, ordinea de citire, sensul textelor alternative - intră într-o listă scurtă de verificare manuală, la fiecare livrare importantă.
 
-Verificarea acoperă obligatoriu **cele șapte neconformități pe care ADR le găsește cel mai des** (raportul de monitorizare 2025):
+**Constatările devin text de declarație.** Fiecare regulă axe are o propoziție în cele 7 limbi (`accessibility.findings.*`: „Unele texte nu au contrast suficient față de fundal."), afișată la „Conținutul inaccesibil, a) neconformitate" cu numărul de pagini din eșantion pe care a apărut. O regulă fără traducere apare cu formularea axe.
 
-| # | Neconformitatea | Automat? |
-|---|---|---|
-| 1 | Focalizare puțin vizibilă la navigarea cu tastatura | parțial |
-| 2 | Contrast redus al textului | da |
-| 3 | Câmpuri de formular neasociate cu etichetele | da |
-| 4 | Imagini fără text alternativ | da |
-| 5 | Tabele fără celule de antet corecte | da |
-| 6 | Corelații greu de stabilit între elemente | nu |
-| 7 | Lipsa structurii semantice a paginii | da |
-
-Ce nu e automat - punctele 1 și 6, ordinea de citire, sensul textelor alternative - intră într-o listă scurtă de verificare manuală, parcursă la fiecare livrare importantă. Ghidul ADR cere explicit ambele metode.
-
-O precizare de realism: axe-core acoperă în jur de 30-40% din criteriile WCAG. Verificarea automată susține onest doar „parțial conform". Pentru „pe deplin conform" e nevoie de un organism acreditat - de aceea garda din secțiunea 6.
+Remedierea a ce găsește auditul e un task separat; constatările de acum și remedierile propuse stau în `remedieri/`.
 
 ---
 
 ## 8. Datele
 
-**Evaluarea platformei** - tabel nou `stejar_accessibility_platform_statements`, în care rândurile doar se adaugă:
+**Auditul** - tabel nou `stejar_accessibility_audits`, în care rândurile doar se adaugă:
 
 | Coloana | Ce conține |
 |---|---|
-| `status` | `conformant` / `partially_conformant` / `non_conformant` |
-| `evaluation_method` | `self_assessment` / `accredited_inspection` |
-| `assessed_on`, `report_url` | Data evaluării și, opțional, raportul |
-| `published_by_id`, `created_at` | Cine și când |
+| `account_id` | Workspace-ul |
+| `status` | `partially_conformant` / `non_conformant` (a) nu vine niciodată din audit) |
+| `code_revision` | Revizia de cod pe care a rulat |
+| `summary` | `engine`, `findings` (o linie pe regulă: impact, pagini, elemente), `pages` (fiecare pagină: adresă, ce acoperă, încălcările) |
+| `created_at` | Când |
 
 **Ce completează clientul** - în `account.settings['accessibility']`, lângă `legal_data` și `legal_contact` care există deja. Coloana e `jsonb`, deci nicio migrare pe `accounts`:
 
 ```ruby
 {
-  "officer"          => { "name" => "…", "email" => "…", "phone" => "…" },
-  "catalog_keys"     => ["scanned_pdfs", "word_forms"],   # exceptări predefinite bifate; implicit: PDF-uri, imagini fără text, hărți terțe
-  "custom"           => [ { "basis" => "disproportionate_burden",
-                            "text" => { "ro" => "…" }, "assessment" => { "ro" => "…" } } ],
-  "status_override"  => nil,                       # doar către o valoare mai proastă
-  "helpdesk_form"    => { "enabled" => true, "department_id" => 3 },
-  "planned_measures" => { "ro" => "…" },           # opțional
-  "accredited_report"=> { "url" => "…", "assessed_on" => "…" },  # opțional
-  "last_check"       => { "score" => 91, "checked_at" => "…", "report_url" => "…" }  # scris de verificarea lunară
+  "officer"           => { "name" => "…", "email" => "…", "phone" => "…" },
+  "custom"            => [ { "basis" => "disproportionate_burden",
+                             "text" => { "ro" => "…" }, "assessment" => { "ro" => "…" } } ],
+  "helpdesk_form"     => { "enabled" => true, "department_id" => 3 },
+  "planned_measures"  => { "ro" => "…" },           # opțional
+  "accredited_report" => { "url" => "…", "assessed_on" => "…" }   # opțional; ridică statusul la a)
 }
 ```
 
-**Istoricul declarațiilor** - tabel nou `stejar_accessibility_statement_versions`, în care rândurile doar se adaugă: `account_id`, `revision`, `payload` (textul complet, în toate limbile, așa cum a fost afișat), `status`, `trigger` (`manual` / `anual` / `constatare`), `published_at`, `published_by_id`.
-
-Salvăm textul, nu referințe: o versiune din 2027 reconstituită în 2029 ar prelua numele instituției și textele de atunci. Ar fi o reconstituire, nu o dovadă. Coloana `trigger` dovedește la o inspecție că reînnoirea anuală a avut loc.
+Nu există versiuni publicate: declarația se compune live, „elaborată la" e data primului audit, „revizuită la" e data ultimului. Auditul săptămânal acoperă reînnoirea anuală și actualizarea în 3 zile de la constatare, iar rândurile de audit sunt dovada.
 
 ---
 
@@ -215,14 +192,12 @@ Modelul cere „o descriere și un link către mecanismul de feedback". Folosim 
 
 | Etapa | Ce conține |
 |---|---|
-| **1. Verificarea** *(fără ea nu se livrează nimic)* | `axe-core-rspec` pe setul de pagini, blocant. Rezolvarea problemelor din temă. Prima rulare Lighthouse pe site-ul de referință. |
-| **2. Declarația** | Ecranul de admin și tabelul evaluării platformei. Ruta, controllerul, pagina cu formulările oficiale, traducerile, linkul din subsol, adresa rezervată, sitemap. |
-| **3. Clientul** | Setări → Accesibilitate: responsabilul, exceptările, evaluarea publicată, formularul. Istoricul și ecranul de versiuni. |
-| **4. Recurența** | Verificarea lunară per workspace. Republicarea anuală automată. Publicarea primei versiuni pentru toate workspace-urile. Vederea de ansamblu din admin. |
+| **1. Auditul** | `AuditTargets` (eșantionul), `Auditor` (Chromium + axe-core), `AuditJob` (săptămânal, la cerere), `Audit` (model + migrare), Chromium în imagine. |
+| **2. Declarația** | Ruta, controllerul, pagina cu formulările oficiale și constatările traduse, linkul din subsol, adresa rezervată, sitemap. |
+| **3. Clientul** | Setări → Accesibilitate: auditul (rulare, progres, constatări), responsabilul, exceptările proprii, formularul, raportul RENAR. |
+| **4. Admin** | Tabelul workspace-urilor cu ultimul audit, ce cade pe mai multe workspace-uri, rularea pentru toate. |
 
-Etapa 1 și pașii din Etapa 2 aduc conformitatea de bază pentru toate site-urile. Republicarea anuală din Etapa 4 nu e opțională - fără ea, clientul intră sub amenda pentru neactualizare.
-
-**Criterii de acceptare:** orice workspace nou are declarația din prima zi, cu câmpurile precompletate; clientul editează doar ce ține de el; linkul din subsol apare automat; există în toate limbile site-ului; istoricul se păstrează; declarația se reînnoiește anual; sesizările au termen de 30 de zile; evaluarea sarcinii disproporționate se publică.
+**Criterii de acceptare:** orice workspace are declarația de la primul audit, cu câmpurile precompletate; clientul editează doar ce ține de el; linkul din subsol apare automat; există în toate limbile site-ului; istoricul auditurilor se păstrează; declarația se reînnoiește săptămânal; sesizările au termen de 30 de zile; evaluarea sarcinii disproporționate se publică.
 
 ---
 
@@ -230,12 +205,13 @@ Etapa 1 și pașii din Etapa 2 aduc conformitatea de bază pentru toate site-uri
 
 | Riscul | Cum e închis |
 |---|---|
-| Declarăm o conformitate pe care nu o avem | Situația nu se scrie în CMS. În admin, „pe deplin conform" cere raport de la organism acreditat; fiecare publicare rămâne în istoric, cu autor. |
-| Clientul urcă sute de PDF-uri scanate | Exceptarea despre PDF-uri e bifată implicit în orice workspace nou; declarația o listează din prima zi. |
+| Declarăm o conformitate pe care nu o avem | Situația nu se scrie în CMS: vine din auditul site-ului. „Pe deplin conform" cere raport de la organism acreditat, sub 3 ani, și un audit fără probleme grave. |
+| Clientul urcă sute de PDF-uri scanate | Clientul adaugă exceptarea în setări, pe temeiul potrivit, cu evaluarea cerută de lege. |
+| Un site cu mii de pagini blochează auditul | Eșantion derivat din componente, template-uri și trafic, plafon de 60 de pagini; workspace-urile rulează pe rând, într-un singur proces. |
 | O pagină CMS `/accesibilitate` o ascunde pe a noastră | Ruta noastră e declarată înaintea celei generale și adresa e rezervată. |
 | Cineva șterge linkul din subsol | Nu e element de meniu; e în cod. |
 | Un workspace privat își ascunde declarația | Controllerul sare peste verificarea de vizibilitate. |
-| Declarația se învechește | Republicarea anuală e automată; `trigger` o dovedește. |
+| Declarația se învechește | Auditul săptămânal; fiecare rulare e un rând în istoric. |
 | Clientul invocă un motiv respins de lege | Avertisment explicit în editorul de exceptări. |
 | Lipsește o limbă | Un test parcurge titlurile oficiale în toate limbile. |
 | Modelul se schimbă | Textele stau într-un singur loc, în fișierele de traducere. |
@@ -246,10 +222,10 @@ Etapa 1 și pașii din Etapa 2 aduc conformitatea de bază pentru toate site-uri
 
 | Unde | Ce |
 |---|---|
-| stejar | `Accessibility::PlatformStatement` (model + migrare) · admin: controller + view `accessibility` · `Accessibility::Statement` (compune declarația unui workspace) · `Website::AccessibilityStatementsController` + view · `Accessibility::StatementVersion` (model + migrare) · `Accessibility::AnnualRepublishJob` · `Accessibility::WorkspaceCheckJob` (lunar) · acțiunea `accessibility` în `Workspace::SettingsController` + view · locale `accessibility.yml` × 7 · o constantă în `Helpdesk::Form` · un cuvânt în `RESERVED_SLUGS` |
-| eventya | o linie în `account_website.rb` · o linie în `footer_component.rb` · `axe-core-rspec` + specurile de sistem |
+| stejar | `Accessibility::Audit` (model + migrare) · `Accessibility::AuditTargets` / `Auditor` / `AuditProgress` / `AuditJob` · `Accessibility::Statement` (compune declarația) · `Accessibility::Path` (adresa în fiecare limbă) · `Accessibility::SettingsForm` · `Website::AccessibilityStatementsController` + view · `Workspace::AccessibilityController` + views · `Admin::AccessibilityController` + view · locale `accessibility.yml` × 7 · o constantă în `Helpdesk::Form` · `selenium-webdriver` + `axe-core-api` în gemspec |
+| eventya | o rută în `account_website.rb` și una în `admin.rb` · o linie în `footer_component.rb` · `recurring.yml` (auditul săptămânal) · Chromium în `Dockerfile` |
 
-Niciun gem nou în afara `axe-core-rspec`. Nicio permisiune nouă. Nicio modificare a tabelului `accounts`. Două tabele noi, în care rândurile doar se adaugă. Două sarcini programate: verificarea lunară și republicarea anuală.
+Nicio permisiune nouă. Nicio modificare a tabelului `accounts`. Un tabel nou, în care rândurile doar se adaugă. O sarcină programată. Chromium în imaginea de producție, pentru că auditul rulează în platformă.
 
 Nu construim: un instrument care repară automat accesibilitatea (suprapunerile de tip „widget" sunt considerate o înrăutățire mascată), un scor per pagină în CMS, sau analiza cerută de art. 8 din norme în locul instituției - îi dăm raportul, asumarea rămâne a reprezentantului ei legal.
 
