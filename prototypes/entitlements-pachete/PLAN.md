@@ -20,6 +20,7 @@
 | R8 | **La expirare se blochează imediat** toate funcțiile plătite, inclusiv cele publice. Nu există perioadă de grație și nici comutator global. |
 | R9 | **Excepțiile comerciale se dau tot prin subscripție** (opțiune sau supliment consemnat), niciodată prin flag-uri editate de mână. |
 | R10 | **MCP e activ implicit pentru toți** și nu ține de pachet. |
+| R11 | **În interfață, subscripția înseamnă doar două lucruri:** butonul „Upgrade” din bară (proprietar, pachet diferit de Complet) și o linie în meniul de avatar (pachetul și data de expirare). Expirarea și cererile se comunică pe e-mail. |
 
 ---
 
@@ -195,7 +196,7 @@ Intrările din interfață se ascund cu același `entitled?`:
 - butonul de hartă și tab-ul SLA din rapoarte;
 - dashboard-ul CMS: panoul Analytics;
 - hub-ul Workspace: domenii, branding;
-- butonul „AI Assistant" din topbar;
+- câmpul flotant al asistentului AI;
 - tab-urile Comunității.
 
 ### 4.3 Elemente CMS
@@ -252,30 +253,64 @@ Detalii:
 
 ---
 
-## 6. Bulina de status din topbar
+## 6. Bara de sus și asistentul AI (ecranele 1-4)
 
-Înlocuiește pastila „Live / Activează" (`layouts/stejar/components/_live_status.html.erb`).
+Ecranele sunt construite pe markup-ul real din `stejar`.
 
-**Cine o vede:** ca azi, membrii cu `full_access?`, doar pe desktop, niciodată pe contul de sistem. Pe mobil devine un rând în meniul lateral.
+### 6.1 Bara
 
-**Forma:** o pastilă compactă, cu bulina și numele planului („Mobil", „Fără plan", „Expirat").
+| Element | Azi | Devine |
+|---|---|---|
+| Lățimea | `_navbar.html.erb` o limitează la `max-w-7xl` | **Toată lățimea ecranului.** Conținutul paginii rămâne în `max-w-5xl` |
+| Simbolul Eventya | `_header_menu.html.erb` L5-7 | **Scos.** Rămâne în footer și în meniul mobil |
+| Meniul de module | pastile centrate (`components/stejar/layout/navbar.html.erb`) | **Tab-uri text aliniate la stânga** (§6.2) |
+| „Asistent AI" | buton în bară (`_ai_assistant_trigger.html.erb`) | **Câmp flotant jos, pe centru** (§6.5) |
+| Pastila „Live / Activează" | `_live_status.html.erb` | **Scoasă.** Starea domeniului rămâne în Setări spațiu de lucru → Domenii |
+| „Upgrade” | — | **Nou**, în stânga clopoțelului (§6.3) |
+| Clopoțelul, avatarul | `_notifications_items`, `_user_avatar` | Rămân |
 
-**Culoarea** reflectă cea mai gravă dintre stări:
+Ordinea din dreapta: „Upgrade” · clopoțel · separator · avatar.
 
-| Culoare | Când |
+### 6.2 Meniul de module
+
+- **Stil:** tab-uri text (`.topnav`, o variantă a `.tabs` din design system): `text-sm`, `px-3.5`, sub-linie neagră de 2px pe marginea barei, fără iconițe și fără chenar. Sub-linia e neagră ca să nu se confunde cu tab-urile din pagini.
+- **De ce:** pastilele de azi au 110–150px fiecare. Măsurat în browser, 5 module încap până pe la ~900px, dar 8 module cer ~1.370px, mai mult decât un laptop de 1280 sau 1366px.
+- **„Mai mult”:** un controller Stimulus `nav-overflow` cu `ResizeObserver` mută în dropdown-ul existent tab-urile care nu încap. Modulul activ ia locul ultimului tab vizibil. Fără JavaScript, tab-urile fac scroll orizontal.
+- **Mobil:** neschimbat, meniul hamburger cu iconițe.
+
+### 6.3 Butonul „Upgrade”
+
+- **Apare** doar la proprietar (`role_owner?`) și doar dacă pachetul nu e Complet. Alte condiții nu există.
+- **Arată** ca un buton cu contur, nu plin. Duce la `/workspace/upgrade` (§7).
+- **Nu are stări:** nici bulină, nici banner, nici „cerere trimisă”. Dacă există deja o cerere deschisă, o arată pagina de upgrade (§7.1).
+- **Pe mobil** stă în meniul hamburger, deasupra modulelor.
+
+### 6.4 Meniul de avatar
+
+- Sub nume și rol, o singură linie: pachetul și data („Expiră pe 31.12.2026”, „Fără dată de expirare”, „A expirat pe …”, „Doar CMS și Media” fără pachet).
+- O văd toți membrii echipei. Nu e link, nu are acțiuni și nu are culori de avertizare, în afară de data trecută.
+- Meniul rămâne `w-56`.
+
+### 6.5 Asistentul AI flotant
+
+- **Forma:** arată ca un câmp de text („Întreabă asistentul AI…”), dar e un buton. Click-ul deschide panoul de azi (`#ai-assistant-panel`), pe aceeași axă.
+- **Poziția:** fix, jos pe centru, `w-[520px]`; pe mobil ocupă lățimea ecranului minus 16px. Panoul deschis are `w-[560px]`, pe mobil 75% din înălțime.
+- **Când apare:** doar dacă spațiul de lucru are dreptul `ai.editor`.
+- **Deschis sau minimizat:** cât timp panoul e deschis, câmpul nu se vede. Minimizat, câmpul arată „Continuă conversația…” cu un punct și înlocuiește bara minimizată de azi.
+- **Coliziuni:** pe paginile cu `_edit_save_bar`, câmpul urcă deasupra barei de salvare (`body:has(.save-bar)`). `main` primește ~80px spațiu liber jos.
+- **Ce nu se schimbă:** conținutul panoului, frame-ul `ai_assistant_panel` și limita de tokeni.
+
+### 6.6 Informarea pe e-mail
+
+Interfața nu avertizează despre subscripție. Proprietarul primește e-mailuri:
+
+| E-mail | Când |
 |---|---|
-| 🔴 roșu | subscripția a expirat sau a fost anulată: funcțiile plătite sunt oprite |
-| 🟡 galben | fără subscripție (doar CMS) · expiră în ≤ 30 de zile · domeniul e neconectat sau neverificat (doar dacă pachetul include domeniu) · o limită e atinsă |
-| 🟢 verde | subscripție activă, domeniu live, nicio limită atinsă |
+| Abonamentul expiră | cu 30, 7 și 1 zi înainte de `ends_at` (propunere) |
+| Abonamentul a expirat | în ziua de după `ends_at` |
+| Cererea de upgrade | e-mailurile Helpdesk existente: confirmarea tichetului și răspunsurile echipei |
 
-**Dropdown-ul** se deschide la hover (cu întârziere mică la închidere), la click sau tap și la focus din tastatură, și se închide cu Esc. Folosește `dropdown` + `useHover` din stimulus-use, deja instalat. Conține:
-1. **Planul:** pachet, Helpdesk, opțiuni AI și perioada (activă până la / expiră în N zile / a expirat la).
-2. **Domeniul:** hostname și stare, cu link către `workspace/domains`.
-3. **Utilizare:** utilizatori, stocare și agenți, cu bare de progres.
-4. **Acțiunea**, în funcție de situație:
-   - **proprietar:** „Cere upgrade";
-   - **cerere deja deschisă:** „Cerere în lucru · #1234", cu link la tichet;
-   - **developer:** text „Doar proprietarul poate cere un upgrade".
+Un job zilnic, în `config/recurring.yml`, trimite e-mailurile de expirare, fiecare o singură dată per subscripție și prag.
 
 ---
 
@@ -374,10 +409,11 @@ Echipa le pune subscripția de mână înainte de deploy-ul porților. Altfel, �
 |---|---|---|
 | 1 | Catalog, migrarea `stejar_subscriptions`, `Resolver`, `entitled?`, migrarea de date (Complet + MCP), rake-ul de impact | Nu, nimeni nu citește încă dreptul |
 | 2 | Admin: lista și tab-ul Subscripție reproiectate | Doar în admin |
-| 3 | Formularul de upgrade (migrare), pagina de cerere, bulina din topbar | Adaugă, nu blochează |
+| 3 | Formularul de upgrade (migrare), pagina de cerere, butonul „Upgrade”, linia de pachet din meniul de avatar, e-mailurile de expirare | Adaugă, nu blochează |
 | 4 | Porțile: `Permissionable`, `RequiresEntitlement`, elemente, suprafețe publice, cheia de cache; ștergerea `PaidPlanGate` | **Da.** Deploy doar după ce raportul de impact e curat |
 | 5 | Limitele: utilizatori, agenți, departamente, stocare + `LimitNotice` | **Da** |
 | 6 | Curățenie: coloanele derivate din `account_meta`, `services`, `plan`, comutatoarele vechi din admin | Nu |
+| 7 | Bara de sus: full width, fără simbol, tab-uri cu „Mai mult”, asistentul AI flotant. Independent de pachete, poate intra oricând | Doar vizual |
 
 Testele de acceptanță pentru PR 4 și 5 folosesc un factory per profil (`:free`, `:web`, `:mobil`, `:complet`, `:helpdesk_start`, `:helpdesk_pro`) și verifică pentru fiecare cheie: navigație, controller (404), element (picker + public) și cache.
 
@@ -414,13 +450,15 @@ Cheile ★ există în catalog de la PR 1. Orice funcție nouă se leagă de che
 
 ## Ecrane
 
-1. **Topbar:** bulina de status, cu dropdown-ul deschis
-2. **Stările bulinei:** verde, galben, roșu, cerere în lucru, vizualizare developer
-3. **Cererea de upgrade:** formularul
-4. **Cererea trimisă:** confirmarea și starea „în lucru"
-5. **Limită:** utilizatori (Echipă)
-6. **Limită:** agenți și departamente (Helpdesk Start)
-7. **Limită:** stocare (Media)
-8. **Module ascunse:** navbar pe fiecare pachet + picker-ul de elemente
-9. **Admin:** lista de conturi
-10. **Admin:** tab-ul Subscripție, cu previzualizarea unui downgrade
+1. **Bara de sus:** full width, tab-uri, „Upgrade” lângă clopoțel, AI flotant
+2. **Meniul de avatar:** pachetul și data de expirare
+3. **Asistentul AI:** câmp flotant, panoul deschis, minimizat, cu bara de salvare, mobil
+4. **Meniul de module:** tab-uri text cu „Mai mult”
+5. **Cerere upgrade:** formularul
+6. **Cerere trimisă:** confirmarea și tichetul văzut de Suport
+7. **Limită:** utilizatori (Echipă)
+8. **Limită:** agenți și departamente (Helpdesk Start)
+9. **Limită:** stocare (Media)
+10. **Module ascunse:** bara pe fiecare pachet, picker-ul de elemente, meniul paginii
+11. **Admin:** lista de conturi
+12. **Admin:** tab-ul Subscripție, cu previzualizarea unui downgrade
