@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meniul de avatar · Pachete și drepturi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#2 · Meniul de avatar — pachetul și data de expirare, atât</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+<div class="relative">
+  <header class="flex items-center h-14 px-4 bg-surface-0 border-b border-surface-200">
+    <div class="flex items-center w-full h-full gap-6">
+      <div class="flex items-center gap-3 max-md:grow">
+        <a class="hidden md:flex items-center gap-2.5 cursor-pointer">
+          <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">MD</div>
+          <span class="text-sm font-semibold text-gray-900 dark:text-white max-w-32 truncate">Muzeul Demo</span>
+        </a>
+      </div>
+      <nav class="hidden md:flex items-stretch self-stretch gap-1"><a class="inline-flex items-center px-3.5 text-sm whitespace-nowrap border-b-2 -mb-px transition-colors border-ink-900 dark:border-white text-ink-900 dark:text-white font-semibold">Site web</a><a class="inline-flex items-center px-3.5 text-sm whitespace-nowrap border-b-2 -mb-px transition-colors border-transparent text-ink-500 hover:text-ink-900 hover:bg-surface-50 font-medium">Aplicație</a><a class="inline-flex items-center px-3.5 text-sm whitespace-nowrap border-b-2 -mb-px transition-colors border-transparent text-ink-500 hover:text-ink-900 hover:bg-surface-50 font-medium">Media</a><a class="inline-flex items-center px-3.5 text-sm whitespace-nowrap border-b-2 -mb-px transition-colors border-transparent text-ink-500 hover:text-ink-900 hover:bg-surface-50 font-medium">Helpdesk</a></nav>
+      <div class="flex items-center gap-2.5 ml-auto">
+        <a class="hidden md:inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-primary-200 dark:border-primary-500/30 text-[12px] font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 whitespace-nowrap transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="M12 16V8"/></svg>Upgrade
+        </a>
+        <button type="button" class="relative text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 transition-colors p-1" id="notifications_button">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900"></span>
+        </button>
+        <div class="hidden md:block w-px h-5 bg-gray-200 dark:bg-zinc-700"></div>
+        <button type="button" class="relative" id="user_top_menu_button">
+          <div class="w-7 h-7 rounded-full shrink-0 bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold">AP</div>
+          
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="absolute right-4 top-[60px] z-50"><div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+      <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+        <div class="text-sm font-medium text-gray-900 dark:text-white">Ana Popescu</div>
+        <div class="mt-1"><span class="badge badge--owner">Proprietar</span></div>
+      </div>
+      <div class="px-3 py-2 border-b border-gray-200 dark:border-zinc-700 flex items-start gap-2">
+        <span class="text-ink-400 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-gray-900 dark:text-white leading-tight">Mobil + Helpdesk Pro</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Expiră pe 31.12.2026</div>
+        </div>
+      </div>
+      <div class="p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Comunitate</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Contul meu</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Tichetele mele</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">CMS</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Gestionează echipa</a>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Setări spațiu de lucru</a>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors"><span class="text-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>Rapoarte AI</a>
+      </div>
+      <div class="border-t border-gray-200 dark:border-zinc-700 p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Preferințe</p>
+        <a class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300"><span class="text-ink-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><span class="flex-1 text-left">Limbă</span>🇷🇴</a>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Mod întunecat</a>
+      </div>
+      <div class="border-t border-gray-200 dark:border-zinc-700 p-1.5"><a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Deconectare</a></div>
+    </div></div>
+  <main id="main" class="flex flex-col gap-4 px-4 md:px-8 min-w-0">
+    <div class="w-full min-w-0 mx-auto max-w-5xl py-8" id="main-content">
+      <div class="flex items-center justify-between mb-5">
+        <div><div class="text-2xl font-bold text-ink-900">Pagini</div><div class="text-sm text-ink-500 mt-1">128 de pagini în 3 limbi</div></div>
+        <span class="btn btn--primary">Pagină nouă</span>
+      </div>
+      <div class="bg-surface-0 rounded-xl border border-surface-200 overflow-hidden">
+          <div class="flex items-center gap-3 px-4 py-3 ">
+            <div class="w-9 h-9 rounded-lg bg-surface-100"></div>
+            <div class="flex-1"><div class="h-3 rounded bg-surface-200" style="width:46%"></div><div class="h-2.5 mt-2 rounded bg-surface-100" style="width:31%"></div></div>
+            <span class="badge">Publicată</span>
+          </div><div class="flex items-center gap-3 px-4 py-3 border-t border-surface-200">
+            <div class="w-9 h-9 rounded-lg bg-surface-100"></div>
+            <div class="flex-1"><div class="h-3 rounded bg-surface-200" style="width:38%"></div><div class="h-2.5 mt-2 rounded bg-surface-100" style="width:23%"></div></div>
+            <span class="badge">Publicată</span>
+          </div><div class="flex items-center gap-3 px-4 py-3 border-t border-surface-200">
+            <div class="w-9 h-9 rounded-lg bg-surface-100"></div>
+            <div class="flex-1"><div class="h-3 rounded bg-surface-200" style="width:52%"></div><div class="h-2.5 mt-2 rounded bg-surface-100" style="width:37%"></div></div>
+            <span class="badge">Ciornă</span>
+          </div><div class="flex items-center gap-3 px-4 py-3 border-t border-surface-200">
+            <div class="w-9 h-9 rounded-lg bg-surface-100"></div>
+            <div class="flex-1"><div class="h-3 rounded bg-surface-200" style="width:30%"></div><div class="h-2.5 mt-2 rounded bg-surface-100" style="width:15%"></div></div>
+            <span class="badge">Publicată</span>
+          </div>
+      </div>
+    </div>
+  </main>
+  </div>
+  <div class="h-[140px]"></div>
+
+  <div class="max-w-5xl mx-auto px-4 md:px-8 pt-10 pb-3"><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Linia de pachet, în situațiile care contează</div><p class="text-[12px] text-ink-500 mt-1">Doar două informații: ce pachet are spațiul de lucru și până când. Fără utilizare, fără domeniu, fără acțiuni.</p></div>
+  <section class="max-w-5xl mx-auto px-4 md:px-8">
+    <div class="flex flex-wrap gap-6 items-start"><div><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">Mobil + Helpdesk Pro</div><div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+      <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+        <div class="text-sm font-medium text-gray-900 dark:text-white">Ana Popescu</div>
+        <div class="mt-1"><span class="badge badge--owner">Proprietar</span></div>
+      </div>
+      <div class="px-3 py-2 border-b border-gray-200 dark:border-zinc-700 flex items-start gap-2">
+        <span class="text-ink-400 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-gray-900 dark:text-white leading-tight">Mobil + Helpdesk Pro</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Expiră pe 31.12.2026</div>
+        </div>
+      </div>
+      <div class="p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Comunitate</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Contul meu</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Tichetele mele</a>
+        <div class="px-2.5 py-1 text-[12px] text-ink-300">…</div>
+      </div>
+      
+    </div></div><div><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">Complet, fără dată de sfârșit</div><div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+      <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+        <div class="text-sm font-medium text-gray-900 dark:text-white">Ana Popescu</div>
+        <div class="mt-1"><span class="badge badge--owner">Proprietar</span></div>
+      </div>
+      <div class="px-3 py-2 border-b border-gray-200 dark:border-zinc-700 flex items-start gap-2">
+        <span class="text-ink-400 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-gray-900 dark:text-white leading-tight">Complet</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Fără dată de expirare</div>
+        </div>
+      </div>
+      <div class="p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Comunitate</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Contul meu</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Tichetele mele</a>
+        <div class="px-2.5 py-1 text-[12px] text-ink-300">…</div>
+      </div>
+      
+    </div></div><div><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">Fără pachet</div><div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+      <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+        <div class="text-sm font-medium text-gray-900 dark:text-white">Ana Popescu</div>
+        <div class="mt-1"><span class="badge badge--owner">Proprietar</span></div>
+      </div>
+      <div class="px-3 py-2 border-b border-gray-200 dark:border-zinc-700 flex items-start gap-2">
+        <span class="text-ink-400 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-gray-900 dark:text-white leading-tight">Fără pachet</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Doar CMS și Media</div>
+        </div>
+      </div>
+      <div class="p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Comunitate</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Contul meu</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Tichetele mele</a>
+        <div class="px-2.5 py-1 text-[12px] text-ink-300">…</div>
+      </div>
+      
+    </div></div><div><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">Pachet expirat</div><div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+      <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+        <div class="text-sm font-medium text-gray-900 dark:text-white">Ana Popescu</div>
+        <div class="mt-1"><span class="badge badge--owner">Proprietar</span></div>
+      </div>
+      <div class="px-3 py-2 border-b border-gray-200 dark:border-zinc-700 flex items-start gap-2">
+        <span class="text-ink-400 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-gray-900 dark:text-white leading-tight">Web</div>
+          <div class="text-[11px] text-red-600 dark:text-red-400 mt-0.5">A expirat pe 31.08.2026</div>
+        </div>
+      </div>
+      <div class="p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Comunitate</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Contul meu</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Tichetele mele</a>
+        <div class="px-2.5 py-1 text-[12px] text-ink-300">…</div>
+      </div>
+      
+    </div></div><div><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">Văzut de un editor</div><div class="w-56 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+      <div class="px-3 py-2.5 border-b border-gray-200 dark:border-zinc-700">
+        <div class="text-sm font-medium text-gray-900 dark:text-white">Mihai Ionescu</div>
+        <div class="mt-1"><span class="badge badge--editor">Editor</span></div>
+      </div>
+      <div class="px-3 py-2 border-b border-gray-200 dark:border-zinc-700 flex items-start gap-2">
+        <span class="text-ink-400 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+        <div class="min-w-0">
+          <div class="text-[13px] font-semibold text-gray-900 dark:text-white leading-tight">Mobil + Helpdesk Pro</div>
+          <div class="text-[11px] text-ink-500 mt-0.5">Expiră pe 31.12.2026</div>
+        </div>
+      </div>
+      <div class="p-1.5">
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500 pt-1">Comunitate</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Contul meu</a>
+        <p class="px-2.5 pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Helpdesk</p>
+        <a class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">Tichetele mele</a>
+        <div class="px-2.5 py-1 text-[12px] text-ink-300">…</div>
+      </div>
+      
+    </div></div></div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-4 md:px-8 pt-10 pb-3"><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Reguli</div></div>
+  <section class="max-w-5xl mx-auto px-4 md:px-8">
+    <div class="card p-0 overflow-x-auto">
+      <table class="w-full text-[13px] min-w-[620px]">
+        <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500"><tr><th class="text-left font-semibold px-4 py-2.5">Element</th><th class="text-left font-semibold px-4 py-2.5">Regula</th></tr></thead>
+        <tbody class="divide-y divide-surface-200"><tr><td class="px-4 py-2.5 text-ink-900 font-medium align-top whitespace-nowrap">Unde</td><td class="px-4 py-2.5 text-ink-700">Imediat sub nume și rol, în <code>_menu_items.html.erb</code>. Meniul rămâne <code>w-56</code>.</td></tr><tr><td class="px-4 py-2.5 text-ink-900 font-medium align-top whitespace-nowrap">Ce arată</td><td class="px-4 py-2.5 text-ink-700">Pachetul (cu Helpdesk-ul, dacă e cumpărat separat) și data: „Expiră pe …”, „Fără dată de expirare” (<code>ends_at</code> gol), „A expirat pe …” sau „Doar CMS și Media” fără pachet.</td></tr><tr><td class="px-4 py-2.5 text-ink-900 font-medium align-top whitespace-nowrap">Cine vede</td><td class="px-4 py-2.5 text-ink-700">Toți membrii echipei (proprietar, editor, page manager, developer). Nu e informație sensibilă și nu are acțiuni.</td></tr><tr><td class="px-4 py-2.5 text-ink-900 font-medium align-top whitespace-nowrap">Ce nu face</td><td class="px-4 py-2.5 text-ink-700">Nu e link, nu are culori de avertizare (în afară de data trecută), nu are buton. Upgrade-ul e în bară, iar avertizările vin pe e-mail.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+  <div class="h-16"></div>
+  <button type="button" class="btn fixed bottom-4 left-4 shadow-lg z-[60]" title="Prototip: dark mode"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
