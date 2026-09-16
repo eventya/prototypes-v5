@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cerere trimisă · Pachete și drepturi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#4 · Cerere trimisă — ce vede clientul și ce primește echipa de Suport</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 py-6 md:px-8 space-y-12">
+
+    <!-- ============ A. Confirmare (client) ============ -->
+    <section>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">A · Clientul, imediat după trimitere</div>
+      <div class="card p-8 max-w-xl mx-auto text-center">
+        <div class="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h1 class="text-xl font-bold text-ink-900 mt-4">Cererea a fost trimisă</h1>
+        <p class="text-sm text-ink-500 mt-2 leading-relaxed">
+          Echipa Eventya îți scrie pe <strong class="text-ink-700">ana.popescu@cultura-demo.ro</strong>. Poți continua conversația din e-mail sau din <strong class="text-ink-700">Tichetele mele</strong>.
+        </p>
+        <div class="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-lg bg-surface-100 text-[12px] text-ink-600">
+          <svg class="w-3.5 h-3.5 text-ink-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Tichet <strong class="text-ink-800">#4821</strong>
+        </div>
+        <div class="flex items-center justify-center gap-2 mt-6">
+          <a class="btn btn--ghost">Înapoi la Echipă</a>
+          <a class="btn btn--primary">Vezi tichetul</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ B. Revenire pe pagină cât cererea e deschisă ============ -->
+    <section>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">B · Clientul revine pe „Cere upgrade" cât cererea e deschisă</div>
+      <div class="card p-6 max-w-xl mx-auto">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-sky-600 dark:text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-[15px] font-semibold text-ink-900">Ai deja o cerere în lucru</h2>
+            <p class="text-[13px] text-ink-500 mt-1">Tichet #4821 · trimis pe 14.09.2026 de Ana Popescu · ultimul răspuns acum 2 ore</p>
+            <div class="mt-3 rounded-lg border border-surface-200 bg-surface-50 p-3 text-[12px] text-ink-600">
+              <span class="font-medium text-ink-800">Ai cerut:</span> 2 utilizatori în plus
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mt-4">
+              <a class="btn btn--primary">Continuă conversația</a>
+              <span class="text-[12px] text-ink-400">Vrei altceva? Scrie în același tichet.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ C. Tichetul în Helpdesk-ul Eventya ============ -->
+    <section>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-1">C · Echipa de Suport, în Helpdesk-ul contului de sistem</div>
+      <p class="text-[12px] text-ink-500 mb-3">Nu e un ecran nou: e detaliul de tichet existent. Arătăm doar ce conține corpul generat de <code class="text-[11px]">UpgradeRequestCreator</code>.</p>
+
+      <div class="card p-0 overflow-hidden">
+        <div class="flex flex-wrap items-center gap-3 px-5 py-4 border-b border-surface-200">
+          <span class="text-[12px] font-mono text-ink-400">#4821</span>
+          <h3 class="text-[15px] font-semibold text-ink-900">Cerere upgrade · Centrul Cultural Demo</h3>
+          <span class="badge badge--warning">Nou</span>
+          <div class="ml-auto flex items-center gap-2 text-[12px] text-ink-500">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-100">Formular: Cerere upgrade</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-100">Departament: Suport</span>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-[1fr_260px]">
+          <div class="p-5">
+            <div class="flex items-center gap-2.5 mb-3">
+              <div class="w-8 h-8 rounded-full bg-rose-500 flex items-center justify-center text-white text-[11px] font-bold">AP</div>
+              <div>
+                <div class="text-[13px] font-semibold text-ink-900">Ana Popescu <span class="font-normal text-ink-400">· proprietar</span></div>
+                <div class="text-[11px] text-ink-400">ana.popescu@cultura-demo.ro · acum 3 minute</div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-surface-200 bg-surface-50 p-4 text-[13px] text-ink-700 leading-relaxed space-y-3">
+              <div>
+                <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400 mb-1">Ce cere</div>
+                <ul class="list-disc pl-5">
+                  <li>Mai mulți utilizatori: <strong>+2</strong></li>
+                </ul>
+              </div>
+              <div>
+                <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400 mb-1">Mesaj</div>
+                <p>Din octombrie mai vin doi colegi la comunicare.</p>
+              </div>
+              <div class="pt-3 border-t border-surface-200 grid sm:grid-cols-2 gap-x-6 gap-y-1 text-[12px]">
+                <div><span class="text-ink-400">Workspace:</span> Centrul Cultural Demo (<code>cultura-demo</code>)</div>
+                <div><span class="text-ink-400">Deschis din:</span> limita de utilizatori</div>
+                <div><span class="text-ink-400">Plan:</span> Web · activ până la 31.12.2026</div>
+                <div><span class="text-ink-400">Utilizatori:</span> 3 / 3</div>
+                <div><span class="text-ink-400">Opțiuni:</span> —</div>
+                <div><span class="text-ink-400">Stocare:</span> 6,2 / 10 GB</div>
+              </div>
+            </div>
+          </div>
+          <aside class="p-5 border-t md:border-t-0 md:border-l border-surface-200 space-y-3 text-[12px]">
+            <div>
+              <div class="text-ink-400 mb-0.5">Workspace</div>
+              <a class="text-primary font-medium hover:underline">Deschide în /stejar-admin →</a>
+            </div>
+            <div>
+              <div class="text-ink-400 mb-0.5">Câmp „Workspace"</div>
+              <div class="font-mono text-ink-700">cultura-demo</div>
+              <div class="text-ink-400 mt-0.5">Detectează cererile deschise, ca să nu apară dubluri.</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
