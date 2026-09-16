@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Subscripție · Pachete și drepturi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#10 · Admin — tab-ul Subscripție: trecere de la Complet la Mobil + Helpdesk Pro</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-6 md:px-8">
+
+    <nav class="text-xs text-ink-400 mb-3 flex items-center gap-1.5">
+      <span>Conturi</span>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      <span class="text-ink-700 font-medium">Primăria Demo</span>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-3 mb-5">
+      <h1 class="text-2xl font-bold text-ink-900">Primăria Demo</h1>
+      <span class="text-[13px] text-ink-400">/primaria-demo</span>
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Complet · activ</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex items-center gap-1 border-b border-surface-200 mb-6 overflow-x-auto">
+      <span class="px-3 py-2 text-[13px] font-medium text-ink-500">Prezentare</span>
+      <span class="px-3 py-2 text-[13px] font-semibold text-ink-900 border-b-2 border-primary -mb-px">Subscripție</span>
+      <span class="px-3 py-2 text-[13px] font-medium text-ink-500">Echipă <span class="text-ink-400">14</span></span>
+      <span class="px-3 py-2 text-[13px] font-medium text-ink-500">AI</span>
+      <span class="px-3 py-2 text-[13px] font-medium text-ink-500">Intelligence</span>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[1fr_360px] items-start">
+
+      <!-- ================= FORMULAR ================= -->
+      <form class="space-y-5">
+
+        <!-- 1. Pachet -->
+        <section class="card p-5">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold flex items-center justify-center">1</span>
+            <h2 class="text-[15px] font-semibold text-ink-900">Pachet</h2>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 mt-4">
+            <label class="rounded-xl border border-surface-200 bg-surface-0 p-3.5 cursor-pointer hover:border-primary-400">
+              <div class="flex items-center justify-between"><span class="text-[13px] font-semibold text-ink-900">Fără pachet</span><input type="radio" name="pkg" class="w-4 h-4 accent-[var(--color-primary)]"></div>
+              <div class="text-[11px] text-ink-500 mt-1.5">Doar CMS · 3 utilizatori · 1 GB</div>
+            </label>
+            <label class="rounded-xl border border-surface-200 bg-surface-0 p-3.5 cursor-pointer hover:border-primary-400">
+              <div class="flex items-center justify-between"><span class="text-[13px] font-semibold text-ink-900">Web</span><input type="radio" name="pkg" class="w-4 h-4 accent-[var(--color-primary)]"></div>
+              <div class="text-[11px] text-ink-500 mt-1.5">3 utilizatori · 10 GB</div>
+            </label>
+            <label class="rounded-xl border-2 border-primary-500 bg-surface-100 p-3.5 cursor-pointer">
+              <div class="flex items-center justify-between"><span class="text-[13px] font-semibold text-ink-900">Mobil</span><input type="radio" name="pkg" checked class="w-4 h-4 accent-[var(--color-primary)]"></div>
+              <div class="text-[11px] text-ink-500 mt-1.5">10 utilizatori · 25 GB · AI editori inclus</div>
+            </label>
+            <label class="rounded-xl border border-dashed border-surface-300 bg-surface-0 p-3.5 cursor-pointer hover:border-primary-400">
+              <div class="flex items-center justify-between"><span class="text-[13px] font-semibold text-ink-900">Complet</span><input type="radio" name="pkg" class="w-4 h-4 accent-[var(--color-primary)]"></div>
+              <div class="text-[11px] text-ink-500 mt-1.5">25 utilizatori · 100 GB · tot inclus</div>
+              <div class="text-[10px] font-semibold text-ink-400 mt-1.5 uppercase tracking-wider">Acum</div>
+            </label>
+          </div>
+        </section>
+
+        <!-- 2. Helpdesk -->
+        <section class="card p-5">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold flex items-center justify-center">2</span>
+            <h2 class="text-[15px] font-semibold text-ink-900">Helpdesk</h2>
+          </div>
+          <div class="inline-flex mt-4 p-1 rounded-xl bg-surface-100 text-[13px]">
+            <span class="px-4 py-1.5 rounded-lg text-ink-500">Fără</span>
+            <span class="px-4 py-1.5 rounded-lg text-ink-500">Start</span>
+            <span class="px-4 py-1.5 rounded-lg bg-surface-0 shadow-sm font-semibold text-ink-900">Pro</span>
+          </div>
+          <div class="text-[12px] text-ink-500 mt-2">Pro: departamente multiple, SLA, sesizări GPS, WhatsApp. 3 agenți incluși, suplimentele se adaugă la pasul 4.</div>
+        </section>
+
+        <!-- 3. Opțiuni AI -->
+        <section class="card p-5">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold flex items-center justify-center">3</span>
+            <h2 class="text-[15px] font-semibold text-ink-900">Opțiuni AI</h2>
+          </div>
+          <div class="mt-4 divide-y divide-surface-200 border border-surface-200 rounded-xl overflow-hidden">
+            <div class="flex items-center gap-3 px-4 py-3 bg-surface-50">
+              <div class="flex-1">
+                <div class="text-[13px] font-medium text-ink-900">AI pentru editori</div>
+                <div class="text-[12px] text-ink-500">Inclus în Mobil</div>
+              </div>
+              <span class="inline-flex items-center gap-1 text-[12px] font-medium text-emerald-700 dark:text-emerald-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>inclus</span>
+            </div>
+            <label class="flex items-center gap-3 px-4 py-3 bg-surface-0 cursor-pointer">
+              <div class="flex-1">
+                <div class="text-[13px] font-medium text-ink-900">AI pentru vizitatori</div>
+                <div class="text-[12px] text-ink-500">Asistentul public pe site și în aplicație</div>
+              </div>
+              <span class="relative inline-flex w-9 h-5 rounded-full bg-primary"><span class="absolute top-0.5 left-4.5 w-4 h-4 rounded-full bg-white shadow"></span></span>
+            </label>
+            <label class="flex items-center gap-3 px-4 py-3 bg-surface-0 cursor-pointer">
+              <div class="flex-1">
+                <div class="text-[13px] font-medium text-ink-900">AI în Helpdesk</div>
+                <div class="text-[12px] text-ink-500">Ciorne și direcționare. Necesită Helpdesk Pro ✓</div>
+              </div>
+              <span class="relative inline-flex w-9 h-5 rounded-full bg-surface-300"><span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow"></span></span>
+            </label>
+          </div>
+        </section>
+
+        <!-- 4. Suplimente -->
+        <section class="card p-5">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold flex items-center justify-center">4</span>
+            <h2 class="text-[15px] font-semibold text-ink-900">Suplimente</h2>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-3 mt-4">
+            <div>
+              <label class="form__label">Utilizatori în plus</label>
+              <input type="number" value="2" class="input w-full mt-1.5">
+              <div class="form__hint mt-1">Total: 10 + 2 = <strong class="text-ink-700">12</strong></div>
+            </div>
+            <div>
+              <label class="form__label">Stocare în plus (GB)</label>
+              <input type="number" value="20" step="10" class="input w-full mt-1.5">
+              <div class="form__hint mt-1">Total: 25 + 20 = <strong class="text-ink-700">45 GB</strong></div>
+            </div>
+            <div>
+              <label class="form__label">Agenți în plus</label>
+              <input type="number" value="0" class="input w-full mt-1.5">
+              <div class="form__hint mt-1">Total: 3 + 0 = <strong class="text-ink-700">3</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Perioadă -->
+        <section class="card p-5">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold flex items-center justify-center">5</span>
+            <h2 class="text-[15px] font-semibold text-ink-900">Perioadă</h2>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-3 mt-4">
+            <div>
+              <label class="form__label">Început</label>
+              <input type="text" value="01.10.2026" class="input w-full mt-1.5">
+            </div>
+            <div>
+              <label class="form__label">Sfârșit</label>
+              <input type="text" value="30.09.2027" class="input w-full mt-1.5">
+              <div class="form__hint mt-1">Gol = fără termen. La această dată totul se oprește.</div>
+            </div>
+            <div>
+              <label class="form__label">Stare</label>
+              <select class="input w-full mt-1.5"><option>Activă</option><option>Anulată</option></select>
+            </div>
+          </div>
+          <div class="mt-4">
+            <label class="form__label">Notă internă</label>
+            <textarea rows="2" class="input w-full mt-1.5">Reînnoire contract 2026–2027. Renunță la Comunitate. Stocare +20 GB acordată pentru arhiva video (cerere #4790).</textarea>
+          </div>
+        </section>
+
+        <div class="flex items-center justify-between gap-3 pt-1">
+          <div class="text-[12px] text-ink-400">Ultima modificare: 02.01.2026 de Echipa Eventya</div>
+          <div class="flex items-center gap-2">
+            <button type="button" class="btn btn--ghost">Renunță</button>
+            <button type="button" class="btn btn--primary">Salvează subscripția</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- ================= PREVIZUALIZARE ================= -->
+      <aside class="lg:sticky lg:top-6 space-y-4">
+        <div class="card p-0 overflow-hidden">
+          <div class="px-5 py-3.5 border-b border-surface-200">
+            <div class="text-[10px] font-semibold uppercase tracking-wider text-ink-400">După salvare</div>
+            <div class="text-[15px] font-bold text-ink-900 mt-0.5">Mobil + Helpdesk Pro</div>
+            <div class="text-[12px] text-ink-500">+ AI vizitatori · 01.10.2026 → 30.09.2027</div>
+          </div>
+
+          <!-- Dispar -->
+          <div class="px-5 py-3.5 border-b border-surface-200">
+            <div class="text-[11px] font-semibold text-red-700 dark:text-red-400 mb-2 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+              Dispar
+            </div>
+            <ul class="space-y-1.5 text-[13px] text-ink-700">
+              <li>Comunitate <span class="text-ink-400">(recenzii, reacții, urmăriri, zona de membru)</span></li>
+              <li>AI în Helpdesk</li>
+            </ul>
+          </div>
+
+          <!-- Rămân -->
+          <div class="px-5 py-3.5 border-b border-surface-200">
+            <div class="text-[11px] font-semibold text-ink-500 mb-2">Rămân</div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">Website</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">Domeniu</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">Analytics</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">QR</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">Aplicație</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">Push</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">Helpdesk Pro</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">AI editori</span>
+              <span class="px-2 py-0.5 rounded-md bg-surface-100 text-ink-600">AI vizitatori</span>
+            </div>
+          </div>
+
+          <!-- Limite -->
+          <div class="px-5 py-3.5 border-b border-surface-200">
+            <div class="text-[11px] font-semibold text-ink-500 mb-2">Limite față de utilizarea reală</div>
+            <table class="w-full text-[12px]">
+              <tbody>
+                <tr><td class="py-1 text-ink-500">Utilizatori</td><td class="py-1 text-right tabular-nums text-ink-400">25 →</td><td class="py-1 text-right tabular-nums font-semibold text-ink-900 w-10">12</td><td class="py-1 text-right tabular-nums text-red-600 dark:text-red-400 w-24">14 activi</td></tr>
+                <tr><td class="py-1 text-ink-500">Stocare</td><td class="py-1 text-right tabular-nums text-ink-400">100 →</td><td class="py-1 text-right tabular-nums font-semibold text-ink-900">45</td><td class="py-1 text-right tabular-nums text-ink-600">38,2 GB</td></tr>
+                <tr><td class="py-1 text-ink-500">Agenți</td><td class="py-1 text-right tabular-nums text-ink-400">— →</td><td class="py-1 text-right tabular-nums font-semibold text-ink-900">3</td><td class="py-1 text-right tabular-nums text-red-600 dark:text-red-400">5 activi</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Avertismente -->
+          <div class="px-5 py-3.5 space-y-2.5 bg-amber-50/60 dark:bg-amber-500/5">
+            <div class="text-[11px] font-semibold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>
+              Ce observă clientul
+            </div>
+            <ul class="text-[12px] text-amber-900 dark:text-amber-200 space-y-2 leading-relaxed">
+              <li><strong>14 utilizatori pe un plafon de 12:</strong> nu pierde pe nimeni, dar nu mai poate invita.</li>
+              <li><strong>5 agenți pe un plafon de 3:</strong> agenții rămân, dar nu mai poate adăuga alții.</li>
+              <li><strong>Recenzii pe 3 pagini</strong> (Muzeul Satului, Cetatea, Parcul Central) nu vor mai apărea pe site.</li>
+              <li><strong>218 recenzii și 1.140 de urmăriri</strong> rămân în baza de date, dar nu mai sunt vizibile.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <div class="card p-5 mt-8 text-[13px] text-ink-600 leading-relaxed max-w-3xl">
+      <div class="font-semibold text-ink-900 mb-1">Ce dispare din admin</div>
+      Pagina „Account Settings" cu comutatoarele de stocare, SLA, WhatsApp, agent AI și asistent public nu mai există: toate se deduc din formularul de mai sus. Plafonul tehnic de tokeni AI se mută în tab-ul <strong class="text-ink-900">AI</strong>, iar MCP rămâne în <strong class="text-ink-900">Intelligence</strong>, activ implicit.
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

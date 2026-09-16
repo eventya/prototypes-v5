@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk Start · agenți și departamente · Pachete și drepturi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#6 · Helpdesk Start — 3 agenți fix, un singur departament</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 py-6 md:px-8 space-y-12">
+
+    <!-- ============ A. Departamente ============ -->
+    <section>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">A · Setări Helpdesk → Departamente</div>
+
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+        <div>
+          <h1 class="text-xl font-bold text-ink-900">Departamente</h1>
+          <p class="text-sm text-ink-500 mt-1">Helpdesk Start lucrează cu un singur departament, Inbox.</p>
+        </div>
+        <button disabled class="btn btn--primary opacity-50 cursor-not-allowed">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          Departament nou
+        </button>
+      </div>
+
+      <div class="card p-0 overflow-hidden">
+        <a href="#agenti" class="flex items-center gap-3 px-5 py-4 hover:bg-surface-50">
+          <div class="w-9 h-9 rounded-lg bg-surface-100 flex items-center justify-center">
+            <svg class="w-4.5 h-4.5 text-ink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="text-[14px] font-semibold text-ink-900">Inbox</div>
+            <div class="text-[12px] text-ink-500">3 agenți · 42 tichete deschise</div>
+          </div>
+          <svg class="w-4 h-4 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 px-5 py-4 border-t border-surface-200 bg-surface-50">
+          <div class="flex-1 text-[13px] text-ink-600">
+            <span class="font-semibold text-ink-900">Mai multe departamente, mutarea tichetelor între ele și SLA</span> vin cu Helpdesk Pro.
+          </div>
+          <a href="03-cerere-upgrade.html" class="btn btn--sm shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+            Cere Helpdesk Pro
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ B. Agenți ============ -->
+    <section id="agenti">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">B · Departamentul Inbox → Agenți</div>
+
+      <div class="card p-0 overflow-hidden">
+        <div class="flex flex-wrap items-center gap-3 px-5 py-4 border-b border-surface-200">
+          <div class="flex-1">
+            <h2 class="text-[15px] font-semibold text-ink-900">Agenți</h2>
+            <div class="text-[12px] text-ink-500">3 din 3 agenți incluși în Helpdesk Start</div>
+          </div>
+          <button disabled class="btn btn--sm opacity-50 cursor-not-allowed">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Adaugă agent
+          </button>
+        </div>
+
+        <div class="divide-y divide-surface-200">
+          <div class="flex items-center gap-3 px-5 py-3">
+            <div class="w-8 h-8 rounded-full bg-rose-500 flex items-center justify-center text-white text-[11px] font-bold">AP</div>
+            <div class="flex-1"><div class="text-[13px] font-medium text-ink-900">Ana Popescu</div><div class="text-[11px] text-ink-400">ana.popescu@cultura-demo.ro</div></div>
+            <span class="badge badge--primary">Dispecer</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-3">
+            <div class="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center text-white text-[11px] font-bold">MI</div>
+            <div class="flex-1"><div class="text-[13px] font-medium text-ink-900">Mihai Ionescu</div><div class="text-[11px] text-ink-400">mihai@cultura-demo.ro</div></div>
+            <span class="badge">Agent</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-3">
+            <div class="w-8 h-8 rounded-full bg-violet-500 flex items-center justify-center text-white text-[11px] font-bold">EG</div>
+            <div class="flex-1"><div class="text-[13px] font-medium text-ink-900">Elena Georgescu</div><div class="text-[11px] text-ink-400">elena@cultura-demo.ro</div></div>
+            <span class="badge">Agent</span>
+          </div>
+        </div>
+
+        <!-- LimitNotice inline -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 px-5 py-4 border-t border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10">
+          <div class="flex items-start gap-2.5 flex-1">
+            <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>
+            <div class="text-[13px] text-amber-900 dark:text-amber-200">
+              <span class="font-semibold">Helpdesk Start are 3 agenți, fără suplimente.</span>
+              <span class="text-amber-800/80 dark:text-amber-300/80">Pentru al patrulea agent treci pe Helpdesk Pro, unde poți adăuga câți agenți ai nevoie.</span>
+            </div>
+          </div>
+          <a href="03-cerere-upgrade.html" class="btn btn--primary btn--sm shrink-0">Cere Helpdesk Pro</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ C. Ce e ascuns la Start ============ -->
+    <section>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">C · Setări Helpdesk: Start față de Pro</div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-[14px] font-semibold text-ink-900">Helpdesk Start</div>
+            <span class="badge">8 intrări</span>
+          </div>
+          <ul class="text-[13px] text-ink-700 space-y-1.5">
+            <li>Agenți</li><li>Formulare</li><li>Departamente <span class="text-ink-400">(doar Inbox)</span></li><li>Etichete</li><li>Numerotarea tichetelor</li><li>Întrebări frecvente</li><li>WhatsApp</li><li>Canal e-mail</li>
+          </ul>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-[14px] font-semibold text-ink-900">Helpdesk Pro</div>
+            <span class="badge badge--primary">+3 intrări</span>
+          </div>
+          <ul class="text-[13px] text-ink-700 space-y-1.5">
+            <li class="text-ink-400">… tot ce are Start, plus:</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Politici SLA</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Harta sesizărilor (locație GPS)</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Agent AI <span class="text-ink-400">(cu opțiunea AI în Helpdesk)</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-[12px] text-ink-500 mt-3">La Start, intrările Pro <strong class="text-ink-700">nu apar deloc</strong> (R3). Doar limitele care se lovesc în mod firesc (departament nou, agent nou) arată un mesaj de upgrade.</p>
+    </section>
+
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
