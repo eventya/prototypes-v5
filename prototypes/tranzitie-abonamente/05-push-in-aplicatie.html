@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Push în Mobile · Tranziția pe abonamente</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#5 · Notificări push: se mută în „Aplicație”, cu targetarea legată de Community</span>
+    </div>
+    <div class="flex items-center gap-1 text-[11px]" id="views">
+      <button type="button" data-view="mobile" class="px-2 py-1 rounded-md font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200">Mobile</button>
+      <button type="button" data-view="community" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Mobile + Community</button>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="flex items-center h-14 px-4 bg-surface-0 border-y border-surface-200">
+    <div class="flex items-center w-full h-full gap-6">
+      <a class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">MD</div>
+        <span class="text-sm font-semibold text-ink-900">Muzeul Demo</span>
+      </a>
+      <nav class="hidden md:flex items-stretch self-stretch gap-1 mx-auto">
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500 font-medium">Site web</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-ink-900 dark:border-white text-ink-900 font-semibold">Aplicație</a>
+        <a data-show="community" hidden class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500 font-medium">Comunitate</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500 font-medium">Helpdesk</a>
+      </nav>
+      <div class="flex items-center gap-2.5 ml-auto">
+        <span class="text-[12px] font-semibold text-primary-600 dark:text-primary-400">Upgrade</span>
+        <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold">AP</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 md:px-8 py-8">
+    <div class="text-[12px] text-ink-400">Aplicație → Notificări push</div>
+    <div class="text-2xl font-bold text-ink-900 mt-1">Notificare nouă</div>
+
+    <div class="grid lg:grid-cols-[1fr_300px] gap-6 mt-6 items-start">
+      <div class="card p-5 space-y-5">
+        <div>
+          <label class="text-[13px] font-medium text-ink-800">Titlu</label>
+          <input class="input w-full mt-1" value="Târgul de toamnă începe sâmbătă">
+        </div>
+        <div>
+          <label class="text-[13px] font-medium text-ink-800">Mesaj</label>
+          <textarea class="input w-full mt-1" rows="3">Programul complet și harta standurilor sunt în aplicație.</textarea>
+        </div>
+
+        <div>
+          <div class="text-[13px] font-medium text-ink-800">Cui trimiți</div>
+          <div class="space-y-2 mt-2">
+            <label class="flex items-start gap-3 rounded-xl border border-primary-500 ring-1 ring-primary-500 p-3 cursor-pointer">
+              <input type="radio" name="aud" checked class="mt-1 accent-primary-600">
+              <span class="flex-1"><span class="font-medium text-ink-900">Toți utilizatorii aplicației</span><span class="block text-[12px] text-ink-500">topic FCM <code>all</code> · și cei fără cont</span></span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-surface-200 p-3 cursor-pointer">
+              <input type="radio" name="aud" class="mt-1 accent-primary-600">
+              <span class="flex-1"><span class="font-medium text-ink-900">Pe limbă</span><span class="block text-[12px] text-ink-500">topic <code>locale_xx</code> · un anunț pe limbă</span></span>
+            </label>
+
+            <!-- blocate fără Community -->
+            <div data-show="mobile" class="rounded-xl border border-dashed border-surface-300 p-3 space-y-2.5">
+              <div class="flex items-center gap-3 opacity-60">
+                <input type="radio" disabled class="accent-primary-600">
+                <span class="flex-1"><span class="font-medium text-ink-900">Utilizatori anume</span><span class="block text-[12px] text-ink-500">membri aleși din listă</span></span>
+              </div>
+              <div class="flex items-center gap-3 opacity-60">
+                <input type="radio" disabled class="accent-primary-600">
+                <span class="flex-1"><span class="font-medium text-ink-900">Urmăritorii unei pagini</span><span class="block text-[12px] text-ink-500">cine urmărește un eveniment sau un loc</span></span>
+              </div>
+              <div class="flex items-center justify-between gap-3 pt-2 border-t border-surface-200">
+                <span class="text-[12px] text-ink-500">Targetarea pe utilizatori vine cu modulul <b class="text-ink-700">Community</b>.</span>
+                <a href="02-pagina-upgrade.html" class="btn btn--sm">Adaugă Community</a>
+              </div>
+            </div>
+
+            <div data-show="community" hidden class="space-y-2">
+              <label class="flex items-start gap-3 rounded-xl border border-surface-200 p-3 cursor-pointer">
+                <input type="radio" name="aud" class="mt-1 accent-primary-600">
+                <span class="flex-1"><span class="font-medium text-ink-900">Utilizatori anume</span><span class="block text-[12px] text-ink-500">membri aleși din listă · tokenuri de dispozitiv</span></span>
+                <span class="badge">Community</span>
+              </label>
+              <label class="flex items-start gap-3 rounded-xl border border-surface-200 p-3 cursor-pointer">
+                <input type="radio" name="aud" class="mt-1 accent-primary-600">
+                <span class="flex-1"><span class="font-medium text-ink-900">Urmăritorii unei pagini</span><span class="block text-[12px] text-ink-500">cine urmărește un eveniment sau un loc</span></span>
+                <span class="badge">Community</span>
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2 border-t border-surface-200">
+          <label class="inline-flex items-center gap-2 text-[13px]"><input type="checkbox" class="accent-primary-600"> Programează</label>
+          <button type="button" class="btn btn--primary ml-auto">Trimite</button>
+        </div>
+      </div>
+
+      <div class="card p-4 text-[13px] space-y-3">
+        <div class="font-semibold text-ink-900">Clopoțelul din aplicație</div>
+        <p class="text-ink-600">Anunțul apare <b>mereu</b> și în clopoțelul din aplicație, cu sau fără Community. Community activează doar push-urile targetate.</p>
+        <div class="font-semibold text-ink-900 pt-2 border-t border-surface-200">Push pe zone</div>
+        <p class="text-ink-600">Nu există încă, deci nu apare nimic în interfață.</p>
+      </div>
+    </div>
+  </main>
+
+  <section class="max-w-5xl mx-auto px-4 md:px-8 pb-16">
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Chei și cod</div>
+    <div class="card p-0 overflow-x-auto">
+      <table class="w-full text-[13px] min-w-[680px]">
+        <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500"><tr><th class="text-left font-semibold px-4 py-2.5">Ce</th><th class="text-left font-semibold px-4 py-2.5">Azi</th><th class="text-left font-semibold px-4 py-2.5">Devine</th></tr></thead>
+        <tbody class="divide-y divide-surface-200">
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Audiențele <code>all</code>, <code>locale</code></td><td class="px-4 py-2.5 text-ink-600"><code>push.broadcast</code>, acordat de Community</td><td class="px-4 py-2.5 text-ink-700"><code>push.broadcast</code>, acordat de <b>Mobile</b></td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Audiența <code>specific_users</code></td><td class="px-4 py-2.5 text-ink-600">idem</td><td class="px-4 py-2.5 text-ink-700">cheie nouă, <code>push.targeting</code>, acordată de Community</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Broadcast către urmăritori (<code>PageBroadcast</code>)</td><td class="px-4 py-2.5 text-ink-600"><code>push.notifications</code> + urmăriri (Community)</td><td class="px-4 py-2.5 text-ink-700"><code>push.targeting</code>: doar cu Community</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Clopoțelul (<code>BroadcastAnnouncementJob</code>)</td><td class="px-4 py-2.5 text-ink-600">sub Community</td><td class="px-4 py-2.5 text-ink-700">mereu, fără cheie de Community</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Registrul <code>Community::Audiences</code></td><td class="px-4 py-2.5 text-ink-600">fără chei pe audiență</td><td class="px-4 py-2.5 text-ink-700">fiecare audiență declară <code>required_key</code>. Selectorul și serviciul de creare o verifică</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Compozitorul</td><td class="px-4 py-2.5 text-ink-600"><code>community/announcements</code>, în tab-ul Comunitate</td><td class="px-4 py-2.5 text-ink-700">sub „Aplicație”. Ruta veche redirecționează</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900"><code>mobile_app/settings</code> → <code>_announcements_section</code></td><td class="px-4 py-2.5 text-ink-600">link fără verificare de drept, cu insigna „Community”</td><td class="px-4 py-2.5 text-ink-700">se repară: duce la noul compozitor</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Push-urile tranzacționale (Helpdesk, Echipă, Abonament)</td><td class="px-4 py-2.5 text-ink-600">Noticed, <code>firebase_push</code>, fără cheie</td><td class="px-4 py-2.5 text-ink-700">rămân neschimbate: nu sunt anunțuri</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900">Grila și matricea</td><td class="px-4 py-2.5 text-ink-600">Community = „broadcast către membri”</td><td class="px-4 py-2.5 text-ink-700">Mobile: „push către toți și pe limbă”. Community: „targetare pe utilizatori și urmăritori”</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('views').addEventListener('click', function (e) {
+      var v = e.target.getAttribute('data-view'); if (!v) return;
+      document.querySelectorAll('[data-view]').forEach(function (b) {
+        var on = b.getAttribute('data-view') === v;
+        b.className = 'px-2 py-1 rounded-md ' + (on ? 'font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200' : 'font-medium text-amber-700 dark:text-amber-300');
+      });
+      document.querySelectorAll('[data-show]').forEach(function (el) { el.hidden = el.getAttribute('data-show') !== v; });
+    });
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

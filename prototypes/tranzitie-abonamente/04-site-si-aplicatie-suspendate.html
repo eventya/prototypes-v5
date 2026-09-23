@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site și aplicație suspendate · Tranziția pe abonamente</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#4 · Ce văd vizitatorii: site-ul public și aplicația, pe un spațiu suspendat</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-6 grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+    <!-- Site public -->
+    <div>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Site public · www.primaria-demo.ro · HTTP 503</div>
+      <div class="rounded-xl border border-surface-300 overflow-hidden shadow-sm bg-surface-0">
+        <div class="flex items-center gap-2 px-3 h-9 bg-surface-100 border-b border-surface-200">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          <span class="ml-3 flex-1 max-w-md h-5 rounded bg-surface-0 border border-surface-200 text-[11px] text-ink-500 px-2 flex items-center gap-1.5">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>primaria-demo.ro/evenimente/targul-de-toamna</span>
+        </div>
+        <div class="min-h-[420px] flex flex-col items-center justify-center text-center px-6 py-16">
+          <div class="w-14 h-14 rounded-2xl bg-surface-100 flex items-center justify-center text-ink-400">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="text-2xl font-bold text-ink-900 mt-5">Site temporar indisponibil</div>
+          <p class="text-[15px] text-ink-500 mt-2 max-w-md">Primăria Demo își actualizează serviciile online. Vă rugăm să reveniți în curând.</p>
+          <div class="text-[12px] text-ink-400 mt-8">Primăria Demo</div>
+        </div>
+      </div>
+
+      <div class="card p-0 mt-4 overflow-x-auto">
+        <table class="w-full text-[13px] min-w-[560px]">
+          <tbody class="divide-y divide-surface-200">
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Răspunsul</td><td class="px-4 py-2.5 text-ink-700"><code>503</code> + <code>Retry-After: 86400</code> + <code>X-Robots-Tag: noindex</code>. Nu 404 sau 410: motoarele de căutare păstrează indexul câteva zile.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Textul</td><td class="px-4 py-2.5 text-ink-700">Neutru, fără „plată” sau „abonament”: e site-ul oficial al unei instituții. Numele și logo-ul clientului rămân, dar niciun alt conținut.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Toate adresele</td><td class="px-4 py-2.5 text-ink-700">Pagini, <code>sitemap.xml</code>, RSS, iCal, embed-uri, declarația de accesibilitate, formularele Helpdesk publice, asistentul AI.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Excepții</td><td class="px-4 py-2.5 text-ink-700">Linkurile scurte și QR-urile rămân active. Endpoint-ul de certificate TLS al domeniului propriu răspunde în continuare. Webhook-urile de e-mail și WhatsApp primesc mesajele și le păstrează ascunse până la reactivare.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Cache</td><td class="px-4 py-2.5 text-ink-700">Amprenta din cheia cache-ului public include starea activ/suspendat, ca schimbarea să fie instantanee în ambele sensuri.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Azi</td><td class="px-4 py-2.5 text-ink-700"><code>Website::BaseController</code> nu cere nicio cheie, iar starea <code>none</code> acordă <code>site.core</code>, așa că site-ul rămâne online la expirare. Asta se schimbă.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Aplicația -->
+    <div>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Aplicația hibridă · aceeași pagină HTML</div>
+      <div class="mx-auto w-[290px] rounded-[2.5rem] border-[10px] border-ink-900 dark:border-ink-700 bg-surface-0 overflow-hidden shadow-xl">
+        <div class="h-6 flex items-center justify-between px-5 text-[10px] font-semibold text-ink-700"><span>9:41</span><span>●●●</span></div>
+        <div class="h-11 flex items-center justify-center border-b border-surface-200 text-[13px] font-semibold text-ink-900">Primăria Demo</div>
+        <div class="h-[475px] flex flex-col items-center justify-center text-center px-6">
+          <div class="w-12 h-12 rounded-2xl bg-surface-100 flex items-center justify-center text-ink-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="text-lg font-bold text-ink-900 mt-4">Temporar indisponibil</div>
+          <p class="text-[13px] text-ink-500 mt-2">Primăria Demo își actualizează serviciile online. Vă rugăm să reveniți în curând.</p>
+        </div>
+      </div>
+      <div class="card p-4 mt-4 text-[13px] text-ink-700 space-y-2">
+        <div><b class="text-ink-900">Cum:</b> aplicația e hibridă, cu schelet nativ și conținut web. Webview-ul primește aceeași pagină HTML de suspendare ca site-ul. <b>Nu se lucrează nimic nativ</b> și nu e nevoie de o versiune nouă în store.</div>
+        <div><b class="text-ink-900">API:</b> <code>503</code> cu <code>{"error":"subscription_inactive"}</code> pe toate rutele, nu doar când lipsește <code>module.mobile_app</code>.</div>
+        <div class="rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 p-2.5 text-amber-800 dark:text-amber-300"><b>De verificat pe telefon (pasul 4):</b> Hotwire Native tratează un răspuns non-2xx ca vizită eșuată și poate afișa ecranul lui de eroare în locul paginii. Dacă se întâmplă asta, pentru user-agent-ul aplicației pagina se servește cu 200.</div>
+        <div><b class="text-ink-900">Push:</b> nu mai pleacă nimic. Topicurile FCM rămân, ca reactivarea să nu ceară reabonarea dispozitivelor.</div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

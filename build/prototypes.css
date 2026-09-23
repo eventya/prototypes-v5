@@ -19,6 +19,7 @@
 @import "../../stejar/app/assets/stylesheets/stejar/application.css";
 
 @source "../prototypes/**/*.html";
+@source "../prototypes/**/*.js";
 @source "../index.html";
 @source "../done.html";
 @source "../_template.html";

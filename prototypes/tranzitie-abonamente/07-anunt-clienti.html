@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Announcement · Tranziția pe abonamente</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#7 · Developer Announcement către clienții existenți: mesaj generic</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-6 grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+    <div>
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">E-mail</div>
+      <div class="rounded-xl border border-surface-300 bg-surface-0 shadow-sm overflow-hidden">
+        <div class="px-5 py-3 border-b border-surface-200 text-[12px] text-ink-500 space-y-0.5">
+          <div><b class="text-ink-700">De la:</b> Echipa Eventya</div>
+          <div><b class="text-ink-700">Către:</b> utilizatorii spațiilor de lucru (Developer Announcement)</div>
+          <div><b class="text-ink-700">Subiect:</b> Eventya are acum pachete și abonamente</div>
+        </div>
+        <div class="px-6 py-6 text-[14px] text-ink-700 leading-relaxed space-y-4 max-w-2xl">
+          <p>Bună ziua,</p>
+          <p>Fiecare spațiu de lucru Eventya funcționează de acum pe un abonament: un pachet de bază (Helpdesk, Web, Mobile sau Enterprise) și modulele alese de dumneavoastră. Abonamentul spațiului dumneavoastră a fost setat conform contractului.</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Utilizatorii, agenții și tichetele rămân nelimitați, în orice pachet.</li>
+            <li>Proprietarul spațiului vede abonamentul în <i>meniul contului → Abonament</i> și poate cere oricând alt pachet sau alte module.</li>
+            <li>Notificările push se trimit acum din secțiunea <i>Aplicație</i>.</li>
+            <li>Cu 7 zile și cu o zi înainte de finalul abonamentului, proprietarul primește câte un anunț. Dacă abonamentul nu se reînnoiește, site-ul, aplicația și modulele se opresc până la reînnoire, iar conținutul rămâne păstrat.</li>
+          </ul>
+          <div><a class="btn btn--primary">Vezi abonamentul</a></div>
+          <p class="text-[13px] text-ink-500">Pentru orice întrebare, răspundeți la acest mesaj. Ajunge direct la echipa Eventya.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">In-app · clopoțel</div>
+        <div class="card p-3 flex gap-3">
+          <div class="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+          </div>
+          <div class="text-[13px]"><div class="font-medium text-ink-900">Eventya are acum pachete și abonamente</div><div class="text-ink-500">Abonamentul spațiului tău a fost setat conform contractului.</div></div>
+        </div>
+      </div>
+
+      <div class="card p-4 text-[13px] space-y-2.5">
+        <div class="font-semibold text-ink-900">Reguli</div>
+        <div class="text-ink-600"><b class="text-ink-800">Când:</b> după pasul 7 (conturile setate după contracte) și pasul 8 (termenii și condițiile publicați).</div>
+        <div class="text-ink-600"><b class="text-ink-800">Cum:</b> din modulul Developer Announcement existent, cu același text pentru toți. Nu se implementează nimic.</div>
+        <div class="text-ink-600"><b class="text-ink-800">Textul</b> de aici e o ciornă, de ajustat de echipă.</div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

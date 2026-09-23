@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist staging · Tranziția pe abonamente</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#6 · Testare manuală pe staging: profil × suprafață</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-6">
+    <div class="text-2xl font-bold text-ink-900">Matricea de test</div>
+    <p class="text-sm text-ink-500 mt-1 max-w-3xl">Pe staging-ul existent, cu seed-urile existente (<code>workspace:packages:seed</code>) și colegii adăugați de mână. O celulă devine verde când comportamentul văzut e cel așteptat. Stările care nu au un profil în seed (trial expirat, reactivare, downgrade) se obțin din Admin → Subscripție. Bifele se țin doar în browserul tău.</p>
+
+    <div class="card p-0 mt-6 overflow-x-auto">
+      <table class="w-full text-[12px] min-w-[1040px]" id="matrix">
+        <thead class="bg-surface-100 text-[10px] uppercase tracking-wider text-ink-500">
+          <tr>
+            <th class="text-left font-semibold px-3 py-2.5 w-52">Profil (slug din seed)</th>
+            <th class="text-left font-semibold px-3 py-2.5">Backend</th>
+            <th class="text-left font-semibold px-3 py-2.5">Site public</th>
+            <th class="text-left font-semibold px-3 py-2.5">Aplicația / API</th>
+            <th class="text-left font-semibold px-3 py-2.5">Helpdesk public</th>
+            <th class="text-left font-semibold px-3 py-2.5">Push</th>
+            <th class="text-left font-semibold px-3 py-2.5">Notificări</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-200 text-ink-700"></tbody>
+      </table>
+    </div>
+    <div class="text-[12px] text-ink-400 mt-3">Pe telefon, în aplicație: profilul <code>pachet-web-expirat</code> trebuie să arate pagina HTML de suspendare, nu ecranul de eroare Hotwire Native.</div>
+  </div>
+
+  <script>
+    var ROWS = [
+      ['pachet-web', 'module Web, fără tab Aplicație', '200', 'nu există', 'formular simplu', 'nu există', '—'],
+      ['pachet-mobile', 'tab Aplicație → Notificări push', '200', '200', 'formular simplu', 'toți + pe limbă; targetate vizibile, cu buton de upgrade; clopoțel', '—'],
+      ['pachet-mobile-toate-modulele', 'tab Comunitate + Aplicație', '200', '200', 'e-mail, WhatsApp, SLA', 'toate audiențele, inclusiv urmăritorii', '—'],
+      ['pachet-enterprise', 'toate modulele, fără „Upgrade”; pagina din meniul avatarului', '200', '200', 'tot', 'toate audiențele', '—'],
+      ['pachet-helpdesk', 'doar Helpdesk; pe upgrade doar Helpdesk Pro ca modul', '503 (n-are site)', '—', 'formular simplu', '—', '—'],
+      ['pachet-helpdesk-pro', 'Helpdesk cu e-mail, WhatsApp, SLA', '503 (n-are site)', '—', 'tot', '—', '—'],
+      ['pachet-trial', 'eticheta „Trial · N zile” în bară', '200', '—', 'formular simplu', '—', '—'],
+      ['pachet-enterprise-expira-curand', 'normal', '200', '200', 'tot', 'tot', 'SUB-001 + copie internă'],
+      ['pachet-web-expirat', 'orice URL → „Continuă”; membrul vede doar mesajul', '503 pagină neutră', 'pagina HTML în aplicație; API 503', 'formulare oprite; e-mail primit și păstrat', 'nimic nu pleacă; programările anulate', 'SUB-002 „suspendat”'],
+      ['pachet-fara-abonament', 'tratat ca suspendat', '503', '503', 'oprit', '—', '—'],
+      ['trial expirat (ends_at în trecut din Admin)', '„Perioada de probă s-a încheiat”, fără trial nou', '503', '—', 'oprit', '—', 'SUB-002, varianta trial'],
+      ['downgrade Enterprise → Web (pagina de upgrade)', 'oferta arată avertismentul; tichet în Suport', '—', '—', '—', '—', '—'],
+      ['reactivare (abonament nou din Admin)', 'totul revine imediat', '200 fără cache vechi', '200', 'mesajele păstrate apar', 'topicuri intacte', '—']
+    ];
+    var KEY = 'proto-tranzitie-checks';
+    var saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+    var tb = document.querySelector('#matrix tbody');
+    ROWS.forEach(function (r, i) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="px-3 py-2 font-mono text-[11px] text-ink-900 align-top">' + r[0] + '</td>' +
+        r.slice(1).map(function (c, j) {
+          var id = i + '-' + j, on = !!saved[id];
+          return '<td class="px-3 py-2 align-top"><label class="flex items-start gap-2 cursor-pointer rounded-md p-1 -m-1 ' + (on ? 'bg-emerald-50 dark:bg-emerald-500/10' : '') + '">' +
+            '<input type="checkbox" data-id="' + id + '" class="mt-0.5 accent-emerald-600"' + (on ? ' checked' : '') + '><span>' + c + '</span></label></td>';
+        }).join('');
+      tb.appendChild(tr);
+    });
+    tb.addEventListener('change', function (e) {
+      var id = e.target.getAttribute('data-id'); if (!id) return;
+      saved[id] = e.target.checked;
+      e.target.parentNode.classList.toggle('bg-emerald-50', e.target.checked);
+      e.target.parentNode.classList.toggle('dark:bg-emerald-500/10', e.target.checked);
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+    });
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
