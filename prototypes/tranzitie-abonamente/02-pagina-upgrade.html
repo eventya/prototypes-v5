@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina de upgrade · Tranziția pe abonamente</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#2 · Abonament Eventya — pagina de upgrade, după calculatorul de prețuri</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="flex items-center h-14 px-4 bg-surface-0 border-y border-surface-200">
+    <div class="flex items-center w-full h-full gap-6">
+      <a class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">MD</div>
+        <span class="text-sm font-semibold text-ink-900 max-w-32 truncate">Muzeul Demo</span>
+      </a>
+      <nav class="hidden md:flex items-stretch self-stretch gap-1 mx-auto">
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500 font-medium">Site web</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500 font-medium">Media</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500 font-medium">Helpdesk</a>
+      </nav>
+      <div class="flex items-center gap-2.5 ml-auto">
+        <span class="text-[11px] text-ink-400 hidden md:inline">„Upgrade” e ascuns pe pagina asta</span>
+        <svg class="w-5 h-5 text-ink-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold">AP</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 md:px-8 py-10 pb-20">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-ink-900 tracking-tight">Abonament Eventya</h1>
+      <p class="text-lg md:text-xl text-ink-500 mt-3 max-w-2xl mx-auto leading-snug">Prețuri simple, <span class="text-primary-600 dark:text-primary-400 font-semibold">fără surprize</span>. Toată echipa e inclusă, iar tu plătești doar modulele pe care le folosești.</p>
+    </div>
+
+    <div id="configurator"></div>
+
+  </main>
+
+
+  <script src="configurator.js"></script>
+  <script>Configurator(document.getElementById('configurator'), { mode: 'upgrade', current: { base: 'web', modules: ['media'] } });</script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
