@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin: Stripe, facturare, trial, pâlnia · Onboarding clienți noi</title>
+
+  <!-- FOUC-free dark mode: set data-theme before first paint -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased min-h-screen">
+
+  <!-- Prototype banner + view switcher -->
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#14 · Admin: Stripe, facturare, trial, pâlnia</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1 text-[11px]" id="views">
+      <button type="button" data-view="conturi" class="px-2 py-1 rounded-md font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200">Conturi</button>
+      <button type="button" data-view="card" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Abonament pe card</button>
+      <button type="button" data-view="trial" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Trial +30</button>
+      <button type="button" data-view="palnia" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Pâlnia</button>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 py-4 md:px-8 lg:grid lg:grid-cols-[200px_1fr] lg:gap-8">
+
+    <!-- ============ Meniul adminului (desktop) ============ -->
+    <aside class="hidden lg:block">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400 px-3 mb-2">Stejar Admin</div>
+      <nav class="space-y-0.5 text-[13px]">
+        <span class="flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Panou
+        </span>
+        <span data-nav="conturi card trial"class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-0 shadow-sm font-semibold text-ink-900">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg>Conturi
+        </span>
+        <span class="flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Utilizatori
+        </span>
+        <span class="flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>Template-uri
+        </span>
+        <span data-nav="palnia" class="flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg>Onboarding <span class="badge badge--positive ml-auto">nou</span>
+        </span>
+        <span class="flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Joburi
+        </span>
+        <span class="flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg>Docs
+        </span>
+      </nav>
+    </aside>
+
+    <main class="min-w-0">
+
+      <!-- =====================================================
+           1 · CONTURI
+           ===================================================== -->
+      <section data-show="conturi">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-5">
+          <div>
+            <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400">Stejar Admin · /stejar-admin/accounts</div>
+            <h1 class="text-2xl font-bold text-ink-900 mt-0.5">Conturi</h1>
+          </div>
+          <div class="relative w-full sm:w-72">
+            <svg class="w-4 h-4 text-ink-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input class="input w-full pl-9!" placeholder="Caută după nume, adresă sau CUI">
+          </div>
+        </div>
+
+        <!-- Filtre noi -->
+        <div class="flex flex-wrap items-center gap-2 mb-4" id="chips">
+          <button type="button" data-f="all" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold bg-ink-900 text-surface-0">Toate</button>
+          <button type="button" data-f="trial" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Trial</button>
+          <button type="button" data-f="card" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>Card</button>
+          <button type="button" data-f="contract" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-ink-500"></span>Contract</button>
+          <button type="button" data-f="cerere" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Cerere deschisă</button>
+          <button type="button" data-f="esuata" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Plată eșuată</button>
+          <button type="button" data-f="suspendat" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-ink-300"></span>Suspendat</button>
+        </div>
+
+        <div class="card p-0 overflow-x-auto">
+          <table class="w-full text-[13px] min-w-[980px]" id="accounts">
+            <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500">
+              <tr>
+                <th class="text-left font-semibold px-4 py-2.5">Spațiu</th>
+                <th class="text-left font-semibold px-4 py-2.5">Template</th>
+                <th class="text-left font-semibold px-4 py-2.5">Pachet + module</th>
+                <th class="text-left font-semibold px-4 py-2.5">Facturare</th>
+                <th class="text-left font-semibold px-4 py-2.5">Stare</th>
+                <th class="text-left font-semibold px-4 py-2.5">Creat</th>
+                <th class="px-4 py-2.5"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-200">
+
+              <tr data-tags="trial" class="hover:bg-surface-100">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Muzeul Demo</div><div class="text-[11px] text-ink-400">/muzeul-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Atrium</div><div class="text-[11px] text-ink-400">Cultură</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Toate</span><div class="text-[11px] text-ink-400 mt-0.5">în trial</div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-sky-700 dark:text-sky-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Trial · 23 zile</span></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>activ</span></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">16.09.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+              <tr data-tags="trial cerere" class="hover:bg-surface-100 cursor-pointer" data-go="trial">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Primăria Demo</div><div class="text-[11px] text-ink-400">/primaria-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Forum</div><div class="text-[11px] text-ink-400">Comunități publice</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Toate</span><div class="text-[11px] text-ink-400 mt-0.5">cerut: Web + Helpdesk Pro</div></td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex items-center gap-1.5 text-sky-700 dark:text-sky-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Trial · 6 zile</span>
+                  <div class="mt-1"><span class="inline-flex whitespace-nowrap px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-[10px] font-medium text-amber-700 dark:text-amber-300">cerere de ofertă deschisă</span></div>
+                </td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>activ</span><div class="text-[11px] text-ink-400">prelungit o dată</div></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">31.07.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+              <tr data-tags="card" class="hover:bg-surface-100">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Teatrul Demo</div><div class="text-[11px] text-ink-400">/teatrul-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Scena</div><div class="text-[11px] text-ink-400">Cultură</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Web</span><div class="flex flex-wrap gap-1 mt-1"><span class="inline-flex px-1.5 py-0.5 rounded bg-surface-100 text-[10px] font-medium text-ink-600">Media</span></div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-violet-700 dark:text-violet-300"><span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>Card · anual</span></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>activ</span><div class="text-[11px] text-ink-400">până la 12.08.2027</div></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">12.08.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+              <tr data-tags="card esuata" class="bg-red-50/40 dark:bg-red-500/5 hover:bg-red-50/70 cursor-pointer" data-go="card">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Pensiunea Demo</div><div class="text-[11px] text-ink-400">/pensiunea-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Vitrina</div><div class="text-[11px] text-ink-400">Privați</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Web</span><div class="flex flex-wrap gap-1 mt-1"><span class="inline-flex px-1.5 py-0.5 rounded bg-surface-100 text-[10px] font-medium text-ink-600">Media</span></div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-violet-700 dark:text-violet-300"><span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>Card · lunar</span></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-red-700 dark:text-red-400"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>past_due</span><div class="text-[11px] text-ink-400">grație până la 29.09.2026</div></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">22.07.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+              <tr data-tags="card" class="hover:bg-surface-100">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Asociația Demo</div><div class="text-[11px] text-ink-400">/asociatia-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Agora</div><div class="text-[11px] text-ink-400">Privați</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Web</span><div class="flex flex-wrap gap-1 mt-1"><span class="inline-flex px-1.5 py-0.5 rounded bg-surface-100 text-[10px] font-medium text-ink-600">Community</span></div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-violet-700 dark:text-violet-300"><span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>Card · lunar</span></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>activ</span><div class="text-[11px] text-amber-700 dark:text-amber-400">anulat, se încheie pe 18.10.2026</div></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">18.06.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+              <tr data-tags="contract" class="hover:bg-surface-100">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Destinația Demo</div><div class="text-[11px] text-ink-400">/destinatia-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Panorama</div><div class="text-[11px] text-ink-400">Comunități publice</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Mobile</span><div class="flex flex-wrap gap-1 mt-1"><span class="inline-flex px-1.5 py-0.5 rounded bg-violet-50 dark:bg-violet-500/10 text-[10px] font-medium text-violet-700 dark:text-violet-300">AI vizitatori</span></div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-ink-700"><span class="w-1.5 h-1.5 rounded-full bg-ink-500"></span>Contract</span></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>activ</span><div class="text-[11px] text-ink-400">până la 14.09.2027</div></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">02.09.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+              <tr data-tags="cerere suspendat" class="hover:bg-surface-100">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Comuna Demo</div><div class="text-[11px] text-ink-400">/comuna-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-900">Vatra</div><div class="text-[11px] text-ink-400">Comunități publice</div></td>
+                <td class="px-4 py-3"><span class="text-ink-400">—</span><div class="text-[11px] text-ink-400 mt-0.5">cerut: Web</div></td>
+                <td class="px-4 py-3">
+                  <span class="text-ink-500">Fără abonament</span>
+                  <div class="mt-1"><span class="inline-flex whitespace-nowrap px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-[10px] font-medium text-amber-700 dark:text-amber-300">cerere de ofertă deschisă</span></div>
+                </td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-ink-500"><span class="w-1.5 h-1.5 rounded-full bg-ink-300"></span>suspendat</span><div class="text-[11px] text-ink-400">trial încheiat pe 20.09.2026</div></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">21.09.2026</td>
+                <td class="px-4 py-3 text-right"><button type="button" class="btn btn--sm" data-go="trial">+30 de zile</button></td>
+              </tr>
+
+              <tr data-tags="trial" class="hover:bg-surface-100">
+                <td class="px-4 py-3 whitespace-nowrap"><div class="font-medium text-ink-900">Serviciul Demo</div><div class="text-[11px] text-ink-400">/serviciul-demo</div></td>
+                <td class="px-4 py-3"><div class="text-ink-400">—</div><div class="text-[11px] text-ink-400">doar Helpdesk</div></td>
+                <td class="px-4 py-3"><span class="font-semibold text-ink-900">Toate</span><div class="text-[11px] text-ink-400 mt-0.5">cerut: Helpdesk + Helpdesk Pro</div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-sky-700 dark:text-sky-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Trial · 12 zile</span><div class="text-[11px] text-ink-400">Checkout neterminat</div></td>
+                <td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>activ</span></td>
+                <td class="px-4 py-3 tabular-nums text-ink-600">20.09.2026</td>
+                <td class="px-4 py-3 text-right"><svg class="w-4 h-4 text-ink-300 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="text-[12px] text-ink-400 mt-2">Click pe Pensiunea Demo sau Primăria Demo deschide fișa lor.</div>
+
+        <div class="grid gap-4 md:grid-cols-2 mt-6">
+          <div class="card p-5 text-[13px] text-ink-600 leading-relaxed">
+            <div class="font-semibold text-ink-900 mb-2">Ce prinde fiecare filtru</div>
+            <ul class="space-y-1">
+              <li><b class="text-ink-800">Trial:</b> abonament de trial cu <code>ends_at</code> în viitor.</li>
+              <li><b class="text-ink-800">Card:</b> <code>billing_type: stripe</code>, activ sau în grație.</li>
+              <li><b class="text-ink-800">Contract:</b> <code>billing_type: contract</code>, activ.</li>
+              <li><b class="text-ink-800">Cerere deschisă:</b> tichet de ofertă neînchis (cererea de upgrade din spațiu).</li>
+              <li><b class="text-ink-800">Plată eșuată:</b> starea Stripe <code>past_due</code>, deci în cele 7 zile de grație.</li>
+              <li><b class="text-ink-800">Suspendat:</b> fără abonament activ: trial sau abonament încheiat.</li>
+            </ul>
+          </div>
+          <div class="card p-5 text-[13px] text-ink-600 leading-relaxed">
+            <div class="font-semibold text-ink-900 mb-2">De unde vin coloanele</div>
+            <ul class="space-y-1">
+              <li><b class="text-ink-800">Template-ul</b> și pachetul cerut: din <code>settings['onboarding']</code>, salvat la finalul asistentului.</li>
+              <li><b class="text-ink-800">Pachet:</b> în trial, „Toate”; sub el, selecția de pe site.</li>
+              <li><b class="text-ink-800">Facturare:</b> <code>billing_type</code> + <code>billing_interval</code>. La trial, zilele până la <code>ends_at</code>.</li>
+              <li><b class="text-ink-800">Stare:</b> activ, <code>past_due</code> (cu data de final a grației) sau suspendat. Anularea programată apare sub stare.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           Antetul fișei unui cont (card)
+           ===================================================== -->
+      <div data-show="card" hidden>
+        <nav class="text-xs text-ink-400 mb-3 flex items-center gap-1.5">
+          <button type="button" data-go="conturi" class="hover:text-ink-700">Conturi</button>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          <span class="text-ink-700 font-medium">Pensiunea Demo</span>
+        </nav>
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+          <h1 class="text-2xl font-bold text-ink-900">Pensiunea Demo</h1>
+          <span class="text-[13px] text-ink-400">/pensiunea-demo</span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-400"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Web · card lunar · past_due</span>
+        </div>
+        <div class="flex items-center gap-1 border-b border-surface-200 mb-6 overflow-x-auto">
+          <span class="px-3 py-2 text-[13px] font-medium text-ink-500 whitespace-nowrap">Prezentare</span>
+          <button type="button" data-go="card" data-tab="card" class="px-3 py-2 text-[13px] whitespace-nowrap -mb-px border-b-2">Subscripție</button>
+          <span class="px-3 py-2 text-[13px] font-medium text-ink-500 whitespace-nowrap">Echipă</span>
+          <span class="px-3 py-2 text-[13px] font-medium text-ink-500 whitespace-nowrap">AI</span>
+          <span class="px-3 py-2 text-[13px] font-medium text-ink-500 whitespace-nowrap">Intelligence</span>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           2 · ABONAMENT PE CARD (read-only)
+           ===================================================== -->
+      <section data-show="card" hidden>
+        <div class="grid gap-6 xl:grid-cols-[1fr_320px] items-start">
+
+          <div class="space-y-5 min-w-0">
+            <div class="rounded-xl border border-surface-300 bg-surface-100 p-4 flex gap-3">
+              <div class="w-9 h-9 rounded-lg bg-surface-0 text-ink-600 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="text-[13px] text-ink-700 leading-relaxed">
+                <div class="font-semibold text-ink-900">Abonamentul e gestionat de Stripe.</div>
+                Se schimbă din pagina clientului sau din Stripe; webhook-ul îl sincronizează.
+                <div class="text-[12px] text-ink-500 mt-1">Trecerea pe contract: anulează abonamentul în Stripe, apoi pune contractul din acest tab.</div>
+              </div>
+            </div>
+
+            <fieldset disabled class="space-y-5">
+              <section class="card p-5">
+                <h2 class="text-[15px] font-semibold text-ink-900">Pachet și module</h2>
+                <div class="grid gap-4 sm:grid-cols-3 mt-4">
+                  <div>
+                    <label class="form__label">Pachet</label>
+                    <input type="text" value="Web" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label">Module</label>
+                    <input type="text" value="Media" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label">Interval</label>
+                    <input type="text" value="Lunar" class="input w-full mt-1.5">
+                  </div>
+                </div>
+                <div class="form__hint mt-2">Catalog: <code>web_monthly_1_8</code> · <code>media_monthly_1_8</code></div>
+              </section>
+
+              <section class="card p-5">
+                <h2 class="text-[15px] font-semibold text-ink-900">Stripe</h2>
+                <div class="grid gap-4 sm:grid-cols-2 mt-4">
+                  <div>
+                    <label class="form__label">Starea în Stripe</label>
+                    <input type="text" value="past_due" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label">Perioada curentă</label>
+                    <input type="text" value="22.09.2026 → 22.10.2026 (neplătită)" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label">Următoarea plată</label>
+                    <input type="text" value="reîncercare pe 25.09.2026" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label"><code>cancel_at_period_end</code></label>
+                    <input type="text" value="nu" class="input w-full mt-1.5">
+                  </div>
+                </div>
+              </section>
+
+              <section class="card p-5">
+                <h2 class="text-[15px] font-semibold text-ink-900">La noi</h2>
+                <div class="grid gap-4 sm:grid-cols-3 mt-4">
+                  <div>
+                    <label class="form__label"><code>starts_at</code></label>
+                    <input type="text" value="22.07.2026" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label"><code>ends_at</code></label>
+                    <input type="text" value="23.09.2026" class="input w-full mt-1.5">
+                    <div class="form__hint mt-1">Finalul perioadei plătite, plus o zi.</div>
+                  </div>
+                  <div>
+                    <label class="form__label">Grație</label>
+                    <input type="text" value="până la 29.09.2026" class="input w-full mt-1.5">
+                    <div class="form__hint mt-1"><code>grace_until</code> = <code>past_due_since</code> + 7 zile.</div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="card p-5">
+                <h2 class="text-[15px] font-semibold text-ink-900">Date de facturare</h2>
+                <div class="grid gap-4 sm:grid-cols-2 mt-4">
+                  <div>
+                    <label class="form__label">Denumirea · CUI</label>
+                    <input type="text" value="Pensiunea Demo SRL · RO12345678" class="input w-full mt-1.5">
+                  </div>
+                  <div>
+                    <label class="form__label">E-mailul de facturare</label>
+                    <input type="text" value="contabilitate@pensiuneademo.ro" class="input w-full mt-1.5">
+                  </div>
+                </div>
+                <div class="form__hint mt-2">Din Stripe Checkout. Clientul le schimbă din Portal; aici doar se văd.</div>
+              </section>
+            </fieldset>
+
+            <section class="card p-5">
+              <h2 class="text-[15px] font-semibold text-ink-900">Legăturile cu Stripe</h2>
+              <div class="mt-3 divide-y divide-surface-200 text-[13px]">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5">
+                  <span class="w-28 text-ink-500">Customer</span>
+                  <code class="text-ink-900">cus_TEST4fK2pLm9</code>
+                  <a href="#" class="ml-auto inline-flex items-center gap-1 text-primary hover:underline">Deschide în Stripe<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+                </div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5">
+                  <span class="w-28 text-ink-500">Subscription</span>
+                  <code class="text-ink-900">sub_TEST9aQw3Rt7</code>
+                  <a href="#" class="ml-auto inline-flex items-center gap-1 text-primary hover:underline">Deschide în Stripe<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+                </div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5">
+                  <span class="w-28 text-ink-500">Factura deschisă</span>
+                  <code class="text-ink-900">in_TEST2Lx8Vb1</code>
+                  <a href="#" class="ml-auto inline-flex items-center gap-1 text-primary hover:underline">Deschide în Stripe<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+                </div>
+              </div>
+            </section>
+
+            <div class="text-[12px] text-ink-400">Ultima sincronizare: 22.09.2026, 09:14, din <code>customer.subscription.updated</code></div>
+          </div>
+
+          <!-- coloana din dreapta: grația + reconcilierea -->
+          <aside class="space-y-4">
+            <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 p-4">
+              <div class="flex items-center gap-2 text-[13px] font-semibold text-amber-800 dark:text-amber-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>
+                În grație · ziua 1 din 7
+              </div>
+              <p class="text-[12px] text-amber-900 dark:text-amber-200 mt-1.5 leading-relaxed">Reînnoirea din 22.09.2026 a eșuat. Stripe reîncearcă. Spațiul rămâne activ până pe 29.09.2026.</p>
+              <ol class="mt-3 space-y-2 text-[12px]">
+                <li class="flex items-start gap-2"><span class="mt-0.5 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ink-700"><b class="text-ink-900">Ziua 0 · 22.09</b> · PAY-002 la proprietari, PAY-005 la admini</span></li>
+                <li class="flex items-start gap-2"><span class="mt-0.5 w-4 h-4 rounded-full border-2 border-amber-400 shrink-0"></span><span class="text-ink-700"><b class="text-ink-900">Ziua 3 · 25.09</b> · PAY-002, a doua oară</span></li>
+                <li class="flex items-start gap-2"><span class="mt-0.5 w-4 h-4 rounded-full border-2 border-amber-400 shrink-0"></span><span class="text-ink-700"><b class="text-ink-900">Ziua 6 · 28.09</b> · PAY-002, ultima oară</span></li>
+                <li class="flex items-start gap-2"><span class="mt-0.5 w-4 h-4 rounded-full border-2 border-red-400 shrink-0"></span><span class="text-ink-700"><b class="text-ink-900">29.09</b> · suspendat, dacă plata nu trece</span></li>
+              </ol>
+              <div class="text-[11px] text-ink-500 mt-3">O plată reușită (<code>invoice.paid</code>) oprește grația și notificările.</div>
+            </div>
+
+            <div class="card p-4">
+              <div class="flex items-center gap-2 text-[13px] font-semibold text-ink-900">
+                <svg class="w-4 h-4 text-ink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+                Reconcilierea
+              </div>
+              <div class="text-[12px] text-ink-500 mt-0.5"><code>Billing::ReconcileJob</code>, zilnic</div>
+              <div class="mt-3 space-y-2 text-[12px]">
+                <div class="flex items-start gap-2"><span class="text-emerald-600 dark:text-emerald-400">✓</span><span class="text-ink-700"><b class="text-ink-900">23.09.2026, 04:00</b> · nicio diferență pentru acest spațiu</span></div>
+                <div class="flex items-start gap-2"><span class="text-amber-600 dark:text-amber-400">↻</span><span class="text-ink-700"><b class="text-ink-900">15.09.2026, 04:00</b> · <code>cancel_at_period_end</code> corectat din Stripe (webhook pierdut). Raportat în AppSignal.</span></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Evenimentele -->
+        <div class="flex flex-wrap items-end justify-between gap-2 mt-8 mb-3">
+          <div>
+            <div class="text-[15px] font-semibold text-ink-900">Ultimele evenimente Stripe</div>
+            <div class="text-[12px] text-ink-500">din <code>stejar_stripe_events</code>, pentru acest spațiu</div>
+          </div>
+        </div>
+        <div class="card p-0 overflow-x-auto">
+          <table class="w-full text-[13px] min-w-[620px]">
+            <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500">
+              <tr>
+                <th class="text-left font-semibold px-4 py-2.5">Tipul</th>
+                <th class="text-left font-semibold px-4 py-2.5">Primit</th>
+                <th class="text-left font-semibold px-4 py-2.5">Procesat</th>
+                <th class="text-left font-semibold px-4 py-2.5">Efect</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-200">
+              <tr>
+                <td class="px-4 py-2.5"><code class="text-ink-900">invoice.payment_failed</code><div class="text-[11px] text-ink-400">evt_TEST8Kd2Qa</div></td>
+                <td class="px-4 py-2.5 tabular-nums text-ink-600">22.09.2026 09:14</td>
+                <td class="px-4 py-2.5"><span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>09:14</span></td>
+                <td class="px-4 py-2.5 text-ink-600">grația pornită, PAY-002, PAY-005</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2.5"><code class="text-ink-900">customer.subscription.updated</code><div class="text-[11px] text-ink-400">evt_TEST8Kd1Zs</div></td>
+                <td class="px-4 py-2.5 tabular-nums text-ink-600">22.09.2026 09:14</td>
+                <td class="px-4 py-2.5"><span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>09:14</span></td>
+                <td class="px-4 py-2.5 text-ink-600">starea: <code>past_due</code></td>
+              </tr>
+              <tr class="bg-red-50/40 dark:bg-red-500/5">
+                <td class="px-4 py-2.5"><code class="text-ink-900">customer.updated</code><div class="text-[11px] text-ink-400">evt_TEST6Mn4Cr</div></td>
+                <td class="px-4 py-2.5 tabular-nums text-ink-600">03.09.2026 16:40</td>
+                <td class="px-4 py-2.5"><span class="inline-flex items-center gap-1 text-red-700 dark:text-red-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>eroare</span></td>
+                <td class="px-4 py-2.5 text-red-700 dark:text-red-400 text-[12px]">Timeout la API-ul Stripe. Se reia automat.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2.5"><code class="text-ink-900">invoice.paid</code><div class="text-[11px] text-ink-400">evt_TEST5Hq9Lk</div></td>
+                <td class="px-4 py-2.5 tabular-nums text-ink-600">22.08.2026 09:12</td>
+                <td class="px-4 py-2.5"><span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>09:12</span></td>
+                <td class="px-4 py-2.5 text-ink-600"><code>ends_at</code> → 23.09.2026, PAY-006 (emite factura)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2.5"><code class="text-ink-900">invoice.paid</code><div class="text-[11px] text-ink-400">evt_TEST3Bv7Np</div></td>
+                <td class="px-4 py-2.5 tabular-nums text-ink-600">22.07.2026 09:03</td>
+                <td class="px-4 py-2.5"><span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>09:03</span></td>
+                <td class="px-4 py-2.5 text-ink-600">prima plată: PAY-001, PAY-006 (emite factura)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2.5"><code class="text-ink-900">checkout.session.completed</code><div class="text-[11px] text-ink-400">evt_TEST3Bv6Hy</div></td>
+                <td class="px-4 py-2.5 tabular-nums text-ink-600">22.07.2026 09:03</td>
+                <td class="px-4 py-2.5"><span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>09:03</span></td>
+                <td class="px-4 py-2.5 text-ink-600">abonamentul Stripe legat de spațiu</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           4 · TRIAL +30
+           ===================================================== -->
+      <section data-show="trial" hidden>
+        <nav class="text-xs text-ink-400 mb-3 flex items-center gap-1.5">
+          <button type="button" data-go="conturi" class="hover:text-ink-700">Conturi</button>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          <span class="text-ink-700 font-medium">Primăria Demo</span>
+        </nav>
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+          <h1 class="text-2xl font-bold text-ink-900">Primăria Demo</h1>
+          <span class="text-[13px] text-ink-400">/primaria-demo</span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 text-sky-700 dark:text-sky-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Toate · trial</span>
+        </div>
+        <div class="flex items-center gap-1 border-b border-surface-200 mb-6 overflow-x-auto">
+          <span class="px-3 py-2 text-[13px] font-medium text-ink-500 whitespace-nowrap">Prezentare</span>
+          <span class="px-3 py-2 text-[13px] font-semibold text-ink-900 border-b-2 border-primary -mb-px whitespace-nowrap">Subscripție</span>
+          <span class="px-3 py-2 text-[13px] font-medium text-ink-500 whitespace-nowrap">Echipă</span>
+        </div>
+
+        <div class="grid gap-6 xl:grid-cols-[1fr_320px] items-start">
+          <div class="space-y-5 min-w-0">
+
+            <!-- Cardul de trial -->
+            <section class="card p-5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400">Abonamentul</div>
+                  <div class="text-lg font-bold text-ink-900 mt-0.5">Toate funcționalitățile · trial</div>
+                  <div class="text-[13px] text-ink-500">început pe 31.07.2026 · se încheie pe <b class="text-ink-800" id="trial-end">29.09.2026</b></div>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-semibold bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-700 dark:text-amber-300" id="trial-left">Trial · 6 zile rămase</span>
+              </div>
+              <div class="mt-4 h-2 rounded-full bg-surface-200 overflow-hidden"><div class="h-full rounded-full bg-amber-500" id="trial-bar" style="width:90%"></div></div>
+
+              <div class="mt-4 rounded-lg border border-surface-200 bg-surface-0 p-3 flex flex-wrap items-center gap-3 text-[13px]">
+                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-ink-900">Cerere de ofertă deschisă · #CC-1042</div>
+                  <div class="text-[12px] text-ink-500">Web + Helpdesk Pro, anual</div>
+                </div>
+                <a href="#" class="w-full sm:w-auto text-[12px] font-medium text-primary hover:underline">Deschide tichetul</a>
+              </div>
+            </section>
+
+            <!-- +30 de zile -->
+            <section class="card p-5">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-ink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>
+                <h2 class="text-[15px] font-semibold text-ink-900">Prelungește trial-ul</h2>
+              </div>
+              <div class="mt-3">
+                <label class="form__label" for="note">Nota <span class="text-red-600 dark:text-red-400">*</span></label>
+                <textarea id="note" rows="2" class="input w-full mt-1.5" placeholder="De ce prelungim? De exemplu: procedura SEAP e în curs, oferta a plecat pe…"></textarea>
+                <div class="form__hint mt-1">Obligatorie. Rămâne în istoric.</div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+                <div class="text-[12px] text-ink-500">Noul final: <b class="text-ink-800" id="new-end">29.10.2026</b></div>
+                <button type="button" class="btn btn--primary" id="extend" disabled>+30 de zile</button>
+              </div>
+            </section>
+
+            <!-- Istoricul -->
+            <section class="card p-0 overflow-x-auto">
+              <div class="px-5 pt-4 pb-2 text-[15px] font-semibold text-ink-900">Istoricul trial-ului</div>
+              <table class="w-full text-[13px] min-w-[620px]">
+                <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500">
+                  <tr>
+                    <th class="text-left font-semibold px-4 py-2">Data</th>
+                    <th class="text-left font-semibold px-4 py-2">Cine</th>
+                    <th class="text-left font-semibold px-4 py-2">Schimbarea</th>
+                    <th class="text-left font-semibold px-4 py-2">Final nou</th>
+                    <th class="text-left font-semibold px-4 py-2">Nota</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-surface-200" id="history">
+                  <tr>
+                    <td class="px-4 py-2.5 tabular-nums text-ink-600">28.08.2026</td>
+                    <td class="px-4 py-2.5 text-ink-700">Admin Demo</td>
+                    <td class="px-4 py-2.5"><span class="font-semibold text-ink-900">+30 de zile</span></td>
+                    <td class="px-4 py-2.5 tabular-nums text-ink-700">29.09.2026</td>
+                    <td class="px-4 py-2.5 text-ink-600">Procedura SEAP a pornit. Oferta a plecat pe 27.08.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2.5 tabular-nums text-ink-600">31.07.2026</td>
+                    <td class="px-4 py-2.5 text-ink-700">asistentul</td>
+                    <td class="px-4 py-2.5 text-ink-700">trial de 30 de zile</td>
+                    <td class="px-4 py-2.5 tabular-nums text-ink-700">30.08.2026</td>
+                    <td class="px-4 py-2.5 text-ink-400">creat din template-ul Forum</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <div class="rounded-xl border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 p-4 text-[13px] text-sky-900 dark:text-sky-200 leading-relaxed">
+              <b>Notificările se resetează.</b> După prelungire, SUB-001 pleacă din nou la 7 zile și la o zi înainte de noul final, iar SUB-002 la noul final. Marcajele de trimitere de dinainte se șterg.
+            </div>
+          </div>
+
+          <!-- Trial încheiat, ofertă în lucru -->
+          <aside class="space-y-4">
+            <div class="card p-4">
+              <div class="font-semibold text-[13px] text-ink-900">Trial încheiat, ofertă în lucru</div>
+              <div class="text-[12px] text-ink-500 mt-0.5">Comuna Demo · suspendat din 21.09.2026</div>
+              <p class="text-[12px] text-ink-600 mt-2 leading-relaxed">„+30 de zile” mută <code>ends_at</code> și redeschide spațiul cât durează procedura. Tot cu notă obligatorie.</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <button type="button" class="btn btn--sm">+30 de zile</button>
+                <button type="button" class="btn btn--sm btn--ghost">Pune contractul</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           5 · PÂLNIA (Admin → Onboarding)
+           ===================================================== -->
+      <section data-show="palnia" hidden>
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-5">
+          <div>
+            <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400">Stejar Admin · /stejar-admin/onboarding</div>
+            <h1 class="text-2xl font-bold text-ink-900 mt-0.5">Onboarding</h1>
+            <div class="text-[13px] text-ink-500">Pâlnia clienților noi, pe săptămâni. Server-side, fără cookie-uri.</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" class="btn btn--sm" aria-label="Săptămâna anterioară"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+            <span class="text-[13px] font-semibold text-ink-900 whitespace-nowrap">Săptămâna 38 · 14–20.09.2026</span>
+            <button type="button" class="btn btn--sm" aria-label="Săptămâna următoare"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div class="text-[15px] font-semibold text-ink-900">Pâlnia</div>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] text-ink-500">
+              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-violet-500"></span>card</span>
+              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span>ofertă</span>
+            </div>
+          </div>
+          <div class="space-y-3" id="funnel"></div>
+          <div class="text-[12px] text-ink-400 mt-4 pt-3 border-t border-surface-200">Lățimile barelor sunt ilustrative. Cifrele reale se văd doar în Admin, în locul barelor gri.</div>
+        </div>
+
+        <div class="card p-0 overflow-x-auto mt-6">
+          <div class="px-5 pt-4 pb-2 text-[15px] font-semibold text-ink-900">Pe template-uri</div>
+          <table class="w-full text-[13px] min-w-[860px]">
+            <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500">
+              <tr>
+                <th class="text-left font-semibold px-4 py-2">Template</th>
+                <th class="text-left font-semibold px-4 py-2">Spații create</th>
+                <th class="text-left font-semibold px-4 py-2">„Alege abonamentul”</th>
+                <th class="text-left font-semibold px-4 py-2">Plătit sau cerere</th>
+                <th class="text-left font-semibold px-4 py-2">Site publicat în 7 zile</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-200" id="by-starter"></tbody>
+          </table>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2 mt-6 items-start">
+          <div class="card p-0 overflow-x-auto">
+            <div class="px-5 pt-4 pb-2 text-[15px] font-semibold text-ink-900">Din trial spre abonament</div>
+            <table class="w-full text-[13px]">
+              <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500">
+                <tr>
+                  <th class="text-left font-semibold px-4 py-2">Drumul</th>
+                  <th class="text-left font-semibold px-4 py-2">Din „Alege abonamentul” până la final</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-200" id="by-path"></tbody>
+            </table>
+          </div>
+
+          <div class="card p-5 text-[13px] text-ink-600 leading-relaxed space-y-2">
+            <div class="font-semibold text-ink-900">Cum se măsoară</div>
+            <p>Fiecare pas e un eveniment scris de server, fără cookie-uri de analytics.</p>
+            <p>Vizita pe prețuri e o afișare a paginii, fără identificator. Pașii următori se leagă prin sesiune, apoi prin spațiu, din <code>settings['onboarding']</code>.</p>
+            <p>Fiecare pas se numără în săptămâna în care s-a întâmplat. Activarea se socotește pe spațiile create în săptămână, în primele 7 zile ale fiecăruia.</p>
+            <p>GA4 rămâne separat și pornește doar după acceptarea cookie-urilor (G2).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           REGULILE ECRANULUI
+           ===================================================== -->
+      <section class="mt-12 pb-16">
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Regulile ecranului</div>
+        <div class="card p-0 overflow-x-auto">
+          <table class="w-full text-[13px]">
+            <tbody class="divide-y divide-surface-200">
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">R7 se schimbă (§2)</td><td class="px-4 py-2.5 text-ink-700">Abonamentele cu <code>billing_type: stripe</code> se scriu doar din webhook-uri. Tab-ul Subscripție le arată doar în citire, iar controllerul refuză și un POST trimis direct. Contractele și trial-urile se editează ca azi.</td></tr>
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Card → contract</td><td class="px-4 py-2.5 text-ink-700">Echipa anulează abonamentul în Stripe, apoi pune contractul din Admin (§7.7). Formularul se deblochează după <code>customer.subscription.deleted</code>.</td></tr>
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Evenimentele</td><td class="px-4 py-2.5 text-ink-700">Ultimele evenimente din <code>stejar_stripe_events</code>, cu tipul, ora, <code>processed_at</code> și eroarea. Linkurile duc în dashboard-ul Stripe al modului curent (test pe staging, live în producție).</td></tr>
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Reconcilierea (§7.9)</td><td class="px-4 py-2.5 text-ink-700"><code>Billing::ReconcileJob</code> rulează zilnic. Fișa arată ultima rulare și ultima diferență reparată pentru spațiu. Orice diferență ajunge și în AppSignal.</td></tr>
+                            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Datele de facturare</td><td class="px-4 py-2.5 text-ink-700">Vin din Stripe Checkout și stau pe Stripe Customer. Pe fișă se văd doar, din copia de pe cont. Clientul le schimbă din Portal.</td></tr>
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Filtrele</td><td class="px-4 py-2.5 text-ink-700">Trial · Card · Contract · Cerere deschisă · Plată eșuată · Suspendat, pe lângă cele din planul de pachete. În Admin, fiecare filtru își arată numărul. Aici lipsește, fiindcă repo-ul e public.</td></tr>
+                            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">EVENTYA-008</td><td class="px-4 py-2.5 text-ink-700">E-mailul „spațiu creat” către admini poartă în plus template-ul și selecția de pe site.</td></tr>
+                            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">+30 de zile (B5)</td><td class="px-4 py-2.5 text-ink-700">Pe trial, și pe unul încheiat de curând. Fără limită de prelungiri, cu notă obligatorie. Mută <code>ends_at</code> cu 30 de zile, scrie în <code>stejar_subscription_events</code> și resetează marcajele SUB-001 și SUB-002.</td></tr>
+                            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">PAY-006</td><td class="px-4 py-2.5 text-ink-700">La fiecare plată pe card, adminii primesc „Emite factura fiscală”, cu cumpărătorul și suma. Factura se emite în afara platformei.</td></tr>
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Suspendarea</td><td class="px-4 py-2.5 text-ink-700">Adminii nu trec de suspendare. Ca să lucreze într-un spațiu suspendat, pun întâi un abonament sau un trial.</td></tr>
+                            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Pâlnia (§12)</td><td class="px-4 py-2.5 text-ink-700">Admin → Onboarding. Server-side, fără cookie-uri, pe săptămâni, cu defalcare pe template-uri. Pașii: vizite pe prețuri → cont creat → cod confirmat → spațiu creat, pe trial → „Alege abonamentul” → Checkout pornit → plătit sau cerere de ofertă → trial convertit.</td></tr>
+              <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Activarea</td><td class="px-4 py-2.5 text-ink-700">Ramură din „Spațiu creat”: pașii din Ghidul de început bifați în primele 7 zile (logo, date legale, pagina de acasă, primul conținut, echipa invitată, domeniu, site publicat). Se citesc din aceleași date care bifează ghidul. Metrica de activare: site publicat în 7 zile.</td></tr>
+                            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Codul</td><td class="px-4 py-2.5 text-ink-700">Clase noi sub <code>Stejar::Billing::</code> și <code>Subscriptions::</code>. Formularul de subscripție existent primește doar ramura de citire. Fișa Stripe și pâlnia sunt partiale noi.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ---------- Pâlnia: bare relative, fără cifre ----------
+    var PH = '<span class="inline-block w-10 h-2 rounded bg-surface-300 shrink-0"></span>';
+    function bar(w, cls) { return '<div class="h-6 rounded-md ' + cls + '" style="width:' + w + '%"></div>'; }
+    function split(parts) {
+      return '<div class="flex h-6 rounded-md overflow-hidden" style="width:' + parts.reduce(function (a, p) { return a + p[0]; }, 0) + '%">' +
+        parts.map(function (p) { return '<div class="h-full ' + p[1] + '" style="width:' + (p[0] / parts.reduce(function (a, q) { return a + q[0]; }, 0) * 100) + '%"></div>'; }).join('') + '</div>';
+    }
+    var STEPS = [
+      ['Vizite pe prețuri', bar(100, 'bg-primary-500')],
+      ['Cont creat', bar(46, 'bg-primary-500')],
+      ['Cod confirmat', bar(40, 'bg-primary-500')],
+      ['Spațiu creat, pe trial', bar(33, 'bg-primary-500')],
+      ['„Alege abonamentul”', bar(20, 'bg-primary-500')],
+      ['Checkout pornit', bar(8, 'bg-violet-500')],
+      ['Plătit / Cerere de ofertă', split([[5, 'bg-violet-500'], [7, 'bg-amber-500']])],
+      ['Trial convertit', bar(9, 'bg-emerald-500')]
+    ];
+    function row(s) {
+      return '<div class="flex items-center gap-3">' +
+        '<div class="w-28 sm:w-40 shrink-0 text-[12px] sm:text-[13px] text-ink-700">' + s[0] + '</div>' +
+        '<div class="flex-1 min-w-0 rounded-md bg-surface-100">' + s[1] + '</div>' + PH + '</div>';
+    }
+    // Activarea: pașii din Ghidul de început, în primele 7 zile, față de „Spațiu creat”.
+    var GUIDE = [
+      ['Logo și culori', 72], ['Date legale', 48], ['Pagina de acasă', 64], ['Primul conținut', 41],
+      ['Echipa invitată', 30], ['Domeniu', 9], ['Site publicat', 26, true]
+    ];
+    var activation = '<div class="ml-4 sm:ml-10 pl-4 border-l-2 border-emerald-400 dark:border-emerald-500/60 py-1 space-y-2">' +
+      '<div class="flex flex-wrap items-baseline gap-x-2 text-[12px]"><span class="font-semibold text-ink-900">Activare</span><span class="text-ink-500">pașii din Ghidul de început, bifați în primele 7 zile, față de spațiile create</span></div>' +
+      GUIDE.map(function (g) {
+        return '<div class="flex items-center gap-3">' +
+          '<div class="w-24 sm:w-32 shrink-0 text-[12px] ' + (g[2] ? 'font-semibold text-emerald-700 dark:text-emerald-400' : 'text-ink-600') + '">' + g[0] + '</div>' +
+          '<div class="flex-1 min-w-0 h-3 rounded bg-surface-100"><div class="h-3 rounded ' + (g[2] ? 'bg-emerald-500' : 'bg-primary-300') + '" style="width:' + g[1] + '%"></div></div>' +
+          (g[2] ? '<span class="badge badge--positive shrink-0">metrica de activare</span>' : PH) + '</div>';
+      }).join('') +
+      '<div class="text-[11px] text-ink-400">„Site publicat în 7 zile” e metrica de activare: spațiile pornesc private, iar ultimul pas le face publice. Domeniul se poate lega din trial.</div>' +
+      '</div>';
+    document.getElementById('funnel').innerHTML = STEPS.slice(0, 4).map(row).join('') + activation + STEPS.slice(4).map(row).join('');
+
+    var STARTERS = [
+      ['Atrium', 'Cultură', 70, [[30, 'bg-sky-500'], [15, 'bg-violet-500'], [55, 'bg-amber-500']], 45, 30],
+      ['Scena', 'Cultură', 45, [[40, 'bg-sky-500'], [20, 'bg-violet-500'], [40, 'bg-amber-500']], 35, 25],
+      ['Forum', 'Comunități publice', 100, [[45, 'bg-sky-500'], [0, 'bg-violet-500'], [55, 'bg-amber-500']], 40, 15],
+      ['Panorama', 'Comunități publice', 35, [[35, 'bg-sky-500'], [0, 'bg-violet-500'], [65, 'bg-amber-500']], 30, 10],
+      ['Vatra', 'Comunități publice', 60, [[55, 'bg-sky-500'], [5, 'bg-violet-500'], [40, 'bg-amber-500']], 25, 20],
+      ['Agora', 'Privați', 40, [[50, 'bg-sky-500'], [40, 'bg-violet-500'], [10, 'bg-amber-500']], 50, 45],
+      ['Vitrina', 'Privați', 80, [[45, 'bg-sky-500'], [50, 'bg-violet-500'], [5, 'bg-amber-500']], 60, 55]
+    ];
+    document.getElementById('by-starter').innerHTML = STARTERS.map(function (s) {
+      return '<tr>' +
+        '<td class="px-4 py-2.5"><div class="font-medium text-ink-900">' + s[0] + '</div><div class="text-[11px] text-ink-400">' + s[1] + '</div></td>' +
+        '<td class="px-4 py-2.5 w-40"><div class="h-3 rounded bg-surface-100"><div class="h-3 rounded bg-primary-500" style="width:' + s[2] + '%"></div></div></td>' +
+        '<td class="px-4 py-2.5 w-40"><div class="h-3 rounded bg-surface-100"><div class="h-3 rounded bg-primary-300" style="width:' + (s[3][1][0] + s[3][2][0]) + '%"></div></div></td>' +
+        '<td class="px-4 py-2.5 w-40"><div class="h-3 rounded bg-surface-100"><div class="h-3 rounded bg-violet-300" style="width:' + s[4] + '%"></div></div></td>' +
+        '<td class="px-4 py-2.5 w-40"><div class="h-3 rounded bg-surface-100"><div class="h-3 rounded bg-emerald-500" style="width:' + s[5] + '%"></div></div></td>' +
+        '</tr>';
+    }).join('');
+
+    var PATHS = [
+      ['Card', 'bg-violet-500', ['Checkout pornit', 'plătit'], [100, 65]],
+      ['Ofertă', 'bg-amber-500', ['cerere trimisă', 'contract pus din Admin'], [100, 30]]
+    ];
+    document.getElementById('by-path').innerHTML = PATHS.map(function (p) {
+      var rows = p[2].map(function (label, i) {
+        return '<div class="flex items-center gap-2"><div class="w-24 sm:w-32 shrink-0 text-[11px] text-ink-500">' + label + '</div>' +
+          '<div class="flex-1 h-2.5 rounded bg-surface-100"><div class="h-2.5 rounded ' + p[1] + '" style="width:' + p[3][i] + '%"></div></div></div>';
+      }).join('');
+      return '<tr><td class="px-4 py-3 align-top font-medium text-ink-900">' + p[0] + '</td><td class="px-4 py-3"><div class="space-y-1.5">' + rows + '</div></td></tr>';
+    }).join('');
+
+    // ---------- Comutatorul de vizualizări ----------
+    var ON = 'px-2 py-1 rounded-md font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200';
+    var OFF = 'px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300';
+    var NAV_ON = 'flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-0 shadow-sm font-semibold text-ink-900';
+    var NAV_OFF = 'flex items-center gap-2 px-3 py-2 rounded-lg text-ink-500';
+    var TAB_ON = 'px-3 py-2 text-[13px] whitespace-nowrap -mb-px border-b-2 border-primary font-semibold text-ink-900';
+    var TAB_OFF = 'px-3 py-2 text-[13px] whitespace-nowrap -mb-px border-b-2 border-transparent font-medium text-ink-500';
+    function show(v) {
+      document.querySelectorAll('#views [data-view]').forEach(function (b) { b.className = b.getAttribute('data-view') === v ? ON : OFF; });
+      document.querySelectorAll('[data-show]').forEach(function (el) { el.hidden = el.getAttribute('data-show').split(' ').indexOf(v) < 0; });
+      document.querySelectorAll('[data-nav]').forEach(function (el) { el.className = el.getAttribute('data-nav').split(' ').indexOf(v) < 0 ? NAV_OFF : NAV_ON; });
+      document.querySelectorAll('[data-tab]').forEach(function (el) { el.className = el.getAttribute('data-tab') === v ? TAB_ON : TAB_OFF; });
+      try { history.replaceState(null, '', '#' + v); } catch (e) {}
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-view], [data-go]'); if (!b) return;
+      show(b.getAttribute('data-view') || b.getAttribute('data-go'));
+      window.scrollTo({ top: 0 });
+    });
+    var start = (location.hash || '').slice(1);
+    show(['conturi', 'card', 'trial', 'palnia'].indexOf(start) >= 0 ? start : 'conturi');
+
+    // ---------- Filtrele din lista de conturi ----------
+    var CHIP_ON = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold bg-ink-900 text-surface-0';
+    var CHIP_OFF = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface-0 border border-surface-200 text-ink-700';
+    document.getElementById('chips').addEventListener('click', function (e) {
+      var c = e.target.closest('[data-f]'); if (!c) return;
+      var f = c.getAttribute('data-f');
+      document.querySelectorAll('#chips [data-f]').forEach(function (x) { x.className = x === c ? CHIP_ON : CHIP_OFF; });
+      document.querySelectorAll('#accounts tbody tr').forEach(function (tr) {
+        tr.hidden = f !== 'all' && tr.getAttribute('data-tags').split(' ').indexOf(f) < 0;
+      });
+    });
+
+    // ---------- +30 de zile: nota e obligatorie ----------
+    var note = document.getElementById('note'), btn = document.getElementById('extend');
+    var ends = [new Date(2026, 8, 29)], today = new Date(2026, 8, 23);
+    function fmt(d) { return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear(); }
+    function plus30(d) { var n = new Date(d); n.setDate(n.getDate() + 30); return n; }
+    note.addEventListener('input', function () { btn.disabled = !note.value.trim(); });
+    btn.addEventListener('click', function () {
+      var end = plus30(ends[0]); ends[0] = end;
+      var left = Math.round((end - today) / 86400000);
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="px-4 py-2.5 tabular-nums text-ink-600">23.09.2026</td><td class="px-4 py-2.5 text-ink-700">tu</td>' +
+        '<td class="px-4 py-2.5"><span class="font-semibold text-ink-900">+30 de zile</span></td>' +
+        '<td class="px-4 py-2.5 tabular-nums text-ink-700">' + fmt(end) + '</td><td class="px-4 py-2.5 text-ink-600"></td>';
+      tr.lastChild.textContent = note.value.trim();
+      document.getElementById('history').prepend(tr);
+      document.getElementById('trial-end').textContent = fmt(end);
+      document.getElementById('trial-left').textContent = 'Trial · ' + left + ' zile rămase';
+      document.getElementById('trial-bar').style.width = Math.round((1 - left / (left + 54)) * 100) + '%';
+      document.getElementById('new-end').textContent = fmt(plus30(end));
+      note.value = ''; btn.disabled = true;
+    });
+  </script>
+
+  <!-- Dark-mode toggle -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

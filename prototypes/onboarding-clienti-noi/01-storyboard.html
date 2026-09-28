@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storyboard · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#1 · Storyboard: fiecare feature, de la implementare la producție</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-8">
+
+    <div class="text-2xl font-bold text-ink-900">Onboarding pentru clienții noi, pas cu pas</div>
+    <p class="text-sm text-ink-500 mt-1 max-w-3xl">Paisprezece feature-uri, fiecare cu drumul lui: <b class="text-ink-700">implementare → staging → testare → producție</b>. Fiecare ajunge separat în producție. Plata cu cardul stă ascunsă sub comutatorul <code>billing.stripe_enabled</code> până la lansare, așa că restul poate intra înainte.</p>
+
+    <!-- ============ DRUMUL ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-8 mb-3">1 · Ordinea</div>
+    <div class="card p-5 overflow-x-auto">
+      <div id="waves" class="flex items-stretch gap-0 min-w-[960px]"></div>
+      <div class="text-[12px] text-ink-500 mt-4 pt-3 border-t border-surface-200">Val 0 (pregătirile din afara codului) rulează în paralel cu tot restul. Site-ul (F12) poate începe din Val 1, dar textele legale trebuie publicate <b>înaintea</b> lansării plăților.</div>
+      <div class="text-[12px] text-ink-500 mt-1">F7 (datele de facturare) și F10 (factura fiscală) au ieșit din plan pe 28.09. Datele cumpărătorului se cer în Stripe Checkout. Factura fiscală se emite în afara platformei: PAY-006 îi spune echipei să o emită.</div>
+    </div>
+
+    <!-- ============ FILTRE ============ -->
+    <div class="flex flex-wrap items-center justify-between gap-3 mt-10 mb-4">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">2 · Fiecare feature, de la cod la producție</div>
+      <div class="flex flex-wrap items-center gap-1 text-[12px]" id="filters"></div>
+    </div>
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mb-4 text-[12px] text-ink-500">
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary-500"></span>Implementare</span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>Staging</span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Testare</span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Producție</span>
+      <span class="ml-auto text-ink-400">Bifele se țin doar în browserul tău.</span>
+    </div>
+
+    <div id="features" class="space-y-4"></div>
+
+    <!-- ============ DEFINIȚIA LUI „GATA” ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">3 · Ce înseamnă „gata în producție”, pentru orice feature</div>
+    <div class="card p-5 grid md:grid-cols-2 gap-x-8 gap-y-2 text-[13px] text-ink-600">
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Specurile țintite sunt verzi. Suita completă a stejar rulează o dată, înainte de push.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Textele sunt pe i18n, în RO și EN. Fără texte scrise direct în view.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Fiecare notificare nouă e un notifier Noticed și are intrarea ei în <code>manual/notifications</code>.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Backup înainte de migrări → merge în stejar → bump în eventya → deploy. O rută nouă din eventya intră doar după bump.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Smoke test în producție, pe pașii din coloana „Producție”.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>O zi de urmărit AppSignal (erori, joburi, webhook-uri) după fiecare deploy.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Nicio schimbare în <code>dev_ops</code>: configurația de deploy și secretele stau în repo-ul aplicației și în 1Password.</span></div>
+      <div class="flex gap-2"><span class="text-emerald-500">✓</span><span>Ecranele se verifică pe mobil și în dark mode.</span></div>
+    </div>
+
+  </div>
+
+  <script>
+    var WAVES = [
+      { id: 'pre', title: 'Premisă', sub: 'Tranziția pe abonamente în producție', ids: [], style: 'border-dashed border-sky-400 bg-sky-50/60 dark:bg-sky-500/10', label: 'text-sky-600 dark:text-sky-400' },
+      { id: 'v0', title: 'Val 0', sub: 'în paralel, în afara codului', ids: ['F0'], style: 'border-dashed border-surface-400', label: 'text-ink-400' },
+      { id: 'v1', title: 'Val 1', sub: 'reparațiile, primele', ids: ['F1'], style: 'border-red-400 bg-red-50/60 dark:bg-red-500/10', label: 'text-red-600 dark:text-red-400' },
+      { id: 'v2', title: 'Val 2', sub: 'fundațiile', ids: ['F2', 'F3', 'F4', 'F14'], style: 'border-primary-500 bg-primary-50/60 dark:bg-primary-500/10', label: 'text-primary-600 dark:text-primary-400' },
+      { id: 'v3', title: 'Val 3', sub: 'live cu trial și ofertă', ids: ['F5', 'F6', 'F8', 'F13'], style: 'border-sky-500 bg-sky-50/60 dark:bg-sky-500/10', label: 'text-sky-600 dark:text-sky-400' },
+      { id: 'v4', title: 'Val 4', sub: 'plățile, ascunse', ids: ['F9', 'F11', 'F15'], style: 'border-violet-500 bg-violet-50/60 dark:bg-violet-500/10', label: 'text-violet-600 dark:text-violet-400' },
+      { id: 'v5', title: 'Val 5', sub: 'site-ul (poate începe din Val 1)', ids: ['F12'], style: 'border-amber-500 bg-amber-50/60 dark:bg-amber-500/10', label: 'text-amber-600 dark:text-amber-400' },
+      { id: 'go', title: 'Lansarea', sub: 'comutatorul plăților pornit', ids: ['GO'], style: 'border-emerald-500 bg-emerald-50/60 dark:bg-emerald-500/10', label: 'text-emerald-600 dark:text-emerald-400' }
+    ];
+
+    // Fiecare feature: 4 etape, fiecare cu pașii și condiția de „gata”.
+    var F = [
+      { id: 'F0', wave: 'v0', name: 'Pregătiri în afara codului', repo: 'business · juridic · conținut', deps: '—',
+        s: [
+          { t: ['Contul Stripe al Eventya activat: verificarea firmei, cont bancar în RON, descriptorul de pe extras, brandingul', 'Termenii, Confidențialitatea, DPA și Cookies rescrise de jurist (G3)', 'Numele template-urilor alese (A2). Conținutul celor 7, în RO și EN, cu imagini cu licență comercială (S1)'], d: 'totul decis și în lucru' },
+          { t: ['Cheile Stripe de test și webhook secret-ul de staging, în 1Password', 'Template-urile construite în producție, nepublicate, apoi copiate pe staging'], d: 'staging-ul are tot ce-i trebuie' },
+          { t: ['Juristul aprobă textele finale', 'Echipa de conținut citește fiecare template în ambele limbi'], d: 'aprobat de fiecare responsabil' },
+          { t: ['Cheile live și webhook secret-ul live, în 1Password', 'Textele legale gata de publicat (le publică F12)'], d: 'nimic din afara codului nu mai blochează lansarea' }
+        ] },
+      { id: 'F1', wave: 'v1', name: 'Reparațiile R1–R17', repo: 'eventya + stejar', deps: 'Tranziția', note: 'Defectele din §13 al planului. Unele îi afectează deja pe utilizatori, deci intră primele, independent de rest.',
+        s: [
+          { t: ['Pentru fiecare defect: întâi specul care îl reproduce, apoi reparația', 'Autentificare: R1 (retrimiterea codului), R2 (cont existent pe „Creează cont”), R3 (e-mail necunoscut), R4, R5 (ruta de admin), R6 (rolul member)', 'Asistent și template-uri: R7 (aterizarea în CMS), R13, R14 (template.json), R15 (template-urile suspendate)', 'Abonament: R9 (trial → Web plătit), R10, R11 (preselecția), R12 (prețuri scrise de mână)', 'Platformă: R8 (adrese rezervate), R16 (rack-attack), R17 (cookie-ul de consimțământ) + curățenia'], d: 'specurile noi verzi, suita completă o dată' },
+          { t: ['Deploy pe staging', 'Seed-urile existente, plus un utilizator doar membru public, pentru R6'], d: 'branch-ul rulează' },
+          { t: ['Fiecare defect încercat din nou de mână, după pașii din spec', 'Crearea contului, autentificarea și retrimiterea codului, pe mobil'], d: 'niciunul dintre cele 17 nu se mai reproduce' },
+          { t: ['Backup → merge stejar → bump în eventya → deploy', 'Smoke test: cont nou, retrimiterea codului, autentificare cu un e-mail existent'], d: 'reparațiile în producție, independent de restul' }
+        ] },
+      { id: 'F2', wave: 'v2', name: 'Contul și autentificarea', repo: 'eventya', deps: 'F1', screens: ['06'],
+        s: [
+          { t: ['Câte un câmp pe pas: nume → e-mail → cod', 'Intenția în sesiune (<code>onboarding_intent</code>), din parametrii URL: template, pachet, module, interval, utm', 'Acceptarea Termenilor, sub butonul de la e-mail: <code>terms_accepted_at</code>, <code>terms_version</code>', 'Turnstile invizibil pe /signup și /signin', 'AUTH-008 „nu există un cont cu această adresă”', 'Toate textele pe i18n, în RO și EN'], d: 'specurile de request verzi' },
+          { t: ['Cheile Turnstile de test', 'Deploy'], d: 'branch-ul rulează' },
+          { t: ['Fiecare rând din matricea de autentificare (§4.2)', 'Intenția rezistă la autentificare și la expirarea sesiunii', 'Turnstile nu blochează un om real, nici pe mobil'], d: 'toate cazurile duc unde trebuie' },
+          { t: ['Cheile Turnstile live', 'Deploy', 'Urmărit o săptămână: coduri trimise față de coduri confirmate, blocări Turnstile'], d: 'nicio creștere a abandonului la cod' }
+        ] },
+      { id: 'F3', wave: 'v2', name: 'Template-urile', repo: 'eventya + stejar + conținut', deps: 'F1, F0 (conținutul)', screens: ['05', '08'],
+        s: [
+          { t: ['Blank scos: SetupData, view, JS, job, specs și documentație', 'Metadatele noi în Admin → Template-uri: grupa, „pentru cine”, pachetul și modulele recomandate', 'Pasul 2: grila celor 7, pe trei grupe, cu eticheta „Recomandat pentru…”, fără previzualizare'], d: 'specurile verzi' },
+          { t: ['Template-urile copiate din producție pe staging', 'Deploy'], d: 'cele 7 apar în pasul 2' },
+          { t: ['Câte un spațiu nou din fiecare template: nicio pagină goală, imagini și meniuri complete', 'Miniatura din grilă arată ce primește clientul', 'Fiecare template în RO și EN'], d: '7 spații create fără nicio corectură de mână' },
+          { t: ['Deploy', 'Cele 7 publicate în Admin → Template-uri, în ordinea aleasă', 'Un spațiu de test creat din fiecare, apoi șters'], d: 'template-urile sunt live' }
+        ] },
+      { id: 'F4', wave: 'v2', name: 'Calculatorul și pagina de prețuri', repo: 'stejar + eventya', deps: 'Tranziția', screens: ['04'],
+        s: [
+          { t: ['<code>Subscriptions::ConfiguratorComponent</code>, extras din /workspace/upgrade, cu trei moduri: public, upgrade, renew', 'Prețurile randate pe server din <code>PriceList</code>, fără nicio cifră în ERB', 'Pagina de prețuri publică: „Începe gratuit · 30 de zile” și „Cere ofertă”, cu selecția trecută în URL', 'Spec: totalul componentei e egal cu <code>Quote</code>, pentru fiecare combinație'], d: 'specurile verzi' },
+          { t: ['Deploy'], d: 'pagina rulează pe staging' },
+          { t: ['Toate combinațiile din PACKAGE_ADDONS, lunar și anual', 'Recomandarea Enterprise; Enterprise doar cu „Cere ofertă”', '„Începe gratuit” duce în /signup cu parametrii corecți; „Cere ofertă”, la formularul de vânzări', 'Mobil, dark mode, accesibilitate'], d: 'niciun preț scris de mână pe site' },
+          { t: ['Deploy', 'Redirect 301 de la adresele vechi, dacă se schimbă', 'Pagina veche, cu EUR, dispare'], d: 'prețurile publice vin din cod' }
+        ] },
+      { id: 'F5', wave: 'v3', name: 'Asistentul în doi pași', repo: 'eventya', deps: 'F2, F3, F14', screens: ['07', '08', '12'],
+        s: [
+          { t: ['Pasul 1: doar numele proiectului; adresa generată din nume (următoarea liberă, <code>-2</code>); limba din cookie-ul site-ului', 'Pasul 2: grila template-urilor; fraza DPA sub „Creează spațiul”: <code>dpa_accepted_at</code>, <code>dpa_version</code>', 'Intenția se salvează în <code>settings[\'onboarding\']</code>', 'Aterizarea în Dashboard (F14), cu ghidul de început'], d: 'specurile verzi' },
+          { t: ['Deploy'], d: 'asistentul rulează pe staging' },
+          { t: ['Scenariile de margine din §4.5', 'Anonim, logat fără spații, cu un spațiu, cu mai multe', 'Cookie EN → spațiu în EN', 'Pachetul Helpdesk sare pasul 2'], d: 'toate scenariile trec' },
+          { t: ['Deploy, cu F6: onboarding-ul nou e live, cu trial și ofertă', 'Un cont și un spațiu de test, create cap-coadă'], d: 'un client nou ajunge în Dashboard în sub 2 minute' }
+        ] },
+      { id: 'F6', wave: 'v3', name: 'Trial și alegerea abonamentului', repo: 'stejar + eventya', deps: 'F4, F5', screens: ['09', '13', '14'], note: 'Orice spațiu nou primește 30 de zile cu toate funcționalitățile. Abonamentul se alege apoi din spațiu.',
+        s: [
+          { t: ['Trial-ul deblochează tot: profilul Enterprise, cu domeniul propriu (fără <code>TRIAL_PACKAGE = "web"</code> și fără <code>TRIAL_EXCLUDED_KEYS</code>)', '„Alege abonamentul” (ecranul 9): calculatorul în modul upgrade, cu selecția de pe site preselectată; „Plătește cu cardul” ascuns sub comutator', 'Textele de trial pentru SUB-001 și SUB-002, cu „Alege abonamentul”', 'Butonul „+30 de zile” în Admin, cu notă obligatorie, în <code>stejar_subscription_events</code>'], d: 'specurile verzi' },
+          { t: ['Deploy', 'Profilele din seed: trial proaspăt, trial care expiră, trial terminat'], d: 'profilele există' },
+          { t: ['Un spațiu nou vede toate filele', 'După trial, un pachet mic ascunde ce nu intră în el, iar conținutul rămâne', 'Prelungirea mută <code>ends_at</code> și resetează notificările', 'Textele, în RO și EN'], d: 'trial-ul și ieșirea din trial se comportă corect' },
+          { t: ['Deploy, cu F5'], d: 'trial-ul nou e activ' }
+        ] },
+      { id: 'F8', wave: 'v3', name: 'Cererea de ofertă', repo: 'stejar', deps: 'F4', screens: ['09', '11'], note: 'Contractul se face în afara platformei. În aplicație e doar cererea.',
+        s: [
+          { t: ['„Cere ofertă” din „Alege abonamentul” și de pe /workspace/upgrade, prin cererea de upgrade de azi (<code>UpgradeRequestCreator</code>)', 'Confirmarea „Cererea ta e la noi”, cu cererea în Tichetele mele'], d: 'specurile verzi' },
+          { t: ['Deploy', 'Departamentul care primește tichetul (întrebarea E1)'], d: 'tichetele ajung la cine trebuie' },
+          { t: ['Tichetul conține configurația și mesajul', 'Echipa setează din Admin: contract + dată de final'], d: 'o cerere de test ajunge și se procesează' },
+          { t: ['Deploy', 'Stabilit cine răspunde și în cât timp (E2)'], d: 'prima cerere reală primește răspuns în termen' }
+        ] },
+      { id: 'F9', wave: 'v4', name: 'Stripe', repo: 'stejar + eventya', deps: 'F4', screens: ['09', '10', '13', '16'],
+        s: [
+          { t: ['Gem-ul <code>stripe</code>, cu versiunea API fixată; clasele <code>Billing::*</code> în stejar', '<code>stripe:sync_catalog</code> din PriceList, cu <code>lookup_key</code> versionat, TVA inclus', 'StartCheckout cu datele de facturare (<code>tax_id_collection</code>), webhook-urile (ruta prin modul comun, ca la MCP), ProcessEventJob, SyncSubscription', 'PAY-006 la fiecare <code>invoice.paid</code>, ca echipa să emită factura fiscală', 'Upgrade cu <code>pending_if_incomplete</code> și suma arătată înainte; Subscription Schedule la downgrade; grația de 7 zile; ziua în plus la reînnoire', 'ReconcileJob zilnic, CSP (<code>form-action</code>), comutatorul <code>billing.stripe_enabled</code>'], d: 'specurile verzi, cu Stripe simulat' },
+          { t: ['Test mode: cheile și webhook-ul de staging', '<code>stripe:sync_catalog</code> pe contul de test', 'Stripe CLI pentru dezvoltarea locală'], d: 'o plată de test ajunge până la abonament' },
+          { t: ['Cardurile de test: reușit, cu 3-D Secure, refuzat, fonduri insuficiente', 'Test clocks: reînnoire, plată eșuată, grație, suspendare', 'Webhook trimis de două ori (idempotență), webhook pierdut (reconciliere)', 'Upgrade, downgrade, lunar ↔ anual, anulare, reluare'], d: 'matricea din ecranul 16 e verde' },
+          { t: ['Cheile live și webhook-ul live', '<code>stripe:sync_catalog</code> pe live', 'Deploy cu comutatorul oprit'], d: 'Stripe e pregătit, dar încă ascuns' }
+        ] },
+      { id: 'F11', wave: 'v4', name: 'Admin', repo: 'stejar', deps: 'F9', screens: ['14'],
+        s: [
+          { t: ['Fișa unui abonament Stripe: doar citire, stare, următoarea plată, datele de facturare din Stripe, linkuri în Stripe', 'Filtrele: trial, card, contract, cerere deschisă, plată eșuată', 'Admin → Onboarding: pâlnia, pe săptămâni', 'EVENTYA-008 cu template-ul și selecția de pe site'], d: 'specurile verzi' },
+          { t: ['Deploy'], d: 'fișele se văd pe staging' },
+          { t: ['Un admin nu poate edita un abonament Stripe din formular', 'Pâlnia numără corect un parcurs complet'], d: 'echipa vede orice client nou fără să deschidă Stripe' },
+          { t: ['Deploy, cu F9'], d: 'adminul e gata pentru lansare' }
+        ] },
+      { id: 'F12', wave: 'v5', name: 'Site-ul de marketing', repo: 'eventya', deps: 'F3, F4', screens: ['03', '04', '05'],
+        s: [
+          { t: ['i18n în RO și EN pe toate paginile de marketing, comutator de limbă, <code>hreflang</code>', 'Antetul după stare, meniul Soluții, galeria și cele 7 pagini', 'Legalul rescris; promisiunile care nu se țin scoase din Ajutor', 'Bannerul de consimțământ, GA4 doar după acceptare, subsolul completat'], d: 'specurile de sistem verzi' },
+          { t: ['Deploy'], d: 'site-ul rulează pe staging' },
+          { t: ['Fiecare pagină, în RO și EN', 'Antetul în cele trei stări', 'Lighthouse pe mobil: performanță, SEO, accesibilitate', 'Niciun script de analytics înainte de acceptare'], d: 'nimic pe site nu contrazice codul' },
+          { t: ['Deploy', 'Sitemap și Search Console', 'Legalul publicat înaintea lansării plăților'], d: 'site-ul nou e live' }
+        ] },
+      { id: 'F13', wave: 'v3', name: 'Ghidul de început', repo: 'stejar + eventya', deps: 'F3, F5, F14', screens: ['12', '17'], note: 'O listă de pași sus în Dashboard, bifați din date, fără popup de bun venit. Site-ul pornește privat și devine public la ultimul pas.',
+        s: [
+          { t: ['<code>Onboarding::Guide</code>: registrul pașilor, fiecare cu <code>applicable?</code>, <code>done?</code> și <code>path</code>', '<code>Stejar::Guide::ChecklistComponent</code> sus în Dashboard, Stimulus <code>guide-hint</code>', 'Starea în <code>settings[\'guide\']</code>: pașii săriți și data terminării', 'Spațiul self-serve pornește cu <code>visibility: private</code>; ecranul de verificare și „Publică site-ul”', 'Rândul „Ghidul de început · 3/7” în Dashboard; GUIDE-001 (dacă B9 rămâne)'], d: 'specurile verzi, pentru fiecare pas' },
+          { t: ['Deploy', 'Câte un spațiu nou din fiecare template, pe trial, apoi pe Web și pe Mobile'], d: 'ghidul apare sus în Dashboard' },
+          { t: ['Fiecare pas se bifează singur din date', 'Pașii diferă corect după template, pachet și module', 'Site-ul privat: vizitatorul anonim ajunge la autentificare, membrul echipei vede site-ul', 'Publicarea face site-ul public și indexabil'], d: 'un proprietar nou publică fără ajutor' },
+          { t: ['Deploy, cu F5', 'Urmărit în pâlnie: pașii făcuți în primele 7 zile'], d: 'metrica „site publicat în 7 zile” se vede în Admin' }
+        ] },
+      { id: 'F14', wave: 'v2', name: 'Dashboard, modulul nou', repo: 'stejar + eventya', deps: 'F1', screens: ['18', '17', '12'], note: 'Prima filă din bara de sus, vizibilă mereu: statistici din module și scurtături. Pagina de pornire a spațiului, unde stă și ghidul. Îl primesc și clienții existenți.',
+        s: [
+          { t: ['Cheia <code>:dashboard</code>, prima în <code>CoreModules::CATALOG</code>, fără cheie de drept', '<code>Stejar::DashboardController#show</code> pe ruta rădăcină, în locul redirect-ului spre primul modul', 'Registrul <code>Dashboard::Modules</code>: câte o intrare pe modul, cu <code>available?(membership)</code>, în turbo frame leneș, cu cache', '<code>MetricComponent</code>, <code>ModuleRowComponent</code>: patru cifre, Module și Spațiul de lucru; „+ Creează”; meniul avatarului devine personal', 'Autentificarea, alegerea spațiului și porțile de funcționalitate trimit la Dashboard'], d: 'specurile verzi, inclusiv pe roluri' },
+          { t: ['Deploy', 'Seed-urile de pachete: câte un spațiu pe fiecare pachet, plus utilizatori cu roluri diferite'], d: 'Dashboard-ul apare peste tot' },
+          { t: ['Fiecare pachet arată doar cardurile modulelor lui', 'Editor, agent, membru limitat la pagini: doar ce au voie să vadă', 'Cifrele sunt egale cu cele din dashboard-urile modulelor', 'Timpul de încărcare, cu cache rece și cald'], d: 'niciun card al unui modul neplătit sau interzis' },
+          { t: ['Deploy', 'Developer Announcement scurt: „După autentificare ajungi pe Dashboard”', 'Urmărit AppSignal: timpul cardurilor'], d: 'toți clienții aterizează pe Dashboard' }
+        ] },
+      { id: 'F15', wave: 'v4', name: 'Pagina Abonament', repo: 'stejar', deps: 'F9', screens: ['19', '13'], note: 'Planul, plata, datele de facturare. Anularea pe card, cu motivul și propunerea unui pachet mai mic, apoi „Reia abonamentul”.',
+        s: [
+          { t: ['<code>/workspace/subscription</code> (show): o văd proprietarii și dezvoltatorii; plata, anularea și cardul sunt doar ale proprietarilor', 'Rândurile pe card, pe contract și în trial; datele de facturare din Stripe; chitanțele din Portal', 'Anularea: confirmarea, motivul opțional, <code>cancel_at_period_end</code>, PAY-004; „Reia abonamentul”; schimbarea programată, cu „Renunță”', '„Cere încetarea contractului” și „Cere reînnoirea”, ca tichete'], d: 'specurile verzi' },
+          { t: ['Deploy', 'Test mode Stripe, cu un abonament pe card și unul pe contract'], d: 'pagina se deschide din Dashboard' },
+          { t: ['Anularea și reluarea, cu test clock până la finalul perioadei', 'Portalul nu are buton de anulare', 'Editorul nu vede pagina; dezvoltatorul nu poate anula'], d: 'un client își anulează și își reia singur abonamentul' },
+          { t: ['Deploy, cu F9'], d: 'anularea self-serve e live' }
+        ] },
+      { id: 'GO', wave: 'go', name: 'Lansarea plăților', repo: 'toată echipa', deps: 'toate', go: true,
+        s: [
+          { t: ['Toate feature-urile în producție, cu comutatorul oprit'], d: 'nimic de implementat' },
+          { t: ['Ultima trecere prin matricea din ecranul 16, pe staging'], d: 'matricea e verde' },
+          { t: ['O plată reală, cu un card intern, pe pachetul cel mai mic', 'Verificat: abonament activ, PAY-001, PAY-006 și factura emisă de echipă', 'Rambursare + storno, în afara platformei'], d: 'totul confirmat cu bani reali' },
+          { t: ['Comutatorul <code>billing.stripe_enabled</code> pornit', 'O persoană de serviciu în prima săptămână: cereri de ofertă, plăți eșuate, PAY-006, AppSignal'], d: 'prima plată a unui client real, cu factura emisă în aceeași zi' }
+        ] }
+    ];
+
+    var STAGES = [
+      { name: 'Implementare', dot: 'bg-primary-500', txt: 'text-primary-600 dark:text-primary-400' },
+      { name: 'Staging',      dot: 'bg-sky-500',     txt: 'text-sky-600 dark:text-sky-400' },
+      { name: 'Testare',      dot: 'bg-amber-500',   txt: 'text-amber-600 dark:text-amber-400' },
+      { name: 'Producție',    dot: 'bg-emerald-500', txt: 'text-emerald-600 dark:text-emerald-400' }
+    ];
+    var byId = {}; F.forEach(function (f) { byId[f.id] = f; });
+    var waveOf = {}; WAVES.forEach(function (w) { waveOf[w.id] = w; });
+
+    // --- Ordinea: benzi de valuri
+    var wv = '';
+    WAVES.forEach(function (w, i) {
+      var items = w.ids.map(function (id) {
+        var f = byId[id]; if (!f) return '';
+        return '<a href="#' + id + '" class="block text-[11px] leading-tight text-ink-700 hover:text-primary mt-1"><b class="font-mono">' + (id === 'GO' ? '' : id + ' ') + '</b>' + f.name + '</a>';
+      }).join('');
+      wv += '<div class="rounded-xl border-2 ' + w.style + ' px-2.5 py-2 flex-1 min-w-[108px]">' +
+        '<div class="text-[10px] font-semibold uppercase tracking-wider ' + w.label + '">' + w.title + '</div>' +
+        '<div class="text-[11px] text-ink-500 leading-tight">' + w.sub + '</div>' + items + '</div>';
+      if (i < WAVES.length - 1) wv += '<div class="flex w-4 shrink-0 items-center text-ink-300"><div class="h-0.5 flex-1 bg-surface-300"></div><svg class="w-2.5 h-2.5 -ml-px" viewBox="0 0 10 10" fill="currentColor"><path d="M0 0 L10 5 L0 10z"/></svg></div>';
+    });
+    document.getElementById('waves').innerHTML = wv;
+
+    // --- Progres (localStorage)
+    var KEY = 'proto-onboarding-storyboard';
+    var saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+
+    function renderFeatures(filter) {
+      var html = '';
+      F.forEach(function (f) {
+        if (filter && filter !== 'all' && f.wave !== filter) return;
+        var w = waveOf[f.wave], total = 0, done = 0;
+        f.s.forEach(function (st, si) { st.t.forEach(function (_, ti) { total++; if (saved[f.id + '-' + si + '-' + ti]) done++; }); });
+        var cols = f.s.map(function (st, si) {
+          var S = STAGES[si];
+          var items = st.t.map(function (t, ti) {
+            var key = f.id + '-' + si + '-' + ti, on = !!saved[key];
+            return '<label class="flex items-start gap-2 cursor-pointer rounded-md px-1 py-0.5 -mx-1 ' + (on ? 'bg-emerald-50 dark:bg-emerald-500/10' : '') + '">' +
+              '<input type="checkbox" data-key="' + key + '" class="mt-[3px] accent-emerald-600 shrink-0"' + (on ? ' checked' : '') + '><span class="' + (on ? 'text-ink-400 line-through' : '') + '">' + t + '</span></label>';
+          }).join('');
+          return '<div class="min-w-0 flex flex-col">' +
+            '<div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider ' + S.txt + '"><span class="w-2 h-2 rounded-full ' + S.dot + '"></span>' + S.name + '</div>' +
+            '<div class="mt-2 space-y-1 text-[12px] text-ink-600 leading-snug flex-1">' + items + '</div>' +
+            '<div class="mt-2 pt-2 border-t border-surface-200 text-[11px] text-ink-500"><b class="text-ink-700">Gata când:</b> ' + st.d + '</div></div>';
+        }).join('');
+        var screens = (f.screens || []).map(function (n) { return '<span class="badge badge--number">' + n + '</span>'; }).join(' ');
+        html += '<div id="' + f.id + '" class="scroll-mt-6 ' + (f.go ? 'rounded-2xl border-2 border-emerald-500 bg-surface-0 p-4' : 'card p-4') + '">' +
+          '<div class="flex flex-wrap items-center gap-x-3 gap-y-1">' +
+            (f.go ? '' : '<span class="font-mono text-[12px] font-bold px-2 py-0.5 rounded-md bg-ink-900 text-surface-0">' + f.id + '</span>') +
+            '<span class="font-semibold text-ink-900">' + f.name + '</span>' +
+            '<span class="text-[11px] font-semibold uppercase tracking-wider ' + w.label + '">' + w.title + '</span>' +
+            '<span class="text-[11px] text-ink-400">' + f.repo + '</span>' +
+            '<span class="text-[11px] text-ink-400">după: <b class="text-ink-600">' + f.deps + '</b></span>' +
+            (screens ? '<span class="text-[11px] text-ink-400 inline-flex items-center gap-1">ecrane: ' + screens + '</span>' : '') +
+            '<span class="ml-auto text-[11px] font-mono ' + (done === total ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-ink-400') + '">' + done + '/' + total + '</span>' +
+          '</div>' +
+          (f.note ? '<div class="text-[12px] text-ink-500 mt-1">' + f.note + '</div>' : '') +
+          '<div class="grid md:grid-cols-4 gap-4 mt-3">' + cols + '</div></div>';
+      });
+      document.getElementById('features').innerHTML = html;
+    }
+
+    var current = 'all';
+    function renderFilters() {
+      var opts = [['all', 'Toate']].concat(WAVES.filter(function (w) { return w.ids.length; }).map(function (w) { return [w.id, w.title]; }));
+      document.getElementById('filters').innerHTML = opts.map(function (o) {
+        var on = o[0] === current;
+        return '<button type="button" data-filter="' + o[0] + '" class="px-2.5 py-1 rounded-md ' + (on ? 'bg-ink-900 text-surface-0 font-semibold' : 'text-ink-500 hover:bg-surface-100') + '">' + o[1] + '</button>';
+      }).join('');
+    }
+    document.getElementById('filters').addEventListener('click', function (e) {
+      var f = e.target.getAttribute('data-filter'); if (!f) return;
+      current = f; renderFilters(); renderFeatures(current);
+    });
+    document.getElementById('features').addEventListener('change', function (e) {
+      var k = e.target.getAttribute('data-key'); if (!k) return;
+      saved[k] = e.target.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+      renderFeatures(current);
+    });
+    renderFilters(); renderFeatures('all');
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

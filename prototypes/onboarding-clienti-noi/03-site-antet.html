@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antetul site-ului · Onboarding clienți noi</title>
+  <!-- Tema site-ului de marketing: întunecată implicit, luminoasă cu data-theme="light" -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme') === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/marketing.css">
+</head>
+<body>
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#3 · Antetul și butoanele site-ului, după stare</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1 text-[11px]" id="views">
+      <button type="button" data-view="anon" class="px-2 py-1 rounded-md font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200">Anonim</button>
+      <button type="button" data-view="nows" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Logat, fără spații</button>
+      <button type="button" data-view="ws" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Logat, cu spații</button>
+      <button type="button" data-view="solutions" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Meniul Soluții deschis</button>
+      <button type="button" data-view="cookie" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Banner cookie</button>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <main class="max-w-screen-xl mx-auto px-4 md:px-6 pb-10">
+
+    <!-- ============ 1 · DESKTOP ============ -->
+    <p class="mkt-label mt-6">1 · Pe desktop: antetul și pagina de acasă</p>
+
+    <div class="relative rounded-2xl border border-[var(--border)] shadow-[0_32px_80px_rgba(0,0,0,0.3)]">
+      <!-- bara browserului, ca în secțiunea video de pe acasă -->
+      <div class="bg-[var(--bg-card)] py-3 px-4 flex items-center gap-2 border-b border-[var(--border)] rounded-t-2xl">
+        <div class="flex gap-[5px]">
+          <div class="w-2.5 h-2.5 rounded-full bg-[rgba(255,99,71,0.5)]"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-[rgba(255,165,0,0.5)]"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-[rgba(50,205,50,0.5)]"></div>
+        </div>
+        <div class="flex-1 bg-[var(--bg)] rounded-md py-1 px-3 text-xs text-[var(--text-muted)]">eventya.net</div>
+      </div>
+
+      <!-- ── NAVIGAȚIA (din layouts/marketing.html.erb; fixed → relative în cadru) ── -->
+      <nav class="relative z-50 border-b border-[var(--nav-border)] bg-[var(--nav-bg)] backdrop-blur-xl">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 h-16">
+          <a href="03-site-antet.html" class="flex items-center gap-2.5 leading-none"><span data-logo="h-8"></span></a>
+
+          <div class="flex items-center md:order-2 gap-2.5">
+            <!-- NOU: comutatorul de limbă -->
+            <div class="hidden sm:flex items-center gap-1.5 text-[11px] font-['DM_Sans']">
+              <a class="font-semibold text-[var(--text-primary)]">RO</a><span class="text-[var(--text-label)]">|</span><a class="text-[var(--text-muted)] hover:text-[var(--text-primary)]">EN</a>
+            </div>
+
+            <button type="button" onclick="EventyaSite.toggleTheme()"
+                    class="flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-full py-1 px-2.5 pl-1.5 cursor-pointer"
+                    title="Temă întunecată / luminoasă">
+              <div class="toggle-track"><div class="toggle-thumb"></div></div>
+              <span class="hidden sm:inline text-[11px] text-[var(--text-secondary)] font-['DM_Sans']" data-theme-label>Întunecat</span>
+            </button>
+
+            <!-- logat: avatarul și meniul lui (deschis) -->
+            <div data-show="nows ws" hidden class="relative">
+              <button type="button" class="flex items-center text-sm rounded-full ring-4 ring-[rgba(0,184,169,0.2)]">
+                <span class="sr-only">Meniul contului</span>
+                <div class="w-9 h-9 rounded-full bg-[#00B8A9] flex items-center justify-center">
+                  <span class="text-sm font-semibold text-white">AP</span>
+                </div>
+              </button>
+
+              <div class="z-50 absolute right-0 top-full mt-1 text-base list-none bg-[var(--bg)] divide-y divide-[var(--border)] rounded-xl shadow-lg border border-[var(--border)] w-64">
+                <div class="px-4 py-3">
+                  <span class="block text-sm font-semibold text-[var(--text-primary)]">Ana Popescu</span>
+                  <span class="block text-sm text-[var(--text-muted)] truncate">ana.popescu@exemplu.ro</span>
+                </div>
+
+                <!-- cu spații -->
+                <ul data-show="ws" class="py-2">
+                  <li class="px-4 py-1.5 flex items-center justify-between text-[10px] font-semibold text-[var(--text-label)] uppercase tracking-wider">Echipa Eventya <span class="normal-case tracking-normal font-mono font-normal">doar @eventya.net</span></li>
+                  <li><a class="block px-4 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card)]">Admin</a></li>
+                </ul>
+                <ul data-show="ws" class="py-2 max-h-56 overflow-y-auto">
+                  <li class="px-4 py-1.5 text-[10px] font-semibold text-[var(--text-label)] uppercase tracking-wider">Spațiile mele</li>
+                  <li>
+                    <a class="flex items-center gap-3 px-4 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card)]">
+                      <div class="w-7 h-7 rounded-full bg-[rgba(0,184,169,0.15)] flex items-center justify-center shrink-0"><span class="text-xs font-semibold text-[#00B8A9]">M</span></div>
+                      <div class="min-w-0"><span class="block truncate font-medium text-[var(--text-primary)]">Muzeul Demo</span><span class="block text-xs text-[var(--text-muted)]">Web · proprietar</span></div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="flex items-center gap-3 px-4 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card)]">
+                      <div class="w-7 h-7 rounded-full bg-[rgba(0,184,169,0.15)] flex items-center justify-center shrink-0"><span class="text-xs font-semibold text-[#00B8A9]">T</span></div>
+                      <div class="min-w-0"><span class="block truncate font-medium text-[var(--text-primary)]">Teatrul Demo</span><span class="block text-xs text-[var(--text-muted)]">Trial · 12 zile · editor</span></div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="flex items-center gap-3 px-4 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card)]">
+                      <div class="w-7 h-7 rounded-full bg-[rgba(0,184,169,0.15)] flex items-center justify-center shrink-0 opacity-50"><span class="text-xs font-semibold text-[#00B8A9]">P</span></div>
+                      <div class="min-w-0 flex-1"><span class="block truncate font-medium text-[var(--text-primary)]">Primăria Demo</span><span class="block text-xs text-[var(--text-muted)]">Mobile · proprietar</span></div>
+                      <span class="shrink-0 text-[10px] font-semibold py-0.5 px-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-500">suspendat</span>
+                    </a>
+                  </li>
+                </ul>
+                <ul data-show="ws" class="py-2">
+                  <li><a href="07-pas-detalii.html" class="flex items-center gap-2 px-4 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card)]">+ Spațiu de lucru nou</a></li>
+                </ul>
+
+                <!-- fără spații -->
+                <div data-show="nows" hidden class="px-4 py-4 text-center">
+                  <div class="mkt-icon mx-auto !mb-3 !w-10 !h-10">
+                    <svg width="20" height="20" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7M14 17.5h7"/></svg>
+                  </div>
+                  <div class="text-sm font-semibold text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">Nu ai încă un spațiu de lucru</div>
+                  <p class="text-xs text-[var(--text-muted)] mt-1">Îl creezi în doi pași: numele și template-ul. 30 de zile gratuit, cu tot inclus.</p>
+                  <a href="07-pas-detalii.html" class="mt-3 inline-flex w-full items-center justify-center gap-2 bg-[#f95741] hover:bg-[#e84d38] text-white font-['Plus_Jakarta_Sans'] font-semibold text-[13px] py-2.5 px-5 rounded-xl">Creează primul spațiu</a>
+                  <div class="mt-1.5 font-mono text-[11px] text-[var(--text-muted)]">→ /setup</div>
+                </div>
+
+                <ul class="py-2">
+                  <li><button type="button" class="flex items-center gap-2 w-full px-4 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card)]">Deconectare</button></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- anonim -->
+            <a href="06-cont.html" data-show="anon solutions cookie" class="hidden md:inline-block text-[13px] text-[var(--text-secondary)] py-2 px-4 hover:text-[var(--text-primary)]">Autentificare</a>
+            <a href="06-cont.html" data-show="anon solutions cookie" class="hidden md:inline-flex btn-pulse items-center gap-2 bg-[#f95741] hover:bg-[#e84d38] text-white font-['Plus_Jakarta_Sans'] font-semibold text-[13px] py-2.5 px-5 rounded-xl">
+              Începe gratuit
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+
+            <button type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-[var(--text-muted)] rounded-lg md:hidden hover:bg-[var(--bg-card)]" aria-label="Meniu">
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 17 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/></svg>
+            </button>
+          </div>
+
+          <div class="hidden w-full md:flex md:items-center md:justify-between md:w-auto md:order-1">
+            <ul class="flex flex-col font-medium md:p-0 mt-2 md:space-x-8 md:flex-row md:items-center md:mt-0">
+              <!-- NOU: Soluții, cu meniul lui -->
+              <li class="relative">
+                <button type="button" data-view-link="solutions" class="inline-flex items-center gap-1 py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">
+                  Soluții
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
+                </button>
+                <div data-show="solutions" hidden class="z-50 absolute left-0 top-full mt-5 w-[720px] bg-[var(--bg)] rounded-xl shadow-lg border border-[var(--border)]">
+                  <div class="grid grid-cols-3 gap-1 p-3" id="mega"></div>
+                  <div class="flex items-center justify-between gap-3 border-t border-[var(--border)] px-5 py-3">
+                    <span class="text-xs text-[var(--text-muted)]">Fiecare soluție pornește un spațiu de lucru gata făcut.</span>
+                    <a href="05-solutii.html" class="text-[#17C6A5] text-sm font-semibold hover:underline">Vezi toate soluțiile &rarr;</a>
+                  </div>
+                </div>
+              </li>
+              <li><a href="04-pagina-preturi.html" class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Prețuri</a></li>
+              <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Destinații</a></li>
+              <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Despre</a></li>
+              <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Ajutor</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- ── HERO (din marketing/home.html.erb; pt-[140px] → pt-[76px], antetul nu mai e fixed) ── -->
+      <section class="hero-grid pt-[76px] pb-28 px-6 relative overflow-hidden rounded-b-2xl">
+        <div class="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,184,169,0.07),transparent_70%)] pointer-events-none"></div>
+
+        <div class="mkt-container text-center relative">
+          <div class="mkt-badge mb-6">Site, aplicație și helpdesk</div>
+
+          <h1 class="mkt-h1 max-w-[750px]">
+            Tot ce-i trebuie organizației tale.<br><span class="text-gradient">O singură platformă.</span>
+          </h1>
+
+          <p class="mkt-desc-lg mb-10 max-w-xl mx-auto">
+            Site, aplicație mobilă, asistent AI, galerie media, helpdesk &mdash; pentru destinații, muzee, teatre și primării. Pornești dintr-un template gata făcut, cu 30 de zile gratuit.
+          </p>
+
+          <div class="flex items-start justify-center gap-3 flex-wrap">
+            <div>
+              <a href="06-cont.html" class="mkt-btn-primary">
+                Începe gratuit
+                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+              <div class="mt-2.5 font-mono text-[11px] leading-snug">
+                <div data-when="anon">anonim → /signup</div>
+                <div data-when="logged">logat → /setup</div>
+              </div>
+            </div>
+            <div>
+              <a href="04-pagina-preturi.html" class="mkt-btn-secondary">Vezi prețurile &rarr;</a>
+              <div class="mt-2.5 font-mono text-[11px] leading-snug text-[var(--text-muted)]">oricine → /preturi</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOU: bannerul de cookie-uri -->
+      <div data-show="cookie" hidden class="absolute z-40 bottom-4 inset-x-4 md:left-auto md:right-6 md:max-w-md">
+        <div class="mkt-card !p-5 bg-[var(--bg)] shadow-[0_32px_80px_rgba(0,0,0,0.3)]">
+          <div class="font-bold text-sm text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">Cookie-uri pe eventya.net</div>
+          <p class="mkt-card-text mt-1">Folosim cookie-urile necesare ca site-ul să funcționeze. Dacă accepți, folosim și Google Analytics, ca să vedem ce pagini sunt utile. Analytics nu se încarcă până nu accepți.</p>
+          <div class="flex flex-wrap items-center gap-2 mt-4">
+            <button type="button" class="mkt-btn-secondary !py-2.5 !px-5 !text-[var(--text-primary)]">Accept</button>
+            <button type="button" class="mkt-btn-secondary !py-2.5 !px-5 !text-[var(--text-primary)]">Refuz</button>
+            <button type="button" class="ml-auto text-[#17C6A5] text-sm font-semibold hover:underline">Setări</button>
+          </div>
+          <a class="block mt-3 text-xs text-[var(--text-muted)] underline underline-offset-2">Politica de cookie-uri</a>
+        </div>
+      </div>
+    </div>
+
+    <p data-show="solutions" hidden class="md:hidden mt-3 text-xs text-[var(--text-muted)]">Pe ecrane înguste, Soluții se deschide în meniul mobil (secțiunea 2).</p>
+
+    <!-- setările de cookie (al treilea buton) -->
+    <div data-show="cookie" hidden class="grid md:grid-cols-2 gap-5 mt-6">
+      <div class="mkt-card">
+        <p class="mkt-label">„Setări” din banner</p>
+        <div class="mkt-card-title">Alege ce cookie-uri folosim</div>
+        <div class="mt-3 divide-y divide-[var(--border)]">
+          <div class="flex items-start gap-4 py-3">
+            <div class="flex-1"><div class="text-sm font-semibold text-[var(--text-primary)]">Necesare</div><div class="mkt-card-text">Sesiunea, limba și alegerea ta despre cookie-uri. Fără ele, site-ul nu funcționează.</div></div>
+            <span class="relative w-9 h-5 rounded-full bg-[#17C6A5] opacity-60 shrink-0 mt-0.5" aria-label="mereu active"><span class="absolute top-0.5 left-[18px] w-4 h-4 rounded-full bg-white"></span></span>
+          </div>
+          <div class="flex items-start gap-4 py-3">
+            <div class="flex-1"><div class="text-sm font-semibold text-[var(--text-primary)]">Analiză</div><div class="mkt-card-text">Google Analytics 4: ce pagini se citesc și de unde vin vizitatorii.</div></div>
+            <span class="relative w-9 h-5 rounded-full bg-[rgba(0,184,169,0.2)] shrink-0 mt-0.5" role="switch" aria-checked="false" aria-label="Analiză"><span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white"></span></span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button type="button" class="mkt-btn-secondary !py-2.5 !px-5 !text-[var(--text-primary)]">Salvează alegerea</button>
+          <button type="button" class="mkt-btn-secondary !py-2.5 !px-5">Accept tot</button>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-dashed border-[var(--border)] p-7 text-sm text-[var(--text-secondary)] space-y-2.5">
+        <p class="mkt-label">Ce face fiecare buton</p>
+        <p><b class="text-[var(--text-primary)]">Accept</b> scrie <code>eventya_consent=accepted</code> și încarcă GA4 pe loc, fără reîncărcarea paginii.</p>
+        <p><b class="text-[var(--text-primary)]">Refuz</b> scrie <code>eventya_consent=rejected</code>. Bannerul nu mai apare, iar GA4 nu se încarcă.</p>
+        <p><b class="text-[var(--text-primary)]">Setări</b> deschide panoul din stânga. Singura categorie opțională e analiza.</p>
+        <p><b class="text-[var(--text-primary)]">Fără alegere</b>: doar cookie-urile necesare. Bannerul apare din nou la următoarea pagină.</p>
+      </div>
+    </div>
+
+    <!-- ============ 2 · TELEFON ============ -->
+    <p class="mkt-label mt-14">2 · Pe telefon: antetul, apoi meniul deschis</p>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start">
+
+      <!-- telefon 1: antetul; logat, cu meniul avatarului deschis -->
+      <div class="mx-auto w-full max-w-[360px] h-[660px] rounded-[2rem] border-[6px] border-[var(--border)] bg-[var(--bg)] overflow-hidden relative flex flex-col shadow-[0_32px_80px_rgba(0,0,0,0.3)]">
+        <nav class="relative z-50 border-b border-[var(--nav-border)] bg-[var(--nav-bg)] shrink-0">
+          <div class="flex items-center justify-between px-5 h-16">
+            <a class="flex items-center gap-2.5 leading-none"><span data-logo="h-7"></span></a>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="EventyaSite.toggleTheme()" class="flex items-center bg-[var(--bg-card)] border border-[var(--border)] rounded-full py-1 px-1.5" title="Temă"><div class="toggle-track"><div class="toggle-thumb"></div></div></button>
+              <div data-show="nows ws" hidden class="w-9 h-9 rounded-full bg-[#00B8A9] ring-4 ring-[rgba(0,184,169,0.2)] flex items-center justify-center"><span class="text-sm font-semibold text-white">AP</span></div>
+              <span class="inline-flex items-center p-2 w-10 h-10 justify-center text-[var(--text-muted)] rounded-lg">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 17 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/></svg>
+              </span>
+            </div>
+          </div>
+          <!-- meniul avatarului, pe telefon -->
+          <div data-show="nows ws" hidden class="absolute right-3 top-full mt-1 w-64 bg-[var(--bg)] divide-y divide-[var(--border)] rounded-xl shadow-lg border border-[var(--border)] text-sm">
+            <div class="px-4 py-3"><span class="block font-semibold text-[var(--text-primary)]">Ana Popescu</span><span class="block text-[var(--text-muted)] truncate">ana.popescu@exemplu.ro</span></div>
+            <ul data-show="ws" class="py-2">
+              <li class="px-4 py-1.5 text-[10px] font-semibold text-[var(--text-label)] uppercase tracking-wider">Spațiile mele</li>
+              <li class="flex items-center gap-3 px-4 py-2"><div class="w-7 h-7 rounded-full bg-[rgba(0,184,169,0.15)] flex items-center justify-center"><span class="text-xs font-semibold text-[#00B8A9]">M</span></div><span class="text-[var(--text-primary)] font-medium flex-1">Muzeul Demo</span></li>
+              <li class="flex items-center gap-3 px-4 py-2"><div class="w-7 h-7 rounded-full bg-[rgba(0,184,169,0.15)] flex items-center justify-center"><span class="text-xs font-semibold text-[#00B8A9]">T</span></div><span class="text-[var(--text-primary)] font-medium flex-1">Teatrul Demo</span></li>
+              <li class="flex items-center gap-3 px-4 py-2"><div class="w-7 h-7 rounded-full bg-[rgba(0,184,169,0.15)] flex items-center justify-center opacity-50"><span class="text-xs font-semibold text-[#00B8A9]">P</span></div><span class="text-[var(--text-primary)] font-medium flex-1">Primăria Demo</span><span class="text-[10px] font-semibold py-0.5 px-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-500">suspendat</span></li>
+            </ul>
+            <ul data-show="ws" class="py-2"><li class="px-4 py-2 text-[var(--text-secondary)]">+ Spațiu de lucru nou</li></ul>
+            <div data-show="nows" hidden class="px-4 py-4 text-center">
+              <div class="font-semibold text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">Nu ai încă un spațiu de lucru</div>
+              <a href="07-pas-detalii.html" class="mt-3 inline-flex w-full items-center justify-center bg-[#f95741] text-white font-['Plus_Jakarta_Sans'] font-semibold text-[13px] py-2.5 px-5 rounded-xl">Creează primul spațiu</a>
+            </div>
+            <ul class="py-2"><li class="px-4 py-2 text-[var(--text-secondary)]">Deconectare</li></ul>
+          </div>
+        </nav>
+        <div class="hero-grid px-6 pt-10 pb-8 text-center flex-1">
+          <div class="mkt-badge mb-5">Site, aplicație și helpdesk</div>
+          <div class="font-['Plus_Jakarta_Sans'] font-extrabold tracking-tight text-[var(--text-primary)] text-[38px] leading-[1.02]">Tot ce-i trebuie organizației tale. <span class="text-gradient">O singură platformă.</span></div>
+          <p class="text-base leading-relaxed text-[var(--text-secondary)] mt-5">Pornești dintr-un template gata făcut, cu 30 de zile gratuit.</p>
+          <a href="06-cont.html" class="mkt-btn-primary w-full justify-center mt-6">Începe gratuit</a>
+          <div class="mt-2 font-mono text-[11px]"><span data-when="anon">anonim → /signup</span> · <span data-when="logged">logat → /setup</span></div>
+        </div>
+        <!-- bannerul de cookie-uri, pe telefon -->
+        <div data-show="cookie" hidden class="absolute inset-x-0 bottom-0 z-40 border-t border-[var(--border)] bg-[var(--bg)] p-5 shadow-[0_-16px_40px_rgba(0,0,0,0.3)]">
+          <div class="font-bold text-sm text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">Cookie-uri pe eventya.net</div>
+          <p class="mkt-card-text mt-1">Folosim cookie-urile necesare. Dacă accepți, și Google Analytics. Analytics nu se încarcă până nu accepți.</p>
+          <div class="grid grid-cols-2 gap-2 mt-3">
+            <button type="button" class="mkt-btn-secondary justify-center !py-2.5 !text-[var(--text-primary)]">Accept</button>
+            <button type="button" class="mkt-btn-secondary justify-center !py-2.5 !text-[var(--text-primary)]">Refuz</button>
+          </div>
+          <button type="button" class="w-full mt-2 text-[#17C6A5] text-sm font-semibold">Setări</button>
+        </div>
+      </div>
+
+      <!-- telefon 2: meniul hamburger deschis (varianta mobilă a #navbar-marketing) -->
+      <div class="mx-auto w-full max-w-[360px] h-[660px] rounded-[2rem] border-[6px] border-[var(--border)] bg-[var(--bg)] overflow-hidden flex flex-col shadow-[0_32px_80px_rgba(0,0,0,0.3)]">
+        <nav class="border-b border-[var(--nav-border)] bg-[var(--nav-bg)] shrink-0">
+          <div class="flex items-center justify-between px-5 h-16">
+            <a class="flex items-center gap-2.5 leading-none"><span data-logo="h-7"></span></a>
+            <div class="flex items-center gap-2">
+              <div data-show="nows ws" hidden class="w-9 h-9 rounded-full bg-[#00B8A9] flex items-center justify-center"><span class="text-sm font-semibold text-white">AP</span></div>
+              <span class="inline-flex items-center p-2 w-10 h-10 justify-center text-[var(--text-primary)] rounded-lg bg-[var(--bg-card)]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </span>
+            </div>
+          </div>
+        </nav>
+        <div class="flex-1 overflow-y-auto px-6 pb-4 bg-[var(--bg)]">
+          <ul class="flex flex-col font-medium mt-2">
+            <li>
+              <div class="flex items-center justify-between py-2 px-3 text-[13px] text-[var(--text-primary)]">Soluții
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/></svg>
+              </div>
+              <div id="mobile-solutions" class="px-3 pb-2 space-y-3"></div>
+              <a href="05-solutii.html" class="block px-3 pb-3 text-[#17C6A5] text-[13px] font-semibold">Vezi toate soluțiile &rarr;</a>
+            </li>
+            <li class="border-t border-[var(--border)] pt-1"><a href="04-pagina-preturi.html" class="block py-2 px-3 text-[13px] text-[var(--text-secondary)]">Prețuri</a></li>
+            <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)]">Destinații</a></li>
+            <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)]">Despre</a></li>
+            <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)]">Ajutor</a></li>
+            <!-- NOU: limba -->
+            <li class="border-t border-[var(--border)] mt-2 pt-3 px-3 flex items-center gap-2 text-[13px] font-['DM_Sans']">
+              <span class="text-[var(--text-muted)]">Limba:</span>
+              <a class="font-semibold text-[var(--text-primary)]">RO</a><span class="text-[var(--text-label)]">|</span><a class="text-[var(--text-muted)]">EN</a>
+            </li>
+            <!-- anonim: la fel ca azi -->
+            <li data-show="anon solutions cookie" class="border-t border-[var(--border)] mt-3 pt-3">
+              <a href="06-cont.html" class="block py-2 px-3 text-[13px] text-[var(--text-secondary)]">Autentificare</a>
+            </li>
+            <li data-show="anon solutions cookie" class="px-3 pt-2">
+              <a href="06-cont.html" class="inline-flex items-center justify-center gap-2 w-full bg-[#f95741] hover:bg-[#e84d38] text-white font-['Plus_Jakarta_Sans'] font-semibold text-[13px] py-2.5 px-5 rounded-xl">
+                Începe gratuit
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </li>
+            <li data-show="nows ws" hidden class="border-t border-[var(--border)] mt-3 pt-3 px-3 text-xs text-[var(--text-muted)]">Contul și spațiile de lucru sunt în meniul avatarului (telefonul din stânga).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- unde duc linkurile -->
+      <div class="md:col-span-2 lg:col-span-1 mkt-card !p-0 overflow-hidden">
+        <div class="px-5 py-4 border-b border-[var(--border)]">
+          <div class="mkt-card-title !text-base !mb-0.5">Unde duc linkurile, în starea asta</div>
+          <div class="text-xs text-[var(--text-muted)]">Aceleași pe desktop și pe telefon.</div>
+        </div>
+        <table class="w-full text-left text-[13px] border-collapse">
+          <tbody>
+            <tr><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Logo</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/</td></tr>
+            <tr><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Soluții → Atrium</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/solutii/atrium</td></tr>
+            <tr><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Vezi toate soluțiile</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/solutii</td></tr>
+            <tr><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Prețuri</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/preturi</td></tr>
+            <tr><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">RO | EN</td><td class="py-2 px-5 text-[var(--text-secondary)] border-b border-[var(--border)]">aceeași pagină, în cealaltă limbă</td></tr>
+            <tr data-show="anon solutions cookie"><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Autentificare</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/signin?return_to=/</td></tr>
+            <tr data-show="anon solutions cookie"><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Începe gratuit</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/signup</td></tr>
+            <tr data-show="nows ws" hidden><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Începe gratuit (pe pagină)</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/setup</td></tr>
+            <tr data-show="nows" hidden><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Creează primul spațiu</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/setup</td></tr>
+            <tr data-show="ws" hidden><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Muzeul Demo</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/muzeul-demo/stejar/cms</td></tr>
+            <tr data-show="ws" hidden><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Primăria Demo</td><td class="py-2 px-5 text-[var(--text-secondary)] border-b border-[var(--border)]"><span class="font-mono text-[11px]">/primaria-demo/stejar/cms</span> → „Continuă cu abonamentul”</td></tr>
+            <tr data-show="ws" hidden><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Spațiu de lucru nou</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/setup</td></tr>
+            <tr data-show="ws" hidden><td class="py-2 px-5 text-[var(--text-primary)] border-b border-[var(--border)]">Admin</td><td class="py-2 px-5 font-mono text-[11px] text-[var(--text-secondary)] border-b border-[var(--border)]">/stejar-admin</td></tr>
+            <tr data-show="nows ws" hidden><td class="py-2 px-5 text-[var(--text-primary)]">Deconectare</td><td class="py-2 px-5 text-[var(--text-secondary)]"><span class="font-mono text-[11px]">DELETE /logout</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============ 3 · SUBSOLUL ============ -->
+    <p class="mkt-label mt-14">3 · Subsolul, cu linkurile noi</p>
+    <footer class="rounded-2xl border border-[var(--border)] pt-14 pb-10 px-6 bg-[var(--footer-bg)]">
+      <div class="max-w-screen-xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr] gap-12 mb-12">
+          <div class="col-span-2 md:col-span-1">
+            <div class="mb-3.5"><span data-logo="h-10"></span></div>
+            <p class="text-[var(--footer-text)] text-[13px] leading-relaxed max-w-[240px]">Site, aplicație și helpdesk pentru destinații, instituții și comunități.</p>
+          </div>
+          <div>
+            <h4 class="text-[10px] tracking-[0.2em] uppercase text-[var(--footer-label)] mb-4">Produs</h4>
+            <ul class="flex flex-col gap-2.5 list-none p-0">
+              <li><a class="text-[var(--footer-link)] text-[13px]">Platforma</a></li>
+              <li><a href="05-solutii.html" class="text-[var(--footer-link)] text-[13px]">Soluții</a><span class="ml-1.5 text-[9px] uppercase tracking-wider text-[#D6BD09]">nou</span></li>
+              <li><a href="04-pagina-preturi.html" class="text-[var(--footer-link)] text-[13px]">Prețuri</a></li>
+              <li><a href="06-cont.html" class="text-[var(--footer-link)] text-[13px]">Începe gratuit</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-[10px] tracking-[0.2em] uppercase text-[var(--footer-label)] mb-4">Resurse</h4>
+            <ul class="flex flex-col gap-2.5 list-none p-0">
+              <li><a class="text-[var(--footer-link)] text-[13px]">Destinații</a></li>
+              <li><a class="text-[var(--footer-link)] text-[13px]">Despre</a></li>
+              <li><a class="text-[var(--footer-link)] text-[13px]">Ajutor și întrebări</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-[var(--border)] pt-6 flex flex-wrap items-center justify-between gap-4">
+          <p class="text-[var(--footer-copy)] text-[11px]">&copy; 2026 Eventya. Toate drepturile rezervate.</p>
+          <div class="flex flex-wrap gap-x-5 gap-y-2">
+            <a class="text-[var(--footer-copy)] text-[11px]">Confidențialitate</a>
+            <a class="text-[var(--footer-copy)] text-[11px]">Termeni</a>
+            <a class="text-[var(--footer-copy)] text-[11px]">Cookies <span class="text-[9px] uppercase tracking-wider text-[#D6BD09]">nou</span></a>
+            <a class="text-[var(--footer-copy)] text-[11px]">DPA <span class="text-[9px] uppercase tracking-wider text-[#D6BD09]">nou</span></a>
+            <button type="button" data-view-link="cookie" data-scroll class="text-[var(--footer-copy)] text-[11px] underline decoration-dotted underline-offset-2">Setări cookie <span class="text-[9px] uppercase tracking-wider text-[#D6BD09] no-underline">nou</span></button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+
+  <button type="button" onclick="EventyaSite.toggleTheme()" aria-label="Temă întunecată / luminoasă"
+    class="fixed bottom-4 right-4 z-[60] w-11 h-11 rounded-full border border-[var(--border)] bg-[var(--bg)] text-[var(--text-primary)] shadow-lg flex items-center justify-center">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="site-marketing.js"></script>
+  <script>
+    var S = EventyaSite;
+
+    document.getElementById('mega').innerHTML = S.GROUPS.map(function (g) {
+      return '<div class="p-2"><p class="mkt-label !mb-2 px-2">' + g.name + '</p>' +
+        S.STARTERS.filter(function (s) { return s.group === g.key; }).map(function (s) {
+          return '<a href="05-solutii.html' + (s.key === 'atrium' ? '#atrium' : '') + '" class="flex gap-3 rounded-xl p-2 hover:bg-[var(--bg-card)]">' +
+            '<span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ' + s.tint + '">' + S.icon(s.icon, 'w-4 h-4') + '</span>' +
+            '<span class="min-w-0"><span class="block text-sm font-bold text-[var(--text-primary)] font-[\'Plus_Jakarta_Sans\']">' + s.name + '</span>' +
+            '<span class="block text-xs text-[var(--text-muted)] leading-snug">' + s.short + '</span></span></a>';
+        }).join('') + '</div>';
+    }).join('');
+
+    document.getElementById('mobile-solutions').innerHTML = S.GROUPS.map(function (g) {
+      return '<div><p class="mkt-label !mb-1 !text-[10px]">' + g.name + '</p>' +
+        S.STARTERS.filter(function (s) { return s.group === g.key; }).map(function (s) {
+          return '<a href="05-solutii.html' + (s.key === 'atrium' ? '#atrium' : '') + '" class="flex items-center gap-2.5 py-1.5">' +
+            '<span class="w-6 h-6 rounded-md flex items-center justify-center shrink-0 ' + s.tint + '">' + S.icon(s.icon, 'w-3.5 h-3.5') + '</span>' +
+            '<span class="text-[13px] font-medium text-[var(--text-primary)]">' + s.name + '</span>' +
+            '<span class="text-xs text-[var(--text-muted)] truncate">' + s.short + '</span></a>';
+        }).join('') + '</div>';
+    }).join('');
+
+    // Stările antetului
+    var AUTH = { anon: 'anon', solutions: 'anon', cookie: 'anon', nows: 'logged', ws: 'logged' };
+    var current = 'anon';
+    var paint = S.views(function (v) {
+      current = v;
+      document.querySelectorAll('[data-when]').forEach(function (el) {
+        el.className = el.getAttribute('data-when') === AUTH[v] ? 'text-[var(--text-primary)] font-semibold' : 'text-[var(--text-label)]';
+      });
+    });
+    function show(v) { paint(AUTH[v] ? v : 'anon'); }
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest('[data-view-link]') : null;
+      if (!el) return;
+      var v = el.getAttribute('data-view-link');
+      show(v === 'solutions' && current === 'solutions' ? 'anon' : v);
+      if (el.hasAttribute('data-scroll')) window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    show((location.hash || '#anon').slice(1));
+  </script>
+</body>
+</html>

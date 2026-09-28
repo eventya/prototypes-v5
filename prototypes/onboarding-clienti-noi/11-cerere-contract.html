@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cererea de ofertă · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#11 · Cererea de ofertă, trimisă din spațiu</span>
+    </div>
+    <span class="text-[11px] text-amber-700 dark:text-amber-300">Pornește din „Alege abonamentul” (ecranul 9). Contractul se face în afara platformei.</span>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="flex items-center h-14 px-4 border-y border-surface-200">
+    <div class="flex items-center w-full h-full gap-6">
+      <a href="17-ghid-de-inceput.html" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold">MD</div>
+        <span class="text-sm font-semibold text-ink-900">Muzeul Demo</span>
+      </a>
+      <div class="flex items-center gap-3 ml-auto">
+        <span class="text-[12px] font-medium text-ink-900">Trial · 23 de zile</span>
+        <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold">AP</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="vt-main max-w-md mx-auto px-4 pt-16 pb-24">
+    <div class="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h1 class="text-2xl font-bold text-ink-900 mt-5">Cererea ta e la noi</h1>
+    <p class="text-[14px] text-ink-500 mt-1">Îți răspundem într-o zi lucrătoare. Cererea o găsești în Tichetele mele.</p>
+
+    <ol class="mt-10 space-y-5 text-[14px]">
+      <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-surface-100 text-ink-500 text-[12px] flex items-center justify-center shrink-0">1</span><span><span class="text-ink-900">Îți trimitem oferta</span><span class="block text-ink-500 text-[13px]">Web + AI pentru vizitatori, plată anuală</span></span></li>
+      <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-surface-100 text-ink-500 text-[12px] flex items-center justify-center shrink-0">2</span><span><span class="text-ink-900">Semnăm contractul</span><span class="block text-ink-500 text-[13px]">Direct sau prin SEAP / SICAP</span></span></li>
+      <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-surface-100 text-ink-500 text-[12px] flex items-center justify-center shrink-0">3</span><span><span class="text-ink-900">Pornim abonamentul</span><span class="block text-ink-500 text-[13px]">Până atunci lucrezi pe perioada de probă</span></span></li>
+    </ol>
+
+    <a href="17-ghid-de-inceput.html" class="btn btn--primary mt-10">Înapoi în Dashboard</a>
+  </main>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

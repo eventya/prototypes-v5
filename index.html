@@ -37,7 +37,7 @@
     <div class="inline-flex items-center gap-1 mb-8 p-1 rounded-xl bg-surface-100 dark:bg-surface-200/30">
       <a href="index.html" aria-current="page" class="px-4 py-1.5 rounded-lg text-[13px] font-semibold bg-surface-0 text-ink-900 shadow-sm flex items-center gap-1.5">
         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-        În review <span class="text-ink-400 font-normal">5</span>
+        În review <span class="text-ink-400 font-normal">6</span>
       </a>
       <a href="done.html" class="px-4 py-1.5 rounded-lg text-[13px] font-medium text-ink-500 hover:text-ink-800 transition-colors flex items-center gap-1.5">
         Done <span class="text-ink-400 font-normal">16</span>
@@ -46,6 +46,24 @@
 
     <!-- Sets grid: IN REVIEW only -->
     <div class="grid gap-4 sm:grid-cols-2">
+
+      <!-- Onboarding clienți noi -->
+      <a href="prototypes/onboarding-clienti-noi/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/><circle cx="5" cy="12" r="2"/></svg>
+          </div>
+          <div class="text-base font-semibold text-ink-900">Onboarding clienți noi</div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
+        </div>
+        <div class="text-[13px] text-ink-500 leading-relaxed">
+          De pe site până în Dashboard: cont cu câte un câmp pe pas, asistentul în doi pași (proiect și <strong class="text-ink-700">7 template-uri noi</strong>), trial de 30 de zile cu tot deblocat, apoi abonamentul ales din spațiu, cu <strong class="text-ink-700">plată prin Stripe cap-coadă</strong> sau cerere de ofertă. Dashboard nou cu ghidul de început. Storyboard pe feature (implementare, staging, testare, producție) și reparațiile pentru 17 defecte.
+        </div>
+        <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
+          storyboard + hartă + 17 ecrane · plan
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
 
       <!-- Tranziția pe abonamente -->
       <a href="prototypes/tranzitie-abonamente/" class="group block bg-surface-0 rounded-xl border border-surface-200 p-6 transition-all hover:border-primary-400 hover:shadow-md">
@@ -57,7 +75,7 @@
           <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
         </div>
         <div class="text-[13px] text-ink-500 leading-relaxed">
-          Storyboard-ul trecerii clienților existenți: <strong class="text-ink-700">suspendare completă la expirare</strong> cu pagina „Continuă cu abonamentul”, upgrade după calculatorul de prețuri cu downgrade oricând, push mutat în Mobile, apoi staging, test, producție, pachete setate de mână și Developer Announcement.
+          Storyboard-ul trecerii clienților existenți: <strong class="text-ink-700">suspendare completă la expirare</strong> cu pagina „Continuă cu abonamentul”, pagina de upgrade în două variante de ales, cu downgrade oricând, push mutat în Mobile, apoi staging, test, producție, pachete setate de mână și Developer Announcement.
         </div>
         <div class="text-[12px] text-ink-400 mt-4 flex items-center gap-1.5 group-hover:text-primary transition-colors">
           storyboard + 6 ecrane · plan

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist staging · Onboarding clienți noi</title>
+
+  <!-- FOUC-free dark mode: set data-theme before first paint -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#16 · Checklist pentru testarea pe staging</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-6">
+    <div class="text-2xl font-bold text-ink-900">Matricea de test pentru staging</div>
+    <p class="text-sm text-ink-500 mt-1 max-w-3xl">Fiecare rând se încearcă de mână și se bifează când rezultatul văzut e cel așteptat. Lansarea plăților așteaptă o matrice verde. Bifele se țin doar în browserul tău.</p>
+
+    <!-- ============ PREGĂTIREA ============ -->
+    <div class="grid gap-4 lg:grid-cols-[1fr_300px] mt-6 items-start">
+      <div class="card p-5 text-[13px] text-ink-600 leading-relaxed">
+        <div class="font-semibold text-ink-900 mb-2">Ce are staging-ul</div>
+        <ul class="space-y-1.5">
+          <li><b class="text-ink-800">Stripe în test mode</b>, cu cheile și webhook secret-ul de staging din 1Password. Nicio cheie live. <code>billing.stripe_enabled</code> e pornit.</li>
+          <li><b class="text-ink-800">Local, Stripe CLI:</b> <code class="break-all">stripe listen --forward-to localhost:3000/stripe/webhooks</code>. Pe staging, webhook-ul de test e setat în Stripe spre <code>/stripe/webhooks</code>.</li>
+          <li><b class="text-ink-800">Test clocks</b> pentru reînnoiri, grație și anulări. Stripe leagă un Customer de un test clock doar la creare, deci Customer-ul de test se creează direct pe ceas.</li>
+          <li><b class="text-ink-800">Template-urile copiate din producție</b>, toate 7.</li>
+          <li><b class="text-ink-800">Utilizatori de test:</b> unul nou, unul cu spații, unul doar membru public, unul cu un spațiu suspendat, un admin @eventya.net.</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <div class="text-[11px] font-semibold uppercase tracking-wider text-ink-400">Progres</div>
+        <div class="flex items-baseline gap-1 mt-1"><span class="text-2xl font-bold text-ink-900 tabular-nums" id="done">0</span><span class="text-ink-400 tabular-nums" id="total">/ 0</span></div>
+        <div class="mt-2 h-2 rounded-full bg-surface-200 overflow-hidden"><div class="h-full rounded-full bg-emerald-500" id="bar" style="width:0%"></div></div>
+        <button type="button" class="btn btn--sm w-full mt-4" id="reset">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          Resetează bifele
+        </button>
+      </div>
+    </div>
+
+    <nav class="flex flex-wrap gap-1.5 mt-6" id="jump"></nav>
+
+    <!-- pe telefon: listă -->
+    <div class="sm:hidden mt-4 space-y-5" id="mlist"></div>
+
+    <!-- de la sm în sus: tabel -->
+    <div class="card p-0 mt-4 overflow-x-auto hidden sm:block">
+      <table class="w-full text-[12px] min-w-[860px]" id="matrix">
+        <thead class="bg-surface-100 text-[10px] uppercase tracking-wider text-ink-500">
+          <tr>
+            <th class="text-left font-semibold px-3 py-2.5 w-52">Scenariu</th>
+            <th class="text-left font-semibold px-3 py-2.5">Pași</th>
+            <th class="text-left font-semibold px-3 py-2.5">Rezultat așteptat</th>
+            <th class="text-center font-semibold px-3 py-2.5 w-12">✓</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-200 text-ink-700"></tbody>
+      </table>
+    </div>
+
+    <!-- ============ REGULILE ECRANULUI ============ -->
+    <section class="mt-12 pb-16">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Regulile ecranului</div>
+      <div class="card p-0 overflow-x-auto">
+        <table class="w-full text-[13px]">
+          <tbody class="divide-y divide-surface-200">
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Când se folosește</td><td class="px-4 py-2.5 text-ink-700">La etapa „testare” a fiecărui feature din <a class="text-primary hover:underline" href="01-storyboard.html">storyboard</a>, pe grupele lui. Înainte de lansarea plăților, o trecere completă.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Doar test mode</td><td class="px-4 py-2.5 text-ink-700">Pe staging nu există chei live. Plata reală cu un card intern se face o singură dată, în producție, la lansare, și se rambursează.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Ceasul nostru</td><td class="px-4 py-2.5 text-ink-700">Un test clock mută doar timpul din Stripe. Joburile noastre (PAY-002 în zilele 3 și 6, suspendarea după grație, SUB-001) rulează pe ceasul serverului, deci se pornesc de mână, cu data mutată.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Facturile</td><td class="px-4 py-2.5 text-ink-700">Nu se emit din aplicație. Pe staging se verifică doar că PAY-006 pleacă o dată, cu datele corecte ale cumpărătorului.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Un defect găsit</td><td class="px-4 py-2.5 text-ink-700">Se deschide un tichet cu numele rândului. Rândul rămâne nebifat până la reparație și reverificare.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Bifele</td><td class="px-4 py-2.5 text-ink-700">În <code>localStorage</code>, cheia <code>proto-onboarding-checks</code>. „Resetează bifele” le șterge pe toate, pentru o trecere nouă.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function c(t) { return '<code>' + t + '</code>'; }
+    var ONB = c('settings[&#39;onboarding&#39;]');
+
+    var GROUPS = [
+      { id: 'r', title: 'Reparațiile (R1–R17)', ref: 'F1 · §13', rows: [
+        ['R1 · Retrimite codul la cont nou', '/signup cu un e-mail nou → „Retrimite codul”', 'Al doilea AUTH-001 ajunge. Ultimul cod primit merge.'],
+        ['R2 · Cont existent pe „Creează cont”', '/signup cu adresa unui cont existent → introdu codul', 'Ecranul spune „Ți-am trimis un cod” și codul chiar ajunge. După cod: spațiile lui.'],
+        ['R3 · E-mail necunoscut la autentificare', '/signin cu o adresă fără cont', 'Ecran neutru, „Ți-am trimis un cod”. Ajunge AUTH-008, cu „Creează un cont”.'],
+        ['R4 · Logat, fără spații de echipă', 'Autentificat, deschide /signup, apoi /signin', 'Ambele fac redirect la /setup.'],
+        ['R5 · Admin fără spații', 'Autentificare cu un admin @eventya.net fără spații', 'Ajunge în /stejar-admin, nu pe o rută care nu există.'],
+        ['R6 · Doar membru public', 'Autentificare cu un utilizator care are doar rolul ' + c('member'), 'Tratat ca fără spații: ajunge în /setup, nu într-un CMS la care nu are acces.'],
+        ['R7 · Aterizarea', 'Termină asistentul', 'Ajunge în Dashboard, cu Ghidul de început. Nu pe site-ul public.'],
+        ['R8 · Adrese rezervate', 'Proiect cu numele „Prețuri”, „Soluții”, „Stripe”, „Checkout”, „Billing”, „Signin”', 'Adresa generată sare peste cele rezervate (' + c('preturi-2') + '…). Specul care compară lista cu rutele e verde.'],
+        ['R9 · Trial → Web plătit', 'Spațiu în trial → „Alege abonamentul” → Web', 'Merge, fără eroare de validare.'],
+        ['R10 · Preselecția din trial', 'Din trial, /workspace/upgrade?from=domains', 'Selecția de pe site sau Web preselectat, nu Mobile.'],
+        ['R11 · Reînnoire după expirare', 'Spațiu expirat pe Mobile → „Continuă cu abonamentul”', 'Mobile preselectat, nu Helpdesk.'],
+        ['R12 · Prețurile din Admin', 'Admin → Subscripție pe un cont pe contract', 'Prețurile vin din ' + c('PriceList') + '. Nicio cifră scrisă în view.'],
+        ['R13 · Un singur template publicat', 'Lasă publicat un singur template → /setup', 'Pasul 2 apare. Spațiul primește conținutul template-ului, nu ' + c('template.json') + '.'],
+        ['R14 · Cheie de template necunoscută', 'Trimite asistentul cu o cheie de template inexistentă', 'Cade pe primul template publicat. Nicio pagină de test („sss”, „T1”–„T3”).'],
+        ['R15 · Template-urile nu se suspendă', 'Un template fără abonament: deschide-l ca admin din echipa de conținut; rulează jobul de expirare', 'Se editează normal, fără „Continuă cu abonamentul”. Jobul nu trimite SUB-001 template-urilor.'],
+        ['R16 · rack-attack', 'Cere coduri peste limită, în rafală, ca cererile să ajungă la procese Puma diferite', 'Limita se aplică o singură dată pe server, nu per proces.'],
+        ['R17 · Cookie-ul de consimțământ', 'Prima vizită pe site, într-o fereastră privată → Acceptă', 'Bannerul apare. După acceptare există cookie-ul ' + c('eventya_consent') + '.']
+      ] },
+      { id: 'a', title: 'Cont și autentificare', ref: 'F2 · §4.2', rows: [
+        ['Anonim, e-mail nou', '„Începe gratuit” → numele → e-mailul → codul', 'Câte un câmp pe pas. Textul Termenilor stă sub butonul de la e-mail. Se salvează ' + c('terms_accepted_at') + ' și ' + c('terms_version') + '. Nicio bifă de noutăți. Apoi asistentul.'],
+        ['Anonim, e-mail existent, pe „Creează cont”', '/signup cu adresa unui cont existent → cod', 'Mesaj neutru. După cod: spațiile lui. Venit de pe prețuri sau din Soluții: direct în asistent, pentru un spațiu nou.'],
+        ['Anonim, e-mail necunoscut, pe „Autentificare”', '/signin cu o adresă fără cont', 'Ecran neutru. AUTH-008 ajunge.'],
+        ['Logat, fără spații de echipă', 'Autentificat → „Începe gratuit” de pe site', 'Pasul 1 din asistent, fără pașii de cont.'],
+        ['Logat, cu spații', 'Autentificat cu un spațiu → site-ul', 'Antetul arată avatarul cu „Spațiile mele”. „Începe gratuit” duce în asistent, pentru un spațiu nou.'],
+        ['Doar membru public', 'Utilizator doar cu rolul ' + c('member') + ' → autentificare', 'Tratat ca fără spații de echipă.'],
+        ['Sesiunea expiră în asistent', 'La pasul 2, șterge cookie-ul de sesiune → autentifică-te din nou', 'Revine la pasul 2, cu toate alegerile.'],
+        ['Intenția păstrată', 'Prețuri → Web + Media, anual → „Începe gratuit” → cont → cod → proiect → template → Dashboard → „Alege abonamentul”', 'Web + Media, anual, preselectat. Template-ul, selecția, ' + c('utm_*') + ' și pagina de pornire ajung în ' + ONB + '.'],
+        ['Turnstile', '/signup și /signin, pe desktop și pe telefon', 'Invizibil pentru un om. Un POST fără token e refuzat.']
+      ] },
+      { id: 'w', title: 'Asistentul', ref: 'F5 · §4.3–4.5', rows: [
+        ['Doar numele proiectului', 'Pasul 1', 'Un singur câmp. Nu se cer adresa, organizația sau limba.'],
+        ['Adresa generată', 'Proiect „Muzeul Național”, cu ' + c('muzeul-national') + ' deja ocupată', 'Spațiul primește ' + c('muzeul-national-2') + ', fără nicio eroare. Adresa se poate schimba din Setări.'],
+        ['Adresa luată între pași', 'Ocupă adresa din altă fereastră, apoi trimite asistentul', 'Se ia următoarea liberă. Restul alegerilor rămân.'],
+        ['Limba din cookie', 'Site-ul public pe EN → asistentul → termină', 'Spațiul are EN ca limbă principală. Conținutul template-ului e în EN. Fără cookie: RO.'],
+        ['Helpdesk sare pasul 2', 'Prețuri → pachetul Helpdesk → asistent', 'Pasul 2 lipsește. Spațiul primește doar pagina de acasă de rezervă. Nicio opțiune Blank.'],
+        ['DPA sub buton', 'Pasul 2 → „Creează spațiul”', 'Fraza DPA stă sub buton. Se salvează ' + c('dpa_accepted_at') + ' și ' + c('dpa_version') + '.'],
+        ['Nimic creat până la final', 'Închide fereastra la pasul 2', 'Niciun spațiu și niciun utilizator nou în baza de date. La revenire, alegerile sunt încă în sesiune.'],
+        ['Template-ul preselectat', 'Soluții → „Începe cu Atrium” → cont', 'Pasul 2: Atrium preselectat. Pe „Alege abonamentul”: Web, cu eticheta „Recomandat pentru Atrium”.'],
+        ['Aterizarea', 'Trimite asistentul', 'Pregătire → Dashboard, cu Ghidul de început și „Trial · 30 de zile” în bară.'],
+        ['Intrarea din Stejar', 'În Dashboard, meniul avatarului → lista de spații', 'Apare „Spațiu de lucru nou”, care duce la /setup.']
+      ] },
+      { id: 's', title: 'Template-urile', ref: 'F3 · §5', rows: [
+        ['Grila', 'Pasul 2, pe desktop și pe telefon', 'Cele 7, în trei grupe, ca grilă mare. Fără „Previzualizează”.'],
+        ['Atrium · muzeu', 'Creează un spațiu din Atrium, în RO și în EN. Compară cu captura din grilă.', 'Acasă · Vizitează · Expoziții · Colecția · Evenimente · Educație · Despre · Contact. Nicio pagină goală, imaginile se încarcă, meniul e complet.'],
+        ['Scena · teatru', 'La fel, din Scena', 'Acasă · Stagiunea · Spectacole · Bilete · Trupa · Turnee · Despre · Contact. Complet în RO și EN.'],
+        ['Forum · oraș', 'La fel, din Forum', 'Acasă · Știri și anunțuri · Evenimente în oraș · Ghidul cetățeanului · Sesizări · Descoperă orașul · Contact. Formularul de sesizări merge în trial.'],
+        ['Panorama · destinație mare', 'La fel, din Panorama', 'Acasă · Descoperă (hartă) · Trasee · Evenimente · Cazare · Gastronomie · Zone · Planifică vizita · Oferte · Știri. Harta se încarcă.'],
+        ['Vatra · destinație mică', 'La fel, din Vatra', 'Acasă · Descoperă · Trasee · Cazare · Producători locali · Evenimente · Cum ajungi · Contact. Complet în RO și EN.'],
+        ['Agora · privați, comunitate', 'La fel, din Agora', 'Acasă · Despre noi · Membri · Evenimente · Știri · Implică-te · Contact. Cardul spune „Se completează cu Community”.'],
+        ['Vitrina · privați', 'La fel, din Vitrina', 'Acasă · Servicii și oferte · Galerie foto · Evenimente · Despre · Contact și rezervări. Complet în RO și EN.']
+      ] },
+      { id: 'g', title: 'Ghidul de început', ref: 'F13 · §4.6 · ecranul 17', rows: [
+        ['Fără popup', 'Spațiu nou → finalul onboarding-ului', 'Aterizează pe Dashboard, cu ghidul primul. Niciun ecran de bun venit.'],
+        ['Logo și culori', 'Spațiu de lucru → Branding → încarcă logo-ul', 'Pasul se bifează singur, din date.'],
+        ['Date legale și de contact', 'Setări → Date legale → clientul și adresa', 'Pasul se bifează singur. Paginile legale create la onboarding folosesc datele.'],
+        ['Pagina de acasă', 'Editează și salvează pagina de acasă, de mână sau cu asistentul AI', 'Pasul se bifează după prima salvare făcută de un om.'],
+        ['Primul conținut', 'Adaugă primul element propriu, după textul pasului 4', 'Pasul se bifează. Conținutul venit din template nu contează.'],
+        ['Echipa invitată', 'Trimite o invitație', 'Pasul se bifează la trimitere.'],
+        ['Domeniul propriu', 'Deschide pasul în trial', 'Merge din trial. Se bifează când domeniul e verificat.'],
+        ['Publică site-ul', 'Ultimul pas, cu alți pași încă nebifați → ecranul de verificare → „Publică”', 'Verificarea avertizează, dar nu blochează. ' + c('visibility') + ' devine ' + c('public') + ', iar site-ul e indexabil.'],
+        ['Indiciul în context', 'Din pasul de logo (' + c('?guide=logo') + ') → „Am înțeles” → revino pe aceeași pagină', 'Bula arată câmpul de logo o singură dată.'],
+        ['„Sari peste” și „Ascunde ghidul”', '„Sari peste” pe un pas, apoi „Ascunde ghidul”', 'Pasul apare ca sărit. Ghidul dispare din Dashboard.'],
+        ['Redeschis din Dashboard', 'Dashboard → „Spațiul de lucru” → „Ghidul de început · 3/7”', 'Ghidul revine, cu progresul păstrat.'],
+        ['Pași după template', 'Câte un spațiu din fiecare dintre cele 7 template-uri', 'Pasul 4 are textul template-ului (Atrium: programul de vizitare și prima expoziție; Scena: primul spectacol; …).'],
+        ['Pași după pachet', 'Spații venite cu Mobile, cu Helpdesk Pro și cu AI vizitatori', 'În trial, pașii urmează pachetul recomandat sau ales pe site, nu tot trial-ul. Mobile adaugă „Configurează aplicația mobilă”, Helpdesk Pro „Conectează e-mailul și WhatsApp”, AI vizitatori „Pornește asistentul pe site”.'],
+        ['Spațiul pornește privat', 'Spațiu nou → site-ul, anonim, apoi ca membru al echipei', 'Anonimul vede pagina de autentificare. Echipa vede site-ul.'],
+        ['Membru invitat', 'Acceptă o invitație într-un spațiu', 'Vede Dashboard-ul fără ghid.'],
+        ['Editorul (B11)', 'Autentificare ca editor într-un spațiu nou', 'Nu vede pașii de proprietar. Proprietarii și dezvoltatorii îi văd.'],
+        ['GUIDE-001 (dacă B9 e da)', 'Spațiu în trial, cu pași rămași → ziua 3', 'Un singur e-mail către proprietari, cu pașii rămași și „Continuă ghidul”. Nimic dacă ghidul e gata sau spațiul nu e în trial.']
+      ] },
+      { id: 'dash', title: 'Dashboard', ref: 'F14 · §4.7 · ecranul 18', rows: [
+        ['Pagina de pornire', 'Deschide ' + c('/:slug/stejar') + ', apasă logo-ul spațiului, autentifică-te cu un singur spațiu', 'De fiecare dată ajungi pe Dashboard, prima filă din bară.'],
+        ['Porțile de funcționalitate', 'Deschide adresa unui modul care nu e în pachet', 'Redirect pe Dashboard, cu alerta deasupra conținutului.'],
+        ['Carduri după pachet', 'Câte un spațiu din seed pe Helpdesk, Web, Mobile, Enterprise', 'Apar doar cardurile și dalele modulelor din pachet. Nicio dală „Deblochează”.'],
+        ['Carduri după rol', 'Același spațiu, ca editor, agent de helpdesk și membru limitat la pagini', 'Editorul fără abonament, agentul doar Helpdesk, membrul limitat doar „Paginile tale”.'],
+        ['Cifrele', 'Compară fiecare card cu dashboard-ul modulului', 'Aceleași cifre, pe ultimele 30 de zile.'],
+        ['Viteza', 'Deschide Dashboard-ul cu cache rece, apoi cald', 'Pagina apare imediat, cu scheletele cardurilor. Cardurile vin pe rând.'],
+        ['Spațiu suspendat', 'Deschide Dashboard-ul pe un spațiu expirat', 'Redirect la „Continuă cu abonamentul”.'],
+        ['Client existent', 'Autentificare cu un cont de dinainte de F14', 'Ajunge pe Dashboard, nu în CMS. Dala „Linkuri și QR” e pe Dashboard, nu în CMS.']
+      ] },
+      { id: 't', title: 'Trial și alegerea abonamentului', ref: 'F6 · §4.4', rows: [
+        ['Orice spațiu nou', 'Utilizator nou → primul spațiu; apoi același utilizator → încă un spațiu', 'Ambele primesc 30 de zile. „Trial · 30 de zile” în bară. Nicio verificare de eligibilitate.'],
+        ['Tot deblocat', 'Spațiu nou → bara de sus și fiecare modul', 'Toate filele: Site web, Aplicație, Helpdesk, Community, Media. Domeniul propriu se poate lega.'],
+        ['Drumul spre „Alege abonamentul”', 'Din „Trial · N zile”, din rândul de stare și din rândul „Abonament” din Dashboard', 'Toate trei duc la ecranul 9, cu selecția de pe site preselectată.'],
+        ['După trial, un pachet mic', 'Trial folosit cu module → plătește Web', 'Avertismentul apare sub total. După plată, modulele neplătite se ascund, iar conținutul lor rămâne și revine la un upgrade.'],
+        ['Spațiu suspendat', 'Trial încheiat → „Continuă cu abonamentul”', 'Fără trial nou pentru același spațiu. Doar plată sau ofertă.'],
+        ['+30 de zile', 'Admin → Subscripție → „+30 de zile”, întâi fără notă, apoi cu notă', 'Fără notă, butonul e oprit. Cu notă: ' + c('ends_at') + ' + 30 de zile și un rând în ' + c('stejar_subscription_events') + '.'],
+        ['Notificările după +30', 'Mută ' + c('ends_at') + ' la 7 zile, prelungește, apoi rulează jobul de expirare', 'SUB-001 pleacă din nou, față de noul final.'],
+        ['Plata în timpul trial-ului (B3)', 'Dashboard → „Alege abonamentul” → „Plătește cu cardul” → 4242 4242 4242 4242', 'Pachetul pornește azi, trial-ul se încheie, facturarea începe azi.'],
+        ['Textele de trial', 'Din Admin, mută ' + c('ends_at') + ' la 7 zile, la o zi, apoi în trecut', 'SUB-001 și SUB-002 în varianta de trial, cu „Alege abonamentul”, în RO și EN.']
+      ] },
+      { id: 'k', title: 'Oferta', ref: 'F8 · §10', rows: [
+        ['Cererea din spațiu', '„Alege abonamentul” → „Cere ofertă” → trimite', 'Tichet în Suport, prin cererea de upgrade de azi, cu configurația și mesajul. Ecranul „Cererea ta e la noi”.'],
+        ['Cererea în Tichetele mele', 'Clientul deschide Tichetele mele', 'Cererea apare acolo, cu starea ei.'],
+        ['Oferta de pe site', 'Prețuri → „Cere ofertă”', 'Formularul de vânzări, cu selecția din calculator în corpul cererii. Nu cere cont.'],
+        ['Conversia în Admin', 'Admin → Subscripție → contract, cu data de final', 'Spațiul trece pe contract. Eticheta de trial dispare.']
+      ] },
+      { id: 'c', title: 'Stripe · carduri de test', ref: 'F9 · §7.4', rows: [
+        ['4242 4242 4242 4242 · reușit', '„Alege abonamentul” → card → Checkout → plătește', '„Confirmăm plata…” → Dashboard. Abonament activ, PAY-001 la proprietari, PAY-006 la admini.'],
+        ['Datele de facturare în Checkout', 'Checkout → denumirea, CUI-ul, adresa', 'Ajung pe Stripe Customer și în copia de pe cont. Pagina Abonament le arată.'],
+        ['4000 0025 0000 3155 · cere 3-D Secure', 'Checkout → confirmă în fereastra 3-D Secure. Apoi încă o dată, cu „Eșuează”', 'Confirmat: ca la 4242. Eșuat: rămâne în Checkout, la noi nu se schimbă nimic.'],
+        ['4000 0000 0000 9995 · fonduri insuficiente', 'Checkout → plătește', 'Eroarea apare în Checkout. Spațiul rămâne pe trial.'],
+        ['4000 0000 0000 0002 · refuzat', 'Checkout → plătește', 'Eroare în Checkout. Nimic schimbat la noi.'],
+        ['4000 0000 0000 0341 · plata ulterioară eșuează', 'Plătește cu 4242, apoi în Portal schimbă cardul cu 0341. Avansează ceasul la reînnoire', c('invoice.payment_failed') + ' → ' + c('past_due') + ', grație 7 zile, PAY-002 la proprietari, PAY-005 la admini.'],
+        ['Dublu click și „înapoi”', 'Dublu click pe „Plătește”. Apoi „înapoi” din Checkout și din nou „Plătește”', 'O singură Checkout Session deschisă, refolosită.'],
+        ['Checkout abandonat', 'Checkout → închide fereastra', 'Spațiul rămâne pe trial, cu selecția păstrată pe „Alege abonamentul”. După trial: suspendat, pe „Continuă cu abonamentul”.'],
+        ['Enterprise', 'Prețuri și „Alege abonamentul”, cu Enterprise', 'Doar „Cere ofertă”. Nicio cale de card.']
+      ] },
+      { id: 'tc', title: 'Stripe · test clocks', ref: 'F9 · §7.6', rows: [
+        ['Reînnoire lunară reușită', 'Abonament lunar pe un test clock → avansează o lună', c('invoice.paid') + ': ' + c('ends_at') + ' = data lui ' + c('current_period_end') + ' plus o zi. PAY-006 la admini. Fără PAY-001 și fără SUB-001.'],
+        ['Ora dintre perioade', 'Avansează ceasul exact la finalul perioadei, înainte de încasare', 'Spațiul rămâne activ: ziua în plus acoperă ora până la încasare. Data se socotește în Europe/Bucharest, în cereri și în joburi.'],
+        ['Reînnoire eșuată → grație → suspendare', 'Card 0341 → avansează la reînnoire. Rulează joburile noastre la zilele 3, 6 și 7', c('past_due') + '. PAY-002 în zilele 0, 3 și 6, cu „Plătește acum”. În ziua 7: suspendat, pe „Continuă cu abonamentul”.'],
+        ['Plata trece în grație', 'În ziua 3, „Plătește acum” din PAY-002 → factura găzduită de Stripe → 4242', c('invoice.paid') + ': activ din nou. PAY-002 nu mai pleacă.'],
+        ['Finalul reîncercărilor', 'Lasă reîncercările să se termine', 'Stripe anulează abonamentul, factura rămasă se anulează (void). Reactivarea cere un Checkout nou.'],
+        ['Reînnoire anuală', 'Abonament anual → avansează până cu 7 zile înainte de reînnoire', c('invoice.upcoming') + ' → SUB-005. Nu SUB-001.'],
+        ['Anulare', 'Pagina Abonament → „Anulează abonamentul” → avansează la finalul perioadei', c('cancel_at_period_end') + ' = da și PAY-004. La final: ' + c('canceled') + ', suspendat, SUB-002.']
+      ] },
+      { id: 'x', title: 'Stripe · schimbări', ref: 'F9 · §7.7', rows: [
+        ['Suma înainte de confirmare', 'Web → Mobile, din /workspace/upgrade', 'Ecranul arată suma exactă de plătit acum, din previzualizarea facturii. E egală cu suma încasată.'],
+        ['Upgrade cu proratare', 'Confirmă upgrade-ul', 'O factură pe diferență, plătită pe loc. Drepturile Mobile pornesc după plată. PAY-006 la admini.'],
+        ['Upgrade cu plata eșuată', 'Același upgrade, cu un card care cere 3-D Secure, iar confirmarea eșuează', 'Pachetul rămâne cel vechi (' + c('pending_if_incomplete') + '). Nimic deblocat fără plată.'],
+        ['Downgrade programat', 'Mobile → Web', 'Oferta arată „de la <data>”. Se creează un Subscription Schedule. Pagina Abonament arată schimbarea, cu „Renunță la schimbare”. Mobile rămâne până la final, apoi trece pe Web.'],
+        ['Schimbare peste programare', 'Cu downgrade-ul programat, fă un upgrade, apoi anulează', 'Programarea se eliberează întâi. Nicio eroare din Stripe.'],
+        ['Lunar → anual', 'Comutatorul pe Anual → „Aplică schimbarea”', 'Imediat, cu proratare.'],
+        ['Anual → lunar', 'Comutatorul pe Lunar → „Aplică schimbarea”', 'La finalul perioadei, prin Subscription Schedule.'],
+        ['Reluare după anulare', 'Anulează din pagina Abonament → „Reia abonamentul” înainte de final', c('cancel_at_period_end') + ' = nu. Nicio suspendare.'],
+        ['Portalul', 'Proprietarul, apoi un editor și un dezvoltator → „Gestionează plata”', 'Proprietarul: card, chitanțe, date de facturare, fără anulare și fără schimbarea planului. Editorul și dezvoltatorul nu pot deschide Portalul și nu pot anula.'],
+        ['Card → contract', 'Echipa anulează în Stripe → contract din Admin', 'Formularul din Admin se deblochează după ' + c('customer.subscription.deleted') + '. Contractul intră fără goluri.']
+      ] },
+      { id: 'h', title: 'Webhook-uri', ref: 'F9 · §7.5, §7.9', rows: [
+        ['Eveniment trimis de două ori', c('stripe events resend evt_…') + ' pentru un ' + c('invoice.paid'), 'Un singur rând în ' + c('stejar_stripe_events') + '. Un singur PAY-001 și un singur PAY-006.'],
+        ['Eveniment pierdut', 'Oprește ' + c('stripe listen') + ', schimbă abonamentul din dashboard → rulează ' + c('Billing::ReconcileJob'), 'Diferența e reparată și raportată în AppSignal.'],
+        ['Plată fără PAY-006', 'Șterge marcajul PAY-006 al unei plăți → rulează ' + c('Billing::ReconcileJob'), 'PAY-006 pleacă o dată.'],
+        ['Ordine inversată', 'Trimite ' + c('customer.subscription.updated') + ' înaintea ' + c('checkout.session.completed'), 'Starea finală e corectă: jobul citește abonamentul din API.'],
+        ['Semnătură invalidă', 'POST pe ' + c('/stripe/webhooks') + ' cu o semnătură greșită', '400. Nimic salvat.'],
+        ['Webhook întârziat', 'Oprește ' + c('stripe listen') + ' → plătește → întoarcerea din Checkout', '„Confirmăm plata…” citește sesiunea din API și confirmă. La repornire, evenimentul se procesează o dată.'],
+        ['Răspuns imediat', 'Orice eveniment, cu procesarea încetinită', '200 imediat. Procesarea rulează în ' + c('Billing::ProcessEventJob') + '.']
+      ] },
+      { id: 'f', title: 'Datele de facturare și PAY-006', ref: 'F9 · §8, §9', rows: [
+        ['Datele din Checkout', 'Plată 4242, cu denumire, CUI și adresă', 'Stau pe Stripe Customer. Copia de pe cont are aceleași date. Pagina Abonament și fișa din Admin le arată.'],
+        ['Schimbare din Portal', 'Portal → schimbă denumirea', c('customer.updated') + ' actualizează copia de pe cont.'],
+        ['PAY-006', 'După o plată, verifică clopoțelul și e-mailul adminilor', 'Un singur PAY-006, cu cumpărătorul, suma cu TVA inclus și perioada.'],
+        ['Rambursare', 'Rambursează plata din dashboard', c('charge.refunded') + ' → PAY-005 la admini. Stornarea se face în afara platformei.'],
+        ['Ce primește clientul', 'După o plată, verifică e-mailurile clientului', 'Chitanța Stripe. Factura fiscală vine de la echipă, separat.']
+      ] },
+      { id: 'd', title: 'Admin', ref: 'F11 · ecranul 14', rows: [
+        ['Fișa Stripe e doar citire', 'Admin → Subscripție pe un cont pe card. Încearcă și un POST direct', 'Câmpuri dezactivate, cu nota, fără buton de salvare. POST-ul e refuzat.'],
+        ['Filtrele', 'Fiecare filtru din lista de conturi', 'Trial, Card, Contract, Cerere deschisă, Plată eșuată, Suspendat: fiecare arată doar conturile lui.'],
+        ['Pâlnia', 'Un parcurs complet, de pe prețuri până la plată', 'Fiecare pas crește o dată, în săptămâna curentă. Niciun cookie de analytics.'],
+        ['Activarea', 'Bifează pașii ghidului într-un spațiu nou', 'Blocul Activare din pâlnie îi numără. „Site publicat în 7 zile” crește la publicare.'],
+        ['EVENTYA-008', 'Creează un spațiu', 'E-mailul către admini are template-ul și selecția de pe site.'],
+        ['Adminii și suspendarea', 'Admin → CMS-ul unui spațiu suspendat', 'Nu trece de suspendare.']
+      ] },
+      { id: 'site', title: 'Site', ref: 'F12 · §11', rows: [
+        ['RO / EN', 'Comutatorul de limbă, pe fiecare pagină', 'Fiecare pagină există în RO și EN, cu ' + c('hreflang') + '.'],
+        ['Antetul în 3 stări', 'Anonim · logat fără spații · logat cu spații, unul suspendat', 'Anonim: Autentificare + Începe gratuit. Logat: avatarul cu Spațiile mele, Spațiu de lucru nou, Deconectare. Suspendat: eticheta „suspendat”.'],
+        ['Bannerul, înaintea oricărui script', 'Fereastră privată → DevTools, tab-ul Network', 'Niciun request GA4 înainte de acceptare. După acceptare, GA4 se încarcă. „Setări cookie” din subsol redeschide bannerul.'],
+        ['Prețurile egale cu Quote', 'Combinații din calculator, lunar și anual', 'Totalul de pe site = ' + c('Quote') + ' = suma din Checkout. Cifrele sunt prețurile din grilă, cu TVA inclus, fără nicio notă „fără TVA”.'],
+        ['Lighthouse pe mobil', 'Acasă, Prețuri, Soluții, o pagină de template', 'Performanță, SEO și accesibilitate peste pragul stabilit.'],
+        ['Legalul', 'Termeni, Confidențialitate, DPA, Cookies, Ajutor', 'Publicate înaintea plăților. Fără „30 de zile banii înapoi”, EUR sau „free forever”.']
+      ] },
+      { id: 'm', title: 'Mobil și dark mode', ref: 'toate ecranele', rows: [
+        ['Pe telefon', 'iOS Safari și Android Chrome: site, cont, asistent, Dashboard, „Alege abonamentul”, întoarcerea din Checkout', 'Fără scroll orizontal. Butoanele se ating ușor. Tastatura nu acoperă câmpurile.'],
+        ['Dark mode', 'Aceleași ecrane, în dark mode', 'Totul e lizibil. Culorile semantice au varianta dark.'],
+        ['E-mailurile', 'Fiecare e-mail din ecranul 15, în Gmail și Outlook, în modul luminos și întunecat', 'Lizibile, cu butonul vizibil.'],
+        ['Checkout pe telefon', 'Plată 4242 de pe telefon. Apple Pay sau Google Pay, unde există', 'Checkout se deschide, iar întoarcerea ajunge în Dashboard.']
+      ] }
+    ];
+
+    var KEY = 'proto-onboarding-checks';
+    var saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+    var tb = document.querySelector('#matrix tbody');
+    var ROW_ON = ['bg-emerald-50', 'dark:bg-emerald-500/10'];
+
+    function render() {
+      var html = '', mhtml = '', total = 0, done = 0, jump = '';
+      GROUPS.forEach(function (g) {
+        var gd = 0;
+        g.rows.forEach(function (_, i) { if (saved[g.id + '-' + i]) gd++; });
+        total += g.rows.length; done += gd;
+        var full = gd === g.rows.length;
+        mhtml += '<div id="m-' + g.id + '" class="scroll-mt-4"><div class="flex items-center gap-2 mb-2"><span class="text-[13px] font-semibold text-ink-900">' + g.title + '</span><span class="text-[11px] text-ink-500">' + g.ref + '</span>' +
+          '<span class="ml-auto font-mono text-[11px] ' + (full ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-ink-400') + '">' + gd + '/' + g.rows.length + '</span></div><div class="card p-0 divide-y divide-surface-200">' +
+          g.rows.map(function (r, i) {
+            var id = g.id + '-' + i, on = !!saved[id];
+            return '<label class="flex gap-3 p-3 text-[12px] cursor-pointer ' + (on ? ROW_ON.join(' ') : '') + '">' +
+              '<input type="checkbox" data-id="' + id + '" class="w-4 h-4 mt-0.5 accent-emerald-600 shrink-0"' + (on ? ' checked' : '') + '>' +
+              '<span class="min-w-0"><span class="block font-medium text-ink-900">' + r[0] + '</span>' +
+              '<span class="block text-ink-600 mt-1"><b class="text-ink-700">Pași:</b> ' + r[1] + '</span>' +
+              '<span class="block text-ink-700 mt-1"><b class="text-ink-800">Așteptat:</b> ' + r[2] + '</span></span></label>';
+          }).join('') + '</div></div>';
+        jump += '<a href="#g-' + g.id + '" data-m="m-' + g.id + '" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-0 border border-surface-200 text-[12px] text-ink-700 hover:border-primary-400">' + g.title +
+          ' <span class="font-mono text-[11px] ' + (full ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-ink-400') + '">' + gd + '/' + g.rows.length + '</span></a>';
+        html += '<tr id="g-' + g.id + '" class="bg-surface-100 scroll-mt-4"><td colspan="4" class="px-3 py-2">' +
+          '<div class="flex flex-wrap items-center gap-x-3 gap-y-1"><span class="text-[13px] font-semibold text-ink-900">' + g.title + '</span>' +
+          '<span class="text-[11px] text-ink-500">' + g.ref + '</span>' +
+          '<span class="ml-auto font-mono text-[11px] ' + (full ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-ink-400') + '">' + gd + '/' + g.rows.length + '</span></div></td></tr>';
+        g.rows.forEach(function (r, i) {
+          var id = g.id + '-' + i, on = !!saved[id];
+          html += '<tr class="align-top ' + (on ? ROW_ON.join(' ') : '') + '" data-row="' + id + '">' +
+            '<td class="px-3 py-2.5 font-medium text-ink-900">' + r[0] + '</td>' +
+            '<td class="px-3 py-2.5 text-ink-600">' + r[1] + '</td>' +
+            '<td class="px-3 py-2.5 text-ink-700">' + r[2] + '</td>' +
+            '<td class="px-3 py-2.5 text-center"><input type="checkbox" aria-label="Bifat" data-id="' + id + '" class="w-4 h-4 mt-0.5 accent-emerald-600 cursor-pointer"' + (on ? ' checked' : '') + '></td></tr>';
+        });
+      });
+      tb.innerHTML = html;
+      document.getElementById('mlist').innerHTML = mhtml;
+      document.getElementById('jump').innerHTML = jump;
+      document.getElementById('done').textContent = done;
+      document.getElementById('total').textContent = '/ ' + total;
+      document.getElementById('bar').style.width = (total ? Math.round(done / total * 100) : 0) + '%';
+    }
+
+    // pe telefon, ancorele duc la listă
+    document.getElementById('jump').addEventListener('click', function (e) {
+      var a = e.target.closest('[data-m]'); if (!a || matchMedia('(min-width: 640px)').matches) return;
+      e.preventDefault(); document.getElementById(a.getAttribute('data-m')).scrollIntoView();
+    });
+    document.addEventListener('change', function (e) {
+      var id = e.target.getAttribute('data-id'); if (!id) return;
+      if (e.target.checked) saved[id] = true; else delete saved[id];
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+      render();
+    });
+    document.getElementById('reset').addEventListener('click', function () {
+      if (!confirm('Ștergi toate bifele?')) return;
+      saved = {};
+      try { localStorage.removeItem(KEY); } catch (err) {}
+      render();
+    });
+    render();
+  </script>
+
+  <!-- Dark-mode toggle -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

@@ -102,6 +102,20 @@ git -C ../stejar pull && npm run build:css && npm run stamp
 git commit -am "Sync design system $(git -C ../stejar rev-parse --short HEAD)"
 ```
 
+## Screens of the public marketing site (eventya.net)
+
+The marketing site has its own theme (dark by default, `[data-theme="light"]`, `mkt-*`
+components, Plus Jakarta Sans + DM Sans) — **keep it, never redraw it**. Such screens link
+`../../assets/marketing.css` instead of `application.css`; it is built from the real
+`../eventya/app/assets/stylesheets/marketing.tailwind.css` the same way `application.css`
+is built from Stejar:
+```bash
+npm run build:marketing-css    # -> assets/marketing.css (commit it too)
+```
+Port the header/footer/sections from `eventya/app/views/layouts/marketing.html.erb` and
+`app/views/marketing/*`, add only what the plan needs with the same classes, and skip the
+`fade-up` class (it stays invisible without its JS controller).
+
 ## Review & "approval"
 
 - Open a PR in `prototypes-v5`. `pr-preview.yml` deploys a live preview to
