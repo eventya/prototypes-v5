@@ -55,7 +55,7 @@ Onboarding-ul self-serve și plata prin Stripe sunt un plan separat (§6).
 | 20 | Membrii care nu sunt proprietari | Văd doar că spațiul e suspendat. Doar proprietarii au de-a face cu abonamentul. |
 | 21 | Trial | Un trial expirat ajunge pe același ecran. Un spațiu suspendat **nu mai primește trial**, doar reînnoire. |
 | 22 | Helpdesk Pro | Doar ca modul, cum e implementat acum. Pe Helpdesk e singurul modul oferit. |
-| 23 | TVA | Toate prețurile de pe pagină includ TVA. Fără rânduri de calcul: cifra afișată e cea plătită. |
+| 23 | TVA | Toate prețurile de pe pagină includ TVA. Prețul din grilă e prețul final, cu TVA inclus. Fără rânduri de calcul: cifra afișată e cea plătită. |
 | 24 | Plata anuală | Comutator Lunar / Anual sus pe pagină, ca pe eventya.net/pricing. Reducerea apare ca procent. |
 | 25 | Recomandarea Enterprise | Da, când Mobile cu module trece de prag. |
 | 26 | Serviciile (setup, instruire, migrare, domeniu) | Nu intră în aplicație. |
@@ -90,14 +90,19 @@ Totul intră pe `feature/entitlements`, în același PR, ca până acum.
 
 ### 3.2 Pagina de upgrade și „Continuă”
 
-- O singură componentă, pe două ecrane: `/workspace/upgrade` și „Continuă cu abonamentul”.
-- **Antetul:** titlul „Abonament Eventya”, un headline în tonul paginii eventya.net/pricing („Prețuri simple, fără surprize. Toată echipa e inclusă…”) și, sub el, comutatorul Lunar / Anual cu pastila reducerii.
-- **Pașii paginii:** pachetul de bază (Helpdesk, Web, Mobile, Enterprise), apoi modulele (pe Helpdesk doar Helpdesk Pro, pe Web și Mobile toate patru, pe Enterprise toate incluse), cu oferta în dreapta. Pachetul curent e marcat „Planul tău” pe rândul lui; nu mai există secțiunea „Ce ai acum”.
+- O singură componentă, pe două ecrane: `/workspace/upgrade` și „Continuă cu abonamentul”. Aceeași componentă servește și „Alege abonamentul” din [onboarding-ul clienților noi](../onboarding-clienti-noi/), pe care un spațiu nou îl deschide din Dashboard, în trial.
+- **Pachetele se deschid** (varianta A, decisă pe 28.09; ecranele [2](02-pagina-upgrade.html) și [3](03-continua-abonamentul.html)). Lista celor patru pachete. Cel ales se mărește și conține modulele lui, cu bife, totalul și butonul. Pe pagină mai stau:
+  - titlul „Abonament Eventya” și o singură frază: „Toată echipa e inclusă. Plătești doar pachetul și modulele pe care le folosești.”;
+  - comutatorul Lunar / Anual, deasupra listei, cu reducerea ca procent din `PriceList`;
+  - pachetul curent marcat „Planul tău” (pe „Continuă”: „Pachetul expirat”; după un trial: „Trial-ul tău”);
+  - doar modulele eligibile: pe Helpdesk doar Helpdesk Pro, pe Enterprise toate incluse;
+  - totalul, cu TVA inclus, pe lună sau pe an (la plata anuală, suma pe an). `PriceList` ține prețurile grilei ca prețuri finale, cu TVA inclus: comentariul „without VAT”, nota „fără TVA” din interfață și `Quote#vat_amount` / `with_vat` se schimbă, pentru că TVA-ul se scoate din preț, nu se adaugă;
+  - două note scurte, fără casete: recomandarea de Enterprise când Mobile are cel puțin trei module și avertismentul la coborâre („ce nu intră se ascunde, conținutul rămâne și revine dacă urci din nou”);
+  - „Trimite cererea”, dezactivat cât nu se schimbă nimic (pachetul, un modul sau intervalul), cu fraza „Alege alt pachet, un modul sau alt interval”. Fără câmp de mesaj (decis pe 28.09).
 - **Downgrade oricând.** Dispare regula că pachetul doar urcă (`UpgradeRequest`, validarea din `upgrade_request.rb:64-68`). Butonul „Upgrade” rămâne ascuns pe Enterprise, dar pagina se deschide din meniul avatarului („Abonament”).
-- **Plata:** `billing_interval` (`monthly` / `annual`) pe `UpgradeRequest` și pe `Subscription`, ales din comutatorul de sus. Reducerea apare ca procent din `PriceList`.
-- **Prețurile includ TVA peste tot**, pe fiecare rând și în total. Oferta arată un singur total („TVA inclus”), suma pe an la plata anuală, recomandarea de Enterprise peste prag și un avertisment la coborâre („ce nu intră se ascunde, conținutul rămâne”).
-- **„Continuă”** are pachetul expirat preselectat. Butonul spune „Cere reînnoirea” și deschide un tichet cu sursa `renew`.
-- **Membrii care nu sunt proprietari** văd doar mesajul de suspendare, fără calculator.
+- **Plata:** `billing_interval` (`monthly` / `annual`) pe `UpgradeRequest` și pe `Subscription`, ales din comutator.
+- **„Continuă”** are pachetul expirat preselectat. Butonul spune „Cere reînnoirea” (după un trial: „Cere abonamentul”) și deschide un tichet. Sursa tichetului rămâne `web`; originea (`renew`) intră în corpul tichetului.
+- **Membrii care nu sunt proprietari** văd doar mesajul de suspendare, fără alegerea abonamentului.
 
 ### 3.3 Push în Mobile
 
@@ -144,7 +149,7 @@ Storyboard-ul ([ecranul 1](01-storyboard.html)) îi desenează în ordine, cu le
 
 - Activarea automată după plată, prin webhook-urile Stripe, cu `ends_at` ca sursă de adevăr.
 - Blocarea la finalul perioadei plătite (decizia 35).
-- Trial doar pentru conturi noi. Un spațiu suspendat reînnoiește, nu primește alt trial.
+- Trial pentru orice spațiu nou, cu toate funcționalitățile. Un spațiu suspendat reînnoiește, nu primește alt trial.
 - Aceeași componentă de calculator, cu butonul „Plătește” în loc de „Trimite cererea”.
 
 ---
@@ -152,7 +157,7 @@ Storyboard-ul ([ecranul 1](01-storyboard.html)) îi desenează în ordine, cu le
 ## 7. Ecranele
 
 1. [Storyboard](01-storyboard.html): pașii, stările abonamentului și decizia de acces.
-2. [Pagina de upgrade](02-pagina-upgrade.html), după calculatorul de prețuri, cu downgrade.
+2. [Pagina de upgrade](02-pagina-upgrade.html): pachetele se deschid, cu downgrade oricând.
 3. [Continuă cu abonamentul](03-continua-abonamentul.html): proprietar, membru, trial expirat.
 4. [Site-ul și aplicația, suspendate](04-site-si-aplicatie-suspendate.html).
 5. [Push în Mobile](05-push-in-aplicatie.html).

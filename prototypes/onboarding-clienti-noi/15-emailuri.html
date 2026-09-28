@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-mailuri și notificări · Onboarding clienți noi</title>
+
+  <!-- FOUC-free dark mode: set data-theme before first paint -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#15 · E-mailuri și notificări</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-6 md:px-8">
+
+    <div class="text-2xl font-bold text-ink-900">E-mailuri și notificări</div>
+    <p class="text-sm text-ink-500 mt-1 max-w-3xl">Tot ce primește clientul sau echipa în onboarding și în plăți. Fiecare notificare trece prin Noticed, pe canalele din tabel, și are o intrare în <code>manual/notifications</code>. Textele sunt în RO și EN, în limba destinatarului.</p>
+
+    <!-- ============ CATALOGUL ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-8 mb-3">1 · Catalogul (§14)</div>
+    <div class="card p-0 overflow-x-auto">
+      <table class="w-full text-[13px] min-w-[980px]">
+        <thead class="bg-surface-100 text-[11px] uppercase tracking-wider text-ink-500">
+          <tr>
+            <th class="text-left font-semibold px-4 py-2.5">Cod</th>
+            <th class="text-left font-semibold px-4 py-2.5">Când</th>
+            <th class="text-left font-semibold px-4 py-2.5">Cui</th>
+            <th class="text-left font-semibold px-4 py-2.5">Canale</th>
+            <th class="text-left font-semibold px-4 py-2.5">Stare</th>
+            <th class="text-left font-semibold px-4 py-2.5"><code class="normal-case">manual/notifications</code></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-200" id="catalog"></tbody>
+      </table>
+    </div>
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3 text-[12px] text-ink-500" id="legend"></div>
+
+    <!-- ============ CE NU TRIMITEM NOI ============ -->
+    <div class="grid gap-4 md:grid-cols-2 mt-8">
+      <div class="card p-5 text-[13px] text-ink-600 leading-relaxed">
+        <div class="flex items-center gap-2 font-semibold text-ink-900 mb-1">
+          <svg class="w-4 h-4 text-ink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg>
+          Factura fiscală, în afara platformei
+        </div>
+        O emite echipa, după PAY-006, în programul ei de facturare, care o transmite în e-Factura și o trimite pe e-mailul de facturare. Chitanța Stripe nu e factură (§8).
+      </div>
+      <div class="card p-5 text-[13px] text-ink-600 leading-relaxed">
+        <div class="flex items-center gap-2 font-semibold text-ink-900 mb-1">
+          <svg class="w-4 h-4 text-ink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>
+          Ce trimite Stripe (C9)
+        </div>
+        Doar chitanța și e-mailul de confirmare 3-D Secure. Restul e-mailurilor Stripe (plată eșuată, reînnoire, factură, anulare) sunt oprite din setările contului. Le acoperă notificările de mai jos.
+      </div>
+    </div>
+
+    <!-- ============ PREVIZUALIZĂRILE ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">2 · Previzualizările</div>
+    <nav class="flex flex-wrap gap-1.5" id="jump"></nav>
+    <div id="previews"></div>
+
+    <!-- ============ REGULILE ECRANULUI ============ -->
+    <section class="mt-14 pb-16">
+      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Regulile ecranului</div>
+      <div class="card p-0 overflow-x-auto">
+        <table class="w-full text-[13px]">
+          <tbody class="divide-y divide-surface-200">
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Noticed</td><td class="px-4 py-2.5 text-ink-700">Fiecare cod e un notifier Noticed, cu canalele din catalog: clopoțel, e-mail, push. Niciun mailer trimis singur.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap"><code>manual/notifications</code></td><td class="px-4 py-2.5 text-ink-700">Fiecare notifier nou primește o intrare: codul, când pleacă, cui, pe ce canale, textul. Cele existente cu text schimbat își actualizează intrarea.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Limbile</td><td class="px-4 py-2.5 text-ink-700">Textele stau în i18n, în RO și EN. Fiecare destinatar primește textul în limba lui.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">SUB-001 pe card</td><td class="px-4 py-2.5 text-ink-700">Nu se trimite abonamentelor Stripe care se reînnoiesc singure (<code>cancel_at_period_end</code> = nu). Plata anuală primește în loc SUB-005, cu 7 zile înainte. Un abonament Stripe anulat primește PAY-004, apoi SUB-001 ca orice abonament care se încheie.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">E-mailurile Stripe (C9)</td><td class="px-4 py-2.5 text-ink-700">Stripe trimite doar chitanța și e-mailul de 3-D Secure. PAY-003 se suprapune cu al doilea: se păstrează doar unul, decizia intră în C9.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Factura fiscală</td><td class="px-4 py-2.5 text-ink-700">O emite echipa, după PAY-006. Aplicația nu o trimite și nu o atașează.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Expeditorul</td><td class="px-4 py-2.5 text-ink-700"><code>Eventya &lt;noreply@eventya.net&gt;</code>, ca la celelalte e-mailuri de platformă. Reply-To: adresa de suport, deci un răspuns devine tichet.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Idempotența</td><td class="px-4 py-2.5 text-ink-700">Notificările pornite dintr-un webhook poartă <code>stripe_event_id</code>. Un eveniment reluat nu trimite a doua oară.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Butoanele</td><td class="px-4 py-2.5 text-ink-700">„Plătește acum” (PAY-002) și PAY-003 duc la factura găzduită de Stripe, unde plata se face pe loc, cu orice card. „Reia abonamentul” duce la pagina Abonament: e o acțiune a noastră, nu a Portalului. Portalul se deschide doar pentru card și chitanțe, cu o sesiune nouă la click (<code>Billing::OpenPortal</code>, doar pentru proprietar).</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Comutatorul</td><td class="px-4 py-2.5 text-ink-700">SUB-001 și SUB-002 duc la „Alege abonamentul”. Cât timp <code>billing.stripe_enabled</code> e oprit, acolo apare doar „Cere ofertă”.</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top sm:whitespace-nowrap">Sumele</td><td class="px-4 py-2.5 text-ink-700">Vin din factura Stripe sau din <code>Quote</code>, cu TVA inclus. Aici sunt bare gri, fiindcă repo-ul e public.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ---------- Icoane (stroke, 24×24) ----------
+    var I = {
+      mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/>',
+      bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+      push: '<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+      ticket: '<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2M13 17v2M13 11v2"/>',
+      file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/>',
+      card: '<rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/>',
+      check: '<path d="M20 6 9 17l-5-5"/>',
+      alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
+      lock: '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+      cal: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+      user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+      list: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'
+    };
+    function svg(name, cls) { return '<svg class="' + (cls || 'w-4 h-4') + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">' + I[name] + '</svg>'; }
+    var CH = {
+      mail: ['mail', 'e-mail'], bell: ['bell', 'clopoțel'], push: ['push', 'push'],
+      ticket: ['ticket', 'tichet în Suport'], invoice: ['file', 'echipa, în afara platformei'], stripe: ['card', 'Stripe']
+    };
+    function channels(list) {
+      return '<span class="inline-flex flex-wrap items-center gap-2">' + list.map(function (c) {
+        return '<span class="inline-flex items-center gap-1 text-ink-600" title="' + CH[c][1] + '">' + svg(CH[c][0], 'w-3.5 h-3.5 text-ink-400') + '<span class="text-[12px]">' + CH[c][1] + '</span></span>';
+      }).join('') + '</span>';
+    }
+    var STATE = {
+      exista: '<span class="badge">există</span>',
+      nou: '<span class="badge badge--positive">nou</span>',
+      text: '<span class="badge badge--warning">text nou</span>',
+      propus: '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-medium bg-violet-50 dark:bg-violet-500/10 text-violet-700 dark:text-violet-300">propus (B9)</span>',
+      extern: '<span class="badge">în afara noastră</span>'
+    };
+
+    // ---------- Catalogul ----------
+    // [cod, ancoră, când, cui, canale, stare, notă la stare, manual/notifications]
+    var CATALOG = [
+      ['AUTH-001', '', 'codul, la creare cont și la autentificare', 'utilizatorul', ['mail'], 'exista', 'text RO/EN', 'upd'],
+      ['AUTH-008', 'auth-006', 'autentificare cu un e-mail necunoscut', 'adresa introdusă', ['mail'], 'nou', 'R3', 'new'],
+      ['AUTH-002', '', 'spațiul e gata', 'proprietarul', ['mail'], 'text', 'aterizarea în Dashboard', 'upd'],
+      ['EVENTYA-008', '', 'spațiu creat', 'adminii', ['mail'], 'text', 'cu template-ul și selecția de pe site', 'upd'],
+      ['—', '', 'cerere de ofertă din spațiu', 'echipa', ['ticket'], 'exista', 'cererea de upgrade de azi', 'none'],
+      ['PAY-001', 'pay-001', 'prima plată reușită, abonament activ', 'proprietarii', ['bell', 'mail'], 'nou', '', 'new'],
+      ['PAY-002', 'pay-002', 'plata a eșuat, în zilele 0, 3 și 6', 'proprietarii', ['bell', 'push', 'mail'], 'nou', '', 'new'],
+      ['PAY-003', 'pay-003', 'plata trebuie confirmată cu 3-D Secure', 'proprietarii', ['bell', 'mail'], 'nou', '', 'new'],
+      ['PAY-004', 'pay-004', 'abonamentul e anulat și se încheie pe &lt;data&gt;', 'proprietarii', ['bell', 'mail'], 'nou', '', 'new'],
+      ['PAY-005', 'pay-005', 'plată eșuată, dispută sau rambursare', 'adminii', ['mail', 'bell'], 'nou', '', 'new'],
+      ['PAY-006', 'pay-006', 'plată încasată: emite factura fiscală', 'adminii', ['mail', 'bell'], 'nou', '§8', 'new'],
+      ['SUB-005', 'sub-005', 'plata anuală se reînnoiește pe &lt;data&gt;', 'proprietarii', ['mail'], 'nou', '', 'new'],
+      ['SUB-001 / SUB-002', 'sub-001', 'trial-ul se încheie / s-a încheiat', 'proprietarii', ['bell', 'push', 'mail'], 'text', 'varianta de trial, cu „Alege abonamentul”. Nu pleacă abonamentelor Stripe care se reînnoiesc singure.', 'upd'],
+      ['GUIDE-001', 'guide-001', 'ziua 3 a trial-ului, doar dacă mai sunt pași în ghid', 'proprietarii', ['mail'], 'propus', 'fără push', 'new'],
+      ['—', '', 'factura fiscală', 'e-mailul de facturare', ['invoice'], 'extern', 'o emite echipa, după PAY-006', 'none'],
+      ['—', '', 'chitanța și confirmarea 3-D Secure', 'e-mailul din Stripe Customer', ['stripe'], 'extern', 'setare în Stripe (C9)', 'none']
+    ];
+    var DOCS = {
+      'new': '<span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400">' + svg('check', 'w-3.5 h-3.5') + 'intrare nouă</span>',
+      'upd': '<span class="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400">' + svg('check', 'w-3.5 h-3.5') + '<span>de actualizat</span></span>',
+      'none': '<span class="text-ink-400">— nu e un notifier</span>'
+    };
+    document.getElementById('catalog').innerHTML = CATALOG.map(function (r) {
+      var code = r[1] ? '<a href="#' + r[1] + '" class="font-mono text-[12px] font-semibold text-primary hover:underline">' + r[0] + '</a>' : '<span class="font-mono text-[12px] font-semibold text-ink-900">' + r[0] + '</span>';
+      return '<tr class="align-top">' +
+        '<td class="px-4 py-2.5 whitespace-nowrap">' + code + '</td>' +
+        '<td class="px-4 py-2.5 text-ink-700">' + r[2] + '</td>' +
+        '<td class="px-4 py-2.5 text-ink-600">' + r[3] + '</td>' +
+        '<td class="px-4 py-2.5">' + channels(r[4]) + '</td>' +
+        '<td class="px-4 py-2.5">' + STATE[r[5]] + (r[6] ? '<div class="text-[11px] text-ink-500 mt-1 max-w-[240px]">' + r[6] + '</div>' : '') + '</td>' +
+        '<td class="px-4 py-2.5 text-[12px] whitespace-nowrap">' + DOCS[r[7]] + '</td></tr>';
+    }).join('');
+    document.getElementById('legend').innerHTML =
+      '<span class="inline-flex items-center gap-1.5">' + STATE.exista + ' neschimbat</span>' +
+      '<span class="inline-flex items-center gap-1.5">' + STATE.text + ' există, textul se schimbă</span>' +
+      '<span class="inline-flex items-center gap-1.5">' + STATE.nou + ' se construiește</span>' +
+      '<span class="inline-flex items-center gap-1.5">' + STATE.propus + ' așteaptă răspunsul la B9</span>';
+
+    // ---------- Ajutoare pentru corpul e-mailului ----------
+    function P(t) { return '<p>' + t + '</p>'; }
+    function SMALL(t) { return '<p class="text-[13px] text-ink-500">' + t + '</p>'; }
+    function BTN(t) { return '<div class="pt-1"><a class="btn btn--primary">' + t + '</a></div>'; }
+    var AMOUNT = '<span class="inline-block align-middle w-16 h-2.5 rounded bg-surface-300"></span>';
+    function BOX(rows) {
+      return '<div class="rounded-lg border border-surface-200 bg-surface-50 px-4 py-2 text-[13px]">' + rows.map(function (r) {
+        return '<div class="flex justify-between gap-4 py-1"><span class="text-ink-500">' + r[0] + '</span><span class="text-ink-900 font-medium text-right">' + r[1] + '</span></div>';
+      }).join('') + '</div>';
+    }
+    function STEPS(list) {
+      return '<ul class="rounded-lg border border-surface-200 bg-surface-50 px-4 py-2 text-[13px] divide-y divide-surface-200">' + list.map(function (s) {
+        var mark = s[1] === 'done' ? '<span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">' + svg('check', 'w-2.5 h-2.5') + '</span>'
+          : s[1] === 'lock' ? '<span class="w-4 h-4 text-ink-400 shrink-0">' + svg('lock', 'w-4 h-4') + '</span>'
+          : '<span class="w-4 h-4 rounded-full border-2 border-surface-400 shrink-0"></span>';
+        return '<li class="flex items-center gap-2.5 py-1.5"><span class="flex items-center">' + mark + '</span><span class="' + (s[1] === 'done' ? 'text-ink-400 line-through' : s[1] === 'lock' ? 'text-ink-400' : 'text-ink-900 font-medium') + '">' + s[0] + '</span>' + (s[2] ? '<span class="ml-auto text-[11px] text-ink-400">' + s[2] + '</span>' : '') + '</li>';
+      }).join('') + '</ul>';
+    }
+    var TONE = {
+      primary: 'bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400',
+      emerald: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+      amber: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400',
+      red: 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400',
+      sky: 'bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400'
+    };
+
+    // ---------- Previzualizările ----------
+    var OWNER_FROM = 'Eventya &lt;noreply@eventya.net&gt;';
+    var REPLY = 'Suport Eventya (un răspuns devine tichet)';
+    var PREVIEWS = [
+      { id: 'auth-006', code: 'AUTH-008', title: 'Autentificare cu un e-mail necunoscut', ch: ['mail'], when: 'pe /signin, cu o adresă fără cont (R3)', who: 'adresa introdusă',
+        v: [{ to: 'ana.demo@example.com', subject: 'Nu există un cont Eventya cu această adresă',
+          body: P('Bună,') + P('Cineva a cerut un cod de autentificare pentru <b>ana.demo@example.com</b>. Nu există un cont Eventya cu această adresă.') + P('Vrei un spațiu de lucru nou? Creează un cont. Durează un minut.') + BTN('Creează un cont') + SMALL('Ai un cont pe altă adresă? Autentifică-te cu aceea. Dacă nu tu ai cerut codul, ignoră mesajul.'),
+          bell: null, bellNote: 'Fără clopoțel: adresa nu are cont.' }],
+        notes: ['Ecranul rămâne „Ți-am trimis un cod”, la fel ca pentru o adresă cu cont. Nu dezvăluie ce adrese au cont.', 'Butonul duce la /signup, cu adresa completată.', 'Aceeași limită de trimiteri ca AUTH-001 (rack-attack, store comun).'] },
+
+      { id: 'pay-001', code: 'PAY-001', title: 'Plata e confirmată, abonamentul e activ', ch: ['bell', 'mail'], when: '<code>invoice.paid</code>, doar la prima plată', who: 'proprietarii',
+        v: [{ to: 'maria.demo@example.com', subject: 'Plata e confirmată. Abonamentul Teatrul Demo e activ',
+          body: P('Bună, Maria,') + P('Am primit plata. Abonamentul e activ.') +
+            BOX([['Pachetul', 'Web + Media'], ['Plata', 'anual, cu cardul'], ['Suma', AMOUNT + ' lei, TVA inclus'], ['Următoarea plată', '12.08.2027']]) +
+            P('Factura fiscală o primești separat, pe e-mailul de facturare, de la echipa Eventya. Chitanța o găsești în pagina Abonament.') + BTN('Deschide spațiul'),
+          bell: ['emerald', 'check', 'Plata e confirmată', 'Abonamentul Web + Media e activ până pe 12.08.2027.'] }],
+        notes: ['Doar la prima plată. Reînnoirile nu trimit nimic de la noi: rămân chitanța Stripe și factura fiscală de la echipă.', 'Pleacă și când plata vine din „Alege abonamentul” sau din „Continuă cu abonamentul”.'] },
+
+      { id: 'pay-002', code: 'PAY-002', title: 'Plata a eșuat', ch: ['bell', 'push', 'mail'], when: '<code>invoice.payment_failed</code>, apoi în zilele 3 și 6 ale grației', who: 'proprietarii',
+        v: [
+          { tab: 'Ziua 0', to: 'ana.demo@example.com', subject: 'Plata abonamentului Pensiunea Demo nu a trecut',
+            body: P('Bună, Ana,') + P('Plata lunară pentru Pensiunea Demo nu a trecut pe 22.09.2026. Banca a refuzat cardul.') + P('<b>Plătește până pe 29.09.2026</b>, cu același card sau cu altul. Reîncercăm automat până atunci. După această dată, site-ul și modulele se opresc, iar conținutul rămâne păstrat.') + BTN('Plătește acum'),
+            bell: ['red', 'alert', 'Plata nu a trecut', 'Plătește până pe 29.09.2026.'], push: ['Pensiunea Demo', 'Plata nu a trecut. Plătește până pe 29.09.'] },
+          { tab: 'Ziua 3', to: 'ana.demo@example.com', subject: 'Plătește abonamentul până pe 29.09.2026',
+            body: P('Bună, Ana,') + P('Plata pentru Pensiunea Demo încă nu a trecut. Mai ai 4 zile, până pe 29.09.2026, să plătești.') + P('Până atunci, totul merge normal. După această dată, site-ul și modulele se opresc.') + BTN('Plătește acum'),
+            bell: ['red', 'alert', 'Plata încă nu a trecut', 'Mai ai 4 zile. Plătește până pe 29.09.2026.'], push: ['Pensiunea Demo', 'Mai ai 4 zile să plătești.'] },
+          { tab: 'Ziua 6', to: 'ana.demo@example.com', subject: 'Mâine se suspendă Pensiunea Demo',
+            body: P('Bună, Ana,') + P('Plata pentru Pensiunea Demo nu a trecut nici acum. <b>Mâine, 29.09.2026, spațiul se suspendă</b>: site-ul și modulele se opresc.') + P('Conținutul rămâne păstrat și revine imediat ce plata trece.') + BTN('Plătește acum'),
+            bell: ['red', 'alert', 'Mâine se suspendă spațiul', 'Plătește azi ca să rămână pornit.'], push: ['Pensiunea Demo', 'Mâine se suspendă spațiul. Plătește azi.'] }
+        ],
+        notes: ['Data e <code>grace_until</code>: 7 zile de la prima plată eșuată (§7.6).', 'Butonul duce la factura găzduită de Stripe (<code>hosted_invoice_url</code>): plata se face pe loc, cu orice card.', 'Se oprește imediat ce vine <code>invoice.paid</code>.', 'PAY-005 pleacă o singură dată, la ziua 0, către admini.'] },
+
+      { id: 'pay-003', code: 'PAY-003', title: 'Confirmă plata cu 3-D Secure', ch: ['bell', 'mail'], when: '<code>invoice.payment_action_required</code>', who: 'proprietarii',
+        v: [{ to: 'ana.demo@example.com', subject: 'Confirmă plata pentru Pensiunea Demo',
+          body: P('Bună, Ana,') + P('Banca ta cere o confirmare pentru plata abonamentului Pensiunea Demo (3-D Secure). Fără ea, plata nu se face.') + P('Confirmarea durează un minut, pe pagina securizată a plății.') + BTN('Confirmă plata') + SMALL('Până confirmi, spațiul rămâne pornit cel mult 7 zile.'),
+          bell: ['amber', 'lock', 'Confirmă plata cu 3-D Secure', 'Banca cere o confirmare pentru plata abonamentului.'] }],
+        notes: ['Butonul duce la factura găzduită de Stripe (<code>hosted_invoice_url</code>).', 'Pentru aceeași plată, Stripe trimite și <code>invoice.payment_failed</code>. Atunci pleacă doar PAY-003, nu și PAY-002.', 'Se suprapune cu e-mailul de 3-D Secure trimis de Stripe (C9). Rămâne doar unul.'] },
+
+      { id: 'pay-004', code: 'PAY-004', title: 'Abonamentul se încheie pe…', ch: ['bell', 'mail'], when: 'anularea din pagina Abonament (<code>cancel_at_period_end</code> devine da)', who: 'proprietarii',
+        v: [{ to: 'elena.demo@example.com', subject: 'Abonamentul Asociația Demo se încheie pe 18.10.2026',
+          body: P('Bună, Elena,') + P('Am primit anularea. Abonamentul rămâne activ până pe <b>18.10.2026</b>. Nu se mai face nicio plată.') + P('După această dată, site-ul și modulele se opresc. Conținutul rămâne păstrat și revine când reiei abonamentul.') + P('Te-ai răzgândit? Reia abonamentul până pe 18.10.2026, fără nicio plată în plus.') + BTN('Reia abonamentul'),
+          bell: ['amber', 'cal', 'Abonamentul se încheie pe 18.10.2026', 'Îl poți relua până atunci.'] }],
+        notes: ['„Reia abonamentul” retrage anularea: <code>cancel_at_period_end</code> revine la nu.', 'La final vine <code>customer.subscription.deleted</code>, apoi SUB-002, ca în Tranziție.'] },
+
+      { id: 'pay-005', code: 'PAY-005', title: 'Intern: plată eșuată, dispută, rambursare', ch: ['mail', 'bell'], when: '<code>invoice.payment_failed</code> · <code>charge.dispute.created</code> · <code>charge.refunded</code>', who: 'adminii Eventya',
+        v: [
+          { tab: 'Plată eșuată', to: 'adminii platformei', subject: '[Plată eșuată] Pensiunea Demo · Web + Media · lunar',
+            body: BOX([['Spațiul', 'Pensiunea Demo · /pensiunea-demo'], ['Motivul', '<code>card_declined</code>'], ['Grație', 'până pe 29.09.2026'], ['Factura Stripe', '<code>in_TEST2Lx8Vb1</code>']]) + P('Stripe reîncearcă automat. Clientul a primit PAY-002.') + BTN('Deschide în Admin'),
+            bell: ['red', 'alert', 'Plată eșuată · Pensiunea Demo', 'Grație până pe 29.09.2026.'] },
+          { tab: 'Dispută', to: 'adminii platformei', subject: '[Dispută] Teatrul Demo · Web + Media · anual',
+            body: BOX([['Spațiul', 'Teatrul Demo · /teatrul-demo'], ['Motivul', '<code>fraudulent</code>'], ['Suma', AMOUNT + ' lei'], ['Disputa', '<code>dp_TEST7Wc3Ke</code>']]) + P('Răspunsul la dispută se dă din Stripe, până la termenul din dashboard.') + BTN('Deschide în Admin'),
+            bell: ['red', 'alert', 'Dispută · Teatrul Demo', 'Răspunde din Stripe până la termen.'] },
+          { tab: 'Rambursare', to: 'adminii platformei', subject: '[Rambursare] Asociația Demo · Web + Community · lunar',
+            body: BOX([['Spațiul', 'Asociația Demo · /asociatia-demo'], ['Suma', AMOUNT + ' lei'], ['Plata', '<code>ch_TEST1Rf6Pq</code>']]) + P('<b>Emite storno</b> pentru factura fiscală a acestei plăți, în afara platformei.') + BTN('Deschide în Admin'),
+            bell: ['amber', 'file', 'Rambursare · Asociația Demo', 'Emite storno pentru factura acestei plăți.'] }
+        ],
+        notes: ['Aceiași destinatari ca EVENTYA-008.', 'Storno-ul se face de mână, în afara platformei (§8).'] },
+
+      { id: 'pay-006', code: 'PAY-006', title: 'Intern: plată încasată, emite factura fiscală', ch: ['mail', 'bell'], when: 'fiecare <code>invoice.paid</code>, inclusiv reînnoirile și diferențele de la upgrade', who: 'adminii Eventya',
+        v: [{ to: 'adminii platformei', subject: '[Emite factura] Teatrul Demo · Web + Media · anual',
+          body: BOX([['Cumpărătorul', 'Teatrul Demo · CUI RO12345678'], ['Adresa', 'Str. Exemplului 1, Cluj-Napoca, România'], ['E-mailul de facturare', 'contabilitate@teatruldemo.ro'], ['Suma', AMOUNT + ' lei, TVA inclus'], ['Perioada', '12.08.2026 – 12.08.2027'], ['Plata', '<code>in_TEST5Hq9Lk</code>']]) +
+            P('Emite factura fiscală în programul de facturare. Datele cumpărătorului vin din Stripe Checkout.') + BTN('Deschide în Stripe'),
+          bell: ['emerald', 'file', 'Emite factura · Teatrul Demo', 'Plată încasată, cu TVA inclus.'] }],
+        notes: ['Poartă <code>stripe_event_id</code>: un eveniment reluat nu trimite a doua oară.', 'Reconcilierea zilnică trimite PAY-006 pentru orice plată din ultimele 35 de zile care nu l-a primit (§7.9).', 'Până la automatizare (§8), e singurul semnal pentru factura fiscală.'] },
+
+      { id: 'sub-005', code: 'SUB-005', title: 'Plata anuală se reînnoiește pe…', ch: ['mail'], when: '<code>invoice.upcoming</code>, cu 7 zile înainte, doar la anual', who: 'proprietarii',
+        v: [{ to: 'maria.demo@example.com', subject: 'Abonamentul anual Teatrul Demo se reînnoiește pe 12.08.2027',
+          body: P('Bună, Maria,') + P('Pe 12.08.2027 se face plata pentru încă un an. Nu trebuie să faci nimic.') +
+            BOX([['Pachetul', 'Web + Media'], ['Suma', AMOUNT + ' lei, TVA inclus'], ['Cardul', 'Visa •••• 4242']]) +
+            P('Vrei alt card, alt pachet sau să anulezi? Ai timp până pe 12.08.2027.') + BTN('Vezi abonamentul'),
+          bell: null, bellNote: 'Doar e-mail, ca în catalog.' }],
+        notes: ['Ține locul SUB-001 pentru abonamentele anuale pe card.', 'Pentru abonamentele lunare, <code>invoice.upcoming</code> se ignoră.'] },
+
+      { id: 'sub-001', code: 'SUB-001', title: 'Perioada de probă se încheie (varianta de trial)', ch: ['bell', 'push', 'mail'], when: 'cu 7 zile și cu o zi înainte de <code>ends_at</code>, ca azi', who: 'proprietarii',
+        v: [
+          { tab: '7 zile', to: 'radu.demo@example.com', subject: 'Perioada de probă pentru Muzeul Demo se încheie în 7 zile',
+            body: P('Bună, Radu,') + P('Perioada de probă se încheie pe 16.10.2026. Alege un abonament, ca site-ul să rămână pornit. Ce nu intră în pachetul ales se ascunde, iar conținutul rămâne.') + P('Cu cardul, abonamentul pornește pe loc. Dacă instituția ta cumpără prin achiziție, cere o ofertă.') + BTN('Alege abonamentul'),
+            bell: ['amber', 'cal', 'Perioada de probă se încheie în 7 zile', 'Alege abonamentul ca Muzeul Demo să rămână pornit.'], push: ['Muzeul Demo', 'Perioada de probă se încheie în 7 zile.'] },
+          { tab: '1 zi', to: 'radu.demo@example.com', subject: 'Mâine se încheie perioada de probă pentru Muzeul Demo',
+            body: P('Bună, Radu,') + P('Perioada de probă se încheie mâine, 16.10.2026. După această dată, site-ul și modulele se opresc, iar conținutul rămâne păstrat.') + BTN('Alege abonamentul'),
+            bell: ['amber', 'cal', 'Mâine se încheie perioada de probă', 'Alege abonamentul ca site-ul să rămână pornit.'], push: ['Muzeul Demo', 'Mâine se încheie perioada de probă.'] }
+        ],
+        notes: ['Nu pleacă abonamentelor Stripe care se reînnoiesc singure.', 'Butonul duce la „Alege abonamentul”, cu selecția de pe site preselectată.', 'După „+30 de zile” din Admin, pleacă din nou față de noul final.'] },
+
+      { id: 'sub-002', code: 'SUB-002', title: 'Perioada de probă s-a încheiat (varianta de trial)', ch: ['bell', 'push', 'mail'], when: 'a doua zi după <code>ends_at</code>, ca azi', who: 'proprietarii',
+        v: [{ to: 'radu.demo@example.com', subject: 'Perioada de probă pentru Muzeul Demo s-a încheiat',
+          body: P('Bună, Radu,') + P('Perioada de probă s-a încheiat pe 16.10.2026. Site-ul și modulele sunt oprite.') + P('Conținutul rămâne păstrat și revine imediat ce alegi un abonament.') + BTN('Alege abonamentul'),
+          bell: ['red', 'lock', 'Perioada de probă s-a încheiat', 'Alege abonamentul și totul revine pe loc.'], push: ['Muzeul Demo', 'Perioada de probă s-a încheiat.'] }],
+        notes: ['Butonul duce la „Continuă cu abonamentul”, cu selecția de pe site preselectată.', 'Perioada de probă nu se repetă pentru același spațiu. O prelungește doar echipa, din Admin.'] },
+
+      { id: 'guide-001', code: 'GUIDE-001', title: 'Ghidul de început: încă N pași', ch: ['mail'], when: 'ziua 3 a trial-ului, o singură dată, doar dacă mai sunt pași (§4.6)', who: 'proprietarii', proposed: true,
+        v: [{ to: 'radu.demo@example.com', subject: 'Încă 4 pași până la site-ul Muzeul Demo',
+          body: P('Bună, Radu,') + P('Ai pornit bine. Mai ai 4 pași până publici site-ul.') +
+            STEPS([['Pune logo-ul și culorile', 'done'], ['Completează datele legale și de contact', 'todo'], ['Personalizează pagina de acasă', 'done'], ['Adaugă programul de vizitare și prima expoziție', 'todo'], ['Invită echipa', 'todo'], ['Conectează domeniul propriu', 'todo'], ['Publică site-ul', 'todo']]) +
+            P('Până atunci, site-ul e privat: îl vezi doar tu și echipa ta.') + BTN('Continuă ghidul'),
+          bell: null, bellNote: 'Doar e-mail. Fără clopoțel și fără push: ghidul e deja în Dashboard.' }],
+        notes: ['Propus, așteaptă răspunsul la B9.', 'Doar în trial și doar dacă mai sunt pași nebifați. Lista se citește din aceleași date care bifează ghidul, cu pasul 4 după template (aici Atrium).', 'Trece prin Noticed și are intrare în <code>manual/notifications</code>, ca orice notifier.'] }
+    ];
+
+    function emailBox(v) {
+      return '<div class="rounded-xl border border-surface-300 bg-surface-0 shadow-sm overflow-hidden">' +
+        '<div class="px-5 py-3 border-b border-surface-200 text-[12px] text-ink-500 space-y-0.5">' +
+          '<div><b class="text-ink-700">De la:</b> ' + OWNER_FROM + '</div>' +
+          '<div><b class="text-ink-700">Către:</b> ' + v.to + '</div>' +
+          '<div><b class="text-ink-700">Răspunde la:</b> ' + (v.reply || REPLY) + '</div>' +
+          '<div><b class="text-ink-700">Subiect:</b> <span class="text-ink-900 font-medium">' + v.subject + '</span></div>' +
+        '</div>' +
+        '<div class="px-5 sm:px-6 py-5 text-[14px] text-ink-700 leading-relaxed space-y-3.5">' + v.body + '</div></div>';
+    }
+    function bellItem(b) {
+      return '<div class="card p-3 flex gap-3">' +
+        '<div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ' + TONE[b[0]] + '">' + svg(b[1]) + '</div>' +
+        '<div class="text-[13px] min-w-0"><div class="font-medium text-ink-900">' + b[2] + '</div><div class="text-ink-500">' + b[3] + '</div></div></div>';
+    }
+    function pushItem(p) {
+      return '<div class="rounded-2xl border border-surface-200 bg-surface-100 px-3 py-2.5 flex gap-2.5">' +
+        '<div class="w-7 h-7 rounded-lg bg-primary-500 text-white text-[11px] font-bold flex items-center justify-center shrink-0">E</div>' +
+        '<div class="text-[12px] min-w-0"><div class="flex items-center gap-2"><b class="text-ink-900">' + p[0] + '</b><span class="text-ink-400 ml-auto">acum</span></div><div class="text-ink-600">' + p[1] + '</div></div></div>';
+    }
+    function label(t) { return '<div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">' + t + '</div>'; }
+
+    var jump = '', html = '';
+    PREVIEWS.forEach(function (p) {
+      jump += '<a href="#' + p.id + '" class="px-2.5 py-1 rounded-md bg-surface-0 border border-surface-200 text-[12px] font-mono font-semibold text-ink-700 hover:border-primary-400">' + p.code + '</a>';
+      var tabs = p.v.length > 1 ? '<div class="inline-flex mt-3 p-1 rounded-xl bg-surface-100 text-[12px]" data-tabs>' + p.v.map(function (v, i) {
+        return '<button type="button" data-i="' + i + '" class="px-3 py-1 rounded-lg ' + (i ? 'text-ink-500' : 'bg-surface-0 shadow-sm font-semibold text-ink-900') + '">' + v.tab + '</button>';
+      }).join('') + '</div>' : '';
+      var bodies = p.v.map(function (v, i) {
+        var side = '<div>' + label('Clopoțel') + (v.bell ? bellItem(v.bell) : '<div class="text-[12px] text-ink-500 rounded-lg border border-dashed border-surface-300 p-3">' + v.bellNote + '</div>') + '</div>' +
+          (v.push ? '<div>' + label('Push') + pushItem(v.push) + '</div>' : '');
+        return '<div data-v="' + i + '"' + (i ? ' hidden' : '') + ' class="grid gap-6 lg:grid-cols-[1fr_300px] items-start mt-4">' +
+          '<div class="min-w-0">' + label('E-mail') + emailBox(v) + '</div>' +
+          '<div class="space-y-4">' + side +
+            '<div class="card p-4 text-[12px] text-ink-600 leading-relaxed"><div class="font-semibold text-[13px] text-ink-900 mb-1.5">Note</div><ul class="space-y-1.5">' +
+            p.notes.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ul></div>' +
+          '</div></div>';
+      }).join('');
+      html += '<section id="' + p.id + '" class="scroll-mt-6 pt-10 mt-10 border-t border-surface-200" data-preview>' +
+        '<div class="flex flex-wrap items-center gap-x-3 gap-y-2">' +
+          '<span class="font-mono text-[12px] font-bold px-2 py-0.5 rounded-md bg-ink-900 text-surface-0">' + p.code + '</span>' +
+          '<span class="text-lg font-semibold text-ink-900">' + p.title + '</span>' +
+          (p.proposed ? STATE.propus : '') +
+          '<span class="ml-auto">' + channels(p.ch) + '</span>' +
+        '</div>' +
+        '<div class="text-[12px] text-ink-500 mt-1"><b class="text-ink-700">Când:</b> ' + p.when + ' · <b class="text-ink-700">Cui:</b> ' + p.who + '</div>' +
+        tabs + bodies + '</section>';
+    });
+    document.getElementById('jump').innerHTML = jump;
+    document.getElementById('previews').innerHTML = html;
+
+    document.getElementById('previews').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tabs] [data-i]'); if (!b) return;
+      var sec = b.closest('[data-preview]'), i = b.getAttribute('data-i');
+      sec.querySelectorAll('[data-tabs] [data-i]').forEach(function (x) {
+        x.className = 'px-3 py-1 rounded-lg ' + (x === b ? 'bg-surface-0 shadow-sm font-semibold text-ink-900' : 'text-ink-500');
+      });
+      sec.querySelectorAll('[data-v]').forEach(function (el) { el.hidden = el.getAttribute('data-v') !== i; });
+    });
+    if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
+  </script>
+
+  <!-- Dark-mode toggle -->
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

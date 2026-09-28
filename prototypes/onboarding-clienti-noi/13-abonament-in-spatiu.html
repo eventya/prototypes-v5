@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abonamentul în spațiu · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#13 · Abonamentul, în spațiu</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-4">
+      <div class="flex items-center gap-1 text-[12px] text-amber-800 dark:text-amber-200" id="states"></div>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="flex items-center h-14 px-4 border-y border-surface-200">
+    <div class="flex items-center w-full h-full gap-6">
+      <a href="17-ghid-de-inceput.html" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold">MD</div>
+        <span class="text-sm font-semibold text-ink-900">Muzeul Demo</span>
+      </a>
+      <nav class="hidden md:flex items-stretch self-stretch gap-1 mx-auto" id="tabs">
+        <a href="18-dashboard.html#owner" class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">Dashboard</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">Site web</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">Helpdesk</a>
+      </nav>
+      <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold ml-auto">AP</div>
+    </div>
+  </header>
+
+  <main class="vt-main max-w-2xl mx-auto px-4 pt-12 pb-24">
+    <h1 class="text-2xl font-bold text-ink-900" id="title">Abonament Eventya</h1>
+    <p class="text-[14px] text-ink-500 mt-1" id="line"></p>
+    <div id="notice"></div>
+    <div id="picker" class="mt-8"></div>
+  </main>
+
+  <script src="abonament.js"></script>
+  <script>
+    var STATES = {
+      card:      { label: 'Pe card', line: 'Web + Media · lunar, cu cardul · următoarea plată pe 01.11.2026 · <a href="19-abonament.html#card" class="text-primary hover:underline">Card, facturi și anulare</a>',
+                   opts: { mode: 'upgrade', billing: 'stripe', current: { base: 'web', modules: ['media'] }, currentInterval: 'monthly' } },
+      failed:    { label: 'Plată eșuată', line: 'Web + Media · lunar, cu cardul',
+                   notice: '<div class="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-red-200 dark:border-red-500/30 px-4 py-3"><span class="text-[14px] text-ink-800">Plata din 01.10 n-a trecut. Plătește până pe 08.10, altfel spațiul se suspendă.</span><a class="btn btn--primary btn--sm">Plătește acum</a></div>' },
+      cancelled: { label: 'Anulat', line: 'Web + Media · lunar, cu cardul',
+                   notice: '<div class="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-surface-200 px-4 py-3"><span class="text-[14px] text-ink-800">Ai anulat. Abonamentul se încheie pe 01.11.2026.</span><button type="button" data-state="card" class="btn btn--primary btn--sm">Reia abonamentul</button></div>' },
+      suspended: { label: 'Suspendat', title: 'Abonamentul s-a încheiat pe 30.09.2026', line: 'Site-ul, aplicația și modulele sunt oprite. Conținutul e păstrat și revine exact cum era.',
+                   opts: { mode: 'renew', current: { base: 'web', modules: ['media'] } } }
+    };
+    var state = 'card';
+
+    function render() {
+      var st = STATES[state];
+      document.getElementById('states').innerHTML = Object.keys(STATES).map(function (k) {
+        return '<button type="button" data-state="' + k + '" class="px-2 py-1 rounded-md ' + (k === state ? 'font-semibold underline underline-offset-4' : 'font-medium opacity-80 hover:opacity-100') + '">' + STATES[k].label + '</button>';
+      }).join('');
+      document.getElementById('title').textContent = st.title || 'Abonament Eventya';
+      document.getElementById('line').innerHTML = st.line;
+      document.getElementById('notice').innerHTML = st.notice || '';
+      document.getElementById('tabs').hidden = state === 'suspended';
+      var picker = document.getElementById('picker');
+      if (!st.opts) { if (picker._abCleanup) picker._abCleanup(); picker.innerHTML = ''; return; }
+      var o = Object.assign({}, st.opts, {
+        onDone: function (r) {
+          if (r.path === 'card') location.href = '10-stripe-checkout.html';
+          else if (r.path === 'contract' || r.path === 'request') location.href = '11-cerere-contract.html';
+          else if (r.path === 'apply') { document.getElementById('line').innerHTML = 'Schimbarea e aplicată. Diferența s-a plătit cu cardul salvat.'; }
+        }
+      });
+      Abonament(picker, o);
+    }
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-state]'); if (b) { state = b.dataset.state; history.replaceState(null, '', '#' + state); render(); } });
+    var h = (location.hash || '').slice(1); if (STATES[h]) state = h;
+    render();
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

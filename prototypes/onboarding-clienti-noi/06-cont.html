@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cont · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#6 · Contul: creare, autentificare, cod</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="vt-header max-w-5xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4">
+    <a href="03-site-antet.html" class="flex items-center gap-2 font-semibold text-ink-900">
+      <span class="w-6 h-6 rounded-md bg-linear-to-br from-primary-500 to-sky-400"></span>eventya
+    </a>
+    <span class="text-[13px] text-ink-500" id="switch"></span>
+  </header>
+
+  <main class="vt-main max-w-sm mx-auto px-4 pt-16 pb-24">
+
+    <!-- cont nou, câte un câmp pe pas -->
+    <section data-view="signup">
+      <p class="text-[12px] text-ink-400">Pasul 1 din 3</p>
+      <h1 class="text-2xl font-bold text-ink-900 mt-1">Cum te numești?</h1>
+      <p class="text-[14px] text-ink-500 mt-1" data-intent>Durează un minut. Nu ai nevoie de card.</p>
+      <form class="mt-8 space-y-4" data-go="email">
+        <label class="sr-only" for="n">Numele tău</label>
+        <input id="n" class="input w-full" autocomplete="name" placeholder="Numele tău" required>
+        <button class="btn btn--primary w-full">Continuă</button>
+      </form>
+    </section>
+
+    <section data-view="email" hidden>
+      <p class="text-[12px] text-ink-400">Pasul 2 din 3</p>
+      <h1 class="text-2xl font-bold text-ink-900 mt-1">Care e e-mailul tău?</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Îți trimitem un cod. Fără parolă.</p>
+      <form class="mt-8 space-y-4" data-go="code">
+        <label class="sr-only" for="e">E-mailul de serviciu</label>
+        <input id="e" type="email" class="input w-full" autocomplete="email" placeholder="nume@organizatie.ro" required>
+        <button class="btn btn--primary w-full">Trimite codul</button>
+        <p class="text-[12px] text-ink-400">Continuând, accepți <a href="#" class="underline">Termenii</a> și <a href="#" class="underline">Politica de confidențialitate</a>.</p>
+      </form>
+      <button type="button" data-show="signup" class="text-[13px] text-ink-500 hover:text-ink-800 mt-6">← Înapoi</button>
+    </section>
+
+    <!-- autentificare -->
+    <section data-view="signin" hidden>
+      <h1 class="text-2xl font-bold text-ink-900">Intră în cont</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Îți trimitem un cod pe e-mail. Fără parolă.</p>
+      <form class="mt-8 space-y-4" data-go="code">
+        <div>
+          <label class="block text-[13px] font-medium text-ink-800 mb-1.5" for="e2">E-mail</label>
+          <input id="e2" type="email" class="input w-full" autocomplete="email" required>
+        </div>
+        <button class="btn btn--primary w-full">Trimite codul</button>
+      </form>
+    </section>
+
+    <!-- codul -->
+    <section data-view="code" hidden>
+      <p class="text-[12px] text-ink-400" data-code-step>Pasul 3 din 3</p>
+      <h1 class="text-2xl font-bold text-ink-900 mt-1">Verifică-ți e-mailul</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Ți-am trimis un cod de 6 cifre la <span class="text-ink-800" id="to">ana@muzeuldemo.ro</span>.</p>
+      <form class="mt-8" id="code-form">
+        <div class="flex gap-2" id="digits">
+          <input inputmode="numeric" maxlength="1" class="input w-12 h-14 text-center text-xl font-semibold" aria-label="Cifra 1">
+          <input inputmode="numeric" maxlength="1" class="input w-12 h-14 text-center text-xl font-semibold" aria-label="Cifra 2">
+          <input inputmode="numeric" maxlength="1" class="input w-12 h-14 text-center text-xl font-semibold" aria-label="Cifra 3">
+          <input inputmode="numeric" maxlength="1" class="input w-12 h-14 text-center text-xl font-semibold" aria-label="Cifra 4">
+          <input inputmode="numeric" maxlength="1" class="input w-12 h-14 text-center text-xl font-semibold" aria-label="Cifra 5">
+          <input inputmode="numeric" maxlength="1" class="input w-12 h-14 text-center text-xl font-semibold" aria-label="Cifra 6">
+        </div>
+        <button class="btn btn--primary w-full mt-6">Verifică</button>
+      </form>
+      <p class="text-[13px] text-ink-500 mt-6">Nu a venit? <button type="button" id="resend" class="text-primary hover:underline">Retrimite codul</button> · <button type="button" data-show="email" data-other class="hover:text-ink-800 underline underline-offset-2">Alt e-mail</button></p>
+    </section>
+  </main>
+
+  <script>
+    var view = 'signup', from = 'signup';
+    function show(v) {
+      if (v === 'code') from = view;
+      view = v;
+      document.querySelectorAll('[data-view]').forEach(function (s) { s.hidden = s.dataset.view !== v; });
+      document.getElementById('switch').innerHTML = v === 'signin'
+        ? 'Nu ai cont? <button type="button" data-show="signup" class="text-primary hover:underline">Creează unul</button>'
+        : v === 'signup' || v === 'email' ? 'Ai deja cont? <button type="button" data-show="signin" class="text-primary hover:underline">Intră</button>' : '';
+      // La autentificare, codul nu e un pas din trei, iar „Alt e-mail” duce înapoi la autentificare.
+      document.querySelector('[data-code-step]').hidden = from === 'signin';
+      document.querySelector('[data-other]').dataset.show = from === 'signin' ? 'signin' : 'email';
+      var focus = { signup: '#n', email: '#e', signin: '#e2', code: '#digits input' }[v];
+      if (focus) document.querySelector(focus).focus();
+    }
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-show]'); if (b) show(b.dataset.show); });
+    document.getElementById('e').addEventListener('input', function (e) { document.getElementById('to').textContent = e.target.value || 'ana@muzeuldemo.ro'; });
+    document.querySelectorAll('form[data-go]').forEach(function (f) {
+      f.addEventListener('submit', function (e) { e.preventDefault(); show(f.dataset.go); });
+    });
+    // Codul: câte o cifră pe căsuță, se poate și lipi.
+    var digits = document.querySelectorAll('#digits input');
+    digits.forEach(function (d, i) {
+      d.addEventListener('input', function () { d.value = d.value.replace(/\D/g, '').slice(-1); if (d.value && digits[i + 1]) digits[i + 1].focus(); });
+      d.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !d.value && digits[i - 1]) digits[i - 1].focus(); });
+      d.addEventListener('paste', function (e) {
+        var t = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6); if (!t) return;
+        e.preventDefault(); t.split('').forEach(function (c, j) { if (digits[j]) digits[j].value = c; });
+      });
+    });
+    document.getElementById('code-form').addEventListener('submit', function (e) { e.preventDefault(); location.href = '07-pas-detalii.html'; });
+    document.getElementById('resend').addEventListener('click', function (e) { e.target.textContent = 'Trimis din nou'; e.target.disabled = true; });
+
+    // Intenția de pe site (prețuri, soluții) rămâne cu utilizatorul până la final.
+    var q = new URLSearchParams(location.search), bits = [];
+    if (q.get('starter')) bits.push('template-ul ' + q.get('starter').charAt(0).toUpperCase() + q.get('starter').slice(1));
+    if (q.get('package')) bits.push('pachetul ' + q.get('package').charAt(0).toUpperCase() + q.get('package').slice(1));
+    if (bits.length) document.querySelector('[data-intent]').textContent = 'Începi cu ' + bits.join(' și ') + '. Durează un minut.';
+    show({ '#signin': 'signin', '#email': 'email', '#code': 'code' }[location.hash] || 'signup');
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

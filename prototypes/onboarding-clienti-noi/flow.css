@@ -1,0 +1,22 @@
+/* Transitions between the screens of the new-customer flow (06 → 18).
+ * Cross-document View Transitions: the header stays put, the content fades and rises slightly.
+ * Browsers without support simply navigate; reduced motion turns the animation off. */
+
+@view-transition { navigation: auto; }
+
+.vt-header { view-transition-name: flow-header; }
+.vt-main   { view-transition-name: flow-main; }
+
+::view-transition-old(flow-main) { animation: flow-out 140ms ease-in both; }
+::view-transition-new(flow-main) { animation: flow-in 220ms cubic-bezier(.2, .7, .2, 1) both; }
+
+@keyframes flow-out { to   { opacity: 0; transform: translateY(-4px); } }
+@keyframes flow-in  { from { opacity: 0; transform: translateY(8px); } }
+
+/* The same motion for changes inside a page (a step of the picker, a view switch). */
+.flow-enter { animation: flow-in 220ms cubic-bezier(.2, .7, .2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .flow-enter { animation: none; }
+}

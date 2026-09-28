@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#18 · Dashboard, în uz</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1 text-[11px]" id="views"></div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="flex items-center h-14 px-4 border-y border-surface-200 relative">
+    <div class="flex items-center w-full h-full gap-6">
+      <a href="18-dashboard.html" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold">MD</div>
+        <span class="text-sm font-semibold text-ink-900">Muzeul Demo</span>
+      </a>
+      <nav class="hidden md:flex items-stretch self-stretch gap-1 mx-auto" id="tabs"></nav>
+      <div class="flex items-center gap-3 ml-auto">
+        <button type="button" data-toggle="menu" class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold" id="avatar">AP</button>
+      </div>
+    </div>
+    <!-- meniul contului: doar lucrurile personale -->
+    <div id="menu" hidden class="absolute right-3 top-12 z-30 w-60 rounded-xl border border-surface-200 bg-surface-0 shadow-xl text-[13px] py-1">
+      <div class="px-4 py-2.5"><div class="font-medium text-ink-900" id="menu-name">Ana Popescu</div><div class="text-[12px] text-ink-500">ana@muzeuldemo.ro</div></div>
+      <div class="border-t border-surface-200 my-1"></div>
+      <a class="block px-4 py-2 text-ink-700 hover:bg-surface-100">Contul meu</a>
+      <a class="block px-4 py-2 text-ink-700 hover:bg-surface-100">Tichetele mele</a>
+      <a class="block px-4 py-2 text-ink-700 hover:bg-surface-100">Spațiile mele</a>
+      <div class="border-t border-surface-200 my-1"></div>
+      <a class="block px-4 py-2 text-ink-500 hover:bg-surface-100">Deconectare</a>
+    </div>
+  </header>
+
+  <main class="vt-main max-w-5xl mx-auto px-4 md:px-8 pt-12 pb-32" id="page"></main>
+
+  <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-30 hidden sm:flex items-center gap-2 rounded-full border border-surface-300 bg-surface-0 shadow-lg pl-4 pr-2 py-1.5 w-[380px] text-[13px] text-ink-400">
+    <span class="flex-1">✦ Întreabă asistentul AI…</span><kbd class="text-[10px] rounded bg-surface-100 px-1.5 py-0.5 font-mono">⌘J</kbd>
+  </div>
+
+  <script>
+    (function () {
+      // Fiecare modul: o cifră pentru bandă și un singur lucru de urmărit (date fictive). `alert` = cere atenție.
+      var M = {
+        site:  { tab: 'Site web',             kpi: ['Vizitatori', '12.480', '+8%'], row: 'Expoziții e pagina cea mai văzută' },
+        app:   { tab: 'Aplicație',            kpi: ['Dispozitive', '3.140', '+4%'], row: 'Ultimul anunț, acum 2 zile' },
+        help:  { tab: 'Helpdesk',             kpi: ['Tichete deschise', '14', ''],  row: '3 tichete nealocate', alert: true },
+        comm:  { tab: 'Community',            kpi: ['Membri noi', '86', ''],        row: '2 recenzii de verificat', alert: true },
+        ai:    { tab: 'AI pentru vizitatori', kpi: ['Conversații AI', '1.920', ''], row: '4% fără răspuns' },
+        qr:    { tab: 'Linkuri și QR',        kpi: ['Scanări QR', '2.310', '+12%'], row: '18 linkuri active' },
+        media: { tab: 'Media',                kpi: ['Fișiere', '4.812', ''],        row: '31 GB folosiți' }
+      };
+      // Coloana „Spațiul de lucru”: mutată din meniul avatarului. Doar proprietarii și dezvoltatorii o văd.
+      var W = [
+        { name: 'Echipa',      row: '5 membri · 1 invitație în așteptare' },
+        { name: 'Setări',      row: 'RO, EN · muzeuldemo.ro' },
+        { name: 'Abonament',   row: 'Enterprise · până pe 31.12.2026', href: '19-abonament.html#contract' },
+        { name: 'Rapoarte AI', row: 'Consumul din septembrie' }
+      ];
+      var VIEWS = [
+        { id: 'owner',  label: 'Proprietar', modules: ['site', 'app', 'help', 'comm', 'ai', 'qr', 'media'], who: 'Ana', role: 'owner',
+          status: '<a class="hover:text-ink-900 underline-offset-2 hover:underline">muzeuldemo.ro</a> · <a href="19-abonament.html#contract" class="hover:text-ink-900 underline-offset-2 hover:underline">Enterprise, până pe 31.12.2026</a>' },
+        { id: 'editor', label: 'Editor', modules: ['site', 'app', 'qr', 'media'], who: 'Ioana', role: 'editor', status: '<a class="hover:text-ink-900 underline-offset-2 hover:underline">muzeuldemo.ro</a>' },
+        { id: 'agent',  label: 'Agent helpdesk', modules: ['help'], who: 'Mihai', role: 'agent', status: 'Helpdesk · 5 tichete ale tale' },
+        { id: 'menu',   label: 'Meniul contului', same: 'owner', menu: true }
+      ];
+      var TAB_ORDER = ['site', 'app', 'help', 'comm', 'media'];
+      var CREATE = { owner: ['Pagină', 'Eveniment', 'Anunț push', 'Invită un coleg'], editor: ['Pagină', 'Eveniment', 'Anunț push'], agent: ['Tichet'] };
+
+      function row(name, text, alert, href) {
+        return '<a ' + (href ? 'href="' + href + '" ' : '') + 'class="flex items-center gap-4 py-3 border-b border-surface-200 group cursor-pointer">' +
+          '<span class="w-36 shrink-0 text-[14px] font-medium text-ink-900">' + name + '</span>' +
+          '<span class="flex-1 min-w-0 text-[14px] text-ink-500 truncate flex items-center gap-2">' + (alert ? '<span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" aria-label="cere atenție"></span>' : '') + text + '</span>' +
+          '<span class="text-ink-300 group-hover:text-ink-600">→</span></a>';
+      }
+
+      function render(id) {
+        var picked = VIEWS.filter(function (x) { return x.id === id; })[0] || VIEWS[0];
+        var v = picked.same ? VIEWS.filter(function (x) { return x.id === picked.same; })[0] : picked;
+        document.getElementById('menu').hidden = !picked.menu;
+        document.getElementById('avatar').textContent = { Ana: 'AP', Ioana: 'IV', Mihai: 'MI' }[v.who];
+        document.getElementById('menu-name').textContent = { Ana: 'Ana Popescu', Ioana: 'Ioana Vlad', Mihai: 'Mihai Ionescu' }[v.who];
+        document.getElementById('tabs').innerHTML = '<a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-ink-900 text-ink-900 font-semibold">Dashboard</a>' +
+          TAB_ORDER.filter(function (m) { return v.modules.indexOf(m) >= 0; }).map(function (m) {
+            return '<a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">' + M[m].tab + '</a>';
+          }).join('');
+
+        var create = CREATE[v.role];
+        var h = '<div class="flex flex-wrap items-start justify-between gap-4">' +
+          '<div><h1 class="text-2xl font-bold text-ink-900">Bună, ' + v.who + '</h1><p class="text-[14px] text-ink-500 mt-1">' + v.status + '</p></div>' +
+          '<div class="relative"><button type="button" data-toggle="create" class="btn btn--primary">+ Creează</button>' +
+            '<div id="create" hidden class="absolute right-0 top-11 z-20 w-52 rounded-xl border border-surface-200 bg-surface-0 shadow-xl py-1 text-[13px]">' +
+            create.map(function (c) { return '<a class="block px-4 py-2 text-ink-700 hover:bg-surface-100">' + c + '</a>'; }).join('') + '</div></div></div>';
+
+        var kpis = v.modules.slice(0, 4).map(function (m) { return M[m].kpi; });
+        h += '<div class="text-[12px] text-ink-400 mt-12">Ultimele 30 de zile</div>' +
+          '<div class="grid grid-cols-2 ' + ['', 'sm:grid-cols-1', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-4'][Math.min(kpis.length, 4)] + ' gap-y-6 mt-4">' +
+          kpis.map(function (k, i) {
+            return '<a class="block cursor-pointer group ' + (i ? 'sm:border-l sm:border-surface-200 sm:pl-6' : '') + '">' +
+              '<div class="text-[13px] text-ink-500">' + k[0] + '</div>' +
+              '<div class="text-3xl font-semibold text-ink-900 tabular-nums mt-1 tracking-tight group-hover:text-primary">' + k[1] + '</div>' +
+              '<div class="text-[12px] mt-0.5 ' + (k[2] ? 'text-emerald-600 dark:text-emerald-400' : 'text-ink-300') + '">' + (k[2] ? k[2] + ' față de luna trecută' : 'la fel ca luna trecută') + '</div></a>';
+          }).join('') + '</div>';
+
+        var modules = '<div><div class="text-[12px] text-ink-400 mb-2">Module</div><div class="border-t border-surface-200">' +
+          v.modules.map(function (m) { return row(M[m].tab, M[m].row, M[m].alert); }).join('') + '</div></div>';
+        var workspace = v.role === 'owner'
+          ? '<div><div class="text-[12px] text-ink-400 mb-2">Spațiul de lucru</div><div class="border-t border-surface-200">' +
+              W.map(function (w) { return row(w.name, w.row, false, w.href); }).join('') + '</div></div>'
+          : '';
+        h += '<div class="grid ' + (workspace ? 'md:grid-cols-2' : '') + ' gap-x-12 gap-y-10 mt-14">' + modules + workspace + '</div>';
+
+        document.getElementById('page').innerHTML = h;
+      }
+
+      var viewsEl = document.getElementById('views');
+      viewsEl.innerHTML = VIEWS.map(function (x) { return '<button type="button" data-view="' + x.id + '">' + x.label + '</button>'; }).join('');
+      function show(id) {
+        viewsEl.querySelectorAll('[data-view]').forEach(function (b) {
+          var on = b.getAttribute('data-view') === id;
+          b.className = 'px-2 py-1 rounded-md ' + (on ? 'font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200' : 'font-medium text-amber-700 dark:text-amber-300');
+        });
+        history.replaceState(null, '', '#' + id);
+        render(id);
+      }
+      viewsEl.addEventListener('click', function (e) { var id = e.target.getAttribute('data-view'); if (id) show(id); });
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-toggle]');
+        ['menu', 'create'].forEach(function (k) {
+          var el = document.getElementById(k); if (!el) return;
+          if (t && t.dataset.toggle === k) el.hidden = !el.hidden; else if (!e.target.closest('#' + k) && !e.target.closest('#views')) el.hidden = true;
+        });
+      });
+      var h0 = (location.hash || '').slice(1);
+      show(VIEWS.some(function (x) { return x.id === h0; }) ? h0 : 'owner');
+    })();
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg z-50"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

@@ -14,105 +14,93 @@
   </script>
   <link rel="stylesheet" href="../../assets/application.css">
 </head>
-<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
 
   <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#3 · Continuă cu abonamentul — spațiu de lucru suspendat</span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#3 · Continuă cu abonamentul</span>
     </div>
-    <div class="flex items-center gap-1 text-[11px]" id="views">
-      <button type="button" data-view="owner" class="px-2 py-1 rounded-md font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200">Proprietar</button>
-      <button type="button" data-view="member" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Membru</button>
-      <button type="button" data-view="trial" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Trial expirat</button>
+    <div class="flex flex-wrap items-center gap-4 text-[12px] text-amber-800 dark:text-amber-200">
+      <div class="flex items-center gap-1" id="people">
+        <button type="button" data-who="owner">Proprietar</button>
+        <button type="button" data-who="member">Membru</button>
+        <button type="button" data-who="trial">Trial expirat</button>
+      </div>
     </div>
     <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
   </div>
 
-  <!-- bara de sus: fără tab-uri de module, fără „Upgrade”, fără AI flotant -->
-  <header class="flex items-center h-14 px-4 bg-surface-0 border-y border-surface-200">
+  <!-- bara de sus: fără module, fără „Upgrade”, fără asistentul AI -->
+  <header class="flex items-center h-14 px-4 border-y border-surface-200">
     <div class="flex items-center w-full gap-6">
       <a class="flex items-center gap-2.5">
-        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">PD</div>
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold">PD</div>
         <span class="text-sm font-semibold text-ink-900">Primăria Demo</span>
       </a>
-      <div class="flex items-center gap-2.5 ml-auto">
-        <svg class="w-5 h-5 text-ink-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-        <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold">AP</div>
-      </div>
+      <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold ml-auto">AP</div>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-4 md:px-8 py-8">
-
-    <div class="rounded-2xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 p-5 flex gap-4">
-      <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+  <main class="max-w-2xl mx-auto px-4 pt-12 pb-24">
+    <section id="choose">
+      <span class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      </div>
-      <div>
-        <div class="text-xl font-bold text-ink-900" data-show="owner member">Abonamentul s-a încheiat pe 30.09.2026</div>
-        <div class="text-xl font-bold text-ink-900" data-show="trial" hidden>Perioada de probă s-a încheiat pe 30.09.2026</div>
-        <p class="text-[14px] text-ink-600 mt-1">Site-ul, aplicația mobilă și modulele sunt oprite. Conținutul, fișierele și tichetele sunt păstrate și revin exact cum erau când abonamentul continuă.</p>
-        <p class="text-[14px] text-ink-600 mt-1" data-show="member" hidden>Doar proprietarul spațiului de lucru poate reînnoi abonamentul.</p>
-      </div>
-    </div>
+      </span>
+      <h1 class="text-2xl font-bold text-ink-900 mt-4" id="title"></h1>
+      <p class="text-[14px] text-ink-500 mt-1">Site-ul, aplicația și modulele sunt oprite. Conținutul e păstrat și revine exact cum era.</p>
+      <p class="text-[14px] text-ink-700 mt-6" id="member-note" hidden>Doar proprietarul spațiului poate reînnoi abonamentul.</p>
+      <div id="picker" class="mt-10"></div>
+      <p class="text-[13px] text-ink-400 mt-12">Rămân deschise: <a class="hover:text-ink-700 underline underline-offset-2">Contul meu</a> · <a class="hover:text-ink-700 underline underline-offset-2">Echipa</a> · <a class="hover:text-ink-700 underline underline-offset-2">Cererile trimise</a></p>
+    </section>
 
-    <!-- proprietar: configuratorul, cu pachetul expirat preselectat -->
-    <div data-show="owner">
-      <div class="text-2xl font-bold text-ink-900 mt-10">Continuă cu abonamentul</div>
-      <p class="text-[14px] text-ink-500 mt-1 mb-6">Păstrează pachetul de dinainte sau alege altul, mai mic sau mai mare.</p>
-      <div id="configurator"></div>
-    </div>
-
-    <!-- trial expirat: același calculator, fără oferta unui trial nou -->
-    <div data-show="trial" hidden>
-      <div class="text-2xl font-bold text-ink-900 mt-10">Alege abonamentul</div>
-      <p class="text-[14px] text-ink-500 mt-1 mb-6">Perioada de probă nu se prelungește și nu se repetă. Continuă cu un abonament.</p>
-      <div id="configurator-trial"></div>
-    </div>
-
-    <div class="mt-10 card p-5">
-      <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider">Ce rămâne deschis cât timp e suspendat</div>
-      <div class="grid sm:grid-cols-3 gap-3 mt-3 text-[13px]">
-        <a class="rounded-lg border border-surface-200 p-3 hover:border-surface-400"><b class="text-ink-900">Contul meu</b><br><span class="text-ink-500">profil, parolă, deconectare</span></a>
-        <a class="rounded-lg border border-surface-200 p-3 hover:border-surface-400"><b class="text-ink-900">Echipa</b><br><span class="text-ink-500">doar vizualizare</span></a>
-        <a class="rounded-lg border border-surface-200 p-3 hover:border-surface-400"><b class="text-ink-900">Cererile trimise</b><br><span class="text-ink-500">tichetele către Eventya</span></a>
+    <section id="sent" hidden class="text-center pt-10">
+      <div class="w-12 h-12 mx-auto rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
-      <div class="text-[12px] text-ink-400 mt-3">Orice altă adresă din backend duce aici. Formatele JSON primesc 403 <code>subscription_inactive</code>.</div>
-    </div>
+      <h1 class="text-2xl font-bold text-ink-900 mt-4">Cererea a ajuns la noi</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Echipa Eventya îți răspunde, apoi setează abonamentul. Spațiul revine imediat.</p>
+      <button type="button" id="again" class="btn btn--ghost mt-6">Înapoi</button>
+    </section>
   </main>
 
-  <section class="max-w-5xl mx-auto px-4 md:px-8 pb-16">
-    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Regulile ecranului</div>
-    <div class="card p-0 overflow-x-auto">
-      <table class="w-full text-[13px] min-w-[620px]">
-        <tbody class="divide-y divide-surface-200">
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Componenta</td><td class="px-4 py-2.5 text-ink-700">Aceeași cu <a class="text-primary hover:underline" href="02-pagina-upgrade.html">pagina de upgrade</a>, cu pachetul expirat preselectat și marcat „Pachetul expirat”. Orice pachet se poate alege.</td></tr>
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Acțiunea</td><td class="px-4 py-2.5 text-ink-700">„Cere reînnoirea” deschide un tichet în Suport, cu sursa <code>renew</code>. Contractul se stabilește în afara platformei, iar echipa setează abonamentul din Admin. Plata automată prin Stripe vine în alt plan.</td></tr>
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Membrii</td><td class="px-4 py-2.5 text-ink-700">Văd doar mesajul de suspendare, fără calculator și fără acțiuni. Doar proprietarii au de-a face cu abonamentul.</td></tr>
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Trial expirat</td><td class="px-4 py-2.5 text-ink-700">Același ecran, cu alt titlu. Nu se oferă un trial nou: un spațiu suspendat doar reînnoiește.</td></tr>
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Adminii platformei</td><td class="px-4 py-2.5 text-ink-700">Nu trec de suspendare. Schimbările se fac din Admin → Subscripție, nu în conținutul clientului.</td></tr>
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Bara de sus</td><td class="px-4 py-2.5 text-ink-700">Fără tab-uri de module, fără „Upgrade”, fără asistentul AI flotant.</td></tr>
-          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top whitespace-nowrap">Reactivarea</td><td class="px-4 py-2.5 text-ink-700">Imediat ce se salvează abonamentul: cache-ul prin amprentă, domeniul propriu, mesajele Helpdesk păstrate. Programările anulate rămân anulate.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <script src="configurator.js"></script>
+  <script src="../onboarding-clienti-noi/abonament.js"></script>
   <script>
-    Configurator(document.getElementById('configurator'), { mode: 'renew', current: { base: 'mobile', modules: ['community'] } });
-    Configurator(document.getElementById('configurator-trial'), { mode: 'renew', badge: 'Trial-ul tău', current: { base: 'web', modules: [] } });
-    document.getElementById('views').addEventListener('click', function (e) {
-      var v = e.target.getAttribute('data-view'); if (!v) return;
-      document.querySelectorAll('[data-view]').forEach(function (b) {
-        var on = b.getAttribute('data-view') === v;
-        b.className = 'px-2 py-1 rounded-md ' + (on ? 'font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200' : 'font-medium text-amber-700 dark:text-amber-300');
+    var state = { who: 'owner' };
+    var ON = 'px-3 py-1.5 rounded-md transition-colors font-semibold bg-surface-0 text-ink-900 shadow-sm';
+    var OFF = 'px-3 py-1.5 rounded-md transition-colors font-medium text-amber-800 dark:text-amber-200 hover:bg-amber-200/60 dark:hover:bg-amber-500/20';
+
+    function render() {
+      document.querySelectorAll('#people [data-who]').forEach(function (b) {
+        b.className = 'px-2 py-1 rounded-md ' + (b.dataset.who === state.who ? 'font-semibold underline underline-offset-4' : 'font-medium opacity-80 hover:opacity-100');
       });
-      document.querySelectorAll('[data-show]').forEach(function (el) {
-        el.hidden = el.getAttribute('data-show').split(' ').indexOf(v) < 0;
+      history.replaceState(null, '', '#' + state.who);
+      document.getElementById('choose').hidden = false;
+      document.getElementById('sent').hidden = true;
+      var trial = state.who === 'trial';
+      document.getElementById('title').textContent = (trial ? 'Perioada de probă' : 'Abonamentul') + ' s-a încheiat pe 30.09.2026';
+      document.getElementById('member-note').hidden = state.who !== 'member';
+      var picker = document.getElementById('picker');
+      picker.hidden = state.who === 'member';
+      if (state.who === 'member') return;
+      // Tranziția nu are plată cu cardul: reînnoirea e o cerere, procesată în afara platformei.
+      Abonament(picker, {
+        mode: 'renew', cardEnabled: false,
+        current: trial ? { base: 'web', modules: [] } : { base: 'mobile', modules: ['community'] },
+        badgeLabel: trial ? 'Trial-ul tău' : null,
+        ctaLabel: trial ? 'Cere abonamentul' : 'Cere reînnoirea',
+        onDone: function () {
+          document.getElementById('choose').hidden = true;
+          document.getElementById('sent').hidden = false;
+        }
       });
+    }
+    document.getElementById('people').addEventListener('click', function (e) { var w = e.target.dataset.who; if (w) { state.who = w; render(); } });
+    document.getElementById('again').addEventListener('click', render);
+    (location.hash || '').slice(1).split('-').forEach(function (t) {
+      if (t === 'owner' || t === 'member' || t === 'trial') state.who = t;
     });
+    render();
   </script>
 
   <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"

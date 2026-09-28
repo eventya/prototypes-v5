@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasul 2 · Template · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#8 · Pasul 2: template-ul</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="vt-header max-w-5xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4">
+    <a href="03-site-antet.html" class="flex items-center gap-2 font-semibold text-ink-900">
+      <span class="w-6 h-6 rounded-md bg-linear-to-br from-primary-500 to-sky-400"></span>eventya
+    </a>
+    <ol class="hidden sm:flex items-center gap-3 text-[13px]">
+      <li><a href="07-pas-detalii.html" class="text-ink-500 hover:text-ink-900">✓ Proiect</a></li><li class="w-6 h-px bg-surface-300"></li>
+      <li class="text-ink-900 font-semibold">Template</li>
+    </ol>
+  </header>
+
+  <main class="vt-main max-w-5xl mx-auto px-4 md:px-8 pt-8 pb-24">
+    <h1 class="text-2xl font-bold text-ink-900">Alege un template</h1>
+    <p class="text-[14px] text-ink-500 mt-1">Pornești cu paginile unui proiect ca al tău. Le schimbi pe toate după.</p>
+
+    <div id="grid" class="mt-8" role="radiogroup" aria-label="Template"></div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 mt-10 pt-5 border-t border-surface-200">
+      <a href="07-pas-detalii.html" class="btn btn--ghost">Înapoi</a>
+      <div class="text-right">
+        <a href="12-spatiu-gata.html" class="btn btn--primary" id="next">Creează spațiul</a>
+        <p class="text-[12px] text-ink-400 mt-2">Primești 30 de zile gratuit, cu tot inclus. Continuând, accepți <a href="#" class="underline">acordul de prelucrare a datelor</a> în numele organizației.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    var TEMPLATES = [
+      { id: 'atrium',   group: 'Cultură',            name: 'Atrium',   who: 'muzee, galerii, case memoriale',               grad: 'from-amber-500 to-rose-400' },
+      { id: 'scena',    group: 'Cultură',            name: 'Scena',    who: 'teatre, filarmonici, opere, centre culturale', grad: 'from-violet-600 to-fuchsia-400' },
+      { id: 'forum',    group: 'Comunități publice', name: 'Forum',    who: 'primării, orașe, municipii',                   grad: 'from-sky-600 to-cyan-400' },
+      { id: 'panorama', group: 'Comunități publice', name: 'Panorama', who: 'județe, regiuni, OMD-uri, stațiuni mari',      grad: 'from-emerald-600 to-teal-400' },
+      { id: 'vatra',    group: 'Comunități publice', name: 'Vatra',    who: 'comune turistice, stațiuni mici, sate',        grad: 'from-lime-600 to-amber-400' },
+      { id: 'agora',    group: 'Privați',            name: 'Agora',    who: 'asociații, ONG-uri, cluburi, festivaluri',     grad: 'from-rose-500 to-orange-400' },
+      { id: 'vitrina',  group: 'Privați',            name: 'Vitrina',  who: 'pensiuni, restaurante, ghizi, organizatori',   grad: 'from-stone-600 to-amber-300' }
+    ];
+    // Venit din Soluții → „Începe cu Atrium”: template-ul e deja ales.
+    var chosen = new URLSearchParams(location.search).get('starter') || 'atrium';
+
+    // Miniatura: un site schițat, în culorile template-ului.
+    function thumb(t) {
+      return '<span class="block aspect-[16/10] rounded-xl overflow-hidden border border-surface-200 bg-white">' +
+        '<span class="flex items-center justify-between px-3 h-6 bg-white"><span class="h-1.5 w-10 rounded bg-slate-300"></span><span class="flex gap-1.5"><span class="h-1 w-5 rounded bg-slate-200"></span><span class="h-1 w-5 rounded bg-slate-200"></span><span class="h-1 w-5 rounded bg-slate-200"></span></span></span>' +
+        '<span class="block h-[55%] bg-linear-to-br ' + t.grad + '"></span>' +
+        '<span class="grid grid-cols-3 gap-2 p-3"><span class="h-5 rounded bg-slate-100"></span><span class="h-5 rounded bg-slate-100"></span><span class="h-5 rounded bg-slate-100"></span></span></span>';
+    }
+
+    function render() {
+      var h = '', group = '';
+      TEMPLATES.forEach(function (t) {
+        if (t.group !== group) {
+          if (group) h += '</div>';
+          group = t.group;
+          h += '<div class="text-[12px] font-medium text-ink-400 mt-10 first:mt-0 mb-3">' + group + '</div><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">';
+        }
+        var on = chosen === t.id;
+        h += '<button type="button" role="radio" aria-checked="' + on + '" data-pick="' + t.id + '" class="text-left rounded-2xl border p-3 transition-all ' +
+          (on ? 'border-primary-500 ring-4 ring-primary-500/10' : 'border-surface-200 hover:border-surface-400') + '">' + thumb(t) +
+          '<span class="flex items-center justify-between gap-3 mt-3 px-1"><span class="min-w-0"><span class="block text-[15px] font-semibold text-ink-900">' + t.name + '</span>' +
+          '<span class="block text-[13px] text-ink-500 truncate">pentru ' + t.who + '</span></span>' +
+          '<span class="w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ' + (on ? 'border-primary-500' : 'border-surface-300') + '">' + (on ? '<span class="w-2.5 h-2.5 rounded-full bg-primary-500"></span>' : '') + '</span></span>' +
+        '</button>';
+      });
+      document.getElementById('grid').innerHTML = h + '</div>';
+      document.getElementById('next').textContent = 'Creează spațiul cu ' + TEMPLATES.filter(function (t) { return t.id === chosen; })[0].name;
+    }
+
+    document.getElementById('grid').addEventListener('click', function (e) {
+      var p = e.target.closest('[data-pick]'); if (p) { chosen = p.dataset.pick; render(); }
+    });
+    render();
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

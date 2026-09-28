@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plata cu cardul · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#10 · Plata cu cardul, pe pagina Stripe</span>
+    </div>
+    <span class="text-[11px] text-amber-700 dark:text-amber-300">Pornește din „Alege abonamentul” (ecranul 9). Pagina Stripe e schematică. „← Înapoi” simulează o plată anulată.</span>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- pagina găzduită de Stripe, schematic -->
+  <section data-view="stripe" class="flow-enter max-w-4xl mx-auto px-4 pt-8 pb-24 grid md:grid-cols-2 gap-12">
+    <div>
+      <button type="button" data-show="cancelled" class="text-[13px] text-ink-500 hover:text-ink-900">← Înapoi la Muzeul Demo</button>
+      <div class="text-[14px] text-ink-500 mt-8">Abonament Eventya</div>
+      <div class="flex items-baseline gap-2 mt-1"><span class="inline-block rounded bg-surface-200 w-32 h-8"></span><span class="text-[14px] text-ink-500">RON pe lună</span></div>
+      <div class="mt-8 divide-y divide-surface-200 text-[14px]">
+        <div class="flex justify-between py-3"><span class="text-ink-800">Web</span><span class="inline-block rounded bg-surface-200 w-14 h-3.5"></span></div>
+        <div class="flex justify-between py-3"><span class="text-ink-800">AI pentru vizitatori</span><span class="inline-block rounded bg-surface-200 w-14 h-3.5"></span></div>
+        <div class="flex justify-between py-3 text-ink-500"><span>TVA inclus</span><span></span></div>
+      </div>
+    </div>
+    <form class="rounded-2xl border border-dashed border-surface-300 p-6 space-y-4" id="pay">
+      <div class="text-[11px] uppercase tracking-wider text-ink-400">Pagina Stripe · schematic</div>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="rounded-lg bg-ink-900 text-surface-0 text-center text-[13px] py-2.5">Apple Pay</div>
+        <div class="rounded-lg bg-ink-900 text-surface-0 text-center text-[13px] py-2.5">Google Pay</div>
+      </div>
+      <div><label class="block text-[13px] text-ink-600 mb-1">E-mail</label><div class="input text-ink-500">contabilitate@muzeuldemo.ro</div></div>
+      <div><label class="block text-[13px] text-ink-600 mb-1">Card</label><div class="input text-ink-400">1234 1234 1234 1234 · LL/AA · CVC</div></div>
+      <div><label class="block text-[13px] text-ink-600 mb-1">Numele de pe card</label><div class="input text-ink-400">Ana Popescu</div></div>
+      <div class="pt-2 text-[13px] font-medium text-ink-800">Date de facturare</div>
+      <div><label class="block text-[13px] text-ink-600 mb-1">Denumirea</label><div class="input text-ink-500">Muzeul Demo</div></div>
+      <div><label class="block text-[13px] text-ink-600 mb-1">CUI</label><div class="input text-ink-500">RO12345678</div></div>
+      <div><label class="block text-[13px] text-ink-600 mb-1">Adresa</label><div class="input text-ink-500">Str. Exemplului 1, Cluj-Napoca, România</div></div>
+      <button class="btn btn--primary w-full">Abonează-te</button>
+    </form>
+  </section>
+
+  <!-- întoarcerea la noi -->
+  <main class="vt-main max-w-sm mx-auto px-4 pt-24 pb-24 text-center">
+    <section data-view="confirming" hidden class="flow-enter">
+      <div class="w-10 h-10 mx-auto rounded-full border-2 border-surface-200 border-t-primary-500 animate-spin"></div>
+      <h1 class="text-xl font-semibold text-ink-900 mt-6">Confirmăm plata…</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Durează câteva secunde.</p>
+    </section>
+
+    <section data-view="paid" hidden class="flow-enter">
+      <div class="w-12 h-12 mx-auto rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h1 class="text-2xl font-bold text-ink-900 mt-5">Plata a reușit</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Web + AI pentru vizitatori e activ. Următoarea plată: 28.10.2026. Factura fiscală vine pe e-mail.</p>
+      <a href="17-ghid-de-inceput.html?dupa=platit" class="btn btn--primary mt-8">Înapoi în Dashboard</a>
+    </section>
+
+    <section data-view="cancelled" hidden class="flow-enter">
+      <h1 class="text-2xl font-bold text-ink-900">Plata nu s-a făcut</h1>
+      <p class="text-[14px] text-ink-500 mt-1">Spațiul tău merge mai departe pe perioada de probă. Selecția ta rămâne, poți plăti oricând.</p>
+      <div class="flex flex-col gap-2 mt-8">
+        <button type="button" data-show="stripe" class="btn btn--primary">Încearcă din nou</button>
+        <a href="17-ghid-de-inceput.html" class="btn btn--ghost">Înapoi în Dashboard</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function show(v) {
+      document.querySelectorAll('[data-view]').forEach(function (s) { s.hidden = s.dataset.view !== v; });
+      if (v === 'confirming') setTimeout(function () { show('paid'); }, 1400);
+      window.scrollTo(0, 0);
+    }
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-show]'); if (b) show(b.dataset.show); });
+    document.getElementById('pay').addEventListener('submit', function (e) { e.preventDefault(); show('confirming'); });
+    show((location.hash || '').slice(1) || 'stripe');
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

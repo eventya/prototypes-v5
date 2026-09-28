@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasul 1 · Proiectul · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#7 · Pasul 1: proiectul</span>
+    </div>
+    <span class="text-[11px] text-amber-700 dark:text-amber-300">Încearcă „Muzeul Național” (adresă ocupată) sau „Prețuri” (rezervată).</span>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="vt-header max-w-5xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4">
+    <a href="03-site-antet.html" class="flex items-center gap-2 font-semibold text-ink-900">
+      <span class="w-6 h-6 rounded-md bg-linear-to-br from-primary-500 to-sky-400"></span>eventya
+    </a>
+    <ol class="hidden sm:flex items-center gap-3 text-[13px]">
+      <li class="text-ink-900 font-semibold">Proiect</li><li class="w-6 h-px bg-surface-300"></li>
+      <li class="text-ink-400">Template</li>
+    </ol>
+  </header>
+
+  <main class="vt-main max-w-2xl mx-auto px-4 pt-8 pb-24">
+    <h1 class="text-2xl font-bold text-ink-900">Cum se numește proiectul?</h1>
+    <p class="text-[14px] text-ink-500 mt-1">Îl poți schimba oricând, din Setări.</p>
+
+    <div class="mt-10">
+      <label class="sr-only" for="name">Numele proiectului</label>
+      <input id="name" class="input w-full" value="Muzeul Demo" placeholder="de exemplu, Muzeul Demo" autocomplete="organization">
+      <div id="name-error" class="text-[13px] text-red-600 dark:text-red-400 mt-2" hidden>Scrie numele proiectului.</div>
+      <p id="slug-status" class="text-[13px] text-ink-400 mt-2 min-h-5" aria-live="polite"></p>
+    </div>
+
+    <div class="flex items-center justify-end mt-10 pt-5 border-t border-surface-200">
+      <a id="next" href="08-pas-template.html" class="btn btn--primary">Continuă</a>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      // Adresa nu se cere: se face din nume, iar dacă e ocupată sau rezervată, se ia următoarea liberă.
+      // Limba nu se cere: vine din cookie-ul de limbă al site-ului public (RO sau EN).
+      var TAKEN = ['muzeul-national', 'teatrul-demo', 'primaria-demo'];
+      var RESERVED = ['admin', 'api', 'preturi', 'pricing', 'solutii', 'solutions', 'setup', 'signin', 'signup', 'stripe', 'billing', 'checkout', 'en', 'ro'];
+      var nameEl = document.getElementById('name'), msg = document.getElementById('slug-status');
+      var nameErr = document.getElementById('name-error'), next = document.getElementById('next');
+
+      function slugify(v) {
+        return v.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      }
+      function free(base) {
+        if (base.length < 3) base = (base + '-spatiu').replace(/^-/, '');
+        var s = base, i = 2;
+        while (TAKEN.indexOf(s) >= 0 || RESERVED.indexOf(s) >= 0) s = base + '-' + i++;
+        return s;
+      }
+      function paint() {
+        var v = slugify(nameEl.value);
+        msg.textContent = v ? 'Adresa va fi eventya.net/' + free(v) : '';
+      }
+      nameEl.addEventListener('input', function () { nameErr.hidden = true; paint(); });
+      // Butonul nu se dezactivează: la clic, arătăm ce lipsește, lângă câmp.
+      next.addEventListener('click', function (e) {
+        if (nameEl.value.trim()) return;
+        e.preventDefault(); nameErr.hidden = false; nameEl.focus();
+      });
+      paint();
+    })();
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

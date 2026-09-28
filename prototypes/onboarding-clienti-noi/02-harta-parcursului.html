@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harta parcursului · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#2 · Harta parcursului: intrările, autentificarea, drumul spre abonament, scenariile de margine</span>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-8">
+
+    <div class="text-2xl font-bold text-ink-900">De pe site până în Dashboard</div>
+    <p class="text-sm text-ink-500 mt-1 max-w-3xl">Toate drumurile prin care un client nou ajunge la un spațiu de lucru. Cutiile cu număr duc la ecranul lor. Rombul e o decizie a aplicației, nu a clientului.</p>
+
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4 text-[12px] text-ink-500">
+      <span class="inline-flex items-center gap-1.5"><span class="w-4 h-3 rounded border border-surface-300 bg-surface-0"></span>ecran</span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rotate-45 border-2 border-ink-700 dark:border-ink-300"></span>decizia aplicației</span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-4 h-3 rounded border-2 border-dashed border-surface-400"></span>în afara platformei</span>
+      <span class="inline-flex items-center gap-1.5"><span class="w-4 h-3 rounded bg-red-100 dark:bg-red-500/15 border border-red-300 dark:border-red-500/30"></span>reparație (R…)</span>
+    </div>
+
+    <!-- ============ 1. INTRĂRILE ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">1 · Intrările</div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 text-[13px]">
+      <a href="03-site-antet.html" class="card p-3 hover:border-primary-400"><div class="font-mono text-[11px] text-ink-400">A · ecranul 3</div><div class="font-semibold text-ink-900">Acasă → „Începe gratuit”</div><div class="text-[12px] text-ink-500">/signup</div></a>
+      <a href="04-pagina-preturi.html" class="card p-3 hover:border-primary-400"><div class="font-mono text-[11px] text-ink-400">B · ecranul 4</div><div class="font-semibold text-ink-900">Prețuri → „Începe gratuit” sau „Cere ofertă”</div><div class="text-[12px] text-ink-500">/signup + pachet, module, interval · oferta: formularul de vânzări</div></a>
+      <a href="05-solutii.html" class="card p-3 hover:border-primary-400"><div class="font-mono text-[11px] text-ink-400">C · ecranul 5</div><div class="font-semibold text-ink-900">Soluții → „Începe cu Atrium”</div><div class="text-[12px] text-ink-500">/signup + template + pachetul lui</div></a>
+      <a href="03-site-antet.html" class="card p-3 hover:border-primary-400"><div class="font-mono text-[11px] text-ink-400">D · ecranul 3</div><div class="font-semibold text-ink-900">Antet → „Autentificare”</div><div class="text-[12px] text-ink-500">/signin → spațiile lui</div></a>
+      <a href="03-site-antet.html" class="card p-3 hover:border-primary-400"><div class="font-mono text-[11px] text-ink-400">E · ecranul 3</div><div class="font-semibold text-ink-900">Logat, avatarul de pe site → „Spațiu de lucru nou”</div><div class="text-[12px] text-ink-500">/setup</div></a>
+      <a href="12-spatiu-gata.html" class="card p-3 hover:border-primary-400"><div class="font-mono text-[11px] text-ink-400">F · ecranul 12</div><div class="font-semibold text-ink-900">Logat, în Stejar → „Spațiu de lucru nou”</div><div class="text-[12px] text-ink-500">/setup · există deja</div></a>
+      <div class="rounded-xl border-2 border-dashed border-surface-300 p-3"><div class="font-mono text-[11px] text-ink-400">G</div><div class="font-semibold text-ink-700">Link de invitație</div><div class="text-[12px] text-ink-500">nu trece prin onboarding: intră direct în spațiul în care a fost invitat</div></div>
+      <div class="rounded-xl bg-surface-100 p-3 text-[12px] text-ink-600"><b class="text-ink-800">Intenția</b> (template, pachet, module, interval, utm) stă în sesiune, în <code>onboarding_intent</code>, până la final. Apoi se salvează în <code>settings['onboarding']</code> și se preselectează pe „Alege abonamentul” (9).</div>
+    </div>
+
+    <!-- ============ 2. CONTUL ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">2 · Contul</div>
+    <div class="card p-5 overflow-x-auto">
+      <div class="min-w-[860px] flex flex-col items-center gap-2 text-[13px]">
+        <div class="rounded-lg border-2 border-ink-900 dark:border-white px-4 py-2 font-semibold text-ink-900">◇ Autentificat?</div>
+        <div class="w-0.5 h-4 bg-surface-300"></div>
+        <div class="grid grid-cols-2 gap-10 w-full relative">
+          <div class="absolute left-1/4 right-1/4 top-0 h-0.5 bg-surface-300"></div>
+          <!-- NU -->
+          <div class="flex flex-col items-center gap-2 pt-3">
+            <div class="text-[12px] font-semibold text-ink-500">NU</div>
+            <div class="grid grid-cols-2 gap-2 w-full">
+              <a href="06-cont.html" class="rounded-lg border border-surface-300 bg-surface-0 p-3 hover:border-primary-400"><span class="badge badge--number">6</span> <b class="text-ink-900">Creează cont</b><div class="text-[12px] text-ink-500 mt-1">câte un câmp pe pas: numele, apoi e-mailul, cu Termenii sub buton. Turnstile invizibil.</div></a>
+              <a href="06-cont.html" class="rounded-lg border border-surface-300 bg-surface-0 p-3 hover:border-primary-400"><span class="badge badge--number">6</span> <b class="text-ink-900">Autentificare</b><div class="text-[12px] text-ink-500 mt-1">doar e-mailul</div></a>
+            </div>
+            <div class="grid grid-cols-2 gap-2 w-full text-[12px]">
+              <div class="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 p-2 text-red-800 dark:text-red-300"><b>E-mail care are deja cont</b>: primește un cod de autentificare, cu același mesaj neutru. <b>R2</b></div>
+              <div class="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 p-2 text-red-800 dark:text-red-300"><b>E-mail necunoscut</b>: același ecran, dar pe e-mail primește „Nu există un cont”, cu link spre creare (AUTH-008). <b>R3</b></div>
+            </div>
+            <div class="w-0.5 h-3 bg-surface-300"></div>
+            <a href="06-cont.html" class="rounded-lg border border-surface-300 bg-surface-0 px-4 py-2 hover:border-primary-400"><span class="badge badge--number">6</span> <b class="text-ink-900">Codul de 6 cifre</b> <span class="text-[12px] text-ink-500">· 10 minute, 5 încercări · „Retrimite” merge și la cont nou (<b class="text-red-600 dark:text-red-400">R1</b>)</span></a>
+          </div>
+          <!-- DA -->
+          <div class="flex flex-col items-center gap-2 pt-3">
+            <div class="text-[12px] font-semibold text-ink-500">DA</div>
+            <div class="rounded-lg border border-surface-300 p-3 w-full text-[12px] text-ink-600">
+              <div class="font-semibold text-ink-900 text-[13px] mb-1">Sare peste cont</div>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>Pe /signup și /signin e trimis mai departe, nu vede formularele (<b class="text-red-600 dark:text-red-400">R4</b>).</li>
+                <li>În antet vede avatarul cu „Spațiile mele”, nu „Autentificare”.</li>
+                <li>Un membru al unui site public (rolul <code>member</code>) e tratat ca fără spații de echipă (<b class="text-red-600 dark:text-red-400">R6</b>).</li>
+                <li>Un admin Eventya fără spații ajunge la <code>/stejar-admin</code> (<b class="text-red-600 dark:text-red-400">R5</b>).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="w-0.5 h-4 bg-surface-300"></div>
+        <div class="rounded-lg border-2 border-ink-900 dark:border-white px-4 py-2 font-semibold text-ink-900">◇ A venit cu o intenție (A, B, C, E, F)? Câte spații de echipă are?</div>
+        <div class="w-0.5 h-4 bg-surface-300"></div>
+        <div class="grid grid-cols-3 gap-3 w-full">
+          <div class="rounded-lg bg-surface-100 p-3 text-center"><b class="text-ink-900">Doar „Autentificare”, un spațiu</b><div class="text-[12px] text-ink-500">→ Dashboard-ul acelui spațiu</div></div>
+          <div class="rounded-lg bg-surface-100 p-3 text-center"><b class="text-ink-900">Doar „Autentificare”, mai multe</b><div class="text-[12px] text-ink-500">→ alegerea spațiului</div></div>
+          <div class="rounded-lg border-2 border-primary-500 bg-primary-50/50 dark:bg-primary-500/10 p-3 text-center"><b class="text-ink-900">Cu o intenție, sau fără niciun spațiu</b><div class="text-[12px] text-ink-500">→ asistentul, pentru un spațiu nou</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 3. ASISTENTUL ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">3 · Asistentul: doi pași, trimiși o singură dată, la final</div>
+    <div class="card p-5 overflow-x-auto">
+      <div class="min-w-[860px] flex items-stretch text-[13px]">
+        <a href="07-pas-detalii.html" class="rounded-xl border border-surface-300 bg-surface-0 p-3 w-56 shrink-0 hover:border-primary-400"><span class="badge badge--number">7</span> <b class="text-ink-900">1 · Proiect</b><div class="text-[12px] text-ink-500 mt-1">doar numele. Adresa se face din el, limba vine din cookie-ul site-ului.</div></a>
+        <div class="flex-1 flex items-center px-2 text-ink-400"><div class="h-0.5 flex-1 bg-current"></div><svg class="w-2.5 h-2.5 -ml-px" viewBox="0 0 10 10" fill="currentColor"><path d="M0 0 L10 5 L0 10z"/></svg></div>
+        <a href="08-pas-template.html" class="rounded-xl border border-surface-300 bg-surface-0 p-3 w-56 shrink-0 hover:border-primary-400"><span class="badge badge--number">8</span> <b class="text-ink-900">2 · Template</b><div class="text-[12px] text-ink-500 mt-1">unul dintre cele 7, într-o grilă. <b>Sărit pentru pachetul Helpdesk.</b> Fără Blank, fără previzualizare. DPA sub buton.</div></a>
+        <div class="flex-1 flex items-center px-2 text-ink-400"><div class="h-0.5 flex-1 bg-current"></div><svg class="w-2.5 h-2.5 -ml-px" viewBox="0 0 10 10" fill="currentColor"><path d="M0 0 L10 5 L0 10z"/></svg></div>
+        <div class="rounded-xl bg-surface-100 p-3 w-56 shrink-0"><b class="text-ink-900">Spațiul, cu trial</b><div class="text-[12px] text-ink-500 mt-1">30 de zile, cu toate funcționalitățile. Orice spațiu nou, fără eligibilitate.</div></div>
+        <div class="flex-1 flex items-center px-2 text-ink-400"><div class="h-0.5 flex-1 bg-current"></div><svg class="w-2.5 h-2.5 -ml-px" viewBox="0 0 10 10" fill="currentColor"><path d="M0 0 L10 5 L0 10z"/></svg></div>
+        <a href="12-spatiu-gata.html" class="rounded-xl border border-surface-300 bg-surface-0 p-3 w-56 shrink-0 hover:border-primary-400"><span class="badge badge--number">12</span> <b class="text-ink-900">Pregătirea → Dashboard</b><div class="text-[12px] text-ink-500 mt-1">cu ghidul de început și „Trial · 30 de zile” în bară (17)</div></a>
+      </div>
+    </div>
+
+    <!-- ============ 4. ABONAMENTUL, DIN SPAȚIU ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-10 mb-3">4 · Abonamentul, ales din spațiu</div>
+    <div class="grid lg:grid-cols-3 gap-4 text-[13px]">
+
+      <div class="card p-4">
+        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span><b class="text-ink-900">Din Dashboard</b></div>
+        <div class="text-[12px] text-ink-500 mt-1">oricând în cele 30 de zile</div>
+        <ol class="mt-3 space-y-2">
+          <li class="rounded-lg bg-surface-100 p-2">„Trial · N zile” din bară, rândul de stare sau rândul „Abonament”</li>
+          <li><a href="09-alege-abonamentul.html" class="block rounded-lg border border-surface-300 p-2 hover:border-primary-400"><span class="badge badge--number">9</span> „Alege abonamentul”, cu selecția de pe site preselectată</a></li>
+          <li class="rounded-lg bg-surface-100 p-2 text-[12px] text-ink-600">Ziua 23 și ziua 29: SUB-001 (varianta de trial). Ziua 31: suspendat, SUB-002.</li>
+        </ol>
+      </div>
+
+      <div class="card p-4">
+        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-primary-500"></span><b class="text-ink-900">Plătește cu cardul</b></div>
+        <div class="text-[12px] text-ink-500 mt-1">Helpdesk, Web, Mobile · ascunsă sub comutator până la lansare</div>
+        <ol class="mt-3 space-y-2">
+          <li><a href="10-stripe-checkout.html" class="block rounded-lg border border-surface-300 p-2 hover:border-primary-400"><span class="badge badge--number">10</span> Stripe Checkout, cu datele de facturare (denumire, CUI, adresă)</a></li>
+          <li class="grid grid-cols-3 gap-1.5 text-[11px]">
+            <span class="rounded-md bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30 p-1.5 text-emerald-800 dark:text-emerald-300"><b>reușit</b>: abonament activ, PAY-001, PAY-006 la admini</span>
+            <span class="rounded-md bg-amber-50 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/30 p-1.5 text-amber-800 dark:text-amber-300"><b>în confirmare</b>: citim sesiunea din API</span>
+            <span class="rounded-md bg-surface-100 border border-surface-300 p-1.5 text-ink-600"><b>anulat</b>: rămâne pe trial, cu selecția</span>
+          </li>
+          <li class="rounded-lg bg-surface-100 p-2">Ce nu intră în pachet se ascunde. Conținutul rămâne.</li>
+          <li class="rounded-lg border-2 border-dashed border-surface-300 p-2 text-ink-600">Echipa emite factura fiscală, după PAY-006.</li>
+        </ol>
+      </div>
+
+      <div class="card p-4">
+        <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span><b class="text-ink-900">Cere ofertă</b></div>
+        <div class="text-[12px] text-ink-500 mt-1">instituții, achiziție publică, transfer bancar, Enterprise</div>
+        <ol class="mt-3 space-y-2">
+          <li class="rounded-lg bg-surface-100 p-2">Tichet în Suport, prin cererea de upgrade de azi, cu configurația</li>
+          <li><a href="11-cerere-contract.html" class="block rounded-lg border border-surface-300 p-2 hover:border-primary-400"><span class="badge badge--number">11</span> „Cererea ta e la noi”, în Tichetele mele</a></li>
+          <li class="rounded-lg border-2 border-dashed border-surface-300 p-2 text-ink-600">Echipa: ofertă → contract (și prin SEAP) → abonamentul setat din Admin. Trial „+30 de zile” dacă durează.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ============ 5. DUPĂ ONBOARDING ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">5 · Stările abonamentului, pentru un client nou</div>
+    <div class="card p-5 overflow-x-auto">
+      <div class="min-w-[900px] space-y-6 text-[13px]" id="states"></div>
+      <div class="text-[12px] text-ink-500 mt-5 pt-4 border-t border-surface-200">Pentru abonamentele pe card, <code>ends_at</code> vine din Stripe (<code>current_period_end</code> plus o zi, apoi <code>grace_until</code> cât plata e <code>past_due</code>). „Azi” se socotește în Europe/Bucharest. Drepturile se calculează tot din <code>currently_active?</code>, ca în Tranziție.</div>
+    </div>
+
+    <!-- ============ 6. SCENARII ============ -->
+    <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">6 · Scenariile de margine</div>
+    <div class="card p-0 overflow-x-auto">
+      <table class="w-full text-[13px] min-w-[720px]">
+        <thead class="bg-surface-100 text-[10px] uppercase tracking-wider text-ink-500">
+          <tr><th class="text-left font-semibold px-4 py-2.5 w-72">Scenariul</th><th class="text-left font-semibold px-4 py-2.5">Ce se întâmplă</th></tr>
+        </thead>
+        <tbody class="divide-y divide-surface-200 text-ink-700">
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Adresa generată e luată între timp</td><td class="px-4 py-2.5">La trimitere se ia următoarea liberă (<code>-2</code>). Clientul nu vede nicio eroare.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Închide fereastra în asistent</td><td class="px-4 py-2.5">Nu se creează nimic. La revenire, intenția e încă în sesiune.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Sesiunea expiră în asistent</td><td class="px-4 py-2.5">După autentificare revine la pasul la care era, cu intenția păstrată.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Dublu click sau „înapoi” după Checkout</td><td class="px-4 py-2.5">Aceeași Checkout Session. Există una singură deschisă per spațiu.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Checkout abandonat</td><td class="px-4 py-2.5">Spațiul rămâne pe trial, cu selecția păstrată pe „Alege abonamentul”. După trial: suspendat, pe „Continuă cu abonamentul”.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Card refuzat, 3-D Secure eșuat</td><td class="px-4 py-2.5">Clientul rămâne în Checkout, unde îl tratează Stripe. La noi nu se schimbă nimic.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Webhook-ul întârzie</td><td class="px-4 py-2.5">„Confirmăm plata…” citește sesiunea direct din API la întoarcere.</td></tr>
+                    <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Webhook pierdut</td><td class="px-4 py-2.5">Îl prinde reconcilierea zilnică. Diferența apare în AppSignal.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Pachetul Helpdesk (fără site)</td><td class="px-4 py-2.5">Fără pasul de template. Spațiul primește doar pagina de acasă de rezervă.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Enterprise ales pe prețuri</td><td class="px-4 py-2.5">Doar „Cere ofertă” (C1), pe site și pe „Alege abonamentul”. Cardul nu e oferit.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Al doilea spațiu al aceluiași utilizator</td><td class="px-4 py-2.5">Primește și el trial. Nu există reguli de eligibilitate (B1).</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Trial terminat, apoi un pachet mic</td><td class="px-4 py-2.5">Ce nu intră în pachet se ascunde. Conținutul rămâne și revine la un upgrade.</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium text-ink-900 align-top">Turbo și redirect-ul spre Stripe</td><td class="px-4 py-2.5">Formularul are <code>data-turbo="false"</code>, iar serverul răspunde cu 303. Turbo nu urmează redirect-uri pe alt domeniu.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      var C = {
+        grey:   'border-surface-300 bg-surface-100',
+        sky:    'border-sky-400 bg-sky-50 dark:bg-sky-500/10',
+        green:  'border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10',
+        violet: 'border-violet-400 bg-violet-50 dark:bg-violet-500/10',
+        amber:  'border-amber-400 bg-amber-50 dark:bg-amber-500/10',
+        red:    'border-2 border-red-500 bg-red-50 dark:bg-red-500/10'
+      };
+      function box(c, title, sub) {
+        return '<div class="rounded-lg border ' + C[c] + ' p-3 w-44 shrink-0"><div class="font-semibold text-ink-900">' + title + '</div><div class="text-ink-500 text-[12px] mt-0.5">' + sub + '</div></div>';
+      }
+      function arrow(label) {
+        return '<div class="flex-1 min-w-24 px-2 flex flex-col items-center"><div class="text-[11px] text-ink-500 text-center leading-tight mb-1">' + label + '</div>' +
+          '<div class="flex items-center w-full text-ink-400"><div class="h-0.5 flex-1 bg-current"></div><svg class="w-2.5 h-2.5 -ml-px" viewBox="0 0 10 10" fill="currentColor"><path d="M0 0 L10 5 L0 10z"/></svg></div></div>';
+      }
+      function lane(title, parts) {
+        return '<div><div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-2">' + title + '</div><div class="flex items-center">' + parts.join('') + '</div></div>';
+      }
+      document.getElementById('states').innerHTML =
+        lane('Trial', [
+          box('sky', 'Trial', '30 de zile, fără card, cu tot deblocat'),
+          arrow('zilele 23 și 29 · SUB-001'),
+          box('amber', 'Trial-ul se încheie', '„Plătește cu cardul” în notificare'),
+          arrow('ziua 31 · SUB-002'),
+          box('red', 'Suspendat', '„Continuă cu abonamentul”, fără trial nou'),
+          arrow('plată sau contract'),
+          box('green', 'Activ', 'pe card sau pe contract')
+        ]) +
+        '<div class="flex items-center gap-2 -mt-3 text-[12px] text-ink-500"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-1"/></svg>Oricând în cele 30 de zile, plata cu cardul sau contractul setat din Admin trec spațiul direct pe Activ. Pe card, pachetul ales pornește azi, iar trial-ul se încheie (B3).</div>' +
+        lane('Pe card', [
+          box('green', 'Activ · card', 'se reînnoiește singur; SUB-005 la anual'),
+          arrow('reînnoirea eșuează'),
+          box('amber', 'Plată restantă', '7 zile de grație; PAY-002 în zilele 0, 3, 6'),
+          arrow('plătit din factura Stripe'),
+          box('green', 'Activ · card', 'plata trece, ends_at se mută'),
+          arrow('ziua 8, tot neplătit'),
+          box('red', 'Suspendat', 'reactivare cu plata sau prin contract')
+        ]) +
+        lane('Anulare pe card', [
+          box('green', 'Activ · card', 'anulat din pagina Abonament'),
+          arrow('PAY-004'),
+          box('amber', 'Se încheie pe <data>', 'drepturile rămân până atunci; „Reia abonamentul”'),
+          arrow('finalul perioadei'),
+          box('red', 'Suspendat', 'conținutul rămâne păstrat')
+        ]);
+    })();
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

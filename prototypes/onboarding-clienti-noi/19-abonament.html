@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abonament · Onboarding clienți noi</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+  <link rel="stylesheet" href="flow.css">
+</head>
+<body class="bg-surface-0 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#19 · Pagina abonamentului</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1 text-[11px]" id="views">
+      <button type="button" data-view="card">Pe card</button>
+      <button type="button" data-view="contract">Pe contract</button>
+      <button type="button" data-view="trial">Trial</button>
+      <button type="button" data-view="cancel">Anularea</button>
+      <button type="button" data-view="cancelled">Anulat</button>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <header class="flex items-center h-14 px-4 border-y border-surface-200">
+    <div class="flex items-center w-full h-full gap-6">
+      <a href="18-dashboard.html" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-7 h-7 rounded-lg bg-linear-to-br from-primary-500 to-primary-400 flex items-center justify-center text-white text-[10px] font-bold">MD</div>
+        <span class="text-sm font-semibold text-ink-900">Muzeul Demo</span>
+      </a>
+      <nav class="hidden md:flex items-stretch self-stretch gap-1 mx-auto">
+        <a href="18-dashboard.html" class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">Dashboard</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">Site web</a>
+        <a class="inline-flex items-center px-3.5 text-sm border-b-2 -mb-px border-transparent text-ink-500">Helpdesk</a>
+      </nav>
+      <div class="w-7 h-7 rounded-full bg-rose-500 flex items-center justify-center text-white text-[10px] font-bold ml-auto">AP</div>
+    </div>
+  </header>
+
+  <main class="vt-main max-w-2xl mx-auto px-4 pt-10 pb-24" id="page"></main>
+
+  <script>
+    (function () {
+      var bar = function (w) { return '<span class="inline-block align-middle rounded bg-surface-200 ' + (w || 'w-12') + ' h-3"></span>'; };
+      var link = function (label, href) { return '<a ' + (href ? 'href="' + href + '" ' : '') + 'class="text-[13px] font-medium text-primary hover:underline cursor-pointer whitespace-nowrap">' + label + '</a>'; };
+      function row(label, value, action) {
+        return '<div class="flex flex-wrap items-baseline gap-x-6 gap-y-1 py-4 border-b border-surface-200">' +
+          '<div class="w-40 shrink-0 text-[13px] text-ink-500">' + label + '</div>' +
+          '<div class="flex-1 min-w-0 text-[14px] text-ink-900">' + value + '</div>' + (action || '') + '</div>';
+      }
+      // Facturarea fiscală se face în afara platformei; datele de facturare stau în Stripe (cerute la plată, editate în Portal).
+      var invoices = row('Facturi', '<span class="text-ink-500">Le trimite echipa Eventya pe e-mail, după fiecare plată.</span>', link('Chitanțele'));
+      var billing = row('Date de facturare', 'Muzeul Demo · CUI RO12345678<br><span class="text-ink-500">contabilitate@muzeuldemo.ro</span>', link('Editează'));
+
+      function head(title, badge, sub, action) {
+        return '<div class="text-[13px] text-ink-400"><a href="18-dashboard.html" class="hover:text-ink-700">Dashboard</a> / Abonament</div>' +
+          '<h1 class="text-2xl font-bold text-ink-900 mt-2">Abonament</h1>' +
+          '<div class="flex flex-wrap items-center justify-between gap-4 mt-8 pb-6 border-b border-surface-200">' +
+            '<div><div class="flex items-center gap-2"><span class="text-xl font-semibold text-ink-900">' + title + '</span>' + badge + '</div>' +
+            '<div class="text-[14px] text-ink-500 mt-1">' + sub + '</div></div>' + (action || '') + '</div>';
+      }
+      var pill = function (t, tone) {
+        var c = { ok: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300', warn: 'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300', info: 'bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' }[tone];
+        return '<span class="text-[12px] font-medium px-2 py-0.5 rounded-full ' + c + '">' + t + '</span>';
+      };
+      var change = '<a href="13-abonament-in-spatiu.html#card" class="btn">Schimbă pachetul</a>';
+
+      var VIEWS = {
+        card: function () {
+          return head('Web + Media', pill('Activ', 'ok'), 'Lunar, cu cardul · ' + bar() + ' RON pe lună, TVA inclus', change) +
+            row('Următoarea plată', '01.11.2026 · ' + bar() + ' RON') +
+            row('Cardul', 'Visa •••• 4242 · expiră 08/27', link('Schimbă cardul')) +
+            row('Intervalul', 'Lunar', link('Treci pe anual')) +
+            billing +
+            invoices +
+            '<div class="mt-12"><button type="button" data-view="cancel" class="text-[13px] text-red-600 dark:text-red-400 hover:underline">Anulează abonamentul</button>' +
+            '<p class="text-[12px] text-ink-400 mt-1">Rămâne activ până la finalul perioadei plătite.</p></div>';
+        },
+        contract: function () {
+          return head('Enterprise', pill('Activ', 'ok'), 'Pe contract · plată anuală', '<a href="13-abonament-in-spatiu.html" class="btn">Cere alt pachet</a>') +
+            row('Contractul', 'Nr. 123/2026 · până pe 31.12.2026', link('Cere reînnoirea', '11-cerere-contract.html')) +
+            row('Plata', 'Transfer bancar, pe factură') +
+            row('Facturi', '<span class="text-ink-500">Le trimite echipa Eventya, după contract.</span>') +
+            '<div class="mt-12"><button type="button" class="text-[13px] text-red-600 dark:text-red-400 hover:underline">Cere încetarea contractului</button>' +
+            '<p class="text-[12px] text-ink-400 mt-1">Contractul are termenele lui. Cererea ajunge la echipa Eventya.</p></div>';
+        },
+        trial: function () {
+          return head('Perioada de probă', pill('23 de zile rămase', 'info'), 'Toate funcționalitățile, până pe 21.10.2026', '<a href="09-alege-abonamentul.html" class="btn btn--primary">Alege abonamentul</a>') +
+            row('La final', 'Fără abonament, site-ul și modulele se opresc. Conținutul rămâne păstrat.') +
+            '<div class="mt-12"><a class="text-[13px] text-ink-500 hover:text-ink-800 underline underline-offset-2 cursor-pointer">Nu mai vrei spațiul? Șterge-l din Setări</a></div>';
+        },
+        cancel: function () {
+          var reasons = ['Costă prea mult', 'Nu-l folosim destul', 'Trecem pe altă platformă', 'Proiectul s-a încheiat', 'Altceva'];
+          return '<div class="text-[13px] text-ink-400"><a href="18-dashboard.html" class="hover:text-ink-700">Dashboard</a> / <button type="button" data-view="card" class="hover:text-ink-700">Abonament</button> / Anulare</div>' +
+            '<h1 class="text-2xl font-bold text-ink-900 mt-2">Anulezi abonamentul?</h1>' +
+            '<p class="text-[14px] text-ink-600 mt-3">Web + Media rămâne activ până pe <b class="text-ink-900">01.11.2026</b>. Apoi site-ul, aplicația și modulele se opresc. Conținutul rămâne păstrat și revine dacă reiei abonamentul.</p>' +
+            '<div class="mt-8 rounded-xl border border-surface-200 px-4 py-3 flex flex-wrap items-center justify-between gap-3"><span class="text-[14px] text-ink-700">Vrei să plătești mai puțin? Poți trece pe un pachet mai mic.</span>' + link('Vezi pachetele', '13-abonament-in-spatiu.html#card') + '</div>' +
+            '<div class="text-[13px] text-ink-500 mt-8">De ce pleci? <span class="text-ink-400">(opțional)</span></div>' +
+            '<div class="mt-2 space-y-1">' + reasons.map(function (r) { return '<label class="flex items-center gap-2 py-1 text-[14px] text-ink-800 cursor-pointer"><input type="radio" name="why" class="accent-primary-600">' + r + '</label>'; }).join('') + '</div>' +
+            '<div class="flex flex-wrap items-center gap-3 mt-10">' +
+              '<button type="button" data-view="cancelled" class="inline-flex items-center rounded-full px-4 py-2 text-[14px] font-medium bg-red-600 hover:bg-red-700 text-white">Anulează abonamentul</button>' +
+              '<button type="button" data-view="card" class="btn btn--ghost">Păstrez abonamentul</button></div>';
+        },
+        cancelled: function () {
+          return head('Web + Media', pill('Se încheie pe 01.11.2026', 'warn'), 'Lunar, cu cardul · nu mai urmează plăți', '<button type="button" data-view="card" class="btn btn--primary">Reia abonamentul</button>') +
+            row('Până atunci', 'Totul merge normal. Poți relua oricând, fără să pierzi nimic.') +
+            row('Cardul', 'Visa •••• 4242 · expiră 08/27', link('Schimbă cardul')) +
+            billing +
+            invoices;
+        }
+      };
+
+      function show(v) {
+        document.querySelectorAll('#views [data-view]').forEach(function (b) {
+          var on = b.getAttribute('data-view') === v;
+          b.className = 'px-2 py-1 rounded-md ' + (on ? 'font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200' : 'font-medium text-amber-700 dark:text-amber-300');
+        });
+        var page = document.getElementById('page');
+        page.innerHTML = VIEWS[v]();
+        page.classList.remove('flow-enter'); void page.offsetWidth; page.classList.add('flow-enter');
+        history.replaceState(null, '', '#' + v);
+        window.scrollTo(0, 0);
+      }
+      document.addEventListener('click', function (e) { var b = e.target.closest('[data-view]'); if (b) show(b.dataset.view); });
+      var h = (location.hash || '').slice(1);
+      show(VIEWS[h] ? h : 'card');
+    })();
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

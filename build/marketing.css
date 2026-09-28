@@ -1,0 +1,16 @@
+/* prototypes-v5 — marketing-site theme (eventya.net)
+ *
+ * Imports the REAL eventya marketing stylesheet from the sibling `eventya`
+ * checkout: its brand palette, --bg/--text-* tokens, the mkt-* components and the
+ * light theme ([data-theme="light"]; dark is the default). Screens that show the
+ * public marketing site link THIS file instead of application.css, so they keep
+ * the current theme exactly — nothing is redrawn by hand.
+ *
+ * Build:  npm run build:marketing-css     Output: ../assets/marketing.css (committed)
+ * Requires the `eventya` repo checked out as a sibling: ../../eventya
+ */
+
+@import "../../eventya/app/assets/stylesheets/marketing.tailwind.css";
+
+@source "../prototypes/**/*.html";
+@source "../prototypes/**/*.js";

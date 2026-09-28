@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina de prețuri · Onboarding clienți noi</title>
+  <!-- Tema site-ului de marketing: întunecată implicit, luminoasă cu data-theme="light" -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme') === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/marketing.css">
+</head>
+<body>
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#4 · Pagina de prețuri: calculatorul public</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1 text-[11px]" id="views">
+      <button type="button" data-view="direct" class="px-2 py-1 rounded-md font-semibold bg-amber-200/70 dark:bg-amber-500/20 text-amber-800 dark:text-amber-200">Direct</button>
+      <button type="button" data-view="atrium" class="px-2 py-1 rounded-md font-medium text-amber-700 dark:text-amber-300">Venit din Soluții → Atrium</button>
+    </div>
+    <a href="index.html" class="text-[11px] font-medium text-amber-700 dark:text-amber-300 hover:underline">← înapoi la set</a>
+  </div>
+
+  <!-- ── NAVIGAȚIA (din layouts/marketing.html.erb; fixed → sticky sub bannerul prototipului) ── -->
+  <nav class="sticky top-0 z-50 border-b border-[var(--nav-border)] bg-[var(--nav-bg)] backdrop-blur-xl">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 h-16">
+      <a href="03-site-antet.html" class="flex items-center gap-2.5 leading-none"><span data-logo="h-8"></span></a>
+      <div class="flex items-center md:order-2 gap-2.5">
+        <div class="hidden sm:flex items-center gap-1.5 text-[11px] font-['DM_Sans']">
+          <a class="font-semibold text-[var(--text-primary)]">RO</a><span class="text-[var(--text-label)]">|</span><a class="text-[var(--text-muted)] hover:text-[var(--text-primary)]">EN</a>
+        </div>
+        <button type="button" onclick="EventyaSite.toggleTheme()" class="flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-full py-1 px-2.5 pl-1.5 cursor-pointer" title="Temă întunecată / luminoasă">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          <span class="hidden sm:inline text-[11px] text-[var(--text-secondary)] font-['DM_Sans']" data-theme-label>Întunecat</span>
+        </button>
+        <a href="06-cont.html" class="hidden md:inline-block text-[13px] text-[var(--text-secondary)] py-2 px-4 hover:text-[var(--text-primary)]">Autentificare</a>
+        <a href="06-cont.html" class="hidden md:inline-flex btn-pulse items-center gap-2 bg-[#f95741] hover:bg-[#e84d38] text-white font-['Plus_Jakarta_Sans'] font-semibold text-[13px] py-2.5 px-5 rounded-xl">
+          Începe gratuit
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <button type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-[var(--text-muted)] rounded-lg md:hidden hover:bg-[var(--bg-card)]" aria-label="Meniu">
+          <svg class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 17 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/></svg>
+        </button>
+      </div>
+      <div class="hidden w-full md:flex md:items-center md:justify-between md:w-auto md:order-1">
+        <ul class="flex flex-col font-medium md:p-0 mt-2 md:space-x-8 md:flex-row md:mt-0">
+          <li><a href="05-solutii.html" class="inline-flex items-center gap-1 py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Soluții <svg class="w-3 h-3" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg></a></li>
+          <li><a href="04-pagina-preturi.html" class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0 !text-[var(--teal)]">Prețuri</a></li>
+          <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Destinații</a></li>
+          <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Despre</a></li>
+          <li><a class="block py-2 px-3 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] md:p-0">Ajutor</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO (din marketing/pricing.html.erb) ── -->
+  <section class="hero-grid pt-[76px] pb-16 px-6 relative overflow-hidden">
+    <div class="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,184,169,0.07),transparent_70%)] pointer-events-none"></div>
+
+    <div class="mkt-container text-center relative">
+      <div class="mkt-badge mb-6">
+        <span class="live-dot w-1.5 h-1.5 rounded-full bg-[#17C6A5] inline-block"></span>
+        30 de zile gratuit, fără card
+      </div>
+
+      <h1 class="mkt-h1">
+        Prețuri simple.<br><span class="text-gradient">Fără surprize.</span>
+      </h1>
+
+      <p class="mkt-desc-lg mb-9 max-w-lg mx-auto">
+        Toată echipa e inclusă, fără tarif per utilizator. Plătești doar pachetul și modulele pe care le folosești.
+      </p>
+
+      <!-- NOU: venit din Soluții -->
+      <div data-show="atrium" hidden class="flex justify-center">
+        <div class="mkt-card !py-3 !px-5 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-[var(--text-secondary)]">
+          <span class="w-7 h-7 rounded-lg bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M19 21V10M9.5 21V10M14.5 21V10M2 10l10-6 10 6"/></svg>
+          </span>
+          <span>Vii de la <b class="text-[var(--text-primary)]">Atrium</b>, pentru muzee. Am preselectat pachetul recomandat, dar poți alege oricare altul.</span>
+          <a href="05-solutii.html#atrium" class="text-[#17C6A5] font-semibold hover:underline">Înapoi la Atrium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CALCULATORUL (în locul celor trei carduri cu prețuri în EUR) ── -->
+  <section class="pb-28 px-6">
+    <div class="mkt-container">
+      <div class="max-w-2xl mx-auto" id="configurator"></div>
+
+      <!-- fostul „Always free on a test URL”: acum perioada de probă -->
+      <div class="mt-8 max-w-5xl mx-auto mkt-card p-6 flex flex-col sm:flex-row items-start gap-4">
+        <div class="mkt-icon shrink-0 !mb-0">
+          <svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <div class="flex-1">
+          <div class="mkt-card-title !text-sm">30 de zile gratuit, cu tot inclus</div>
+          <p class="mkt-card-text">Creezi spațiul și încerci toate funcționalitățile: site-ul, aplicația, helpdesk-ul, modulele și domeniul propriu. Fără card. Apoi alegi abonamentul, din spațiu.</p>
+        </div>
+        <div class="shrink-0">
+          <a href="06-cont?intent=trial" class="text-[#17C6A5] text-sm font-semibold hover:underline">Începe gratuit &rarr;</a>
+          <div class="mt-1 font-mono text-[11px] text-[var(--text-muted)]">/signup?intent=trial</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NOU: LA FEL ÎN ORICE PACHET ── -->
+  <section class="mkt-section-border">
+    <div class="mkt-container">
+      <div class="mkt-header">
+        <p class="mkt-label">Inclus peste tot</p>
+        <h2 class="mkt-h2">La fel în orice pachet.</h2>
+        <p class="mkt-desc">Nu plătești în plus pentru oameni, pentru volum, pentru siguranță sau pentru suport.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="mkt-card-title">Toată echipa</div>
+          <p class="mkt-card-text">Utilizatori nelimitați, fără tarif per utilizator.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg></div>
+          <div class="mkt-card-title">Fără plafoane</div>
+          <p class="mkt-card-text">Agenți, tichete și spațiu de stocare nelimitate.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
+          <div class="mkt-card-title">Găzduire în UE</div>
+          <p class="mkt-card-text">Datele stau pe servere din Uniunea Europeană.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="mkt-card-title">SSL inclus</div>
+          <p class="mkt-card-text">HTTPS pe toate paginile, inclusiv pe domeniul propriu.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg></div>
+          <div class="mkt-card-title">Copii de siguranță</div>
+          <p class="mkt-card-text">Automate, fără nicio setare din partea ta.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div class="mkt-card-title">GDPR și DPA</div>
+          <p class="mkt-card-text">Acordul de prelucrare a datelor e inclus. Îl accepți la crearea spațiului.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div>
+          <div class="mkt-card-title">Suport</div>
+          <p class="mkt-card-text">Echipa noastră răspunde la tichete și pe e-mail. Enterprise are prioritate.</p>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-icon"><svg width="24" height="24" fill="none" stroke="#17C6A5" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></svg></div>
+          <div class="mkt-card-title">Actualizări</div>
+          <p class="mkt-card-text">Îmbunătățirile platformei ajung singure, fără instalări.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPARAȚIA COMPLETĂ (aceeași structură; conținutul din grila v1.8, fără cifre) ── -->
+  <section class="mkt-section-alt">
+    <div class="max-w-5xl mx-auto">
+      <div class="mkt-header">
+        <h2 class="mkt-h2-alt">Comparația completă</h2>
+        <p class="mkt-desc-alt">Ce intră în fiecare pachet și ce se adaugă ca modul.</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm border-collapse min-w-[640px]" id="compare"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ÎNTREBĂRI (aceeași structură de acordeon) ── -->
+  <section class="mkt-section-border">
+    <div class="max-w-3xl mx-auto">
+      <div class="mkt-header">
+        <h2 class="mkt-h2">Întrebări despre prețuri</h2>
+      </div>
+      <div id="pricing-faq"></div>
+    </div>
+  </section>
+
+  <!-- ── CONTRACT (fostul „Managed Partnership”) ── -->
+  <section class="mkt-section-border" id="oferta">
+    <div class="max-w-5xl mx-auto">
+      <div class="bg-[linear-gradient(135deg,rgba(245,197,24,0.08),rgba(245,197,24,0.02))] border border-[rgba(245,197,24,0.2)] rounded-[22px] p-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <div class="inline-flex items-center gap-1.5 bg-[rgba(245,197,24,0.12)] border border-[rgba(245,197,24,0.25)] text-[#D6BD09] text-xs py-1 px-2.5 rounded-full mb-5 font-['DM_Sans'] uppercase tracking-[0.1em]">Ofertă și contract</div>
+          <h2 class="mkt-h2 !text-left">Instituție publică?<br>Lucrăm prin contract.</h2>
+          <p class="mkt-card-text mb-3">Primăriile, consiliile județene, instituțiile de cultură și proiectele cu finanțare europeană cumpără prin achiziție publică. Plata cu cardul nu se potrivește procedurii.</p>
+          <p class="mkt-card-text">Alegi „Cere ofertă”, iar cererea ajunge la echipa noastră. Oferta și contractul se fac în afara platformei.</p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="bg-[rgba(245,197,24,0.06)] border border-[rgba(245,197,24,0.15)] rounded-xl p-4 flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[rgba(245,197,24,0.12)] flex items-center justify-center shrink-0">
+              <svg width="20" height="20" fill="none" stroke="#D6BD09" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8"/><path d="M16 17H8"/><path d="M16 13h-2"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-sm text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">Documente pentru achiziție</div>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Specificații tehnice, sprijin pentru caietul de sarcini, DPA semnat, documente fiscale.</p>
+            </div>
+          </div>
+          <div class="bg-[rgba(245,197,24,0.06)] border border-[rgba(245,197,24,0.15)] rounded-xl p-4 flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[rgba(245,197,24,0.12)] flex items-center justify-center shrink-0">
+              <svg width="20" height="20" fill="none" stroke="#D6BD09" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-sm text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">SEAP/SICAP sau achiziție directă</div>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Plata prin transfer bancar, pe factură, lunar sau anual.</p>
+            </div>
+          </div>
+          <div class="bg-[rgba(245,197,24,0.06)] border border-[rgba(245,197,24,0.15)] rounded-xl p-4 flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[rgba(245,197,24,0.12)] flex items-center justify-center shrink-0">
+              <svg width="20" height="20" fill="none" stroke="#D6BD09" viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-sm text-[var(--text-primary)] font-['Plus_Jakarta_Sans']">Lucrezi cât durează procedura</div>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Pornești pe perioada de probă. Dacă procedura durează mai mult, o prelungim.</p>
+            </div>
+          </div>
+          <a href="#oferta" class="mt-2 inline-flex items-center justify-center gap-2 bg-[#D6BD09] text-[#1a1a1a] font-bold text-sm py-3 px-6 rounded-xl hover:opacity-90 font-['Plus_Jakarta_Sans']">
+            Cere ofertă
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+          <div class="-mt-1 text-center font-mono text-[11px] text-[var(--text-muted)]">formularul de vânzări existent</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ÎNDEMNUL FINAL ── -->
+  <section class="mkt-section-alt text-center">
+    <div class="max-w-xl mx-auto">
+      <h2 class="mkt-h2-alt">Nu știi încă ce pachet îți trebuie?</h2>
+      <p class="mkt-desc-alt mb-10">Începe cu perioada de probă și alege abonamentul când știi ce folosești. Sau scrie-ne și îți spunem sincer ce ți se potrivește.</p>
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <a href="06-cont?intent=trial" class="mkt-btn-primary">
+          Începe gratuit
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="#oferta" class="mkt-btn-secondary-alt">Vorbește cu noi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SUBSOLUL (din layout, cu linkurile noi) ── -->
+  <footer class="border-t border-[var(--border)] pt-14 pb-10 px-6 bg-[var(--footer-bg)]">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr] gap-12 mb-12">
+        <div class="col-span-2 md:col-span-1">
+          <div class="mb-3.5"><span data-logo="h-10"></span></div>
+          <p class="text-[var(--footer-text)] text-[13px] leading-relaxed max-w-[240px]">Site, aplicație și helpdesk pentru destinații, instituții și comunități.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] tracking-[0.2em] uppercase text-[var(--footer-label)] mb-4">Produs</h4>
+          <ul class="flex flex-col gap-2.5 list-none p-0">
+            <li><a class="text-[var(--footer-link)] text-[13px]">Platforma</a></li>
+            <li><a href="05-solutii.html" class="text-[var(--footer-link)] text-[13px]">Soluții</a></li>
+            <li><a href="04-pagina-preturi.html" class="text-[var(--footer-link)] text-[13px]">Prețuri</a></li>
+            <li><a href="06-cont.html" class="text-[var(--footer-link)] text-[13px]">Începe gratuit</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] tracking-[0.2em] uppercase text-[var(--footer-label)] mb-4">Resurse</h4>
+          <ul class="flex flex-col gap-2.5 list-none p-0">
+            <li><a class="text-[var(--footer-link)] text-[13px]">Destinații</a></li>
+            <li><a class="text-[var(--footer-link)] text-[13px]">Despre</a></li>
+            <li><a class="text-[var(--footer-link)] text-[13px]">Ajutor și întrebări</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-[var(--border)] pt-6 flex flex-wrap items-center justify-between gap-4">
+        <p class="text-[var(--footer-copy)] text-[11px]">&copy; 2026 Eventya. Toate drepturile rezervate.</p>
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+          <a class="text-[var(--footer-copy)] text-[11px]">Confidențialitate</a>
+          <a class="text-[var(--footer-copy)] text-[11px]">Termeni</a>
+          <a class="text-[var(--footer-copy)] text-[11px]">Cookies</a>
+          <a class="text-[var(--footer-copy)] text-[11px]">DPA</a>
+          <a href="03-site-antet.html#cookie" class="text-[var(--footer-copy)] text-[11px]">Setări cookie</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <button type="button" onclick="EventyaSite.toggleTheme()" aria-label="Temă întunecată / luminoasă"
+    class="fixed bottom-4 right-4 z-[60] w-11 h-11 rounded-full border border-[var(--border)] bg-[var(--bg)] text-[var(--text-primary)] shadow-lg flex items-center justify-center">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script src="site-marketing.js"></script>
+  <script src="abonament.js"></script>
+  <script>
+    // ── Comparația: aceeași structură de tabel ca azi, cu grila v1.8 ──
+    var Y = '&#x2713;', N = '&mdash;';
+    var bar = '<span class="inline-block align-middle rounded bg-[var(--border)] w-10 h-3"></span>';
+    var GROUPS = [
+      ['Site și CMS', [
+        ['Site public, CMS, editor vizual, căutare', N, Y, Y, Y],
+        ['Domeniu propriu, cu SSL', N, Y, Y, Y],
+        ['Branding: logo, culori, fonturi', N, Y, Y, Y],
+        ['Analytics și raportul pe e-mail', N, Y, Y, Y],
+        ['Coduri QR și linkuri scurte', N, Y, Y, Y],
+        ['Ghid audio', N, Y, Y, Y],
+        ['Auditul și declarația de accesibilitate', N, Y, Y, Y],
+        ['AI pentru editori, în CMS', N, Y, Y, Y]
+      ]],
+      ['Aplicația mobilă', [
+        ['Aplicații native iOS și Android', N, N, Y, Y],
+        ['Push către toți și pe limbă', N, N, Y, Y],
+        ['Push-uri targetate: urmăritori, utilizatori anume', N, N, 'cu Community', 'inclus']
+      ]],
+      ['Helpdesk', [
+        ['Tichete, formulare publice, întrebări frecvente, rapoarte', Y, Y, Y, Y],
+        ['Sesizări din teren, cu locație și hartă', Y, Y, Y, Y],
+        ['Utilizatori, agenți și tichete', 'nelimitat', 'nelimitat', 'nelimitat', 'nelimitat'],
+        ['E-mail și WhatsApp → tichete, departamente, SLA, AI', 'cu Helpdesk Pro', 'cu Helpdesk Pro', 'cu Helpdesk Pro', 'inclus']
+      ]],
+      ['Module', [
+        ['Helpdesk Pro', '+ ' + bar, '+ ' + bar, '+ ' + bar, 'inclus'],
+        ['AI pentru vizitatori: asistentul public', N, '+ ' + bar, '+ ' + bar, 'inclus'],
+        ['Community: recenzii, membri, anunțuri', N, '+ ' + bar, '+ ' + bar, 'inclus'],
+        ['Media: biblioteca foto-video', N, '+ ' + bar, '+ ' + bar, 'inclus']
+      ]],
+      ['Siguranță și suport', [
+        ['Găzduire în UE, copii de siguranță, SSL', Y, Y, Y, Y],
+        ['Autentificare fără parolă, cu cod pe e-mail', Y, Y, Y, Y],
+        ['GDPR și DPA inclus', Y, Y, Y, Y],
+        ['Suport', 'tichete și e-mail', 'tichete și e-mail', 'tichete și e-mail', 'cu prioritate']
+      ]],
+      ['Contract și plată', [
+        ['Cum plătești', 'card sau contract', 'card sau contract', 'card sau contract', 'doar contract'],
+        ['Facturare', 'lunar sau anual', 'lunar sau anual', 'lunar sau anual', 'după contract'],
+        ['Anulare', 'oricând, la final de perioadă', 'oricând, la final de perioadă', 'oricând, la final de perioadă', 'după contract'],
+        ['Setup, migrare, instruire, domeniu', 'în ofertă', 'în ofertă', 'în ofertă', 'în ofertă']
+      ]]
+    ];
+    var td = 'py-2.5 px-4 text-[var(--section-alt-text)] border-b border-[var(--border)]';
+    var hl = ' bg-[rgba(0,184,169,0.06)]';
+    var th = 'py-3 px-4 text-[var(--section-alt-text)] font-semibold border-b border-[var(--border)]';
+    var head = '<thead><tr><th class="' + th + '">Funcția</th>' +
+      '<th class="' + th + '">Helpdesk<br><span class="font-normal text-[var(--section-alt-text-2)]">' + bar + ' /lună</span></th>' +
+      '<th class="' + th + hl + '">Web<br><span class="font-normal text-[var(--section-alt-text-2)]">' + bar + ' /lună</span></th>' +
+      '<th class="' + th + '">Mobile<br><span class="font-normal text-[var(--section-alt-text-2)]">' + bar + ' /lună</span></th>' +
+      '<th class="' + th + '">Enterprise<br><span class="font-normal text-[var(--section-alt-text-2)]">prin contract</span></th></tr></thead>';
+    var body = GROUPS.map(function (g) {
+      return '<tr><td colspan="5" class="pt-6 pb-2 px-4 mkt-label-alt !mb-0 font-semibold">' + g[0] + '</td></tr>' +
+        g[1].map(function (r) {
+          return '<tr><td class="py-2.5 px-4 text-[var(--section-alt-text-2)] border-b border-[var(--border)]">' + r[0] + '</td>' +
+            '<td class="' + td + '">' + r[1] + '</td><td class="' + td + hl + '">' + r[2] + '</td>' +
+            '<td class="' + td + '">' + r[3] + '</td><td class="' + td + '">' + r[4] + '</td></tr>';
+        }).join('');
+    }).join('');
+    document.getElementById('compare').innerHTML = head + '<tbody>' + body + '</tbody>';
+
+    // ── Întrebările: același acordeon ca azi (butonul cu chenar), cu <details> ──
+    var PENDING = '<span class="inline-flex items-center bg-[rgba(245,197,24,0.12)] border border-[rgba(245,197,24,0.25)] text-[#D6BD09] text-[10px] py-0.5 px-2 rounded-full font-[\'DM_Sans\'] uppercase tracking-[0.1em]">decizie în așteptare · C5</span>';
+    var FAQ = [
+      { q: 'Cum funcționează perioada de probă?', a: ['Ai 30 de zile gratuit, cu toate funcționalitățile deblocate. Nu îți cerem cardul.', 'Fiecare spațiu de lucru nou pornește cu perioada de probă. La final alegi pachetul: ce nu intră în el se ascunde, iar conținutul rămâne.'] },
+      { q: 'Ce se întâmplă după cele 30 de zile?', a: ['Dacă nu alegi un abonament, spațiul de lucru se suspendă: site-ul și modulele se opresc. Conținutul, fișierele și tichetele rămân și revin exact cum erau când pornește abonamentul.', 'Abonamentul îl alegi din spațiul tău, oricând. Te anunțăm pe e-mail cu 7 zile și cu o zi înainte. Dacă plătești mai devreme, pachetul ales pornește în ziua plății, iar perioada de probă se încheie.'] },
+      { q: 'Cum plătesc?', a: ['Cu cardul, prin Stripe, lunar sau anual, din spațiul tău de lucru. Plata anuală are o reducere, afișată în calculator. Prețurile sunt în lei și includ TVA.', 'Datele de facturare le completezi la plată. Pentru fiecare plată primești factura fiscală pe e-mail.', 'Plata cu cardul e deocamdată pentru organizațiile din România. Din alte țări, lucrăm prin contract.'] },
+      { q: 'Putem lucra cu contract, prin achiziție publică?', a: ['Da. Alege „Cere ofertă”, iar cererea ajunge la echipa noastră. Pregătim oferta și contractul prin achiziție directă sau prin SEAP/SICAP, cu plata prin transfer bancar.', 'Între timp lucrezi pe perioada de probă. Dacă procedura durează mai mult, o prelungim.'] },
+      { q: 'Pot anula oricând?', a: ['Da, oricând, din pagina Abonament a spațiului. Anularea are efect la finalul perioadei plătite. Până atunci totul merge normal și poți relua abonamentul.'],
+        pending: 'Nu rambursăm automat perioada rămasă. Dacă ceva nu a mers cum trebuie, scrie-ne și analizăm cazul.' },
+      { q: 'Pot schimba pachetul mai târziu?', a: ['Da, din spațiul tău de lucru. Upgrade-ul se aplică imediat și plătești doar diferența proporțională până la finalul perioadei.', 'Downgrade-ul se aplică la finalul perioadei plătite. Până atunci rămâi pe pachetul de acum. Trecerea de la lunar la anual e imediată, cea invers se face la finalul perioadei.'] },
+      { q: 'Ce nu intră în abonament?', a: ['Serviciile: setup-ul, migrarea conținutului de pe site-ul vechi, instruirea echipei și domeniul. Le discutăm în ofertă, separat de abonament.'] },
+      { q: 'Ce e Enterprise?', a: ['Pachetul Mobile, cu toate cele patru module și suport cu prioritate. Se stabilește doar prin contract, cu o ofertă făcută pentru organizația ta. În calculator, butonul lui e „Cere ofertă”.'] }
+    ];
+    document.getElementById('pricing-faq').innerHTML = FAQ.map(function (f, i) {
+      return '<details class="group"' + (i === 0 ? ' open' : '') + '>' +
+        '<summary class="flex items-center justify-between w-full px-5 py-4 text-left font-semibold text-sm border border-[var(--border)] rounded-xl mb-2 cursor-pointer list-none [&::-webkit-details-marker]:hidden font-[\'Plus_Jakarta_Sans\'] text-[var(--text-secondary)] group-open:text-[var(--text-primary)]">' +
+          '<span>' + f.q + '</span>' +
+          '<svg class="w-3.5 h-3.5 shrink-0 text-[var(--text-muted)] rotate-180 group-open:rotate-0 transition-transform" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/></svg>' +
+        '</summary>' +
+        '<div class="px-5 pb-4 space-y-2">' + f.a.map(function (p) { return '<p class="mkt-card-text">' + p + '</p>'; }).join('') +
+          (f.pending ? '<div class="rounded-xl border border-dashed border-[rgba(245,197,24,0.3)] p-3 mt-1">' + PENDING + '<p class="mkt-card-text mt-2">' + f.pending + '</p></div>' : '') +
+        '</div></details>';
+    }).join('');
+
+    // ── Calculatorul ──
+    // „Cere ofertă” duce la formularul de vânzări (aici: secțiunea Ofertă și contract).
+    var LINKS = { trial: '06-cont', contract: '#oferta' };
+
+    // Aceeași componentă ca în spațiu (abonament.js), în tema site-ului. „Începe gratuit” duce în /signup cu selecția, care te așteaptă la „Alege abonamentul”.
+    var currentView = 'direct';
+    function mount(view) {
+      currentView = view || currentView;
+      var opts = { mode: 'public', skin: 'marketing', start: { base: 'web', modules: [] }, links: LINKS };
+      if (currentView === 'atrium') {
+        opts.start = { base: 'web', modules: ['ai_visitor'] };
+        opts.recommended = 'web';
+        opts.recommendedFor = 'Atrium';
+        opts.starter = 'atrium';
+      }
+      Abonament(document.getElementById('configurator'), opts);
+    }
+
+    var paint = EventyaSite.views(mount);
+    var h = (location.hash || '').slice(1);
+    paint(h === 'atrium' ? 'atrium' : 'direct');
+  </script>
+</body>
+</html>

@@ -7,7 +7,9 @@
     "watch:css": "npx @tailwindcss/cli -i ./build/prototypes.css -o ./assets/application.css --watch",
     "stamp": "node ./build/stamp.mjs",
     "serve": "npx serve -l 4000 .",
-    "dev": "npm-run-all --parallel watch:css serve"
+    "dev": "npm-run-all --parallel watch:css watch:marketing-css serve",
+    "build:marketing-css": "npx @tailwindcss/cli -i ./build/marketing.css -o ./assets/marketing.css --minify",
+    "watch:marketing-css": "npx @tailwindcss/cli -i ./build/marketing.css -o ./assets/marketing.css --watch"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.0",
