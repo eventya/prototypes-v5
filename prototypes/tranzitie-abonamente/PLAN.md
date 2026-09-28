@@ -45,7 +45,7 @@ Onboarding-ul self-serve și plata prin Stripe sunt un plan separat (§6).
 | 10 | Adminii platformei | Nu trec de suspendare. Dacă vor să schimbe ceva, o fac din Admin → Subscripție. Nu se intervine în conținutul unui client neplătitor. |
 | 11 | Site-ul public | Pagină neutră, „temporar indisponibil”, cu 503. |
 | 12 | QR-uri și linkuri scurte | Rămân active. |
-| 13 | Helpdesk | Formularele publice se opresc. E-mailurile și mesajele WhatsApp se primesc și se păstrează ascunse până la reactivare. |
+| 13 | Helpdesk | Formularele publice se opresc. E-mailurile și mesajele WhatsApp **nu se păstrează** (decis pe 28.09): e-mailul e respins, WhatsApp-ul nu se procesează, ca azi. |
 | 14 | MCP | Se oprește la suspendare. |
 | 15 | Programările | Anunțurile și broadcast-urile programate se anulează. |
 | 16 | Păstrarea datelor | Nelimitată, deocamdată. |
@@ -82,7 +82,7 @@ Totul intră pe `feature/entitlements`, în același PR, ca până acum.
 - **Backend:** orice cerere HTML duce la „Continuă cu abonamentul”, cu excepția paginilor Contul meu, Echipa (doar vizualizare), Cererile trimise și a deconectării. Formatele JSON primesc 403 `subscription_inactive`.
 - **Site public și aplicația hibridă:** o pagină HTML de suspendare, cu 503, `Retry-After` și `noindex`, pe toate adresele: pagini, `sitemap.xml`, RSS, iCal, embed-uri, formularele Helpdesk publice, asistentul AI. Pagina arată numele și logo-ul clientului și nu pomenește plata.
 - **API mobil:** 503 `subscription_inactive`, pe toate rutele, nu doar când lipsește `module.mobile_app`.
-- **Excepții:** redirecturile linkurilor scurte și ale QR-urilor, endpoint-ul care confirmă domeniile pentru certificatele TLS și webhook-urile de e-mail și WhatsApp. Mesajele primite se păstrează ascunse până la reactivare.
+- **Excepții:** redirecturile linkurilor scurte și ale QR-urilor și endpoint-ul care confirmă domeniile pentru certificatele TLS. E-mailurile și mesajele WhatsApp către un spațiu suspendat nu se păstrează: e-mailul e respins, WhatsApp-ul nu se procesează, ca azi.
 - **MCP:** `Mcp::Dispatcher` refuză cererile pentru un cont suspendat.
 - **Joburi:** anunțurile și broadcast-urile programate se anulează, cu un motiv vizibil. SLA, auditul de accesibilitate și costurile AI sar peste conturile suspendate.
 - **Cache:** amprenta din cheia cache-ului public include starea activ/suspendat, ca schimbarea să fie instantanee în ambele sensuri.

@@ -57,11 +57,11 @@
       ['pachet-helpdesk-pro', 'Helpdesk cu e-mail, WhatsApp, SLA', '503 (n-are site)', '—', 'tot', '—', '—'],
       ['pachet-trial', 'eticheta „Trial · N zile” în bară', '200', '—', 'formular simplu', '—', '—'],
       ['pachet-enterprise-expira-curand', 'normal', '200', '200', 'tot', 'tot', 'SUB-001 + copie internă'],
-      ['pachet-web-expirat', 'orice URL → „Continuă”; membrul vede doar mesajul', '503 pagină neutră', 'pagina HTML în aplicație; API 503', 'formulare oprite; e-mail primit și păstrat', 'nimic nu pleacă; programările anulate', 'SUB-002 „suspendat”'],
+      ['pachet-web-expirat', 'orice URL → „Continuă”; membrul vede doar mesajul', '503 pagină neutră', 'pagina HTML în aplicație; API 503', 'formulare oprite; e-mail respins', 'nimic nu pleacă; programările anulate', 'SUB-002 „suspendat”'],
       ['pachet-fara-abonament', 'tratat ca suspendat', '503', '503', 'oprit', '—', '—'],
       ['trial expirat (ends_at în trecut din Admin)', '„Perioada de probă s-a încheiat”, fără trial nou', '503', '—', 'oprit', '—', 'SUB-002, varianta trial'],
       ['downgrade Enterprise → Web (pagina de upgrade)', 'oferta arată avertismentul; tichet în Suport', '—', '—', '—', '—', '—'],
-      ['reactivare (abonament nou din Admin)', 'totul revine imediat', '200 fără cache vechi', '200', 'mesajele păstrate apar', 'topicuri intacte', '—']
+      ['reactivare (abonament nou din Admin)', 'totul revine imediat', '200 fără cache vechi', '200', 'formularele merg din nou', 'topicuri intacte', '—']
     ];
     var KEY = 'proto-tranzitie-checks';
     var saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
