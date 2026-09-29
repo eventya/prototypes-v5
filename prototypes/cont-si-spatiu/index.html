@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linkuri de Share &amp; Coduri QR · Plan + ecrane</title>
+  <title>Contul și spațiul de lucru · Plan + ecrane</title>
   <script>
     (function () {
       var t = localStorage.getItem('proto-theme');
@@ -39,7 +39,6 @@
 
   <div class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
 
-    <!-- Banner / back to hub -->
     <div class="flex items-center justify-between mb-8">
       <a href="../../index.html" class="text-[12px] font-medium text-ink-400 hover:text-ink-700 transition-colors flex items-center gap-1.5">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
@@ -51,78 +50,61 @@
       </button>
     </div>
 
-        <!-- Set header -->
     <div class="flex items-center gap-3 mb-2">
-      <div class="w-11 h-11 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center shrink-0">
-        <svg class="w-6 h-6 text-violet-600" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <div class="w-11 h-11 rounded-xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
       </div>
       <div>
-        <div class="text-2xl font-bold text-ink-900">Linkuri de Share &amp; Coduri QR</div>
-        <div class="text-[13px] text-ink-400">7 ecrane propuse + plan de implementare</div>
+        <div class="text-2xl font-bold text-ink-900">Contul și spațiul de lucru</div>
+        <div class="text-[13px] text-ink-400">7 ecrane cu aceeași carcasă + plan de implementare</div>
       </div>
-      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 ml-auto">done</span>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 ml-auto">in review</span>
     </div>
 
-    <div class="text-[13px] text-ink-500 leading-relaxed mt-4 max-w-2xl">
-      Un singur obiect — <strong class="text-ink-800">Link</strong> — cu trei suprafețe: creat <strong class="text-ink-800">automat</strong> la primul share din ActionBar, <strong class="text-ink-800">manual</strong> în <code class="text-[11.5px] bg-surface-100 px-1 rounded">/cms/links</code> pentru afișe și campanii, și <strong class="text-ink-800">derivat</strong> în cod QR și deep-link. Măsurat prin <code class="text-[11.5px] bg-surface-100 px-1 rounded">content_signals</code>, cu destinația editabilă oricând — un cod tipărit nu se mai rupe la o redenumire de slug.
-    </div>
-
-    <div class="rounded-lg border border-sky-200 dark:border-sky-500/20 bg-sky-50/60 dark:bg-sky-500/5 px-4 py-3 mt-4 flex gap-2.5 max-w-2xl">
-      <svg class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      <div class="text-[11.5px] text-sky-800 dark:text-sky-200 leading-relaxed"><strong>Domeniul e decis: <code class="bg-sky-100 dark:bg-sky-500/15 px-1 rounded">link.eventya.net</code></strong> — subdomeniu al platformei, nu domeniu de sine stătător. Ce se pierde prin alegerea asta (cod QR cu o versiune mai mare, adresă imposibil de tastat, reputație neizolată) e scris explicit în plan, secțiunea <em>Domeniu scurt</em>.</div>
-    </div>
-
-    <!-- Screens, grouped by phase -->
     <div class="mt-10 space-y-6">
 
       <div>
-        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Fundația — obiectul și redirectul</div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Intrarea: sign in și cont nou</div>
         <div class="space-y-2">
-          <a href="01-dashboard-jump-to.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+          <a href="01-email.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">1</span>
-            <div class="text-[13px] font-medium text-ink-800">Dashboard · tile „Linkuri &amp; QR” + scurtătura din meniul paginii</div>
+            <div class="text-[13px] font-medium text-ink-800">E-mail · /signin și /signup, același formular</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
-          <a href="07-stari-goale.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+          <a href="02-cod.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">2</span>
-            <div class="text-[13px] font-medium text-ink-800">Stări goale · confirmare ștergere · pagina „cod inactiv”</div>
+            <div class="text-[13px] font-medium text-ink-800">Codul · /verify</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
-        </div>
-      </div>
-
-      <div>
-        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Modulul CMS</div>
-        <div class="space-y-2">
-          <a href="02-lista-linkuri.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+          <a href="03-nume.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">3</span>
-            <div class="text-[13px] font-medium text-ink-800">Lista linkurilor · <code>/cms/links</code></div>
-            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-          </a>
-          <a href="03-link-nou.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
-            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">4</span>
-            <div class="text-[13px] font-medium text-ink-800">Link nou · destinație, cod permanent, slug personalizat</div>
-            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-          </a>
-          <a href="04-link-detaliu.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
-            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">5</span>
-            <div class="text-[13px] font-medium text-ink-800">Detaliu link · cod QR, deep link, măsurare</div>
+            <div class="text-[13px] font-medium text-ink-800">Numele · doar pentru un e-mail nou</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
         </div>
       </div>
 
       <div>
-        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Share automat &amp; Analytics</div>
+        <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mb-3">Spațiul de lucru</div>
         <div class="space-y-2">
-          <a href="06-share-public.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
-            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">6</span>
-            <div class="text-[13px] font-medium text-ink-800">Share din ActionBar pe site-ul public · fluxul complet</div>
+          <a href="04-alege-spatiul.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">4</span>
+            <div class="text-[13px] font-medium text-ink-800">Alegerea spațiului · /workspace/choose, de la 2 spații</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
-          <a href="05-analytics-linkuri.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50 no-underline">
+          <a href="05-nume-spatiu.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">5</span>
+            <div class="text-[13px] font-medium text-ink-800">Numele spațiului · /setup</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="06-template.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
+            <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">6</span>
+            <div class="text-[13px] font-medium text-ink-800">Template-ul · /setup</div>
+            <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <a href="07-pregatire.html" class="block bg-surface-0 rounded-xl border border-surface-200 px-4 py-3 flex items-center gap-3 transition-all hover:border-primary-400 hover:bg-surface-50">
             <span class="flex items-center justify-center w-6 h-6 rounded-md bg-surface-100 text-ink-500 text-[11px] font-bold shrink-0">7</span>
-            <div class="text-[13px] font-medium text-ink-800">Analytics · secțiunea Linkuri &amp; QR</div>
+            <div class="text-[13px] font-medium text-ink-800">Pregătirea · /setup/preparing</div>
             <svg class="w-4 h-4 text-ink-300 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -130,7 +112,6 @@
 
     </div>
 
-    <!-- Plan -->
     <div class="text-[11px] font-semibold text-ink-400 uppercase tracking-wider mt-12 mb-3">Plan de implementare</div>
     <div class="bg-surface-0 rounded-xl border border-surface-200 p-7 md:p-9">
       <div class="md" id="plan">Se încarcă planul…</div>

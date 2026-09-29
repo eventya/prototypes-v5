@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-mail · Contul și spațiul de lucru</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#1 · E-mail · /signin și /signup</span>
+    </div>
+    <div class="flex items-center gap-3 text-[11px] font-medium text-amber-700 dark:text-amber-300">
+      <a href="01-email.html" class="hover:underline">sign in</a>
+      <a href="01-email.html?start=1" class="hover:underline">cont nou</a>
+      <a href="01-email.html?start=1&amp;template=atrium" class="hover:underline">din pagina de prețuri</a>
+      <a href="index.html" class="hover:underline">← înapoi la set</a>
+    </div>
+  </div>
+
+  <header class="h-12 px-4 sm:px-6 flex items-center">
+    <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 hover:text-ink-800 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+  </header>
+
+  <main class="flex flex-col items-center px-4 pt-2 pb-20 sm:pt-6">
+    <a href="#" aria-label="eventya.net" class="mb-10">
+      <img src="../emails/img/eventya-logo.svg" alt="Eventya" class="h-8 dark:hidden">
+      <img src="../emails/img/eventya-logo-dark.svg" alt="Eventya" class="h-8 hidden dark:block">
+    </a>
+
+    <div class="w-full max-w-100 bg-surface-0 border border-surface-200 rounded-2xl shadow-sm p-6 sm:p-8">
+      <h1 class="text-xl font-semibold text-ink-900" id="title">Sign in</h1>
+      <p class="text-sm text-ink-500 mt-1" id="lead">We'll e-mail you a code. No password needed.</p>
+
+      <form class="mt-6 space-y-5" action="02-cod.html">
+        <input type="hidden" name="from" value="signin" id="from">
+        <div class="form__group">
+          <label class="form__label" for="email">E-mail</label>
+          <input id="email" name="email" type="email" class="input" placeholder="name@organization.com" autocomplete="email" required autofocus>
+        </div>
+        <button class="btn btn--primary w-full">Send me a code</button>
+      </form>
+    </div>
+
+    <p class="mt-6 text-sm text-ink-500" id="below">New to Eventya? <a href="01-email.html?start=1" class="font-medium text-primary-500 hover:underline">Create an account</a></p>
+  </main>
+
+  <script>
+    // Același formular pe /signin și /signup; se schimbă doar titlul, fraza și linia de sub card.
+    // Ce urmează după cod nu depinde de pagină, ci de e-mail (cunoscut sau nou).
+    var q = new URLSearchParams(location.search);
+    var template = q.get('template');
+    if (q.get('start') || template) {
+      document.getElementById('title').textContent = 'Create your account';
+      document.getElementById('lead').textContent = template
+        ? 'You start with the ' + template.charAt(0).toUpperCase() + template.slice(1) + ' template. Free for 30 days, no card needed.'
+        : 'Free for 30 days, with everything included. No card needed.';
+      document.getElementById('from').value = 'signup';
+      document.getElementById('below').innerHTML = 'Already have an account? <a href="01-email.html" class="font-medium text-primary-500 hover:underline">Sign in</a>';
+      if (template) document.querySelector('form').insertAdjacentHTML('afterbegin', '<input type="hidden" name="template" value="' + template + '">');
+    }
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg" aria-label="Dark mode"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

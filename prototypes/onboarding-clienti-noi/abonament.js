@@ -57,7 +57,8 @@
 
     function sellable(m) { var a = ADDONS[s.base]; return a !== 'all' && a.indexOf(m) >= 0; }
     function included() { return ADDONS[s.base] === 'all'; }
-    function byCard() { return cardOn && CARD.indexOf(s.base) >= 0; }
+    // C1 (29.09): Enterprise too, from the workspace. On the public page it keeps „Cere ofertă” first.
+    function byCard() { return cardOn && (CARD.indexOf(s.base) >= 0 || (s.base === 'enterprise' && mode !== 'public')); }
     function unchanged() {
       return current && mode === 'upgrade' && opts.billing !== 'trial' && s.base === current.base &&
         s.modules.slice().sort().join() === current.modules.slice().sort().join() &&

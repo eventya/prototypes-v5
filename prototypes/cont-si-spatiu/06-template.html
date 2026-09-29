@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template · Contul și spațiul de lucru</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#6 · Template · /setup</span>
+    </div>
+    <div class="flex items-center gap-3 text-[11px] font-medium text-amber-700 dark:text-amber-300">
+      <a href="06-template.html" class="hover:underline">implicit</a>
+      <a href="06-template.html?template=forum" class="hover:underline">template ales pe site</a>
+      <a href="index.html" class="hover:underline">← înapoi la set</a>
+    </div>
+  </div>
+
+  <header class="h-12 px-4 sm:px-6 flex items-center"></header>
+
+  <main class="flex flex-col items-center px-4 pt-2 pb-20 sm:pt-6">
+    <a href="#" aria-label="eventya.net" class="mb-10">
+      <img src="../emails/img/eventya-logo.svg" alt="Eventya" class="h-8 dark:hidden">
+      <img src="../emails/img/eventya-logo-dark.svg" alt="Eventya" class="h-8 hidden dark:block">
+    </a>
+
+    <form class="w-full max-w-3xl bg-surface-0 border border-surface-200 rounded-2xl shadow-sm" id="setup">
+      <div class="p-6 sm:p-8">
+        <fieldset>
+          <legend class="text-xl font-semibold text-ink-900">Choose a template</legend>
+          <p class="text-sm text-ink-500 mt-1">The pages of a project like yours, ready to edit. You can change everything later.</p>
+          <div id="templates" class="mt-2"></div>
+        </fieldset>
+      </div>
+
+      <div class="sticky bottom-0 border-t border-surface-200 bg-surface-0 rounded-b-2xl px-6 py-4 sm:px-8 flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3 sm:gap-8">
+        <p class="text-xs text-ink-400 max-w-md">Free for 30 days, with everything included. By creating the workspace you accept the <a href="#" class="underline hover:text-ink-700">Data Processing Agreement</a> on behalf of your organization.</p>
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="05-nume-spatiu.html" id="back" class="btn btn--ghost">Back</a>
+          <button class="btn btn--primary flex-1 sm:flex-none" id="create">Create workspace</button>
+        </div>
+      </div>
+    </form>
+
+    <p class="mt-6 text-sm text-ink-500">ana@muzeuldemo.ro · <a href="01-email.html" class="font-medium text-ink-700 hover:underline">Sign out</a></p>
+  </main>
+
+  <script>
+    var templates = [
+      { id: 'atrium',   group: 'Culture',            name: 'Atrium',   who: 'Museums, galleries',        grad: 'from-amber-500 to-rose-400' },
+      { id: 'scena',    group: 'Culture',            name: 'Scena',    who: 'Theatres, concert halls',  grad: 'from-violet-600 to-fuchsia-400' },
+      { id: 'forum',    group: 'Public communities', name: 'Forum',    who: 'City halls, towns',                          grad: 'from-sky-600 to-cyan-400' },
+      { id: 'panorama', group: 'Public communities', name: 'Panorama', who: 'Counties, regions',            grad: 'from-emerald-600 to-teal-400' },
+      { id: 'vatra',    group: 'Public communities', name: 'Vatra',    who: 'Villages, small resorts',                    grad: 'from-lime-600 to-amber-400' },
+      { id: 'agora',    group: 'Private',            name: 'Agora',    who: 'NGOs, clubs, festivals',              grad: 'from-rose-500 to-orange-400' },
+      { id: 'vitrina',  group: 'Private',            name: 'Vitrina',  who: 'Guesthouses, restaurants',           grad: 'from-stone-600 to-amber-300' }
+    ];
+    var q = new URLSearchParams(location.search);
+    var chosen = q.get('template') || templates[0].id;
+
+    // Grila pe grupe. Miniatura e aici un site schițat; în aplicație e imaginea încărcată în Admin → Startere.
+    var html = '', group = null;
+    templates.forEach(function (t) {
+      if (t.group !== group) {
+        html += (group ? '</div>' : '') + '<div class="text-xs font-medium text-ink-400 mt-6 mb-2">' + t.group + '</div><div class="grid grid-cols-2 sm:grid-cols-3 gap-3">';
+        group = t.group;
+      }
+      html += '<label class="group block rounded-xl border border-surface-200 bg-surface-0 p-2 cursor-pointer transition hover:border-surface-400 has-checked:border-primary-500 has-checked:ring-4 has-checked:ring-primary-500/10 has-focus-visible:ring-4 has-focus-visible:ring-primary-500/30">' +
+        '<input type="radio" name="template" value="' + t.id + '" class="sr-only"' + (t.id === chosen ? ' checked' : '') + '>' +
+        '<span class="block aspect-[16/10] rounded-lg overflow-hidden border border-surface-200 bg-white">' +
+          '<span class="flex items-center gap-1.5 h-[16%] px-2.5"><span class="w-7 h-1.5 rounded-full bg-slate-300"></span><span class="ml-auto w-12 h-1.5 rounded-full bg-slate-200"></span></span>' +
+          '<span class="block h-[52%] bg-linear-to-br ' + t.grad + '"></span>' +
+          '<span class="grid grid-cols-3 gap-1.5 p-2.5"><span class="h-5 rounded bg-slate-100"></span><span class="h-5 rounded bg-slate-100"></span><span class="h-5 rounded bg-slate-100"></span></span>' +
+        '</span>' +
+        '<span class="flex items-start justify-between gap-2 px-1.5 pt-2.5 pb-1">' +
+          '<span class="min-w-0"><span class="block text-sm font-semibold text-ink-900">' + t.name + '</span><span class="block text-xs text-ink-500">' + t.who + '</span></span>' +
+          '<span class="w-4 h-4 mt-0.5 rounded-full border-2 border-surface-300 shrink-0 flex items-center justify-center group-has-checked:border-primary-500"><span class="hidden group-has-checked:block w-2 h-2 rounded-full bg-primary-500"></span></span>' +
+        '</span>' +
+      '</label>';
+    });
+    document.getElementById('templates').innerHTML = html + '</div>';
+
+    // Back duce la numele spațiului, completat, cu tot ce venea de dinainte.
+    var name = q.get('name') || 'Demo Museum';
+    var keep = new URLSearchParams({ name: name });
+    ['template', 'back'].forEach(function (key) { if (q.get(key)) keep.set(key, q.get(key)); });
+    document.getElementById('back').href = '05-nume-spatiu.html?' + keep.toString();
+
+    document.getElementById('setup').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var button = document.getElementById('create');
+      button.disabled = true;
+      button.textContent = 'Creating…';
+      setTimeout(function () { location.href = '07-pregatire.html?name=' + encodeURIComponent(name); }, 600);
+    });
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 left-4 shadow-lg" aria-label="Dark mode"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>
