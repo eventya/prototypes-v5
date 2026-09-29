@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your e-mail · Contul și spațiul de lucru</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('proto-theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/application.css">
+</head>
+<body class="bg-surface-50 text-ink-800 font-sans antialiased">
+
+  <div class="rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-500/5 px-4 py-2.5 m-4 flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+      <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-300">#2 · The code · /verify</span>
+    </div>
+    <div class="flex items-center gap-3 text-[11px] font-medium text-amber-700 dark:text-amber-300">
+      <span class="text-amber-600/70 dark:text-amber-300/60">după cod:</span>
+      <button type="button" data-branch="known" class="hover:underline">e-mail cunoscut</button>
+      <button type="button" data-branch="new" class="hover:underline">e-mail nou</button>
+      <span class="text-amber-300 dark:text-amber-500/40">|</span>
+      <button type="button" data-state="error" class="hover:underline">cod greșit</button>
+      <a href="index.html" class="hover:underline">← înapoi la set</a>
+    </div>
+  </div>
+
+  <header class="h-12 px-4 sm:px-6 flex items-center">
+    <a href="01-email.html" id="back" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 hover:text-ink-800 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+  </header>
+
+  <main class="flex flex-col items-center px-4 pt-2 pb-20 sm:pt-6">
+    <a href="#" aria-label="eventya.net" class="mb-10">
+      <img src="../emails/img/eventya-logo.svg" alt="Eventya" class="h-8 dark:hidden">
+      <img src="../emails/img/eventya-logo-dark.svg" alt="Eventya" class="h-8 hidden dark:block">
+    </a>
+
+    <div class="w-full max-w-100 bg-surface-0 border border-surface-200 rounded-2xl shadow-sm p-6 sm:p-8">
+      <h1 class="text-xl font-semibold text-ink-900">Check your e-mail</h1>
+      <p class="text-sm text-ink-500 mt-1">Enter the 6-digit code we sent to <span class="font-medium text-ink-800" id="to">ana@muzeuldemo.ro</span>.</p>
+
+      <form class="mt-6" id="code-form">
+        <fieldset>
+          <legend class="sr-only">The code</legend>
+          <div class="grid grid-cols-6 gap-2" id="digits">
+            <input inputmode="numeric" autocomplete="one-time-code" maxlength="1" class="input h-14 px-0! text-center text-xl font-semibold" aria-label="Digit 1" autofocus>
+            <input inputmode="numeric" maxlength="1" class="input h-14 px-0! text-center text-xl font-semibold" aria-label="Digit 2">
+            <input inputmode="numeric" maxlength="1" class="input h-14 px-0! text-center text-xl font-semibold" aria-label="Digit 3">
+            <input inputmode="numeric" maxlength="1" class="input h-14 px-0! text-center text-xl font-semibold" aria-label="Digit 4">
+            <input inputmode="numeric" maxlength="1" class="input h-14 px-0! text-center text-xl font-semibold" aria-label="Digit 5">
+            <input inputmode="numeric" maxlength="1" class="input h-14 px-0! text-center text-xl font-semibold" aria-label="Digit 6">
+          </div>
+        </fieldset>
+        <p class="form__error mt-2" id="error" hidden>Wrong code. 2 attempts left.</p>
+
+        <button class="btn btn--primary w-full mt-5">Continue</button>
+      </form>
+
+      <p class="text-xs text-ink-400 mt-4 text-center">
+        The code is valid for 10 minutes.
+        <button type="button" id="resend" class="text-ink-400" disabled>Send a new one in <span id="timer">0:30</span></button>
+      </p>
+    </div>
+  </main>
+
+  <script>
+    var q = new URLSearchParams(location.search);
+    var from = q.get('from') || 'signin';
+    var template = q.get('template');
+    if (q.get('email')) document.getElementById('to').textContent = q.get('email');
+    // Back: înapoi pe formularul de unde a venit (sign in sau cont nou), cu e-mailul completat.
+    document.getElementById('back').href = '01-email.html' + (from === 'signup' ? '?start=1' + (template ? '&template=' + template : '') : '');
+
+    // După cod, drumul îl decide e-mailul, nu pagina de intrare. În prototip: implicit „nou” dacă vine de pe cont nou.
+    var branch = from === 'signup' ? 'new' : 'known';
+    function mark() {
+      document.querySelectorAll('[data-branch]').forEach(function (b) { b.classList.toggle('underline', b.dataset.branch === branch); });
+    }
+    document.querySelectorAll('[data-branch]').forEach(function (b) { b.addEventListener('click', function () { branch = b.dataset.branch; mark(); }); });
+    mark();
+
+    // O cifră pe căsuță; se poate și lipi tot codul. La a șasea cifră, formularul pleacă singur.
+    var form = document.getElementById('code-form');
+    var digits = document.querySelectorAll('#digits input');
+    digits.forEach(function (d, i) {
+      d.addEventListener('input', function () {
+        d.value = d.value.replace(/\D/g, '').slice(-1);
+        if (d.value && digits[i + 1]) digits[i + 1].focus();
+        if (Array.prototype.every.call(digits, function (x) { return x.value; })) form.requestSubmit();
+      });
+      d.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !d.value && digits[i - 1]) digits[i - 1].focus(); });
+      d.addEventListener('paste', function (e) {
+        var t = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6); if (!t) return;
+        e.preventDefault(); t.split('').forEach(function (c, j) { if (digits[j]) digits[j].value = c; });
+        if (t.length === 6) form.requestSubmit();
+      });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var keep = template ? '?template=' + template : '';
+      // E-mail nou: numele. Cunoscut: spațiile lui (cu intenție de pe site sau fără spații: spațiu nou).
+      if (branch === 'new') location.href = '03-nume.html' + keep;
+      else location.href = template ? '05-nume-spatiu.html' + keep + '&back=1' : '04-alege-spatiul.html';
+    });
+
+    // „Send a new one” se deschide după 30 de secunde.
+    var left = 30, resend = document.getElementById('resend'), timer = document.getElementById('timer');
+    var tick = setInterval(function () {
+      left -= 1;
+      timer.textContent = '0:' + String(left).padStart(2, '0');
+      if (left <= 0) { clearInterval(tick); resend.disabled = false; resend.className = 'font-medium text-primary-500 hover:underline'; resend.textContent = 'Send a new one'; }
+    }, 1000);
+    resend.addEventListener('click', function () { resend.disabled = true; resend.className = 'text-ink-400'; resend.textContent = 'Sent'; });
+
+    // Starea „cod greșit”: căsuțele în roșu, mesajul sub ele, codul șters.
+    document.querySelector('[data-state="error"]').addEventListener('click', function () {
+      document.getElementById('error').hidden = false;
+      digits.forEach(function (d) { d.value = ''; d.classList.add('border-red-500!'); d.setAttribute('aria-invalid', 'true'); });
+      digits[0].focus();
+    });
+  </script>
+
+  <button type="button" class="btn fixed bottom-4 right-4 shadow-lg" aria-label="Dark mode"
+    onclick="(function(){var d=document.documentElement;var on=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',on?'':'dark');localStorage.setItem('proto-theme',on?'light':'dark');})()">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</body>
+</html>

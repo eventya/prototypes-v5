@@ -648,11 +648,11 @@ Fiecare întrebare are o recomandare. Ecranele o urmează până la răspuns.
 
 - **A1.** „Privați – comunitate” și „Privați”: le-am înțeles ca (a) asociații, ONG-uri, cluburi, festivaluri, rețele de membri și (b) afaceri: pensiuni, restaurante, ghizi, organizatori. E corect? ICP-ul intern spune că operatorii privați sunt în afara țintei, deci se schimbă poziționarea. Mai trebuie hotărât dacă pachetele și prețurile rămân aceleași pentru privați.
 - **A2.** Numele: familia de „locuri” (Atrium, Scena, Forum, Panorama, Vatra, Agora, Vitrina), cu alternativele din §5. **Recomand** familia propusă, aceeași în RO și EN.
-- **A3.** Limbile de pe site și din onboarding: azi totul e doar în engleză. **Recomand** RO + EN la lansare.
+- **A3.** Limbile de pe site și din onboarding: **decis (29.09):** site-ul rămâne doar în engleză.
 - **A4.** Țările și moneda: grila e în RON. **Recomand** plata cu cardul doar pentru clienții din România, în RON, la lansare. Clienții din alte țări trec prin ofertă. EUR și taxarea inversă din UE rămân pentru mai târziu.
-- **A6.** Adresele în două limbi: **recomand** româna fără prefix, cu adrese românești (`/preturi`, `/solutii`), și engleza sub `/en` (`/en/pricing`, `/en/solutions`), cu redirect 301 de la adresele englezești de azi.
+- **A6.** Adresele în două limbi: **decis (29.09):** nu e cazul, site-ul rămâne în engleză, la adresele de azi.
 - **A7.** Pagina de ajutor de azi promite exportul datelor după anulare și o reducere pentru ONG-uri. Planul nu are reguli pentru ele. Le păstrăm pe site?
-- **A5.** Paginile de Soluții: **recomand** galeria plus câte o pagină pentru fiecare dintre cele 7. Aduc vizite din căutări și se leagă direct de template-uri.
+- **A5.** Paginile de Soluții: **decis (29.09):** nu acum.
 
 ### B. Parcursul
 
@@ -672,7 +672,7 @@ Fiecare întrebare are o recomandare. Ecranele o urmează până la răspuns.
 
 - **C11.** Alegerea abonamentului: **decis (28.09): varianta A**, pachetele se deschid, peste tot.
 
-- **C1.** Ce se poate plăti cu cardul: **recomand** Helpdesk, Web și Mobile, cu module. Enterprise doar prin contract.
+- **C1.** Ce se poate plăti cu cardul: **decis (29.09):** orice pachet, cu module, Enterprise inclus, fiindcă prețul lui e pe pagină. Oferta rămâne deschisă oricui o cere.
 - **C2.** Lunar și anual, amândouă pe card? **Recomand** da.
 - **C3.** Grația la plata eșuată: **recomand** 7 zile, cu notificări în zilele 0, 3 și 6, apoi suspendarea.
 - **C4.** Downgrade-ul la finalul perioadei, upgrade-ul imediat cu proratare: **recomand** da.
@@ -723,7 +723,7 @@ Fiecare întrebare are o recomandare. Ecranele o urmează până la răspuns.
 ### G. Livrarea și măsurarea
 
 - **G1.** Livrarea: pe feature, fiecare cu drumul lui până în producție, ca în storyboard, sau un singur PR, ca la Tranziție? **Recomand** pe feature, cu plățile ascunse sub comutator.
-- **G2.** Măsurarea: **recomand** pâlnia server-side în Admin, plus GA4 doar după consimțământ.
+- **G2.** Măsurarea: **decis (29.09):** fără pâlnie în Admin deocamdată. GA4 rămâne, doar după consimțământ.
 - **G3.** Cine rescrie Termenii, Confidențialitatea și DPA: un jurist sau echipa?
 - **G4.** Turnstile pe creare cont și autentificare: **recomand** da.
 
